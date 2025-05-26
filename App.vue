@@ -8,7 +8,7 @@
     </p>
     <form @submit.prevent class="calculator-form">
       <div class="field">
-        <label>Holes:
+        <label>Holes played:
           <select v-model="holes" required>
             <option value="" disabled>Choose...</option>
             <option value="18">18 holes</option>
@@ -17,7 +17,7 @@
         </label>
       </div>
       <div class="field">
-        <label>HCPI:
+        <label>Handicap-Index (HCPI):
           <input
             type="number"
             v-model.number="handicapIndex"
@@ -28,7 +28,7 @@
         </label>
       </div>
       <div class="field">
-        <label>CR:
+        <label>Course Rating (CR):
           <input
             type="number"
             v-model.number="courseRating"
@@ -49,7 +49,7 @@
         </label>
       </div>
       <div class="field">
-        <label>AGS:
+        <label>Adjusted Gross Score (AGS):
           <input
             type="number"
             v-model.number="grossScore"
@@ -59,12 +59,11 @@
         </label>
       </div>
       <div class="field">
-        <label>PCC:
+        <label>Playing Conditions Calculation (PCC):
           <input
             type="number"
             v-model.number="pccAdjustment"
             required
-            placeholder="0.0"
             step="0.1"
             min="-1.0"
             max="3.0"
@@ -137,8 +136,7 @@ export default {
         grossScore.value > 0 &&
         courseRating.value !== null &&
         slope.value !== null &&
-        holes.value &&
-        pccAdjustment.value !== null
+        holes.value
       ) {
         if (holes.value === '9') {
           const playedRaw = (grossScore.value - courseRating.value) * (113 / slope.value)
@@ -199,7 +197,7 @@ body, html {
   padding-top: 3rem;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   color: #333;
-}
+  }
 
 /* Überschrift */
 .title {
@@ -220,7 +218,7 @@ body, html {
 /* Formularfelder */
 .calculator-form {
   width: 100%;
-  max-width: 400px;
+  max-width: 800px;
   background: #ffffff;
   padding: 1rem;
   border-radius: 8px;
@@ -245,11 +243,16 @@ input:focus, select:focus {
   outline: none;
   border-color: #005f73;
 }
+.validation-note {
+  display: block;
+  font-size: 0.75rem;
+  color: #a00;
+}
 
 /* Trennlinie */
 .divider {
   width: 100%;
-  max-width: 400px;
+  max-width: 800px;
   border: none;
   border-top: 2px solid #e0e0e0;
   margin: 2rem 0;
@@ -277,7 +280,7 @@ input:focus, select:focus {
 .note {
   margin-top: 2rem;
   width: 100%;
-  max-width: 400px;
+  max-width: 800px;
   font-size: 0.85rem;
   color: #666;
 }

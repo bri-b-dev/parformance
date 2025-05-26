@@ -190,14 +190,14 @@ body, html {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 2rem 1rem;
-  padding-top: 3rem;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   color: #333;
-  }
+  text-align: center;
+}
 
 /* Überschrift */
 .title {
@@ -212,7 +212,6 @@ body, html {
   font-size: 0.95rem;
   margin-bottom: 1.5rem;
   color: #555;
-  text-align: center;
 }
 
 /* Formularfelder */
@@ -245,6 +244,7 @@ input:focus, select:focus {
 }
 .validation-note {
   display: block;
+  margin-top: 0.25rem;
   font-size: 0.75rem;
   color: #a00;
 }
@@ -255,7 +255,7 @@ input:focus, select:focus {
   max-width: 800px;
   border: none;
   border-top: 2px solid #e0e0e0;
-  margin: 2rem 0;
+  margin: 2rem auto;
 }
 
 /* Ergebnis */
@@ -283,6 +283,7 @@ input:focus, select:focus {
   max-width: 800px;
   font-size: 0.85rem;
   color: #666;
+  margin: 0 auto;
 }
 .note p {
   margin: 0.5rem 0;

@@ -12,7 +12,7 @@ const messages = {
         holes: 'holes',
         holesPlayed: 'Holes played:',
         handicapIndex: 'Handicap-Index (HCPI):',
-        forExample: 'e.g.',
+        forExample: 'e.g. {value}',
         courseRating: 'Course Rating (CR):',
         slope: 'Slope:',
         grossScore: 'Adjusted Gross Score (AGS):',
@@ -27,7 +27,7 @@ const messages = {
         consideredScoreDifferentials: 'Considered Score Differentials',
         adjustment: 'Adjustment',
         lowest: 'lowest 1',
-        lowestAverage: 'average of lowest'
+        lowestAverage: 'average of lowest {count}'
     },
     de: {
         title: 'Score Differential Rechner',
@@ -37,7 +37,7 @@ const messages = {
         holes: 'Löcher',
         holesPlayed: 'Gespielte Löcher:',
         handicapIndex: 'Handicap-Index (HCPI):',
-        forExample: 'z.B.',
+        forExample: 'z.B. {value}',
         courseRating: 'Course Rating (CR):',
         slope: 'Slope:',
         grossScore: 'Gewertetes Bruttoergebnis (GBE):',
@@ -52,7 +52,7 @@ const messages = {
         consideredScoreDifferentials: 'Zur Berechnung des Handicap-Index gewertete Score Differentials',
         adjustment: 'Anpassung',
         lowest: 'der niedrigste',
-        lowestAverage: 'Durchschnitt der niedrigsten'
+        lowestAverage: 'Durchschnitt der niedrigsten {count}'
         // …
     }
 }

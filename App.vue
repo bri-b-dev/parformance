@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="lang-switcher">
+    <!-- <div class="lang-switcher">
       <select v-model="$i18n.locale">
         <option value="en">English</option>
         <option value="de">Deutsch</option>
       </select>
-    </div>
+    </div> -->
 
     <div class="card">
       <h1 class="title">{{ $t('title') }}</h1>
@@ -22,26 +22,26 @@
         <div class="form-group">
           <label>{{ $t('handicapIndex') }}</label>
           <input type="number" v-model.number="handicapIndex" :required="holes === '9'" step="0.1"
-            :placeholder="$t('forExample', { value: '12.3' })" />
+            :placeholder="`${$t('forExample')} 12.3`" />
         </div>
         <div class="form-group">
           <label>{{ $t('courseRating') }}</label>
           <input type="number" v-model.number="courseRating" step="0.1" required
-            :placeholder="$t('forExample', { value: '72.0' })" />
+            :placeholder="`${$t('forExample')} 72.0`" />
         </div>
         <div class="form-group">
           <label>{{ $t('slope') }}</label>
-          <input type="number" v-model.number="slope" required :placeholder="$t('forExample', { value: '113' })" />
+          <input type="number" v-model.number="slope" required :placeholder="`${$t('forExample')} 113`" />
         </div>
 
         <div class="form-group">
           <label>{{ $t('grossScore') }}</label>
-          <input type="number" v-model.number="grossScore" required :placeholder="$t('forExample', { value: '85' })" />
+          <input type="number" v-model.number="grossScore" required :placeholder="`${$t('forExample')} 85`" />
         </div>
         <div class="form-group full-width">
           <label>{{ $t('pcc') }}</label>
           <input type="number" v-model.number="pccAdjustment" required step="0.1" min="-1.0" max="3.0"
-            :placeholder="$t('forExample', { value: '0.0' })" />
+            :placeholder="`${$t('forExample')} 0.0`" />
           <small class="validation-note">{{ $t('pccNote') }}</small>
         </div>
         <button type="submit" class="btn">{{ $t('calculate') }}</button>
@@ -100,42 +100,42 @@
           </tr>
           <tr>
             <td>6</td>
-            <td>{{ $t('lowestAverage', { count: 2 }) }}</td>
+            <td>{{ $t('lowestAverage') }} 2</td>
             <td>-1.0</td>
           </tr>
           <tr>
             <td>7-8</td>
-            <td>{{ $t('lowestAverage', { count: 2 }) }}</td>
+            <td>{{ $t('lowestAverage') }} 2</td>
             <td>0</td>
           </tr>
           <tr>
             <td>9-11</td>
-            <td>{{ $t('lowestAverage', { count: 3 }) }}</td>
+            <td>{{ $t('lowestAverage') }} 3</td>
             <td>0</td>
           </tr>
           <tr>
             <td>12-14</td>
-            <td>{{ $t('lowestAverage', { count: 4 }) }}</td>
+            <td>{{ $t('lowestAverage') }} 4</td>
             <td>0</td>
           </tr>
           <tr>
             <td>15-16</td>
-            <td>{{ $t('lowestAverage', { count: 5 }) }}</td>
+            <td>{{ $t('lowestAverage') }} 5</td>
             <td>0</td>
           </tr>
           <tr>
             <td>17-18</td>
-            <td>{{ $t('lowestAverage', { count: 6 }) }}</td>
+            <td>{{ $t('lowestAverage') }} 6</td>
             <td>0</td>
           </tr>
           <tr>
             <td>19</td>
-            <td>{{ $t('lowestAverage', { count: 7 }) }}</td>
+            <td>{{ $t('lowestAverage') }} 7</td>
             <td>0</td>
           </tr>
           <tr>
-            <td>20</td>
-            <td>{{ $t('lowestAverage', { count: 8 }) }}</td>
+            <td>>= 20</td>
+            <td>{{ $t('lowestAverage') }} 8</td>
             <td>0</td>
           </tr>
         </tbody>

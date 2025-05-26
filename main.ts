@@ -12,7 +12,7 @@ const messages = {
         holes: 'holes',
         holesPlayed: 'Holes played:',
         handicapIndex: 'Handicap-Index (HCPI):',
-        forExample: 'e.g. {value}',
+        forExample: 'e.g.',
         courseRating: 'Course Rating (CR):',
         slope: 'Slope:',
         grossScore: 'Adjusted Gross Score (AGS):',
@@ -27,7 +27,7 @@ const messages = {
         consideredScoreDifferentials: 'Considered Score Differentials',
         adjustment: 'Adjustment',
         lowest: 'lowest 1',
-        lowestAverage: 'average of lowest {count}'
+        lowestAverage: 'average of lowest'
     },
     de: {
         title: 'Score Differential Rechner',
@@ -37,7 +37,7 @@ const messages = {
         holes: 'Löcher',
         holesPlayed: 'Gespielte Löcher:',
         handicapIndex: 'Handicap-Index (HCPI):',
-        forExample: 'z.B. {value}',
+        forExample: 'z.B.',
         courseRating: 'Course Rating (CR):',
         slope: 'Slope:',
         grossScore: 'Gewertetes Bruttoergebnis (GBE):',
@@ -52,16 +52,16 @@ const messages = {
         consideredScoreDifferentials: 'Zur Berechnung des Handicap-Index gewertete Score Differentials',
         adjustment: 'Anpassung',
         lowest: 'der niedrigste',
-        lowestAverage: 'Durchschnitt der niedrigsten {count}'
+        lowestAverage: 'Durchschnitt der niedrigsten'
         // …
     }
 }
 
 // 2) Erzeuge das i18n-Plugin
 const i18n = createI18n({
-    legacy: false,           // Composition API Mode
-    locale: 'de',            // Standardsprache
-    fallbackLocale: 'en',    // Fallback
+    legacy: false,
+    locale: 'en',
+    fallbackLocale: 'de',
     messages,
 })
 

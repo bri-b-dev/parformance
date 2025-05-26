@@ -4,7 +4,7 @@
     <!-- Einführungstext -->
     <p class="intro">
       Mit diesem Score-Differential-Rechner ermittelst du dein Score Differential für 9 oder 18 Loch.
-      Gib dein gewichtetes Bruttoergebnis (GBE), Course Rating und Slope ein, und erhalte dein individuelles Ergebnis.
+      Gib dein aktuelles Handicap (HCPI), gewichtetes Bruttoergebnis (GBE), Course Rating (CR) und Slope ein und erhalte dein individuelles Ergebnis.
     </p>
     <form @submit.prevent class="calculator-form">
       <div class="field">
@@ -17,7 +17,7 @@
         </label>
       </div>
       <div class="field">
-        <label>Handicap-Index:
+        <label>HCPI:
           <input
             type="number"
             v-model.number="handicapIndex"
@@ -28,7 +28,7 @@
         </label>
       </div>
       <div class="field">
-        <label>Course Rating:
+        <label>CR:
           <input
             type="number"
             v-model.number="courseRating"
@@ -49,7 +49,7 @@
         </label>
       </div>
       <div class="field">
-        <label>Gewichtetes Brutto­ergebnis (GBE):
+        <label>GBE:
           <input
             type="number"
             v-model.number="grossScore"
@@ -73,11 +73,15 @@
     <div class="note">
       <p>
         Hinweis: Dieser Rechner dient als Orientierung und ersetzt nicht die offizielle Handicap-Berechnung des Verbandes.
+        <br />
+        <a href="https://www.usga.org/content/dam/usga/pdf/2024-revision/2024-Rules-of-Handicapping-USGA.pdf" target="_blank" class="rules-link">
+          Aktuelle Handicap-Regeln (2024)
+        </a>
       </p>
       <p>Zur Berechnung des Handicap-Index werden gewertete Score Differentials wie folgt herangezogen:</p>
       <table>
         <thead>
-          <tr><th>Anzahl Ergebnisse</th><th>Gewertete Score Differentials</th><th>Anpassung</th></tr>
+          <tr><th>Anzahl Ergebnisse</th><th>Im Stammblatt gewertete Score Differentials</th><th>Anpassung</th></tr>
         </thead>
         <tbody>
           <tr><td>1</td><td>der niedrigste</td><td>-2,0</td></tr>
@@ -160,7 +164,7 @@ export default {
   box-sizing: border-box;
 }
 body, html {
-  height: 100%;
+  min-height: 100vh;
   margin: 0;
   background: #f9f9fb;
 }
@@ -168,10 +172,11 @@ body, html {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 100%;
-  padding: 1rem;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  padding-top: 3rem;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   color: #333;
 }
@@ -258,6 +263,16 @@ input:focus, select:focus {
 }
 .note p {
   margin: 0.5rem 0;
+}
+.rules-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #005f73;
+  text-decoration: none;
+  font-weight: 500;
+}
+.rules-link:hover {
+  text-decoration: underline;
 }
 .note table {
   width: 100%;

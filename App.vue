@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <h1>Score-Differential-Rechner</h1>
+    <h1 class="title">Score-Differential-Rechner</h1>
     <!-- Einführungstext -->
     <p class="intro">
       Mit diesem Score-Differential-Rechner ermittelst du dein Score Differential für 9 oder 18 Loch.
       Gib dein gewichtetes Bruttoergebnis (GBE), Course Rating und Slope ein, und erhalte dein individuelles Ergebnis.
     </p>
-    <form @submit.prevent>
-      <div>
+    <form @submit.prevent class="calculator-form">
+      <div class="field">
         <label>Lochanzahl:
           <select v-model="holes" required>
             <option value="" disabled>Wähle...</option>
@@ -16,7 +16,7 @@
           </select>
         </label>
       </div>
-      <div>
+      <div class="field">
         <label>Handicap-Index:
           <input
             type="number"
@@ -27,7 +27,7 @@
           />
         </label>
       </div>
-      <div>
+      <div class="field">
         <label>Course Rating:
           <input
             type="number"
@@ -38,7 +38,7 @@
           />
         </label>
       </div>
-      <div>
+      <div class="field">
         <label>Slope:
           <input
             type="number"
@@ -48,7 +48,7 @@
           />
         </label>
       </div>
-      <div>
+      <div class="field">
         <label>Gewichtetes Brutto­ergebnis (GBE):
           <input
             type="number"
@@ -60,11 +60,11 @@
       </div>
     </form>
 
-    <hr/>
+    <hr class="divider" />
 
     <!-- Ergebnisanzeige mit bedingter Formatierung -->
     <div v-if="scoreDifferential !== null" class="result">
-      <p :style="{ color: scoreColor }">
+      <p :class="['score', scoreColorClass]">
         <strong>Score-Differential:</strong> {{ scoreDifferential.toFixed(1) }}
       </p>
     </div>
@@ -77,7 +77,7 @@
       <p>Zur Berechnung des Handicap-Index werden gewertete Score Differentials wie folgt herangezogen:</p>
       <table>
         <thead>
-          <tr><th>Anzahl Ergebnisse</th><th>Im Stammblatt gewertete Score Differentials</th><th>Anpassung</th></tr>
+          <tr><th>Anzahl Ergebnisse</th><th>Gewertete Score Differentials</th><th>Anpassung</th></tr>
         </thead>
         <tbody>
           <tr><td>1</td><td>der niedrigste</td><td>-2,0</td></tr>
@@ -132,13 +132,13 @@ export default {
       return null
     })
 
-    const scoreColor = computed(() => {
+    const scoreColorClass = computed(() => {
       if (handicapIndex.value === null || scoreDifferential.value === null) {
-        return 'black'
+        return 'score-neutral'
       }
-      if (scoreDifferential.value < handicapIndex.value) return 'green'
-      if (scoreDifferential.value > handicapIndex.value) return 'red'
-      return 'black'
+      if (scoreDifferential.value < handicapIndex.value) return 'score-good'
+      if (scoreDifferential.value > handicapIndex.value) return 'score-bad'
+      return 'score-neutral'
     })
 
     return {
@@ -148,17 +148,23 @@ export default {
       slope,
       grossScore,
       scoreDifferential,
-      scoreColor
+      scoreColorClass
     }
   }
 }
 </script>
 
 <style>
+/* Basis */
+* {
+  box-sizing: border-box;
+}
 body, html {
   height: 100%;
   margin: 0;
+  background: #f9f9fb;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -166,56 +172,111 @@ body, html {
   align-items: center;
   height: 100%;
   padding: 1rem;
-  font-family: sans-serif;
-  box-sizing: border-box;
-}
-.intro {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   color: #333;
+}
+
+/* Überschrift */
+.title {
+  font-size: 1.8rem;
+  color: #005f73;
+  margin: 0;
+}
+
+/* Einführung */
+.intro {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  color: #555;
   text-align: center;
 }
-form {
+
+/* Formularfelder */
+.calculator-form {
   width: 100%;
   max-width: 400px;
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-form div {
-  margin-bottom: 0.5rem;
+.field {
+  margin-bottom: 1rem;
 }
 label {
   display: flex;
   justify-content: space-between;
+  font-weight: 500;
 }
 input, select {
   width: 120px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s;
 }
-hr {
-  margin: 1rem 0;
+input:focus, select:focus {
+  outline: none;
+  border-color: #005f73;
+}
+
+/* Trennlinie */
+.divider {
   width: 100%;
   max-width: 400px;
+  border: none;
+  border-top: 2px solid #e0e0e0;
+  margin: 2rem 0;
 }
-.result p {
-  font-size: 1.1rem;
+
+/* Ergebnis */
+.result {
   text-align: center;
 }
+.score {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.score-good {
+  color: #2a9d8f;
+}
+.score-bad {
+  color: #e76f51;
+}
+.score-neutral {
+  color: #333;
+}
+
+/* Hinweis und Tabelle */
 .note {
-  margin-top: 1rem;
+  margin-top: 2rem;
   width: 100%;
   max-width: 400px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #666;
+}
+.note p {
+  margin: 0.5rem 0;
 }
 .note table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
-.note th,
+.note th {
+  background: #005f73;
+  color: #fff;
+  padding: 6px;
+  font-size: 0.8rem;
+}
 .note td {
-  border: 1px solid #ccc;
-  padding: 4px;
+  border: 1px solid #ddd;
+  padding: 6px;
   text-align: center;
   font-size: 0.75rem;
+}
+.note tbody tr:nth-child(odd) {
+  background: #f1f1f1;
 }
 </style>

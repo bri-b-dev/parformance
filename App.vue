@@ -3,14 +3,14 @@
     <h1>Score-Differential-Rechner</h1>
     <!-- Einführungstext -->
     <p class="intro">
-      Mit diesem Score-Differential-Rechner ermittelst du dein Score Differential für 9 oder 18 Loch. 
+      Mit diesem Score-Differential-Rechner ermittelst du dein Score Differential für 9 oder 18 Loch.
       Gib dein gewichtetes Bruttoergebnis (GBE), Course Rating und Slope ein, und erhalte dein individuelles Ergebnis.
     </p>
     <form @submit.prevent>
       <div>
         <label>Lochanzahl:
           <select v-model="holes" required>
-            <option value="" disabled selected>Wähle...</option>
+            <option value="" disabled>Wähle...</option>
             <option value="18">18 Loch</option>
             <option value="9">9 Loch</option>
           </select>
@@ -62,9 +62,11 @@
 
     <hr/>
 
-    <!-- Ergebnisanzeige -->
+    <!-- Ergebnisanzeige mit bedingter Formatierung -->
     <div v-if="scoreDifferential !== null" class="result">
-      <p><strong>Score-Differential:</strong> {{ scoreDifferential.toFixed(1) }}</p>
+      <p :style="{ color: scoreColor }">
+        <strong>Score-Differential:</strong> {{ scoreDifferential.toFixed(1) }}
+      </p>
     </div>
 
     <!-- Fußnote mit Handicap-Tabelle -->
@@ -74,20 +76,24 @@
       </p>
       <p>Zur Berechnung des Handicap-Index werden gewertete Score Differentials wie folgt herangezogen:</p>
       <table>
-        <tr><th>Anzahl Ergebnisse</th><th>Im Stammblatt gewertete Score Differentials</th><th>Anpassung</th></tr>
-        <tr><td>1</td><td>der niedrigste</td><td>-2,0</td></tr>
-        <tr><td>2</td><td>der niedrigste</td><td>-2,0</td></tr>
-        <tr><td>3</td><td>der niedrigste</td><td>-2,0</td></tr>
-        <tr><td>4</td><td>der niedrigste</td><td>-1,0</td></tr>
-        <tr><td>5</td><td>der niedrigste</td><td>0</td></tr>
-        <tr><td>6</td><td>Durchschnitt der niedrigsten 2</td><td>-1,0</td></tr>
-        <tr><td>7-8</td><td>Durchschnitt der niedrigsten 2</td><td>0</td></tr>
-        <tr><td>9-11</td><td>Durchschnitt der niedrigsten 3</td><td>0</td></tr>
-        <tr><td>12-14</td><td>Durchschnitt der niedrigsten 4</td><td>0</td></tr>
-        <tr><td>15-16</td><td>Durchschnitt der niedrigsten 5</td><td>0</td></tr>
-        <tr><td>17-18</td><td>Durchschnitt der niedrigsten 6</td><td>0</td></tr>
-        <tr><td>19</td><td>Durchschnitt der niedrigsten 7</td><td>0</td></tr>
-        <tr><td>>= 20</td><td>Durchschnitt der niedrigsten 8</td><td>0</td></tr>
+        <thead>
+          <tr><th>Anzahl Ergebnisse</th><th>Im Stammblatt gewertete Score Differentials</th><th>Anpassung</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>der niedrigste</td><td>-2,0</td></tr>
+          <tr><td>2</td><td>der niedrigste</td><td>-2,0</td></tr>
+          <tr><td>3</td><td>der niedrigste</td><td>-2,0</td></tr>
+          <tr><td>4</td><td>der niedrigste</td><td>-1,0</td></tr>
+          <tr><td>5</td><td>der niedrigste</td><td>0</td></tr>
+          <tr><td>6</td><td>Durchschnitt der niedrigsten 2</td><td>-1,0</td></tr>
+          <tr><td>7-8</td><td>Durchschnitt der niedrigsten 2</td><td>0</td></tr>
+          <tr><td>9-11</td><td>Durchschnitt der niedrigsten 3</td><td>0</td></tr>
+          <tr><td>12-14</td><td>Durchschnitt der niedrigsten 4</td><td>0</td></tr>
+          <tr><td>15-16</td><td>Durchschnitt der niedrigsten 5</td><td>0</td></tr>
+          <tr><td>17-18</td><td>Durchschnitt der niedrigsten 6</td><td>0</td></tr>
+          <tr><td>19</td><td>Durchschnitt der niedrigsten 7</td><td>0</td></tr>
+          <tr><td>20</td><td>Durchschnitt der niedrigsten 8</td><td>0</td></tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -98,14 +104,13 @@ import { ref, computed } from 'vue'
 
 export default {
   setup() {
-    const holes = ref('')               // Anfang leer
+    const holes = ref('')
     const handicapIndex = ref(null)
     const courseRating = ref(null)
     const slope = ref(null)
     const grossScore = ref(null)
 
     const scoreDifferential = computed(() => {
-      // erst berechnen, wenn GBE > 0 und alle Felder gesetzt
       if (
         grossScore.value > 0 &&
         courseRating.value !== null &&
@@ -113,19 +118,27 @@ export default {
         holes.value
       ) {
         if (holes.value === '9') {
-          // Gespielte 9 Loch
-          const playedRaw = (grossScore.value - courseRating.value) * (113 / slope.value)
+          const playedRaw =
+            (grossScore.value - courseRating.value) * (113 / slope.value)
           const played9 = parseFloat(playedRaw.toFixed(1))
-          // Nicht gespielte 9 Loch
           const notPlayedRaw = handicapIndex.value * 0.52 + 1.2
           const notPlayed9 = parseFloat(notPlayedRaw.toFixed(1))
           return played9 + notPlayed9
         }
-        // 18 Loch Score-Differential
-        const diff = (grossScore.value - courseRating.value) * (113 / slope.value)
+        const diff =
+          (grossScore.value - courseRating.value) * (113 / slope.value)
         return parseFloat(diff.toFixed(1))
       }
       return null
+    })
+
+    const scoreColor = computed(() => {
+      if (handicapIndex.value === null || scoreDifferential.value === null) {
+        return 'black'
+      }
+      if (scoreDifferential.value < handicapIndex.value) return 'green'
+      if (scoreDifferential.value > handicapIndex.value) return 'red'
+      return 'black'
     })
 
     return {
@@ -134,7 +147,8 @@ export default {
       courseRating,
       slope,
       grossScore,
-      scoreDifferential
+      scoreDifferential,
+      scoreColor
     }
   }
 }
@@ -156,6 +170,7 @@ body, html {
   box-sizing: border-box;
 }
 .intro {
+  margin-top: 0.5rem;
   font-size: 0.9rem;
   margin-bottom: 1rem;
   color: #333;
@@ -182,7 +197,6 @@ hr {
 }
 .result p {
   font-size: 1.1rem;
-  color: #007700;
   text-align: center;
 }
 .note {

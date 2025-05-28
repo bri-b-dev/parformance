@@ -57,7 +57,22 @@
         </p>
 
         <!-- Button zum Speichern des Ergebnisses -->
-        <button class="btn-secondary" @click="saveResult">{{ $t('saveResult') }}</button>
+<!-- Save-Button triggert jetzt nur das Öffnen des Pickers -->
+  <button class="btn-secondary" @click="openDatePicker">
+    {{ $t('saveResult') }}
+  </button>
+
+  <!-- Das Datepicker-Modal -->
+  <div v-if="showDatePicker" class="modal-backdrop">
+    <div class="modal">
+      <h3>{{ $t('chooseDate') }}</h3>
+      <input type="date" v-model="pickedDate" />
+      <div class="modal-actions">
+        <button class="btn-secondary" @click="confirmSave">{{ $t('confirm') }}</button>
+        <button class="btn-secondary" @click="closeDatePicker">{{ $t('cancel') }}</button>
+      </div>
+    </div>
+  </div>
       </div>
     </div>
     <div class="note">
@@ -87,7 +102,7 @@
               <td>{{ res.courseName }}</td>
               <td>{{ res.grossScore }}</td>
               <td>{{ res.scoreDifferential.toFixed(1) }}</td>
-              <td><button @click="deleteResult(res.id)">{{ $t('delete') }}</button></td>
+              <td><button class="btn-secondary" @click="deleteResult(res.id)">{{ $t('delete') }}</button></td>
             </tr>
           </tbody>
         </table>
@@ -212,15 +227,33 @@ function onCalculate() {
   calculated.value = true
 }
 
-async function saveResult() {
+const showDatePicker = ref(false)
+const pickedDate    = ref(new Date().toISOString().substr(0,10))
+
+function openDatePicker() {
+  // Default auf heute setzen
+  pickedDate.value = new Date().toISOString().substr(0,10)
+  showDatePicker.value = true
+}
+
+function closeDatePicker() {
+  showDatePicker.value = false
+}
+
+async function confirmSave() {
+  // Hier kommt dein bestehendes saveResult-Logic hin, nur ergänzt um Datum
   const entry = {
-    date: new Date().toISOString(),
+    date: pickedDate.value,
     courseName: courseRating.value + '/' + slope.value,
     grossScore: grossScore.value,
     scoreDifferential: scoreDifferential.value
   }
   const id = await db.results.add(entry)
   results.value.push({ id, ...entry })
+
+  showDatePicker.value = false
+  results.value = await db.results.orderBy('date').reverse().toArray()
+
 }
 
 async function deleteResult(id) {
@@ -228,9 +261,11 @@ async function deleteResult(id) {
   results.value = results.value.filter(r => r.id !== id)
 }
 
-// Laden bei Start
 onMounted(async () => {
-  results.value = await db.results.toArray()
+  results.value = await db.results
+    .orderBy('date')
+    .reverse()       // für absteigende Reihenfolge
+    .toArray()
 })
 </script>
 
@@ -447,5 +482,35 @@ body {
 
 .results-card tbody tr:nth-child(odd) {
   background: #f9f9fb;
+
+/* einfaches Modal-Styling */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.modal {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+}
+.modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.modal-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}}
 </style>

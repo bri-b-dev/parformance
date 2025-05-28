@@ -21,14 +21,12 @@
         </p>
       </div>
 
-      <!-- Aktueller Handicap-Index aus gespeicherten Ergebnissen -->
-      <div class="current-index" v-if="results.length">
+      <div class="current-index" v-if="storedHandicap !== null">
         <strong>{{ $t('currentHandicap') }}:</strong>
-        {{ handicapIndexComputed.toFixed(1) }}
+        {{ storedHandicap?.toFixed(1) }}
       </div>
 
       <form class="calculator-form" @submit.prevent="onCalculate">
-        <!-- Holes Played -->
         <div class="form-group">
           <label>{{ $t('holesPlayed') }}</label>
           <select v-model="holes" required>
@@ -38,33 +36,28 @@
           </select>
         </div>
 
-        <!-- Handicap-Index Eingabe mit Default aus computed -->
         <div class="form-group">
-          <label>{{ $t('handicapIndex') }}</label>
-          <input type="number" v-model.number="handicapIndex" step="0.1"
-            :placeholder="`${$t('forExample')} ${handicapIndexComputed.toFixed(1)}`" />
+          <label>{{ $t('handicapIndexLabel') }}</label>
+          <input type="number" v-model.number="handicapIndexInput" step="0.1"
+            :placeholder="`${$t('forExample')} ${storedHandicap?.toFixed(1) || '0.0'}`" />
         </div>
 
-        <!-- Course Rating -->
         <div class="form-group">
           <label>{{ $t('courseRating') }}</label>
           <input type="number" v-model.number="courseRating" step="0.1" required
             :placeholder="`${$t('forExample')} 72.0`" />
         </div>
 
-        <!-- Slope -->
         <div class="form-group">
           <label>{{ $t('slope') }}</label>
-          <input type="number" v-model.number="slope" required :placeholder="`${$t('forExample')} 113`" />
+          <input type="number" v-model.number="slope" required />
         </div>
 
-        <!-- Gross Score -->
         <div class="form-group">
           <label>{{ $t('grossScore') }}</label>
           <input type="number" v-model.number="grossScore" required :placeholder="`${$t('forExample')} 85`" />
         </div>
 
-        <!-- PCC -->
         <div class="form-group full-width">
           <label>{{ $t('pcc') }}</label>
           <input type="number" v-model.number="pccAdjustment" required step="0.1" min="-1.0" max="3.0"
@@ -75,31 +68,29 @@
         <button type="submit" class="btn">{{ $t('calculate') }}</button>
       </form>
 
-      <!-- Ergebnisanzeige -->
       <div v-if="calculated" class="result">
         <p :class="['score', scoreColorClass]">
           <strong>{{ $t('scoreDifferential') }}:</strong>
           {{ scoreDifferential.toFixed(1) }}
         </p>
         <button class="btn-secondary" @click="openDatePicker">{{ $t('saveResult') }}</button>
-      </div>
+    </div>
 
-      <!-- Datepicker Modal -->
-      <div v-if="showDatePicker" class="modal-backdrop">
-        <div class="modal">
-          <h3>{{ $t('chooseDate') }}</h3>
-          <input type="date" v-model="pickedDate" />
-          <div class="modal-actions">
-            <button class="btn-secondary" @click="confirmSave">{{ $t('confirm') }}</button>
-            <button class="btn-secondary" @click="closeDatePicker">{{ $t('cancel') }}</button>
+    <div v-if="showDatePicker" class="modal-backdrop">
+      <div class="modal">
+        <h3>{{ $t('chooseDate') }}</h3>
+        <input type="date" v-model="pickedDate" />
+        <div class="modal-actions">
+          <button class="btn-secondary" @click="confirmSave">{{ $t('confirm') }}</button>
+          <button class="btn-secondary" @click="closeDatePicker">{{ $t('cancel') }}</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Gespeicherte Ergebnisse und Handicap-Index -->
     <div class="card results-card" v-if="results.length">
       <h2>{{ $t('yourResults') }}</h2>
+      <button class="btn-secondary" @click="recalculateAll">{{ $t('recalculateHandicap') }}</button>
       <table>
         <thead>
           <tr>
@@ -107,6 +98,7 @@
             <th>{{ $t('course') }}</th>
             <th>{{ $t('grossScore') }}</th>
             <th>{{ $t('scoreDifferential') }}</th>
+            <th>{{ $t('handicapIndex') }}</th>
             <th></th>
           </tr>
         </thead>
@@ -116,6 +108,7 @@
             <td>{{ res.courseName }}</td>
             <td>{{ res.grossScore }}</td>
             <td>{{ res.scoreDifferential.toFixed(1) }}</td>
+            <td>{{ res.storedHandicap?.toFixed(1) }}</td>
             <td><button class="btn-delete" @click="deleteResult(res.id)">{{ $t('delete') }}</button></td>
           </tr>
         </tbody>
@@ -129,12 +122,10 @@ import { ref, computed, onMounted } from 'vue'
 import { db } from '@/db'
 import { useI18n } from 'vue-i18n'
 
-// i18n
 const { t } = useI18n()
 
-// State
 const holes = ref('')
-const handicapIndex = ref(0)
+const handicapIndexInput = ref(0)
 const courseRating = ref(null)
 const slope = ref(null)
 const grossScore = ref(null)
@@ -142,23 +133,20 @@ const pccAdjustment = ref(0)
 const calculated = ref(false)
 const results = ref([])
 const showDatePicker = ref(false)
-const pickedDate = ref(new Date().toISOString().substr(0, 10))
+const pickedDate = ref(new Date().toISOString().slice(0, 10))
 
-// Score Differential anhand eingegebenem Handicap-Index
 const scoreDifferential = computed(() => {
   if (!calculated.value) return 0
   if (holes.value === '9') {
     const played9 = (grossScore.value - courseRating.value) * (113 / slope.value)
-    const notPlayed9 = handicapIndex.value * 0.52 + 1.2
+    const notPlayed9 = handicapIndexInput.value * 0.52 + 1.2
     return parseFloat((played9 + notPlayed9 - 0.5 * pccAdjustment.value).toFixed(1))
   }
   const raw18 = (grossScore.value - courseRating.value) * (113 / slope.value)
   return parseFloat((raw18 - pccAdjustment.value).toFixed(1))
 })
 
-// Berechnung Handicap-Index gemäß Tabelle
-const handicapIndexComputed = computed(() => {
-  const diffs = results.value.map(r => r.scoreDifferential).sort((a, b) => a - b)
+const computeHandicap = diffs => {
   const n = diffs.length
   if (n === 0) return 0
   let count, adj
@@ -173,65 +161,83 @@ const handicapIndexComputed = computed(() => {
   else if (n <= 18) { count = 6; adj = 0.0 }
   else if (n === 19) { count = 7; adj = 0.0 }
   else { count = 8; adj = 0.0 }
-  const avg = diffs.slice(0, count).reduce((sum, v) => sum + v, 0) / count
+  const avg = diffs.slice(0, count).reduce((a, v) => a + v, 0) / count
   return parseFloat((avg + adj).toFixed(1))
-})
-
-// Farbklassen
-const scoreColorClass = computed(() => {
-  if (!calculated.value) return 'score-neutral'
-  if (scoreDifferential.value < handicapIndex.value) return 'score-good'
-  if (scoreDifferential.value > handicapIndex.value) return 'score-bad'
-  return 'score-neutral'
-})
-
-// Sortierte Ergebnisse
-const sortedResults = computed(() => [...results.value].sort((a, b) => new Date(b.date) - new Date(a.date)))
-
-// Lifecycle
-onMounted(async () => {
-  results.value = await db.results.orderBy('date').reverse().toArray()
-  handicapIndex.value = handicapIndexComputed.value
-})
-
-// Aktionen
-function onCalculate() {
-  calculated.value = true
 }
 
+const sortedResults = computed(() =>
+  [...results.value].sort((a, b) => new Date(b.date) - new Date(a.date))
+)
+
+const storedHandicap = computed(() => {
+  if (!results.value.length) return null
+  return results.value[0].storedHandicap
+})
+
+const scoreColorClass = computed(() => {
+  if (!calculated.value) return 'score-neutral'
+  return scoreDifferential.value < handicapIndexInput.value
+    ? 'score-good' : scoreDifferential.value > handicapIndexInput.value
+      ? 'score-bad' : 'score-neutral'
+})
+
+onMounted(async () => {
+  results.value = await db.results.orderBy('date').reverse().toArray()
+})
+
+function onCalculate() { calculated.value = true }
+
 function openDatePicker() {
-  // Validierungs-Check
-  if (Number(handicapIndex.value.toFixed(1)) !== Number(handicapIndexComputed.value.toFixed(1))) {
-    alert(t('inconsistentIndex'))
-    return
+  if (results.value.length > 0) {
+    const entered = Number(handicapIndexInput.value.toFixed(1))
+    const lastHC = results.value[0].storedHandicap
+    if (entered !== lastHC) { alert(t('inconsistentIndex')); return }
   }
-  pickedDate.value = new Date().toISOString().substr(0, 10)
+  pickedDate.value = new Date().toISOString().slice(0, 10)
   showDatePicker.value = true
 }
 
-function closeDatePicker() {
-  showDatePicker.value = false
-}
-
 async function confirmSave() {
+  // compute new handicap based on new and old diffs
+  const allDiffs = [scoreDifferential.value, ...results.value.map(r => r.scoreDifferential)].sort((a, b) => a - b)
+  const newHC = computeHandicap(allDiffs)
   const entry = {
     date: pickedDate.value,
     courseName: `${courseRating.value}/${slope.value}`,
     grossScore: grossScore.value,
-    scoreDifferential: scoreDifferential.value
+    scoreDifferential: scoreDifferential.value,
+    storedHandicap: newHC
   }
   const id = await db.results.add(entry)
   results.value.unshift({ id, ...entry })
   calculated.value = false
-  handicapIndex.value = handicapIndexComputed.value
+  handicapIndexInput.value = newHC
   showDatePicker.value = false
 }
 
 async function deleteResult(id) {
   await db.results.delete(id)
   results.value = results.value.filter(r => r.id !== id)
-  handicapIndex.value = handicapIndexComputed.value
+  // optionally recompute all stored handicaps:
+  await recalculateAll()
 }
+
+async function recalculateAll() {
+  // recalc sequentially by date ascending
+  const ascending = [...results.value].sort((a, b) => new Date(a.date) - new Date(b.date))
+  const updated = []
+  for (let i = 0; i < ascending.length; i++) {
+    const diffs = ascending.slice(0, i + 1).map(r => r.scoreDifferential).sort((a, b) => a - b)
+    const hc = computeHandicap(diffs)
+    ascending[i].storedHandicap = hc
+    await db.results.update(ascending[i].id, { storedHandicap: hc })
+    updated.push(ascending[i])
+  }
+  results.value = updated.sort((a, b) => new Date(b.date) - new Date(a.date))
+  handicapIndexInput.value = results.value[0]?.storedHandicap || 0
+}
+
+function closeDatePicker() { showDatePicker.value = false }
 </script>
 
 <style>

@@ -27,7 +27,11 @@ const messages = {
         consideredScoreDifferentials: 'Considered Score Differentials',
         adjustment: 'Adjustment',
         lowest: 'lowest 1',
-        lowestAverage: 'average of lowest'
+        lowestAverage: 'average of lowest',
+        yourResults: 'Your results',
+        date: 'date',
+        course: 'course',
+        saveResult: 'save result',
     },
     de: {
         title: 'Score Differential Rechner',
@@ -52,8 +56,11 @@ const messages = {
         consideredScoreDifferentials: 'Zur Berechnung des Handicap-Index gewertete Score Differentials',
         adjustment: 'Anpassung',
         lowest: 'der niedrigste',
-        lowestAverage: 'Durchschnitt der niedrigsten'
-        // …
+        lowestAverage: 'Durchschnitt der niedrigsten',
+        yourResults: 'Deine Ergebnisse',
+        date: 'Datum',
+        course: 'Platz',
+        saveResult: 'Ergebnis speichern',
     }
 }
 

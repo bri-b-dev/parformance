@@ -115,6 +115,11 @@
         </tbody>
       </table>
     </div>
+    <HandicapChart 
+      v-if="sortedResults.length" 
+      :data="sortedResults" 
+    />
+
   </div>
 </template>
 
@@ -122,6 +127,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { db } from '@/db'
 import { useI18n } from 'vue-i18n'
+import HandicapChart from '@/components/HandicapChart.vue'
 
 const { t } = useI18n()
 

@@ -10,6 +10,13 @@
     <div class="card">
       <h1 class="title">{{ $t('title') }}</h1>
       <p class="intro">{{ $t('intro') }}</p>
+
+      <!-- Aktueller Handicap-Index aus gespeicherten Ergebnissen -->
+      <div class="current-index" v-if="results.length">
+        <strong>{{ $t('currentHandicap') }}:</strong>
+        {{ handicapIndexComputed.toFixed(1) }}
+      </div>
+
       <form class="calculator-form" @submit.prevent="onCalculate">
         <div class="form-group">
           <label>{{ $t('holesPlayed') }}</label>
@@ -21,8 +28,12 @@
         </div>
         <div class="form-group">
           <label>{{ $t('handicapIndex') }}</label>
-          <input type="number" v-model.number="handicapIndex" :required="holes === '9'" step="0.1"
-            :placeholder="`${$t('forExample')} 12.3`" />
+          <input
+            type="number"
+            v-model.number="handicapIndex"
+            step="0.1"
+            :placeholder="`${$t('forExample')} ${handicapIndexComputed.toFixed(1)}`"
+          />
         </div>
         <div class="form-group">
           <label>{{ $t('courseRating') }}</label>
@@ -55,24 +66,19 @@
           <strong>{{ $t('scoreDifferential') }}:</strong>
           {{ scoreDifferential.toFixed(1) }}
         </p>
-
-        <!-- Button zum Speichern des Ergebnisses -->
-<!-- Save-Button triggert jetzt nur das Öffnen des Pickers -->
-  <button class="btn-secondary" @click="openDatePicker">
-    {{ $t('saveResult') }}
-  </button>
-
-  <!-- Das Datepicker-Modal -->
-  <div v-if="showDatePicker" class="modal-backdrop">
-    <div class="modal">
-      <h3>{{ $t('chooseDate') }}</h3>
-      <input type="date" v-model="pickedDate" />
-      <div class="modal-actions">
-        <button class="btn-secondary" @click="confirmSave">{{ $t('confirm') }}</button>
-        <button class="btn-secondary" @click="closeDatePicker">{{ $t('cancel') }}</button>
+        <button class="btn-secondary" @click="openDatePicker">{{ $t('saveResult') }}</button>
       </div>
-    </div>
-  </div>
+
+      <!-- Datepicker Modal -->
+      <div v-if="showDatePicker" class="modal-backdrop">
+        <div class="modal">
+          <h3>{{ $t('chooseDate') }}</h3>
+          <input type="date" v-model="pickedDate" />
+          <div class="modal-actions">
+            <button class="btn-secondary" @click="confirmSave">{{ $t('confirm') }}</button>
+            <button class="btn-secondary" @click="closeDatePicker">{{ $t('cancel') }}</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="note">
@@ -83,7 +89,7 @@
           {{ $t('currentRules') }}
         </a>
       </p>
-      <!-- Gespeicherte Ergebnisse -->
+      <!-- Gespeicherte Ergebnisse und Handicap-Index -->
       <div class="card results-card" v-if="results.length">
         <h2>{{ $t('yourResults') }}</h2>
         <table>
@@ -97,96 +103,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="res in results" :key="res.id">
+            <tr v-for="res in sortedResults" :key="res.id">
               <td>{{ new Date(res.date).toLocaleDateString() }}</td>
               <td>{{ res.courseName }}</td>
               <td>{{ res.grossScore }}</td>
               <td>{{ res.scoreDifferential.toFixed(1) }}</td>
-              <td><button class="btn-secondary" @click="deleteResult(res.id)">{{ $t('delete') }}</button></td>
+              <td><button @click="deleteResult(res.id)">{{ $t('delete') }}</button></td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <p>{{ $t('note2') }}</p>
-      <table>
-        <thead>
-          <tr>
-            <th>{{ $t('noOfResults') }}</th>
-            <th>{{ $t('consideredScoreDifferentials') }}</th>
-            <th>{{ $t('adjustment') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>{{ $t('lowest') }}</td>
-            <td>-2.0</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>{{ $t('lowest') }}</td>
-            <td>-2.0</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>{{ $t('lowest') }}</td>
-            <td>-2.0</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>{{ $t('lowest') }}</td>
-            <td>-1.0</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>{{ $t('lowest') }}</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>{{ $t('lowestAverage') }} 2</td>
-            <td>-1.0</td>
-          </tr>
-          <tr>
-            <td>7-8</td>
-            <td>{{ $t('lowestAverage') }} 2</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>9-11</td>
-            <td>{{ $t('lowestAverage') }} 3</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>12-14</td>
-            <td>{{ $t('lowestAverage') }} 4</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>15-16</td>
-            <td>{{ $t('lowestAverage') }} 5</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>17-18</td>
-            <td>{{ $t('lowestAverage') }} 6</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>19</td>
-            <td>{{ $t('lowestAverage') }} 7</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>>= 20</td>
-            <td>{{ $t('lowestAverage') }} 8</td>
-            <td>0</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-
   </div>
 </template>
 
@@ -194,7 +121,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { db } from '@/db'
 
-// Reactive State
+// State
 const holes = ref('')
 const handicapIndex = ref(null)
 const courseRating = ref(null)
@@ -203,18 +130,45 @@ const grossScore = ref(null)
 const pccAdjustment = ref(0)
 const calculated = ref(false)
 const results = ref([])
+const showDatePicker = ref(false)
+const pickedDate = ref(new Date().toISOString().substr(0, 10))
 
-// Berechnung
+// Score Differential Berechnung
 const scoreDifferential = computed(() => {
   if (!calculated.value) return 0
   if (holes.value === '9') {
-    const played9 = parseFloat(((grossScore.value - courseRating.value) * (113 / slope.value)).toFixed(1))
-    const notPlayed9 = parseFloat((handicapIndex.value * 0.52 + 1.2).toFixed(1))
+    const played9 = (grossScore.value - courseRating.value) * (113 / slope.value)
+    const notPlayed9 = handicapIndex.value * 0.52 + 1.2
     return parseFloat((played9 + notPlayed9 - 0.5 * pccAdjustment.value).toFixed(1))
   }
-  return parseFloat((((grossScore.value - courseRating.value) * (113 / slope.value) - pccAdjustment.value)).toFixed(1))
+  const raw18 = (grossScore.value - courseRating.value) * (113 / slope.value)
+  return parseFloat((raw18 - pccAdjustment.value).toFixed(1))
 })
 
+// Handicap-Index Berechnung gemäß Tabelle
+const handicapIndexComputed = computed(() => {
+  const diffs = results.value
+    .map(r => r.scoreDifferential)
+    .sort((a, b) => a - b)
+  const n = diffs.length
+  if (n === 0) return 0
+  let count, adjustment
+  if (n <= 3) { count = 1; adjustment = -2.0 }
+  else if (n === 4) { count = 1; adjustment = -1.0 }
+  else if (n === 5) { count = 1; adjustment = 0.0 }
+  else if (n === 6) { count = 2; adjustment = -1.0 }
+  else if (n <= 8) { count = 2; adjustment = 0.0 }
+  else if (n <= 11) { count = 3; adjustment = 0.0 }
+  else if (n <= 14) { count = 4; adjustment = 0.0 }
+  else if (n <= 16) { count = 5; adjustment = 0.0 }
+  else if (n <= 18) { count = 6; adjustment = 0.0 }
+  else if (n === 19) { count = 7; adjustment = 0.0 }
+  else { count = 8; adjustment = 0.0 }
+  const avg = diffs.slice(0, count).reduce((sum, v) => sum + v, 0) / count
+  return parseFloat((avg + adjustment).toFixed(1))
+})
+
+// Farbklassen
 const scoreColorClass = computed(() => {
   if (!calculated.value) return 'score-neutral'
   if (scoreDifferential.value < handicapIndex.value) return 'score-good'
@@ -222,17 +176,24 @@ const scoreColorClass = computed(() => {
   return 'score-neutral'
 })
 
+// Sortierte Ergebnisse (neueste zuerst)
+const sortedResults = computed(() => {
+  return [...results.value]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+})
+
+// Lifecycle
+onMounted(async () => {
+  results.value = await db.results.orderBy('date').reverse().toArray()
+})
+
 // Funktionen
 function onCalculate() {
   calculated.value = true
 }
 
-const showDatePicker = ref(false)
-const pickedDate    = ref(new Date().toISOString().substr(0,10))
-
 function openDatePicker() {
-  // Default auf heute setzen
-  pickedDate.value = new Date().toISOString().substr(0,10)
+  pickedDate.value = new Date().toISOString().substr(0, 10)
   showDatePicker.value = true
 }
 
@@ -241,32 +202,22 @@ function closeDatePicker() {
 }
 
 async function confirmSave() {
-  // Hier kommt dein bestehendes saveResult-Logic hin, nur ergänzt um Datum
   const entry = {
     date: pickedDate.value,
-    courseName: courseRating.value + '/' + slope.value,
+    courseName: `${courseRating.value}/${slope.value}`,
     grossScore: grossScore.value,
     scoreDifferential: scoreDifferential.value
   }
   const id = await db.results.add(entry)
-  results.value.push({ id, ...entry })
-
+  results.value.unshift({ id, ...entry })
   showDatePicker.value = false
-  results.value = await db.results.orderBy('date').reverse().toArray()
-
+  calculated.value = false
 }
 
 async function deleteResult(id) {
   await db.results.delete(id)
   results.value = results.value.filter(r => r.id !== id)
 }
-
-onMounted(async () => {
-  results.value = await db.results
-    .orderBy('date')
-    .reverse()       // für absteigende Reihenfolge
-    .toArray()
-})
 </script>
 
 <style>
@@ -483,34 +434,40 @@ body {
 .results-card tbody tr:nth-child(odd) {
   background: #f9f9fb;
 
-/* einfaches Modal-Styling */
-.modal-backdrop {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* einfaches Modal-Styling */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .modal-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .modal-actions button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 }
-.modal {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 320px;
-  text-align: center;
-}
-.modal-actions {
-  margin-top: 1rem;
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-}
-.modal-actions button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}}
 </style>

@@ -34,6 +34,7 @@ const messages = {
         saveResult: 'save result',
         chooseDate: 'choose date',
         currentHandicap: 'Current Handicap',
+        delete: 'delete',
     },
     de: {
         title: 'Score Differential Rechner',
@@ -65,6 +66,7 @@ const messages = {
         saveResult: 'Ergebnis speichern',
         chooseDate: 'Datum wählen',
         currentHandicap: 'Aktuelles Handicap',
+        delete: 'Löschen',
     }
 }
 

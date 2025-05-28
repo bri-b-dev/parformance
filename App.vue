@@ -26,15 +26,14 @@
             <option value="9">9 {{ $t('holes') }}</option>
           </select>
         </div>
+
+        <!-- Handicap-Index Eingabe mit Default-Wert -->
         <div class="form-group">
           <label>{{ $t('handicapIndex') }}</label>
-          <input
-            type="number"
-            v-model.number="handicapIndex"
-            step="0.1"
-            :placeholder="`${$t('forExample')} ${handicapIndexComputed.toFixed(1)}`"
-          />
+          <input type="number" v-model.number="handicapIndex" step="0.1"
+            :placeholder="`${$t('forExample')} ${handicapIndexComputed.toFixed(1)}`" />
         </div>
+
         <div class="form-group">
           <label>{{ $t('courseRating') }}</label>
           <input type="number" v-model.number="courseRating" step="0.1" required
@@ -69,12 +68,12 @@
         <button class="btn-secondary" @click="openDatePicker">{{ $t('saveResult') }}</button>
       </div>
 
-      <!-- Datepicker Modal -->
-      <div v-if="showDatePicker" class="modal-backdrop">
-        <div class="modal">
-          <h3>{{ $t('chooseDate') }}</h3>
-          <input type="date" v-model="pickedDate" />
-          <div class="modal-actions">
+    <!-- Datepicker Modal -->
+    <div v-if="showDatePicker" class="modal-backdrop">
+      <div class="modal">
+        <h3>{{ $t('chooseDate') }}</h3>
+        <input type="date" v-model="pickedDate" />
+        <div class="modal-actions">
             <button class="btn-secondary" @click="confirmSave">{{ $t('confirm') }}</button>
             <button class="btn-secondary" @click="closeDatePicker">{{ $t('cancel') }}</button>
           </div>
@@ -89,29 +88,29 @@
           {{ $t('currentRules') }}
         </a>
       </p>
-      <!-- Gespeicherte Ergebnisse und Handicap-Index -->
-      <div class="card results-card" v-if="results.length">
-        <h2>{{ $t('yourResults') }}</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>{{ $t('date') }}</th>
-              <th>{{ $t('course') }}</th>
-              <th>{{ $t('grossScore') }}</th>
-              <th>{{ $t('scoreDifferential') }}</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="res in sortedResults" :key="res.id">
-              <td>{{ new Date(res.date).toLocaleDateString() }}</td>
-              <td>{{ res.courseName }}</td>
-              <td>{{ res.grossScore }}</td>
-              <td>{{ res.scoreDifferential.toFixed(1) }}</td>
-              <td><button @click="deleteResult(res.id)">{{ $t('delete') }}</button></td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- Gespeicherte Ergebnisse und Handicap-Index -->
+    <div class="card results-card" v-if="results.length">
+      <h2>{{ $t('yourResults') }}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>{{ $t('date') }}</th>
+            <th>{{ $t('course') }}</th>
+            <th>{{ $t('grossScore') }}</th>
+            <th>{{ $t('scoreDifferential') }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="res in sortedResults" :key="res.id">
+            <td>{{ new Date(res.date).toLocaleDateString() }}</td>
+            <td>{{ res.courseName }}</td>
+            <td>{{ res.grossScore }}</td>
+            <td>{{ res.scoreDifferential.toFixed(1) }}</td>
+            <td><button @click="deleteResult(res.id)">{{ $t('delete') }}</button></td>
+          </tr>
+        </tbody>
+      </table>
       </div>
     </div>
   </div>
@@ -123,7 +122,7 @@ import { db } from '@/db'
 
 // State
 const holes = ref('')
-const handicapIndex = ref(null)
+const handicapIndex = ref(0)
 const courseRating = ref(null)
 const slope = ref(null)
 const grossScore = ref(null)
@@ -138,7 +137,7 @@ const scoreDifferential = computed(() => {
   if (!calculated.value) return 0
   if (holes.value === '9') {
     const played9 = (grossScore.value - courseRating.value) * (113 / slope.value)
-    const notPlayed9 = handicapIndex.value * 0.52 + 1.2
+    const notPlayed9 = handicapIndexComputed.value * 0.52 + 1.2
     return parseFloat((played9 + notPlayed9 - 0.5 * pccAdjustment.value).toFixed(1))
   }
   const raw18 = (grossScore.value - courseRating.value) * (113 / slope.value)
@@ -147,15 +146,13 @@ const scoreDifferential = computed(() => {
 
 // Handicap-Index Berechnung gemäß Tabelle
 const handicapIndexComputed = computed(() => {
-  const diffs = results.value
-    .map(r => r.scoreDifferential)
-    .sort((a, b) => a - b)
+  const diffs = results.value.map(r => r.scoreDifferential).sort((a, b) => a - b)
   const n = diffs.length
-  if (n === 0) return 0
+  if (!n) return 0
   let count, adjustment
   if (n <= 3) { count = 1; adjustment = -2.0 }
   else if (n === 4) { count = 1; adjustment = -1.0 }
-  else if (n === 5) { count = 1; adjustment = 0.0 }
+  else if (n === 5) { count = 1; adhandicapIndexComputedjustment = 0.0 }
   else if (n === 6) { count = 2; adjustment = -1.0 }
   else if (n <= 8) { count = 2; adjustment = 0.0 }
   else if (n <= 11) { count = 3; adjustment = 0.0 }
@@ -171,20 +168,20 @@ const handicapIndexComputed = computed(() => {
 // Farbklassen
 const scoreColorClass = computed(() => {
   if (!calculated.value) return 'score-neutral'
-  if (scoreDifferential.value < handicapIndex.value) return 'score-good'
-  if (scoreDifferential.value > handicapIndex.value) return 'score-bad'
+  if (scoreDifferential.value < handicapIndexComputed.value) return 'score-good'
+  if (scoreDifferential.value > handicapIndexComputed.value) return 'score-bad'
   return 'score-neutral'
 })
 
 // Sortierte Ergebnisse (neueste zuerst)
 const sortedResults = computed(() => {
-  return [...results.value]
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
+  return [...results.value].sort((a, b) => new Date(b.date) - new Date(a.date))
 })
 
 // Lifecycle
 onMounted(async () => {
   results.value = await db.results.orderBy('date').reverse().toArray()
+  handicapIndex.value = handicapIndexComputed.value
 })
 
 // Funktionen
@@ -212,11 +209,13 @@ async function confirmSave() {
   results.value.unshift({ id, ...entry })
   showDatePicker.value = false
   calculated.value = false
+  handicapIndex.value = handicapIndexComputed.value
 }
 
 async function deleteResult(id) {
   await db.results.delete(id)
   results.value = results.value.filter(r => r.id !== id)
+  handicapIndex.value = handicapIndexComputed.value
 }
 </script>
 

@@ -50,7 +50,8 @@
 
         <div class="form-group">
           <label>{{ $t('slope') }}</label>
-          <input type="number" v-model.number="slope" required />
+          <input type="number" v-model.number="slope" required 
+            :placeholder="`${$t('forExample')} 113`" />
         </div>
 
         <div class="form-group">
@@ -74,15 +75,15 @@
           {{ scoreDifferential.toFixed(1) }}
         </p>
         <button class="btn-secondary" @click="openDatePicker">{{ $t('saveResult') }}</button>
-    </div>
+      </div>
 
-    <div v-if="showDatePicker" class="modal-backdrop">
-      <div class="modal">
-        <h3>{{ $t('chooseDate') }}</h3>
-        <input type="date" v-model="pickedDate" />
-        <div class="modal-actions">
-          <button class="btn-secondary" @click="confirmSave">{{ $t('confirm') }}</button>
-          <button class="btn-secondary" @click="closeDatePicker">{{ $t('cancel') }}</button>
+      <div v-if="showDatePicker" class="modal-backdrop">
+        <div class="modal">
+          <h3>{{ $t('chooseDate') }}</h3>
+          <input type="date" v-model="pickedDate" />
+          <div class="modal-actions">
+            <button class="btn-secondary" @click="confirmSave">{{ $t('confirm') }}</button>
+            <button class="btn-secondary" @click="closeDatePicker">{{ $t('cancel') }}</button>
           </div>
         </div>
       </div>
@@ -139,30 +140,42 @@ const scoreDifferential = computed(() => {
   if (!calculated.value) return 0
   if (holes.value === '9') {
     const played9 = (grossScore.value - courseRating.value) * (113 / slope.value)
-    const notPlayed9 = handicapIndexInput.value * 0.52 + 1.2
+    const notPlayed9 =((handicapIndexInput.value * 1.04) + 2.4) / 2.0
     return parseFloat((played9 + notPlayed9 - 0.5 * pccAdjustment.value).toFixed(1))
   }
   const raw18 = (grossScore.value - courseRating.value) * (113 / slope.value)
   return parseFloat((raw18 - pccAdjustment.value).toFixed(1))
 })
 
-const computeHandicap = diffs => {
+function computeHandicap(diffs, prevHC = null) {
   const n = diffs.length
   if (n === 0) return 0
+  console.log("n: " + n)
   let count, adj
-  if (n <= 3) { count = 1; adj = -2.0 }
+  if (n <= 3)      { count = 1; adj = -2.0 }
   else if (n === 4) { count = 1; adj = -1.0 }
   else if (n === 5) { count = 1; adj = 0.0 }
   else if (n === 6) { count = 2; adj = -1.0 }
-  else if (n <= 8) { count = 2; adj = 0.0 }
+  else if (n <= 8)  { count = 2; adj = 0.0 }
   else if (n <= 11) { count = 3; adj = 0.0 }
   else if (n <= 14) { count = 4; adj = 0.0 }
   else if (n <= 16) { count = 5; adj = 0.0 }
   else if (n <= 18) { count = 6; adj = 0.0 }
   else if (n === 19) { count = 7; adj = 0.0 }
-  else { count = 8; adj = 0.0 }
-  const avg = diffs.slice(0, count).reduce((a, v) => a + v, 0) / count
-  return parseFloat((avg + adj).toFixed(1))
+  else               { count = 8; adj = 0.0 }
+  console.log("count: " + count)
+  console.log("adjustment: " + adj)
+  const avg = diffs.slice(0, count).reduce((sum, v) => sum + v, 0) / count
+  console.log("avg: " + avg)
+  let hc = parseFloat((avg + adj).toFixed(1))
+  console.log("hc: " + hc)
+  console.log("prevHC: " + prevHC)
+  // 26.5-Bremse: if prevHC between 26.5 & 54 and hc > prevHC, keep prevHC
+  if (prevHC !== null && prevHC >= 26.5 && prevHC <= 54 && hc > prevHC) {
+    hc = prevHC
+  }
+  console.log("hc: " + hc)  
+  return hc
 }
 
 const sortedResults = computed(() =>
@@ -198,9 +211,11 @@ function openDatePicker() {
 }
 
 async function confirmSave() {
-  // compute new handicap based on new and old diffs
+  // neue Score einfügen und Handicap neu berechnen
   const allDiffs = [scoreDifferential.value, ...results.value.map(r => r.scoreDifferential)].sort((a, b) => a - b)
+  console.log("allDiffs: " + allDiffs)
   const newHC = computeHandicap(allDiffs)
+
   const entry = {
     date: pickedDate.value,
     courseName: `${courseRating.value}/${slope.value}`,
@@ -208,36 +223,59 @@ async function confirmSave() {
     scoreDifferential: scoreDifferential.value,
     storedHandicap: newHC
   }
+
   const id = await db.results.add(entry)
-  results.value.unshift({ id, ...entry })
+  results.value.push({ id, ...entry })
+
+  // 2) **Komplett neu berechnen** – älteste → neueste
+  await recalculateAll()
+
+  // 3) UI zurücksetzen
   calculated.value = false
-  handicapIndexInput.value = newHC
+  handicapIndexInput.value = results.value[0].storedHandicap
   showDatePicker.value = false
+}
+
+async function recalculateAll() {
+  // 1) Ascending nach Datum
+  const ascending = [...results.value]
+    .sort((a,b) => new Date(a.date) - new Date(b.date))
+
+  let prevHC = null
+  for (let i = 0; i < ascending.length; i++) {
+    // 2) alle Differentials bis i
+    const diffs = ascending
+      .slice(0,i+1)
+      .map(r => r.scoreDifferential)
+      .sort((a,b) => a - b)
+
+    // 3) Handicap mit Bremse berechnen
+    const hc = computeHandicap(diffs, prevHC)
+    ascending[i].storedHandicap = hc
+
+    // 4) in DB updaten
+    await db.results.update(ascending[i].id, { storedHandicap: hc })
+
+    prevHC = hc
+  }
+
+  // 5) Für die UI wieder absteigend sortieren
+  results.value = ascending
+    .sort((a,b) => new Date(b.date) - new Date(a.date))
+
+  // Eingabefeld aktualisieren
+  handicapIndexInput.value = results.value[0]?.storedHandicap || 0
 }
 
 async function deleteResult(id) {
   await db.results.delete(id)
   results.value = results.value.filter(r => r.id !== id)
-  // optionally recompute all stored handicaps:
   await recalculateAll()
 }
 
-async function recalculateAll() {
-  // recalc sequentially by date ascending
-  const ascending = [...results.value].sort((a, b) => new Date(a.date) - new Date(b.date))
-  const updated = []
-  for (let i = 0; i < ascending.length; i++) {
-    const diffs = ascending.slice(0, i + 1).map(r => r.scoreDifferential).sort((a, b) => a - b)
-    const hc = computeHandicap(diffs)
-    ascending[i].storedHandicap = hc
-    await db.results.update(ascending[i].id, { storedHandicap: hc })
-    updated.push(ascending[i])
-  }
-  results.value = updated.sort((a, b) => new Date(b.date) - new Date(a.date))
-  handicapIndexInput.value = results.value[0]?.storedHandicap || 0
+function closeDatePicker() {
+  showDatePicker.value = false
 }
-
-function closeDatePicker() { showDatePicker.value = false }
 </script>
 
 <style>
@@ -377,6 +415,11 @@ body {
 
 .score-neutral {
   color: var(--text);
+}
+
+.current-index {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .note {

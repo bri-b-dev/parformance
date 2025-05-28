@@ -10,13 +10,13 @@ const messages = {
         Enter your current handicap (HCPI), adjusted gross score (AGS), course rating (CR), slope and Playing Conditions Calculation (PCC) to get your individual result.',
         choose: 'Choose...',
         holes: 'holes',
-        holesPlayed: 'Holes played:',
-        handicapIndex: 'Handicap-Index (HCPI):',
+        holesPlayed: 'Holes played',
+        handicapIndex: 'Handicap-Index (HCPI)',
         forExample: 'e.g.',
-        courseRating: 'Course Rating (CR):',
+        courseRating: 'Course Rating (CR)',
         slope: 'Slope:',
-        grossScore: 'Adjusted Gross Score (AGS):',
-        pcc: 'Playing Conditions Calculation (PCC):',
+        grossScore: 'Adjusted Gross Score (AGS)',
+        pcc: 'Playing Conditions Calculation (PCC)',
         pccNote: 'Note: The PCC adjustment ranges from -1.0 to +3.0 (see Rule 5.6).',
         scoreDifferential: 'Score Differential',
         calculate: 'Calculate',
@@ -35,6 +35,8 @@ const messages = {
         chooseDate: 'choose date',
         currentHandicap: 'Current Handicap',
         delete: 'delete',
+        handicapIndexLabel: 'Handicap-Index (HCPI)',
+        recalculateHandicap: 'recalculate Handicap'
     },
     de: {
         title: 'Score Differential Rechner',
@@ -67,6 +69,8 @@ const messages = {
         chooseDate: 'Datum wählen',
         currentHandicap: 'Aktuelles Handicap',
         delete: 'Löschen',
+        handicapIndexLabel: 'Handicap-Index (HCPI)',
+        recalculateHandicap: 'Handicap neu berechnen',
     }
 }
 

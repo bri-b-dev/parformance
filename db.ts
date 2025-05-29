@@ -1,28 +1,36 @@
+// src/db.ts
 import Dexie from 'dexie'
 import type { Table } from 'dexie'
 
-// Definiere das Datenbankschema
 export interface Result {
-    id?: number
-    date: string      // ISO-String
-    courseName: string
-    grossScore: number
-    scoreDifferential: number
+  id?: number
+  date: string
+  courseName: string
+  grossScore: number
+  scoreDifferential: number
 }
 
-// Erstelle und konfiguriere die IndexedDB
+export interface Setting {
+  key: string     // z. B. "locale"
+  value: any      // z. B. "de" oder "en"
+}
+
 export class ScoreDiffDB extends Dexie {
-    // Table-Typisierung
-    results!: Table<Result, number>
+  results!: Table<Result, number>
+  settings!: Table<Setting, string>
 
-    constructor() {
-        super('ScoreDiffDB')
-        this.version(1).stores({
-            // ++id = Autoincrement-PrimaryKey
-            results: '++id,date,courseName,grossScore,scoreDifferential'
-        })
-    }
+  constructor() {
+    super('ScoreDiffDB')
+    // Erstes Schema für Version 1
+    this.version(1).stores({
+      results: '++id, date, courseName, grossScore, scoreDifferential',
+    })
+    // Upgrade-Schema für Version 2: neue Tabelle "settings"
+    this.version(2).stores({
+      // "&key" sorgt dafür, dass key der Primärschlüssel ist
+      settings: '&key'
+    })
+  }
 }
 
-// Singleton-Export
 export const db = new ScoreDiffDB()

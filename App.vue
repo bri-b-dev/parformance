@@ -8,7 +8,7 @@
     </div>
 
     <div class="card">
-      <h1 class="title">{{ $t('title') }}</h1>
+      <LogoIcon class="title" />
       <p class="intro">{{ $t('intro') }}</p>
 
       <div class="note">
@@ -123,15 +123,16 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { db } from '@/db'
 import { useI18n } from 'vue-i18n'
 import HandicapChart from '@/components/HandicapChart.vue'
+import LogoIcon from '@/components/IconLogo.vue'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const holes = ref('')
-const handicapIndexInput = ref(0)
+const handicapIndexInput = ref(null)
 const courseRating = ref(null)
 const slope = ref(null)
 const grossScore = ref(null)
@@ -195,7 +196,13 @@ const scoreColorClass = computed(() => {
 onMounted(async () => {
   results.value = await db.results.orderBy('date').reverse().toArray()
   // direkt nach Laden den Input auf den aktuellen storedHandicap setzen
-  handicapIndexInput.value = storedHandicap.value ?? 0
+  if (results.value.length > 0) {
+    handicapIndexInput.value = storedHandicap.value ?? 0
+  }
+  const localeSaved = await db.settings.get('locale')
+  if (localeSaved?.value) {
+    locale.value = localeSaved.value
+  }
 })
 
 
@@ -276,6 +283,10 @@ async function deleteResult(id) {
 function closeDatePicker() {
   showDatePicker.value = false
 }
+
+watch(locale, async (newLocale) => {
+  await db.settings.put({ key: 'locale', value: newLocale })
+})
 </script>
 
 <style>
@@ -490,7 +501,7 @@ tbody tr:nth-child(odd) {
 }
 
 .btn-delete:hover {
-  background: var(--danger-muted);
+  background: var(--danger);
   color: #fff;
 }
 

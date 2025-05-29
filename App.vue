@@ -194,7 +194,10 @@ const scoreColorClass = computed(() => {
 
 onMounted(async () => {
   results.value = await db.results.orderBy('date').reverse().toArray()
+  // direkt nach Laden den Input auf den aktuellen storedHandicap setzen
+  handicapIndexInput.value = storedHandicap.value ?? 0
 })
+
 
 function onCalculate() { calculated.value = true }
 

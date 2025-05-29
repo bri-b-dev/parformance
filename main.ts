@@ -41,6 +41,9 @@ const messages = {
         scoreDifferentialShort: 'SD',
         grossScoreShort: 'AGS',
         development: 'Development',
+        confirm: 'ok',
+        cancel: 'cancel',
+        inconsistentIndex: 'The given HCPI does not match your calculated - you cannot save the result'
     },
     de: {
         title: 'Score Differential Rechner',
@@ -79,6 +82,10 @@ const messages = {
         scoreDifferentialShort: 'SD',
         grossScoreShort: 'GBE',
         development: 'Entwicklung',
+        confirm: 'OK',
+        cancel: 'Abbrechen',
+        inconsistentIndex: 'Speichern des Ergebnisses nicht möglich - der angegebene HCPI weicht von deinem errechneten ab',
+
     }
 }
 

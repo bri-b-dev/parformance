@@ -280,8 +280,8 @@ function closeDatePicker() {
 
 <style>
 :root {
-  --primary: #005f73;
-  --accent: #2a9d8f;
+  --primary: #1d623a;
+  --accent: #55946f;
   --danger: #e76f51;
   --danger-muted: #e38f7a;
   --bg-card: #fff;
@@ -333,6 +333,7 @@ body {
   margin: 0;
   font-size: 2rem;
   color: var(--primary);
+  text-align: center;
 }
 
 .intro {

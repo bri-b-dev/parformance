@@ -119,6 +119,7 @@
       <HandicapChart :data="sortedResults" />
     </div>
 
+    <div class="note">{{ $t('rights') }}</div>
   </div>
 </template>
 

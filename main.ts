@@ -6,8 +6,8 @@ import { createI18n } from 'vue-i18n'
 const messages = {
     en: {
         title: 'HandyCap',
-        intro: 'With this tool you can determine your Score Differential for 9 or 18 holes and manage your handicap.\
-        Enter your current handicap (HCPI), adjusted gross score (AGS), course rating (CR), slope and Playing Conditions Calculation (PCC) to get your individual result.',
+        intro: 'With HandyCap you can determine your score differential for 9 or 18 holes and manage your handicap. \
+        Enter your current handicap (HCPI), adjusted gross score (AGS), the course rating (CR), the slope and the Playing Conditions Calculation (PCC) to calculate your individual score.',
         choose: 'Choose...',
         holes: 'holes',
         holesPlayed: 'Holes played',
@@ -43,11 +43,12 @@ const messages = {
         development: 'Development',
         confirm: 'ok',
         cancel: 'cancel',
-        inconsistentIndex: 'The given HCPI does not match your calculated - you cannot save the result'
+        inconsistentIndex: 'The given HCPI does not match your calculated - you cannot save the result',
+        rights: '© 2025, Brigitte Boehm. All rights reserved.'
     },
     de: {
         title: 'HandyCap',
-        intro: 'Mit diesem Tool kannst du dein Score Differential für 9 oder 18 Löcher bestimmen und dein Handicap verwalten.\
+        intro: 'Mit HandyCap kannst du dein Score Differential für 9 oder 18 Löcher bestimmen und dein Handicap verwalten.\
         Gib dein aktuelles Handicap (HCPI), dein gewertetes Bruttoergebnis (GBE), das Course Rating (CR), den Slope und die Korrektur ein, um dein individuelles Ergebnis zu errechnen.',
         choose: 'Wähle...',
         holes: 'Löcher',
@@ -85,7 +86,7 @@ const messages = {
         confirm: 'OK',
         cancel: 'Abbrechen',
         inconsistentIndex: 'Speichern des Ergebnisses nicht möglich - der angegebene HCPI weicht von deinem errechneten ab',
-
+        rights: '© 2025, Brigitte Böhm. Alle Rechte vorbehalten.'
     }
 }
 

@@ -50,8 +50,7 @@
 
         <div class="form-group">
           <label>{{ $t('slope') }}</label>
-          <input type="number" v-model.number="slope" required 
-            :placeholder="`${$t('forExample')} 113`" />
+          <input type="number" v-model.number="slope" required :placeholder="`${$t('forExample')} 113`" />
         </div>
 
         <div class="form-group">
@@ -115,10 +114,10 @@
         </tbody>
       </table>
     </div>
-    <HandicapChart 
-      v-if="sortedResults.length" 
-      :data="sortedResults" 
-    />
+    <div class="card development-card" v-if="sortedResults.length">
+      <h2>{{ $t('development') }}</h2>
+      <HandicapChart :data="sortedResults" />
+    </div>
 
   </div>
 </template>
@@ -146,7 +145,7 @@ const scoreDifferential = computed(() => {
   if (!calculated.value) return 0
   if (holes.value === '9') {
     const played9 = (grossScore.value - courseRating.value) * (113 / slope.value)
-    const notPlayed9 =((handicapIndexInput.value * 1.04) + 2.4) / 2.0
+    const notPlayed9 = ((handicapIndexInput.value * 1.04) + 2.4) / 2.0
     return parseFloat((played9 + notPlayed9 - 0.5 * pccAdjustment.value).toFixed(1))
   }
   const raw18 = (grossScore.value - courseRating.value) * (113 / slope.value)
@@ -158,17 +157,17 @@ function computeHandicap(diffs, prevHC = null) {
   if (n === 0) return 0
   console.log("n: " + n)
   let count, adj
-  if (n <= 3)      { count = 1; adj = -2.0 }
+  if (n <= 3) { count = 1; adj = -2.0 }
   else if (n === 4) { count = 1; adj = -1.0 }
   else if (n === 5) { count = 1; adj = 0.0 }
   else if (n === 6) { count = 2; adj = -1.0 }
-  else if (n <= 8)  { count = 2; adj = 0.0 }
+  else if (n <= 8) { count = 2; adj = 0.0 }
   else if (n <= 11) { count = 3; adj = 0.0 }
   else if (n <= 14) { count = 4; adj = 0.0 }
   else if (n <= 16) { count = 5; adj = 0.0 }
   else if (n <= 18) { count = 6; adj = 0.0 }
   else if (n === 19) { count = 7; adj = 0.0 }
-  else               { count = 8; adj = 0.0 }
+  else { count = 8; adj = 0.0 }
   console.log("count: " + count)
   console.log("adjustment: " + adj)
   const avg = diffs.slice(0, count).reduce((sum, v) => sum + v, 0) / count
@@ -180,7 +179,7 @@ function computeHandicap(diffs, prevHC = null) {
   if (prevHC !== null && prevHC >= 26.5 && prevHC <= 54 && hc > prevHC) {
     hc = prevHC
   }
-  console.log("hc: " + hc)  
+  console.log("hc: " + hc)
   return hc
 }
 
@@ -245,15 +244,15 @@ async function confirmSave() {
 async function recalculateAll() {
   // 1) Ascending nach Datum
   const ascending = [...results.value]
-    .sort((a,b) => new Date(a.date) - new Date(b.date))
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
 
   let prevHC = null
   for (let i = 0; i < ascending.length; i++) {
     // 2) alle Differentials bis i
     const diffs = ascending
-      .slice(0,i+1)
+      .slice(0, i + 1)
       .map(r => r.scoreDifferential)
-      .sort((a,b) => a - b)
+      .sort((a, b) => a - b)
 
     // 3) Handicap mit Bremse berechnen
     const hc = computeHandicap(diffs, prevHC)
@@ -267,7 +266,7 @@ async function recalculateAll() {
 
   // 5) Für die UI wieder absteigend sortieren
   results.value = ascending
-    .sort((a,b) => new Date(b.date) - new Date(a.date))
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
 
   // Eingabefeld aktualisieren
   handicapIndexInput.value = results.value[0]?.storedHandicap || 0
@@ -501,7 +500,7 @@ tbody tr:nth-child(odd) {
 
 /* Ergebnisse-Card */
 .results-card {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .results-card table {
@@ -531,6 +530,10 @@ tbody tr:nth-child(odd) {
     align-items: center;
     justify-content: center;
   }
+
+.development-card {
+  margin-top: 1rem;
+}
 
   .modal {
     background: #fff;

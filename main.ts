@@ -40,6 +40,7 @@ const messages = {
         handicapIndexShort: 'HCPI',
         scoreDifferentialShort: 'SD',
         grossScoreShort: 'AGS',
+        development: 'Development',
     },
     de: {
         title: 'Score Differential Rechner',
@@ -77,6 +78,7 @@ const messages = {
         handicapIndexShort: 'HCPI',
         scoreDifferentialShort: 'SD',
         grossScoreShort: 'GBE',
+        development: 'Entwicklung',
     }
 }
 

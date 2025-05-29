@@ -5,8 +5,8 @@ import { createI18n } from 'vue-i18n'
 // 1) Definiere deine Übersetzungs-Objekte
 const messages = {
     en: {
-        title: 'Score Differential Calculator',
-        intro: 'With this tool you can determine your Score Differential for 9 or 18 holes.\
+        title: 'Handicap Calculator',
+        intro: 'With this tool you can determine your Score Differential for 9 or 18 holes and manage your handicap.\
         Enter your current handicap (HCPI), adjusted gross score (AGS), course rating (CR), slope and Playing Conditions Calculation (PCC) to get your individual result.',
         choose: 'Choose...',
         holes: 'holes',
@@ -46,8 +46,8 @@ const messages = {
         inconsistentIndex: 'The given HCPI does not match your calculated - you cannot save the result'
     },
     de: {
-        title: 'Score Differential Rechner',
-        intro: 'Mit diesem Tool kannst du dein Score Differential für 9 oder 18 Löcher bestimmen.\
+        title: 'Handicap Rechner',
+        intro: 'Mit diesem Tool kannst du dein Score Differential für 9 oder 18 Löcher bestimmen und dein Handicap verwalten.\
         Gib dein aktuelles Handicap (HCPI), dein gewertetes Bruttoergebnis (GBE), das Course Rating (CR), den Slope und die Korrektur ein, um dein individuelles Ergebnis zu errechnen.',
         choose: 'Wähle...',
         holes: 'Löcher',

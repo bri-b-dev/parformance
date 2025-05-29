@@ -36,7 +36,10 @@ const messages = {
         currentHandicap: 'Current Handicap',
         delete: 'delete',
         handicapIndexLabel: 'Handicap-Index (HCPI)',
-        recalculateHandicap: 'recalculate Handicap'
+        recalculateHandicap: 'recalculate Handicap',
+        handicapIndexShort: 'HCPI',
+        scoreDifferentialShort: 'SD',
+        grossScoreShort: 'AGS',
     },
     de: {
         title: 'Score Differential Rechner',
@@ -71,6 +74,9 @@ const messages = {
         delete: 'Löschen',
         handicapIndexLabel: 'Handicap-Index (HCPI)',
         recalculateHandicap: 'Handicap neu berechnen',
+        handicapIndexShort: 'HCPI',
+        scoreDifferentialShort: 'SD',
+        grossScoreShort: 'GBE',
     }
 }
 

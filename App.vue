@@ -97,9 +97,9 @@
           <tr>
             <th>{{ $t('date') }}</th>
             <th>{{ $t('course') }}</th>
-            <th>{{ $t('grossScore') }}</th>
-            <th>{{ $t('scoreDifferential') }}</th>
-            <th>{{ $t('handicapIndex') }}</th>
+            <th>{{ $t('handicapIndexShort') }}</th>
+            <th>{{ $t('scoreDifferentialShort') }}</th>
+            <th>{{ $t('handicapIndexShort') }}</th>
             <th></th>
           </tr>
         </thead>

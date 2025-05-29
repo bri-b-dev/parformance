@@ -155,7 +155,6 @@ const scoreDifferential = computed(() => {
 function computeHandicap(diffs, prevHC = null) {
   const n = diffs.length
   if (n === 0) return 0
-  console.log("n: " + n)
   let count, adj
   if (n <= 3) { count = 1; adj = -2.0 }
   else if (n === 4) { count = 1; adj = -1.0 }
@@ -168,18 +167,12 @@ function computeHandicap(diffs, prevHC = null) {
   else if (n <= 18) { count = 6; adj = 0.0 }
   else if (n === 19) { count = 7; adj = 0.0 }
   else { count = 8; adj = 0.0 }
-  console.log("count: " + count)
-  console.log("adjustment: " + adj)
   const avg = diffs.slice(0, count).reduce((sum, v) => sum + v, 0) / count
-  console.log("avg: " + avg)
   let hc = parseFloat((avg + adj).toFixed(1))
-  console.log("hc: " + hc)
-  console.log("prevHC: " + prevHC)
   // 26.5-Bremse: if prevHC between 26.5 & 54 and hc > prevHC, keep prevHC
   if (prevHC !== null && prevHC >= 26.5 && prevHC <= 54 && hc > prevHC) {
     hc = prevHC
   }
-  console.log("hc: " + hc)
   return hc
 }
 
@@ -218,7 +211,6 @@ function openDatePicker() {
 async function confirmSave() {
   // neue Score einfügen und Handicap neu berechnen
   const allDiffs = [scoreDifferential.value, ...results.value.map(r => r.scoreDifferential)].sort((a, b) => a - b)
-  console.log("allDiffs: " + allDiffs)
   const newHC = computeHandicap(allDiffs)
 
   const entry = {
@@ -311,14 +303,14 @@ body {
 .container {
   max-width: 900px;
   margin: auto;
-  padding: 2rem;
+  padding: 1rem;
   position: relative;
 }
 
 .lang-switcher {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.5rem;
+  right: 1.5rem;
 }
 
 .lang-switcher select {
@@ -517,45 +509,45 @@ tbody tr:nth-child(odd) {
 
 .results-card tbody tr:nth-child(odd) {
   background: #f9f9fb;
+}
 
-  /* einfaches Modal-Styling */
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* einfaches Modal-Styling */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .development-card {
   margin-top: 1rem;
 }
 
-  .modal {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 320px;
-    text-align: center;
-  }
+.modal {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+}
 
-  .modal-actions {
-    margin-top: 1rem;
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-  }
+.modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
 
-  .modal-actions button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.modal-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 </style>

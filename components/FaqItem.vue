@@ -1,4 +1,3 @@
-<!-- src/components/FaqItem.vue -->
 <template>
   <div class="faq-card">
     <div class="faq-header" @click="toggle">
@@ -41,6 +40,7 @@ function toggle() {
 .faq-card {
   margin-top: 1rem;
 }
+
 .faq-header {
   display: flex;
   justify-content: space-between;
@@ -50,6 +50,7 @@ function toggle() {
   background: var(--bg-card);
   border-bottom: 1px solid #ddd;
 }
+
 .toggle-button {
   background: transparent;
   border: none;
@@ -57,15 +58,18 @@ function toggle() {
   line-height: 1;
   cursor: pointer;
 }
+
 .collapse-enter-from,
 .collapse-leave-to {
   height: 0;
   overflow: hidden;
 }
+
 .collapse-enter-active,
 .collapse-leave-active {
   transition: height 0.3s ease;
 }
+
 .faq-content {
   padding: 1rem;
 }

@@ -166,6 +166,7 @@
       </transition>
     </div>
 
+    <FAQ/>
     <div class="note">{{ $t('rights') }}</div>
   </div>
 </template>
@@ -176,6 +177,7 @@ import { db } from '@/db'
 import { useI18n } from 'vue-i18n'
 import HandicapChart from '@/components/HandicapChart.vue'
 import LogoIcon from '@/components/IconLogo.vue'
+import FAQ from '@/components/FAQ.vue'
 
 const { t, locale } = useI18n()
 

@@ -48,6 +48,7 @@ const messages = {
         confirmDeleteTitle: 'Delete result',
         confirmDeleteMessage: 'Are you sure, you want to delete this result?',
         aboutScoreDifferentials: 'About Score Differentials',
+        sdVsHcpiText: '',
     },
     de: {
         title: 'HandyCap',
@@ -93,7 +94,16 @@ const messages = {
         confirmDeleteTitle: 'Ergebnis löschen',
         confirmDeleteMessage: 'Bist du dir sicher, dass du dieses Ergebnis löschen möchtest?',
         aboutScoreDifferentials: 'Über Score Differentials',
-    }
+        sdVsHcpiText: '<b>Score Differential</b><br/>\
+Das ist ein normierter Wert, der deine tatsächliche Runde (Brutto­score) mit dem Schwierigkeits­level des Platzes (Course Rating und Slope) verrechnet. Er zeigt, wie gut du im Verhältnis zu einem „Scratch“-Golfer (Handicap 0) gespielt hast. Niedrigere Differentials heißen: gute Runde.<br/><br/>\
+<b>Handicap Index</b><br/>\
+Das ist dein Persönlichkeits­index, also eine Zahl, die dein langfristiges Spielniveau widerspiegelt. Er ergibt sich aus einer Auswahl deiner besten Score Differentials – je nach Anzahl der erspielten Runden werden die niedrigsten 1–8 Differentials gemittelt und um einen kleinen Korrekturfaktor verschoben.<br/><br/>\
+<b>Wie sie zusammenhängen</b><br/>\
+Für jede Runde berechnest du erst das Score Differential.<br/>\
+Du sammelst deine letzten 20 Differentials (oder weniger, wenn du noch nicht so viele Runden gespielt hast).<br/>\
+Aus diesen Werten wählst du die besten (niedrigsten) aus, mittlest sie und wendest den USGA-Korrektur­faktor an – das ergibt deinen Handicap Index.<br/><br/>\
+Kurz: Das Score Differential ist der „Rohwert“ pro Runde, der Handicap Index das „Profil“ aus deinen besten Runden.',
+    },
 }
 
 // 2) Erzeuge das i18n-Plugin
@@ -102,6 +112,7 @@ const i18n = createI18n({
     locale: 'en',
     fallbackLocale: 'de',
     messages,
+    warnHtmlMessage: false
 })
 
 const app = createApp(App)

@@ -44,7 +44,10 @@ const messages = {
         confirm: 'ok',
         cancel: 'cancel',
         inconsistentIndex: 'The given HCPI does not match your calculated - you cannot save the result',
-        rights: '© 2025, Brigitte Boehm. All rights reserved.'
+        rights: '© 2025, Brigitte Boehm. All rights reserved.',
+        confirmDeleteTitle: 'Delete result',
+        confirmDeleteMessage: 'Are you sure, you want to delete this result?',
+        aboutScoreDifferentials: 'About Score Differentials',
     },
     de: {
         title: 'HandyCap',
@@ -86,7 +89,10 @@ const messages = {
         confirm: 'OK',
         cancel: 'Abbrechen',
         inconsistentIndex: 'Speichern des Ergebnisses nicht möglich - der angegebene HCPI weicht von deinem errechneten ab',
-        rights: '© 2025, Brigitte Böhm. Alle Rechte vorbehalten.'
+        rights: '© 2025, Brigitte Böhm. Alle Rechte vorbehalten.',
+        confirmDeleteTitle: 'Ergebnis löschen',
+        confirmDeleteMessage: 'Bist du dir sicher, dass du dieses Ergebnis löschen möchtest?',
+        aboutScoreDifferentials: 'Über Score Differentials',
     }
 }
 

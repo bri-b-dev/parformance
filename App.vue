@@ -109,14 +109,61 @@
             <td>{{ res.grossScore }}</td>
             <td>{{ res.scoreDifferential.toFixed(1) }}</td>
             <td>{{ res.storedHandicap?.toFixed(1) }}</td>
-            <td><button class="btn-delete" @click="deleteResult(res.id)">{{ $t('delete') }}</button></td>
+            <td><button class="btn-delete" @click="openDeleteConfirm(res.id)">{{ $t('delete') }}</button></td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="card development-card" v-if="sortedResults.length">
-      <h2>{{ $t('development') }}</h2>
       <HandicapChart :data="sortedResults" />
+    </div>
+
+    <!-- Lösch-Bestätigung-Modal -->
+    <div v-if="showDeleteConfirm" class="modal-backdrop">
+      <div class="modal">
+        <h3>{{ $t('confirmDeleteTitle') }}</h3>
+        <p>{{ $t('confirmDeleteMessage') }}</p>
+        <div class="modal-actions">
+          <button class="btn-secondary" @click="confirmDelete">{{ $t('confirm') }}</button>
+          <button class="btn-secondary" @click="cancelDelete">{{ $t('cancel') }}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card about-card">
+      <div class="about-header" @click="toggleAbout">
+        <h2>{{ $t('aboutScoreDifferentials') }}</h2>
+        <button class="toggle-button" aria-label="Toggle info">
+          {{ showAbout ? '-' : '+' }}
+        </button>
+      </div>
+      <transition name="collapse">
+        <div v-show="showAbout" class="about-content">
+          <p>{{ $t('note2') }}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>{{ $t('noOfResults') }}</th>
+                <th>{{ $t('consideredScoreDifferentials') }}</th>
+                <th>{{ $t('adjustment') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>{{ $t('lowest') }}</td><td>-2.0</td></tr>
+              <tr><td>2</td><td>{{ $t('lowest') }}</td><td>-2.0</td></tr>
+              <tr><td>3</td><td>{{ $t('lowest') }}</td><td>-2.0</td></tr>
+              <tr><td>4</td><td>{{ $t('lowest') }}</td><td>-1.0</td></tr>
+              <tr><td>5</td><td>{{ $t('lowest') }}</td><td>0</td></tr>
+              <tr><td>6</td><td>{{ $t('lowestAverage') }} 2</td><td>-1.0</td></tr>
+              <tr><td>7-8</td><td>{{ $t('lowestAverage') }} 2</td><td>0</td></tr>
+              <tr><td>9-11</td><td>{{ $t('lowestAverage') }} 3</td><td>0</td></tr>
+              <tr><td>12-14</td><td>{{ $t('lowestAverage') }} 4</td><td>0</td></tr>
+              <tr><td>15-16</td><td>{{ $t('lowestAverage') }} 5</td><td>0</td></tr>
+              <tr><td>17-18</td><td>{{ $t('lowestAverage') }} 6</td><td>0</td></tr>
+              <tr><td>19</td><td>{{ $t('lowestAverage') }} 7</td><td>0</td></tr>
+              <tr><td>20</td><td>{{ $t('lowestAverage') }} 8</td><td>0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </transition>
     </div>
 
     <div class="note">{{ $t('rights') }}</div>
@@ -142,6 +189,10 @@ const calculated = ref(false)
 const results = ref([])
 const showDatePicker = ref(false)
 const pickedDate = ref(new Date().toISOString().slice(0, 10))
+
+// Neue Zustände für Lösch-Bestätigung
+const showDeleteConfirm = ref(false)
+const deleteTargetId = ref(null)
 
 const scoreDifferential = computed(() => {
   if (!calculated.value) return 0
@@ -196,7 +247,6 @@ const scoreColorClass = computed(() => {
 
 onMounted(async () => {
   results.value = await db.results.orderBy('date').reverse().toArray()
-  // direkt nach Laden den Input auf den aktuellen storedHandicap setzen
   if (results.value.length > 0) {
     handicapIndexInput.value = storedHandicap.value ?? 0
   }
@@ -205,7 +255,6 @@ onMounted(async () => {
     locale.value = localeSaved.value
   }
 })
-
 
 function onCalculate() { calculated.value = true }
 
@@ -275,6 +324,22 @@ async function recalculateAll() {
   handicapIndexInput.value = results.value[0]?.storedHandicap || 0
 }
 
+// Neue Funktionen für Lösch-Bestätigung
+function openDeleteConfirm(id) {
+  deleteTargetId.value = id
+  showDeleteConfirm.value = true
+}
+
+async function confirmDelete() {
+  await deleteResult(deleteTargetId.value)
+  cancelDelete()
+}
+
+function cancelDelete() {
+  showDeleteConfirm.value = false
+  deleteTargetId.value = null
+}
+
 async function deleteResult(id) {
   await db.results.delete(id)
   results.value = results.value.filter(r => r.id !== id)
@@ -283,6 +348,11 @@ async function deleteResult(id) {
 
 function closeDatePicker() {
   showDatePicker.value = false
+}
+
+const showAbout = ref(false)
+function toggleAbout() {
+  showAbout.value = !showAbout.value
 }
 
 watch(locale, async (newLocale) => {
@@ -540,8 +610,40 @@ tbody tr:nth-child(odd) {
   justify-content: center;
 }
 
-.development-card {
+.about-card {
   margin-top: 1rem;
+}
+
+.about-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid #ddd;
+}
+
+.toggle-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.collapse-enter-from,
+.collapse-leave-to {
+  height: 0;
+  overflow: hidden;
+}
+.collapse-enter-active,
+.collapse-leave-active {
+  transition: height 0.3s ease;
+}
+
+.about-content {
+  padding: 1rem;
 }
 
 .modal {

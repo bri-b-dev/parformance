@@ -48,7 +48,16 @@ const messages = {
         confirmDeleteTitle: 'Delete result',
         confirmDeleteMessage: 'Are you sure, you want to delete this result?',
         aboutScoreDifferentials: 'About Score Differentials',
-        sdVsHcpiText: '',
+        sdVsHcpiTitle: 'Score-Differential vs. Handicap-Index',
+        sdVsHcpiText: '<b>Score Differential</b><br/>\
+This is a normed value, that calculates your played round (gross score) with the difficulty of the course (Course Rating and Slope). It shows how good you played compared to a "scratch"-golfer (handicap 0). Lower differentials mean good round.<br/><br/>\
+<b>Handicap Index</b><br/>\
+This is your personal index, i.e. a number representing your personal level. It results from a selection of your best Score Differentials - according to the number of played rounds the lowest 1-8 differentials are considered and adjusted by a small factor.<br/><br/>\
+<b>How they relate</b><br/>\
+First you calculate the Score Differential for each round.<br/>\
+You collect the last 20 differentials (or less in case you have not played as many rounds yet).<br/>\
+Calculate the mean of the lowest values and adjust according to USGA-rules – that results in your Handicap Index.<br/><br/>\
+In short: the Score Differential is the "raw value" per round, the Handicap Index the "profile" of your best rounds.',
     },
     de: {
         title: 'HandyCap',
@@ -94,6 +103,7 @@ const messages = {
         confirmDeleteTitle: 'Ergebnis löschen',
         confirmDeleteMessage: 'Bist du dir sicher, dass du dieses Ergebnis löschen möchtest?',
         aboutScoreDifferentials: 'Über Score Differentials',
+        sdVsHcpiTitle: 'Score-Differential vs. Handicap-Index',
         sdVsHcpiText: '<b>Score Differential</b><br/>\
 Das ist ein normierter Wert, der deine tatsächliche Runde (Brutto­score) mit dem Schwierigkeits­level des Platzes (Course Rating und Slope) verrechnet. Er zeigt, wie gut du im Verhältnis zu einem „Scratch“-Golfer (Handicap 0) gespielt hast. Niedrigere Differentials heißen: gute Runde.<br/><br/>\
 <b>Handicap Index</b><br/>\

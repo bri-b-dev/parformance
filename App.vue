@@ -179,6 +179,12 @@ import LogoIcon from '@/components/IconLogo.vue'
 
 const { t, locale } = useI18n()
 
+// State for About section
+const showAbout = ref(false)
+function toggleAbout() {
+  showAbout.value = !showAbout.value
+}
+
 const holes = ref('')
 const handicapIndexInput = ref(null)
 const courseRating = ref(null)
@@ -190,10 +196,11 @@ const results = ref([])
 const showDatePicker = ref(false)
 const pickedDate = ref(new Date().toISOString().slice(0, 10))
 
-// Neue Zustände für Lösch-Bestätigung
+// Delete confirm state
 const showDeleteConfirm = ref(false)
 const deleteTargetId = ref(null)
 
+// Compute score differential
 const scoreDifferential = computed(() => {
   if (!calculated.value) return 0
   if (holes.value === '9') {
@@ -205,7 +212,8 @@ const scoreDifferential = computed(() => {
   return parseFloat((raw18 - pccAdjustment.value).toFixed(1))
 })
 
-function computeHandicap(diffs, prevHC = null) {
+// Base handicap calculation (without cap)
+function computeBaseHandicap(diffs, prevHC = null) {
   const n = diffs.length
   if (n === 0) return 0
   let count, adj
@@ -222,11 +230,38 @@ function computeHandicap(diffs, prevHC = null) {
   else { count = 8; adj = 0.0 }
   const avg = diffs.slice(0, count).reduce((sum, v) => sum + v, 0) / count
   let hc = parseFloat((avg + adj).toFixed(1))
-  // 26.5-Bremse: if prevHC between 26.5 & 54 and hc > prevHC, keep prevHC
+  // Previous HC cap (26.5 rule)
   if (prevHC !== null && prevHC >= 26.5 && prevHC <= 54 && hc > prevHC) {
     hc = prevHC
   }
   return hc
+}
+
+// Apply cap procedure to newHC based on low HI in past year
+function applyCap(newHC, allRecords, currentIndex) {
+  const currentDate = new Date(allRecords[currentIndex].date)
+  const oneYearAgo = new Date(currentDate)
+  oneYearAgo.setDate(currentDate.getDate() - 365)
+
+  // Find low HI in last 365 days before current
+  const past = allRecords
+    .slice(0, currentIndex)
+    .filter(r => new Date(r.date) >= oneYearAgo)
+  const lowHI = past.length
+    ? Math.min(...past.map(r => r.storedHandicap))
+    : newHC
+
+  const diff = newHC - lowHI
+  if (diff <= 3) return newHC
+  // soft cap: above 3 strokes, half weight
+  const soft = lowHI + 3
+  const extra = diff - 3
+  const softIncrease = 3 + extra / 2
+  if (softIncrease <= 5) {
+    return parseFloat((lowHI + softIncrease).toFixed(1))
+  }
+  // hard cap at +5
+  return lowHI + 5
 }
 
 const sortedResults = computed(() =>
@@ -234,6 +269,7 @@ const sortedResults = computed(() =>
 )
 
 const storedHandicap = computed(() => {
+  //results.value.length ? results.value[0].storedHandicap : null
   if (!results.value.length) return null
   return results.value[0].storedHandicap
 })
@@ -247,97 +283,60 @@ const scoreColorClass = computed(() => {
 
 onMounted(async () => {
   results.value = await db.results.orderBy('date').reverse().toArray()
-  if (results.value.length > 0) {
+  if (results.value.length) {
     handicapIndexInput.value = storedHandicap.value ?? 0
   }
   const localeSaved = await db.settings.get('locale')
-  if (localeSaved?.value) {
-    locale.value = localeSaved.value
-  }
+  if (localeSaved?.value) locale.value = localeSaved.value
 })
 
 function onCalculate() { calculated.value = true }
 
 function openDatePicker() {
-  if (results.value.length > 0) {
+  if (results.value.length) {
     const entered = Number(handicapIndexInput.value.toFixed(1))
-    const lastHC = results.value[0].storedHandicap
-    if (entered !== lastHC) { alert(t('inconsistentIndex')); return }
+    if (entered !== results.value[0].storedHandicap) {
+      alert(t('inconsistentIndex'))
+      return
+    }
   }
   pickedDate.value = new Date().toISOString().slice(0, 10)
   showDatePicker.value = true
 }
 
 async function confirmSave() {
-  // neue Score einfügen und Handicap neu berechnen
-  const allDiffs = [scoreDifferential.value, ...results.value.map(r => r.scoreDifferential)].sort((a, b) => a - b)
-  const newHC = computeHandicap(allDiffs)
-
-  const entry = {
+  // add new record
+  const newEntry = {
     date: pickedDate.value,
     courseName: `${courseRating.value}/${slope.value}`,
     grossScore: grossScore.value,
     scoreDifferential: scoreDifferential.value,
-    storedHandicap: newHC
+    storedHandicap: 0
   }
-
-  const id = await db.results.add(entry)
-  results.value.push({ id, ...entry })
-
-  // 2) **Komplett neu berechnen** – älteste → neueste
+  const id = await db.results.add(newEntry)
+  results.value.push({ id, ...newEntry })
   await recalculateAll()
-
-  // 3) UI zurücksetzen
   calculated.value = false
   handicapIndexInput.value = results.value[0].storedHandicap
   showDatePicker.value = false
 }
 
 async function recalculateAll() {
-  // 1) Ascending nach Datum
-  const ascending = [...results.value]
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-
+  // sort ascending by date
+  const ascending = [...results.value].sort((a, b) => new Date(a.date) - new Date(b.date))
   let prevHC = null
   for (let i = 0; i < ascending.length; i++) {
-    // 2) alle Differentials bis i
-    const diffs = ascending
-      .slice(0, i + 1)
-      .map(r => r.scoreDifferential)
-      .sort((a, b) => a - b)
-
-    // 3) Handicap mit Bremse berechnen
-    const hc = computeHandicap(diffs, prevHC)
+    // compute base HC
+    const diffs = ascending.slice(0, i + 1).map(r => r.scoreDifferential).sort((a, b) => a - b)
+    let hc = computeBaseHandicap(diffs, prevHC)
+    // apply cap
+    hc = applyCap(hc, ascending, i)
     ascending[i].storedHandicap = hc
-
-    // 4) in DB updaten
     await db.results.update(ascending[i].id, { storedHandicap: hc })
-
     prevHC = hc
   }
-
-  // 5) Für die UI wieder absteigend sortieren
-  results.value = ascending
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-
-  // Eingabefeld aktualisieren
-  handicapIndexInput.value = results.value[0]?.storedHandicap || 0
-}
-
-// Neue Funktionen für Lösch-Bestätigung
-function openDeleteConfirm(id) {
-  deleteTargetId.value = id
-  showDeleteConfirm.value = true
-}
-
-async function confirmDelete() {
-  await deleteResult(deleteTargetId.value)
-  cancelDelete()
-}
-
-function cancelDelete() {
-  showDeleteConfirm.value = false
-  deleteTargetId.value = null
+  // update UI list
+  results.value = ascending.sort((a, b) => new Date(b.date) - new Date(a.date))
 }
 
 async function deleteResult(id) {
@@ -346,16 +345,14 @@ async function deleteResult(id) {
   await recalculateAll()
 }
 
-function closeDatePicker() {
-  showDatePicker.value = false
-}
+function closeDatePicker() { showDatePicker.value = false }
 
-const showAbout = ref(false)
-function toggleAbout() {
-  showAbout.value = !showAbout.value
-}
+// Delete confirm handlers
+function openDeleteConfirm(id) { deleteTargetId.value = id; showDeleteConfirm.value = true }
+async function confirmDelete() { await deleteResult(deleteTargetId.value); showDeleteConfirm.value = false }
+function cancelDelete() { showDeleteConfirm.value = false; deleteTargetId.value = null }
 
-watch(locale, async (newLocale) => {
+watch(locale, async newLocale => {
   await db.settings.put({ key: 'locale', value: newLocale })
 })
 </script>

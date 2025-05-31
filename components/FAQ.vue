@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card faq-card">
     <h2>{{ $t('faqTitle') }}</h2>
     <FaqItem
       v-for="(item, i) in items"
@@ -52,3 +52,9 @@ const items = computed(() => [
   },
 ])
 </script>
+
+<style scoped>
+.faq-card {
+  margin-top: 1rem;
+}
+</style>

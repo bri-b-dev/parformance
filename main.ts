@@ -74,7 +74,7 @@ const messages = {
   </tbody>\
 </table>',
 
-  courseRatingTitle: 'What is the Course Rating (CR)?',
+  courseRatingTitle: 'What is the Course Rating?',
   courseRatingText: '<p>The <strong>Course Rating</strong> is a number that indicates how many strokes a “scratch” golfer (handicap 0) is expected to take on a specific golf course. Official course raters determine this value by evaluating layout, length, hazards, and other course factors under normal conditions. A higher Course Rating means the course is more difficult for an expert player.</p>\
 <p><strong>Why does the Course Rating matter?</strong></p>\
 <ul>\
@@ -102,8 +102,8 @@ const messages = {
 <p>If the Slope were lower (e.g., 105), you would divide by a smaller factor, producing a slightly higher Differential because the course is easier for average players.</p>\
 <p><em>In short:</em> The Slope Rating accounts for how average players fare compared to scratch players, and together with Course Rating makes your Score Differential comparable across courses.</p>',
 
-  grossScoreTitle: 'What is the Weighted Gross Score (WGS)?',
-  grossScoreText: '<p>The <strong>Weighted Gross Score</strong> (WGS) is based on the <em>Net Double Bogey</em> per hole. It caps the number of strokes counted on each hole so that an extremely high single-hole score does not unduly inflate your handicap.</p>\
+  grossScoreTitle: 'What is the Weighted Gross Score?',
+  grossScoreText: '<p>The <strong>Weighted Gross Score</strong> is based on the <em>Net Double Bogey</em> per hole. It caps the number of strokes counted on each hole so that an extremely high single-hole score does not unduly inflate your handicap.</p>\
 <p>For each hole, calculate:</p>\
 <ul>\
   <li><strong>Par of the hole</strong> (e.g., 4)</li>\
@@ -124,7 +124,7 @@ const messages = {
 </ul>\
 <p>This ensures that an extremely high score on any single hole (e.g., a 10 on a par 4) is limited to the Net Double Bogey value and does not disproportionately raise your handicap.</p>',
 
-  pccTitle: 'What is the Playing Conditions Calculation (PCC)?',
+  pccTitle: 'What is the Playing Conditions Calculation?',
   pccText: '<p>The <strong>Playing Conditions Calculation (PCC)</strong> adjusts the Score Differentials posted on a given day when actual playing conditions differ significantly from normal course conditions. Although the Course Rating provides an accurate standard-day rating, daily factors—such as:</p>\
 <ul>\
   <li>Weather (windstorms, heavy rain, extreme heat)</li>\
@@ -312,7 +312,7 @@ const messages = {
     <tr><td>20</td><td>Durchschnitt der niedrigsten 8</td><td>0</td></tr>\
   </tbody>\
 </table>',
-        courseRatingTitle: 'Was ist das Course Rating (CR)?',
+        courseRatingTitle: 'Was ist das Course Rating?',
         courseRatingText: '<p>Das <strong>Course Rating</strong> (Platzbewertung) ist eine Zahl, die angibt, wie viele Schläge ein „Scratch“-Golfer (Handicap 0) auf einem bestimmten Golfplatz voraussichtlich benötigt. Offizielle Platzbewerter ermitteln diesen Wert, indem sie Layout, Länge, Hindernisse und weitere Platzfaktoren unter normalen Bedingungen berücksichtigen. Ein höheres Course Rating bedeutet: schwerer Platz für einen sehr guten Spieler.</p>\
 <p><strong>Wozu dient das Course Rating?</strong></p>\
 <ul>\
@@ -360,7 +360,7 @@ const messages = {
   <li>Summe aller 18 Netto-Doppelbogey-Werte = dein gewertetes Bruttoergebnis.</li>\
 </ul>\
 <p>Auf diese Weise wird sichergestellt, dass ein extrem hohes Score an einem einzigen Loch (z. B. eine 10 auf einem Par 4) auf den Wert „Netto-Doppelbogey“ begrenzt bleibt und dein Handicap nicht unverhältnismäßig in die Höhe getrieben wird.</p>',
-        pccTitle: 'Was ist die Playing Conditions Calculation (PCC)?',
+        pccTitle: 'Was ist die Playing Conditions Calculation?',
         pccText: '<p>Die <strong>Playing Conditions Calculation (PCC)</strong> passt die am Tag erzielten Score Differentials an, wenn die tatsächlichen Spielbedingungen deutlich von den normalen Platzbedingungen abweichen. Zwar liefert das Course Rating eine genaue Platzbewertung unter Standardbedingungen, doch können Tagesfaktoren wie:</p>\
 <ul>\
   <li>Wetter (Sturm, starker Regen, extreme Hitze)</li>\

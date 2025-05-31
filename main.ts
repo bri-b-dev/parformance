@@ -58,6 +58,8 @@ First you calculate the Score Differential for each round.<br/>\
 You collect the last 20 differentials (or less in case you have not played as many rounds yet).<br/>\
 Calculate the mean of the lowest values and adjust according to USGA-rules – that results in your Handicap Index.<br/><br/>\
 In short: the Score Differential is the "raw value" per round, the Handicap Index the "profile" of your best rounds.',
+        courseRatingTitle: 'What\'s the Course Rating (CR)',
+        courseRatingText: '',
     },
     de: {
         title: 'HandyCap',
@@ -113,6 +115,15 @@ Für jede Runde berechnest du erst das Score Differential.<br/>\
 Du sammelst deine letzten 20 Differentials (oder weniger, wenn du noch nicht so viele Runden gespielt hast).<br/>\
 Aus diesen Werten wählst du die besten (niedrigsten) aus, mittlest sie und wendest den USGA-Korrektur­faktor an – das ergibt deinen Handicap Index.<br/><br/>\
 Kurz: Das Score Differential ist der „Rohwert“ pro Runde, der Handicap Index das „Profil“ aus deinen besten Runden.',
+        courseRatingTitle: 'Was ist das Course Rating (CR)?',
+        courseRatingText: 'Das Course Rating (Platzbewertung) ist eine Zahl, die angibt, wie viele Schläge ein „Scratch“-Golfer (Handicap 0) auf einem bestimmten Golfplatz voraussichtlich benötigt. Es wird von offiziellen Platzbewertern ermittelt und berücksichtigt Layout, Länge, Hindernisse sowie gesamte Schwierigkeit des Platzes unter normalen Wetterbedingungen. Ein höheres Course Rating bedeutet, dass der Platz schwieriger für einen sehr guten Spieler ist.<br/><br/>\
+<b>Wozu dient das Course Rating?</b><br/>\
+Es wird in die Berechnung des Score Differentials einbezogen, um deinen Brutto-Score (die tatsächlich gespielten Schläge) in Relation zur Platz­schwierigkeit zu setzen.<br/>\
+Gemeinsam mit dem Slope-Wert sorgt es dafür, dass Runden auf unterschiedlichen Plätzen vergleichbar werden.<br/><br/>\
+<b>Beispiel (grob vereinfacht):</b><br/>\
+Course Rating 72,0 heißt: Ein Scratch-Spieler braucht an diesem Platz in der Regel 72 Schläge.<br/>\
+Wenn du als Hobbyspieler 85 Schläge spielst, fließt der Unterschied (85 – 72,0) in das Score Differential ein.<br/><br/>\
+Kurz: Das Course Rating misst, wie schwer ein Platz für einen perfekten Spieler ist, und sorgt so dafür, dass deine Rundenwerte fair gewichtet und in deinem Handicap berücksichtigt werden. Ende.'
     },
 }
 

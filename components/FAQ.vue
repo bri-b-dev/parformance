@@ -16,12 +16,17 @@ const items = computed(() => [
         title: t('sdVsHcpiTitle'),
         text: t('sdVsHcpiText')
     },
+    {
+        title: t('courseRatingTitle'),
+        text: t('courseRatingText')
+    }
 
     // TODO: course rating
     // TODO: slope
     // TODO: gbe
     // TODO: pcc
     // TODO: cap-verfahren
+    // TODO: 
 ])
 
 </script>

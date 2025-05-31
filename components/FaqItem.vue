@@ -1,7 +1,7 @@
 <template>
   <div class="faq-card">
     <div class="faq-header" @click="toggle">
-      <h2>{{ title }}</h2>
+      <h3>{{ title }}</h3>
       <button class="toggle-button" aria-label="Toggle info">
         {{ open ? '–' : '+' }}
       </button>

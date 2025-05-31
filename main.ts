@@ -5,13 +5,11 @@ import { createI18n } from 'vue-i18n'
 // 1) Definiere deine Übersetzungs-Objekte
 const messages = {
     en: {
-        title: 'HandyCap',
         intro: 'With HandyCap you can determine your score differential for 9 or 18 holes and manage your handicap. \
         Enter your current handicap (HCPI), adjusted gross score (AGS), the course rating (CR), the slope and the Playing Conditions Calculation (PCC) to calculate your individual score.',
         choose: 'Choose...',
         holes: 'holes',
         holesPlayed: 'Holes played',
-        handicapIndex: 'Handicap-Index (HCPI)',
         forExample: 'e.g.',
         courseRating: 'Course Rating (CR)',
         slope: 'Slope:',
@@ -21,13 +19,7 @@ const messages = {
         scoreDifferential: 'Score Differential',
         calculate: 'Calculate',
         note1: 'This calculator serves as a guide and does not replace the official handicap calculation of the association.',
-        note2: 'Scored score differentials are used to calculate the handicap index as follows:',
         currentRules: 'Current Handicap-Rules (2024)',
-        noOfResults: 'Number of results',
-        consideredScoreDifferentials: 'Considered Score Differentials',
-        adjustment: 'Adjustment',
-        lowest: 'lowest 1',
-        lowestAverage: 'average of lowest',
         yourResults: 'Your results',
         date: 'date',
         course: 'course',
@@ -47,8 +39,6 @@ const messages = {
         rights: '© 2025, Brigitte Boehm. All rights reserved.',
         confirmDeleteTitle: 'Delete result',
         confirmDeleteMessage: 'Are you sure, you want to delete this result?',
-        aboutScoreDifferentials: 'About Score Differentials',
-
   sdVsHcpiTitle: 'Score Differential vs. Handicap Index',
   sdVsHcpiText: '<p>A <strong>Score Differential</strong> is a normalized value that adjusts your actual round score (gross score) based on the difficulty of the course. It shows how well you played relative to a “scratch” golfer (handicap 0). Lower differentials mean a better round.</p>\
 <p>The <strong>Handicap Index</strong>, on the other hand, represents your long-term playing ability. It is derived from your best score differentials as follows:</p>\
@@ -254,13 +244,11 @@ const messages = {
         faqTitle: 'Frequently Asked Questions',
     },
     de: {
-        title: 'HandyCap',
         intro: 'Mit HandyCap kannst du dein Score Differential für 9 oder 18 Löcher bestimmen und dein Handicap verwalten.\
         Gib dein aktuelles Handicap (HCPI), dein gewertetes Bruttoergebnis (GBE), das Course Rating (CR), den Slope und die Korrektur ein, um dein individuelles Ergebnis zu errechnen.',
         choose: 'Wähle...',
         holes: 'Löcher',
         holesPlayed: 'Gespielte Löcher:',
-        handicapIndex: 'Handicap-Index (HCPI):',
         forExample: 'z.B.',
         courseRating: 'Course Rating (CR):',
         slope: 'Slope:',
@@ -270,13 +258,7 @@ const messages = {
         scoreDifferential: 'Score-Differential',
         calculate: 'Berechnen',
         note1: 'Dieser Rechner dient als Orientierung und ersetzt nicht die offizielle Handicaps-Berechnung des Verbands.',
-        note2: 'Gewertete Score Differentials werden wie folgt zur Handicap-Berechnung herangezogen:',
         currentRules: 'Aktuelle Handicap-Regeln (2024)',
-        noOfResults: 'Anzahl Ergebnisse',
-        consideredScoreDifferentials: 'Zur Berechnung des Handicap-Index gewertete Score Differentials',
-        adjustment: 'Anpassung',
-        lowest: 'der niedrigste',
-        lowestAverage: 'Durchschnitt der niedrigsten',
         yourResults: 'Deine Ergebnisse',
         date: 'Datum',
         course: 'Platz',
@@ -296,7 +278,6 @@ const messages = {
         rights: '© 2025, Brigitte Böhm. Alle Rechte vorbehalten.',
         confirmDeleteTitle: 'Ergebnis löschen',
         confirmDeleteMessage: 'Bist du dir sicher, dass du dieses Ergebnis löschen möchtest?',
-        aboutScoreDifferentials: 'Über Score Differentials',
         sdVsHcpiTitle: 'Score-Differential vs. Handicap-Index',
         sdVsHcpiText: '<p>Ein <strong>Score Differential</strong> ist ein normierter Wert, der deine tatsächlich gespielte Runde (Brutto-Score) mit dem Schwierigkeitsgrad des Platzes verrechnet. Er zeigt, wie gut du im Verhältnis zu einem „Scratch“-Golfer (Handicap 0) gespielt hast. Niedrigere Differentials bedeuten: bessere Runde.</p>\
 <p>Der <strong>Handicap Index</strong> ist dagegen dein langfristiges Spielniveau. Er ergibt sich aus der Auswahl deiner besten Score Differentials:</p>\

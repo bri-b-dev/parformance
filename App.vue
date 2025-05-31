@@ -128,44 +128,6 @@
       </div>
     </div>
 
-    <div class="card about-card">
-      <div class="about-header" @click="toggleAbout">
-        <h2>{{ $t('aboutScoreDifferentials') }}</h2>
-        <button class="toggle-button" aria-label="Toggle info">
-          {{ showAbout ? '-' : '+' }}
-        </button>
-      </div>
-      <transition name="collapse">
-        <div v-show="showAbout" class="about-content">
-          <p>{{ $t('note2') }}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>{{ $t('noOfResults') }}</th>
-                <th>{{ $t('consideredScoreDifferentials') }}</th>
-                <th>{{ $t('adjustment') }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>1</td><td>{{ $t('lowest') }}</td><td>-2.0</td></tr>
-              <tr><td>2</td><td>{{ $t('lowest') }}</td><td>-2.0</td></tr>
-              <tr><td>3</td><td>{{ $t('lowest') }}</td><td>-2.0</td></tr>
-              <tr><td>4</td><td>{{ $t('lowest') }}</td><td>-1.0</td></tr>
-              <tr><td>5</td><td>{{ $t('lowest') }}</td><td>0</td></tr>
-              <tr><td>6</td><td>{{ $t('lowestAverage') }} 2</td><td>-1.0</td></tr>
-              <tr><td>7-8</td><td>{{ $t('lowestAverage') }} 2</td><td>0</td></tr>
-              <tr><td>9-11</td><td>{{ $t('lowestAverage') }} 3</td><td>0</td></tr>
-              <tr><td>12-14</td><td>{{ $t('lowestAverage') }} 4</td><td>0</td></tr>
-              <tr><td>15-16</td><td>{{ $t('lowestAverage') }} 5</td><td>0</td></tr>
-              <tr><td>17-18</td><td>{{ $t('lowestAverage') }} 6</td><td>0</td></tr>
-              <tr><td>19</td><td>{{ $t('lowestAverage') }} 7</td><td>0</td></tr>
-              <tr><td>20</td><td>{{ $t('lowestAverage') }} 8</td><td>0</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </transition>
-    </div>
-
     <FAQ/>
     <div class="note">{{ $t('rights') }}</div>
   </div>

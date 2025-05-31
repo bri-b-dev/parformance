@@ -1,7 +1,13 @@
 <template>
-    <div class="card">
-        <FaqItem v-for="(item, i) in items" :key="i" :title="item.title" :text="item.text" />
-    </div>
+  <div class="card">
+    <h2>{{ $t('faqTitle') }}</h2>
+    <FaqItem
+      v-for="(item, i) in items"
+      :key="i"
+      :title="item.title"
+      :text="item.text"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -12,21 +18,37 @@ import FaqItem from './FaqItem.vue'
 const { t } = useI18n()
 
 const items = computed(() => [
-    {
-        title: t('sdVsHcpiTitle'),
-        text: t('sdVsHcpiText')
-    },
-    {
-        title: t('courseRatingTitle'),
-        text: t('courseRatingText')
-    }
-
-    // TODO: course rating
-    // TODO: slope
-    // TODO: gbe
-    // TODO: pcc
-    // TODO: cap-verfahren
-    // TODO: 
+  {
+    title: t('courseRatingTitle'),
+    text: t('courseRatingText')
+  },
+  {
+    title: t('slopeTitle'),
+    text: t('slopeText')
+  },
+  {
+    title: t('grossScoreTitle'),
+    text: t('grossScoreText')
+  },
+  {
+    title: t('pccTitle'),
+    text: t('pccText')
+  },
+  {
+    title: t('sdCalculationTitle'),
+    text: t('sdCalculationText')
+  },
+  {
+    title: t('sdVsHcpiTitle'),
+    text: t('sdVsHcpiText')
+  },
+  {
+    title: t('capTitle'),
+    text: t('capText')
+  },
+  {
+    title: t('breakTitle'),
+    text: t('breakText')
+  },
 ])
-
 </script>

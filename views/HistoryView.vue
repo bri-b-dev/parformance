@@ -2,7 +2,7 @@
   <div>
     <!-- Statistiken oben -->
     <div class="card stats-card">
-      <h2 class="card-title">{{ t('yourStats') }}</h2>
+      <h1 class="card-title">{{ t('yourStats') }}</h1>
       <div class="stats-grid">
         <div class="stat-item">
           <span class="stat-label">{{ t('lastHandicap') }}:</span>
@@ -31,13 +31,13 @@
 
     <!-- Chart -->
     <div class="card chart-card" v-if="results.length">
-      <h2 class="card-title">{{ t('handicapChartTitle') }}</h2>
+      <h1 class="card-title">{{ t('handicapChartTitle') }}</h1>
       <HandicapChart :data="sortedResultsForChart" />
     </div>
 
     <!-- Tabelle mit erweiterten Spalten -->
     <div class="card table-card" v-if="results.length">
-      <h2 class="card-title">{{ t('yourResults') }}</h2>
+      <h1 class="card-title">{{ t('yourResults') }}</h1>
       <button class="btn-secondary recalc-btn" @click="recalculateAll">
         {{ t('recalculateHandicap') }}
       </button>
@@ -101,7 +101,7 @@
             <strong>{{ t('date') }}:</strong> {{ formatDate(detailEntry.date) }}
           </p>
           <p>
-            <strong>{{ t('course') }}:</strong>
+            <strong>{{ t('course') }}: </strong>
             <span v-if="hasCustomCourseName(detailEntry.courseName)">
               {{ detailEntry.courseName }}
             </span>
@@ -164,11 +164,12 @@ const sortedResultsForChart = computed(() =>
   [...results.value]
     .sort((a, b) => new Date(a.date) - new Date(b.date))
     .map(r => ({
-      x: new Date(r.date),
-      yDiff: r.scoreDifferential,
-      yHC: r.storedHandicap
+      date: r.date,
+      scoreDifferential: r.scoreDifferential,
+      storedHandicap: r.storedHandicap
     }))
 )
+
 
 // Statistiken
 const lastHandicap = computed(() => {

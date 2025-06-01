@@ -572,6 +572,7 @@ detailTitle: "Round-details",
     courseRatingShort: 'CR',
     slopeShort: 'Slope',
   detailTitle: "Details zur Runde",
+  close: 'Schließen',
 
 
   },

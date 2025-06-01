@@ -36,28 +36,34 @@ body {
 /* Container behält max-width und ist zentriert */
 .container {
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
   padding: 1rem;
-  padding-bottom: 70px; /* Platz für Bottom Nav */
+  padding-bottom: 70px; 
   min-height: 100vh;
-  position: relative;
+  box-sizing: border-box;
 }
 
 /* Bottom Navigation jetzt exakt innerhalb container */
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%); /* exakt zentriert */
-  width: 100%;
-  max-width: 900px;            /* identisch zur container-Breite */
-  display: flex;
+  left: 0;
+  width: 100%;                 /* Volle Viewport-Breite */
   background: #ffffff;
   border-top: 1px solid #dddddd;
   box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  z-index: 100;
 }
 
+.nav-inner {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+}
+
+/* Navigation-Items */
 .nav-item {
   flex: 1;
   text-align: center;

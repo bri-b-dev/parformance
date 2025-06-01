@@ -28,7 +28,11 @@ const buildChart = () => {
   if (!canvas.value || !props.data.length) return
 
   // Map data to {x: Date, y}
-  const parsed = props.data.map(r => ({ x: new Date(r.date), yDiff: r.scoreDifferential, yHC: r.storedHandicap }))
+  const parsed = props.data.map(r => ({
+    x: new Date(r.date),
+    yDiff: r.scoreDifferential,
+    yHC: r.storedHandicap
+  }))
   const diffData = parsed.map(p => ({ x: p.x, y: p.yDiff }))
   const hcData   = parsed.map(p => ({ x: p.x, y: p.yHC }))
 

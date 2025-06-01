@@ -40,7 +40,8 @@ onMounted(async () => {
 .container {
   max-width: 900px;
   margin: auto;
-  padding-bottom: 70px; /* Platz für Bottom-Nav */
+  padding-bottom: 70px;
+  /* Platz für Bottom-Nav */
   background: var(--bg-page);
   min-height: 100vh;
   position: relative;
@@ -56,7 +57,7 @@ onMounted(async () => {
   display: flex;
   background: #fff;
   border-top: 1px solid #ddd;
-  box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
   z-index: 10;
 }
 

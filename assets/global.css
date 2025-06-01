@@ -1,5 +1,3 @@
-/* src/assets/global.css */
-
 /*------------------------------
   Farb- und Designvariablen
 -------------------------------*/
@@ -35,24 +33,24 @@ body {
 /*------------------------------
   Container / Layout
 -------------------------------*/
+/* Container behält max-width und ist zentriert */
 .container {
   max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
-  padding-bottom: 70px; /* Platz für Bottom-Navigation */
+  padding-bottom: 70px; /* Platz für Bottom Nav */
   min-height: 100vh;
   position: relative;
 }
 
-/*------------------------------
-  Bottom Navigation (Android-Stil)
--------------------------------*/
+/* Bottom Navigation jetzt exakt innerhalb container */
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%); /* exakt zentriert */
   width: 100%;
-  max-width: 900px;
+  max-width: 900px;            /* identisch zur container-Breite */
   display: flex;
   background: #ffffff;
   border-top: 1px solid #dddddd;

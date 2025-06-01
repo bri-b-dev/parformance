@@ -1,16 +1,21 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createI18n } from 'vue-i18n'
+import router from './router'
+
+import '@/assets/global.css'
 
 // 1) Definiere deine Übersetzungs-Objekte
 const messages = {
     en: {
-        intro: 'With HandyCap you can determine your score differential for 9 or 18 holes and manage your handicap. \
+        calculatorTitle: 'HandyCap',
+        calculatorIntro: 'With HandyCap you can determine your score differential for 9 or 18 holes and manage your handicap. \
         Enter your current handicap (HCPI), adjusted gross score (AGS), the course rating (CR), the slope and the Playing Conditions Calculation (PCC) to calculate your individual score.',
-        choose: 'Choose...',
+        chooseOption: 'Choose...',
         holes: 'holes',
         holesPlayed: 'Holes played',
         forExample: 'e.g.',
+        reset: 'Reset',
         courseRating: 'Course Rating (CR)',
         slope: 'Slope:',
         grossScore: 'Adjusted Gross Score (AGS)',
@@ -19,7 +24,7 @@ const messages = {
         scoreDifferential: 'Score Differential',
         calculate: 'Calculate',
         note1: 'This calculator serves as a guide and does not replace the official handicap calculation of the association.',
-        currentRules: 'Current Handicap-Rules (2024)',
+        currentRules: 'USGA Handicap-Rules (PDF) (2024)',
         yourResults: 'Your results',
         date: 'date',
         course: 'course',
@@ -73,7 +78,6 @@ const messages = {
     <tr><td>20</td><td>average of lowest 8</td><td>0</td></tr>\
   </tbody>\
 </table>',
-
   courseRatingTitle: 'What is the Course Rating?',
   courseRatingText: '<p>The <strong>Course Rating</strong> is a number that indicates how many strokes a “scratch” golfer (handicap 0) is expected to take on a specific golf course. Official course raters determine this value by evaluating layout, length, hazards, and other course factors under normal conditions. A higher Course Rating means the course is more difficult for an expert player.</p>\
 <p><strong>Why does the Course Rating matter?</strong></p>\
@@ -242,11 +246,51 @@ const messages = {
   <li>If desired, you can choose to remove the “26.5 Cap” yourself to be played with your higher calculated index.</li>\
 </ol>',
         faqTitle: 'Frequently Asked Questions',
+        settingsTitle: 'Settings',
+        selectLanguage: 'Select Language',
+        downloadRules: 'Download current Handicap-Rules',
+        legal: 'Legal',
+        impressum: 'Impressum',
+        dataProtection: 'Data Protection',
+        
+
+        holesPlayedInfo: "Wähle, ob du 9 oder 18 Löcher gespielt hast. Bei 9 Löchern wird das Resultat entsprechend angepasst.",
+        handicapIndexInfo: "Das ist dein letzter gespeicherter Handicap-Index (wird vorausgefüllt).",
+        courseRatingInfo: "Bewertung des Platzes (z. B. 72.0).",
+        slopeInfo: "Slope-Wert des Platzes (z. B. 113).",
+        grossScoreInfo: "Anzahl Schläge für 9 oder 18 Löcher.",
+        pccInfo: "PCC = Playing Conditions Calculation, liegt meist zwischen –1.0 und +3.0.",
+        projectedHandicap: "Voraussichtlicher Handicap-Index",
+        saveModalTitle: "Ergebnis speichern",
+        courseNameOptional: "Kursname (optional)",
+        errorHolesRequired: "Bitte wähle 9 oder 18 Löcher.",
+        errorHandicapInvalid: "Ungültiger Handicap-Index.",
+        errorCourseRating: "Bitte gültiges Course Rating eingeben.",
+        errorSlope: "Bitte gültigen Slope-Wert eingeben.",
+        errorGrossScore: "Bitte gültigen Brutto-Score eingeben.",
+        errorPccInvalid: "PCC-Wert zwischen –1.0 und 3.0 erforderlich.",
+        errorDateRequired: "Bitte Datum auswählen.",
+        yourStats: "Deine Statistiken",
+        lastHandicap: "Letzter HI",
+        roundCount: "Runden gesamt",
+        lowestHI12mo: "Niedrigster HI (12 Monate)",
+        avgDiff5: "Ø Diff (letzte 5)",
+        handicapChartTitle: "Handicap-Entwicklung",
+        aboutApp: "About this App",
+        appVersion: "Version: 1.0",
+        appAuthor: "Developed by Brigitte Boehm",
+
+        holesPlayedTooltip: "Select whether you played 9 or 18 holes. For 9 holes, the result is adjusted accordingly.",
+        navCalculator: "Calculator",
+        navHistory: "History",
+        navSettings: "Settings"
+
     },
     de: {
-        intro: 'Mit HandyCap kannst du dein Score Differential für 9 oder 18 Löcher bestimmen und dein Handicap verwalten.\
+      calculatorTitle: 'HandyCap',
+        calculatorIntro: 'Mit HandyCap kannst du dein Score Differential für 9 oder 18 Löcher bestimmen und dein Handicap verwalten.\
         Gib dein aktuelles Handicap (HCPI), dein gewertetes Bruttoergebnis (GBE), das Course Rating (CR), den Slope und die Korrektur ein, um dein individuelles Ergebnis zu errechnen.',
-        choose: 'Wähle...',
+        chooseOption: 'Wähle...',
         holes: 'Löcher',
         holesPlayed: 'Gespielte Löcher:',
         forExample: 'z.B.',
@@ -258,7 +302,7 @@ const messages = {
         scoreDifferential: 'Score-Differential',
         calculate: 'Berechnen',
         note1: 'Dieser Rechner dient als Orientierung und ersetzt nicht die offizielle Handicaps-Berechnung des Verbands.',
-        currentRules: 'Aktuelle Handicap-Regeln (2024)',
+        currentRules: 'USGA Handicap-Regeln (PDF) (2024)',
         yourResults: 'Deine Ergebnisse',
         date: 'Datum',
         course: 'Platz',
@@ -276,8 +320,6 @@ const messages = {
         cancel: 'Abbrechen',
         inconsistentIndex: 'Speichern des Ergebnisses nicht möglich - der angegebene HCPI weicht von deinem errechneten ab',
         rights: '© 2025, Brigitte Böhm. Alle Rechte vorbehalten.',
-        confirmDeleteTitle: 'Ergebnis löschen',
-        confirmDeleteMessage: 'Bist du dir sicher, dass du dieses Ergebnis löschen möchtest?',
         sdVsHcpiTitle: 'Score-Differential vs. Handicap-Index',
         sdVsHcpiText: '<p>Ein <strong>Score Differential</strong> ist ein normierter Wert, der deine tatsächlich gespielte Runde (Brutto-Score) mit dem Schwierigkeitsgrad des Platzes verrechnet. Er zeigt, wie gut du im Verhältnis zu einem „Scratch“-Golfer (Handicap 0) gespielt hast. Niedrigere Differentials bedeuten: bessere Runde.</p>\
 <p>Der <strong>Handicap Index</strong> ist dagegen dein langfristiges Spielniveau. Er ergibt sich aus der Auswahl deiner besten Score Differentials:</p>\
@@ -475,6 +517,54 @@ const messages = {
   <li>Bei Bedarf kannst du die „26,5-Bremse“ selbstaufheben, um mit dem aktuellen, höheren Index gespielt zu werden.</li>\
 </ol>',
         faqTitle: 'Häufige Fragen',
+        settingsTitle: 'Einstellungen',
+        selectLanguage: 'Sprache auswählen',
+        legal: 'Rechtliches',
+        impressum: 'Impressum',
+        dataProtection: 'Datenschutz',
+        navCalculator: "Rechner",
+        navHistory: "Historie",
+        navSettings: "Einstellungen",
+        reset: "Zurücksetzen",
+        diffShort: "Diff.",
+        hiShort: "HI",
+
+
+
+        holesPlayedInfo: "Wähle, ob du 9 oder 18 Löcher gespielt hast. Bei 9 Löchern wird das Resultat entsprechend angepasst.",
+        handicapIndexInfo: "Das ist dein letzter gespeicherter Handicap-Index (wird vorausgefüllt).",
+        courseRatingInfo: "Bewertung des Platzes (z. B. 72.0).",
+        slopeInfo: "Slope-Wert des Platzes (z. B. 113).",
+        grossScoreInfo: "Anzahl Schläge für 9 oder 18 Löcher.",
+        pccInfo: "PCC = Playing Conditions Calculation, liegt meist zwischen –1.0 und +3.0.",
+        projectedHandicap: "Voraussichtlicher Handicap-Index",
+        saveModalTitle: "Ergebnis speichern",
+        courseNameOptional: "Kursname (optional)",
+        errorHolesRequired: "Bitte wähle 9 oder 18 Löcher.",
+        errorHandicapInvalid: "Ungültiger Handicap-Index.",
+        errorCourseRating: "Bitte gültiges Course Rating eingeben.",
+        errorSlope: "Bitte gültigen Slope-Wert eingeben.",
+        errorGrossScore: "Bitte gültigen Brutto-Score eingeben.",
+        errorPccInvalid: "PCC-Wert zwischen –1.0 und 3.0 erforderlich.",
+        errorDateRequired: "Bitte Datum auswählen.",
+        yourStats: "Deine Statistiken",
+        lastHandicap: "Letzter HI",
+        roundCount: "Runden gesamt",
+        lowestHI12mo: "Niedrigster HI (12 Monate)",
+        avgDiff5: "Ø Diff (letzte 5)",
+        handicapChartTitle: "Handicap-Entwicklung",
+        confirmDeleteTitle: "Löschen bestätigen",
+        confirmDeleteMessage: "Möchtest du diesen Eintrag wirklich löschen?",
+        downloadRules: "Aktuelle Regeln herunterladen",
+        aboutApp: "Über diese App",
+        appVersion: "Version: 1.0",
+        appAuthor: "Entwickelt von Brigitte Böhm",
+        holesPlayedTooltip: "Wähle, ob du 9 oder 18 Löcher gespielt hast. Bei 9 Löchern wird das Handicap entsprechend angepasst.",
+  
+
+
+
+
     },
 }
 
@@ -489,4 +579,5 @@ const i18n = createI18n({
 
 const app = createApp(App)
 app.use(i18n)
+app.use(router)
 app.mount('#app')

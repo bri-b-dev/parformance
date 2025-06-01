@@ -1,0 +1,491 @@
+/* src/assets/global.css */
+
+/*------------------------------
+  Farb- und Designvariablen
+-------------------------------*/
+:root {
+  --primary: #1d623a;
+  --accent: #55946f;
+  --danger: #e76f51;
+  --danger-muted: #e38f7a;
+  --bg-card: #ffffff;
+  --bg-page: #f9f9fb;
+  --text: #333333;
+  --text-muted: #555555;
+}
+
+/*------------------------------
+  Grundlegende Resets
+-------------------------------*/
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-page);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: var(--text);
+  height: 100%;
+  width: 100%;
+}
+
+/*------------------------------
+  Container / Layout
+-------------------------------*/
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  padding-bottom: 70px; /* Platz für Bottom-Navigation */
+  min-height: 100vh;
+  position: relative;
+}
+
+/*------------------------------
+  Bottom Navigation (Android-Stil)
+-------------------------------*/
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  background: #ffffff;
+  border-top: 1px solid #dddddd;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-item .material-icons {
+  font-size: 24px;
+  margin-bottom: 2px;
+  color: inherit;
+}
+
+.nav-item.active {
+  color: var(--primary);
+}
+
+.nav-item.active .material-icons {
+  color: var(--primary);
+}
+
+/*------------------------------
+  Karten (Cards)
+-------------------------------*/
+.card {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+}
+
+/*------------------------------
+  Überschriften (Titles)
+-------------------------------*/
+.title,
+.card-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+/*------------------------------
+  Intro / Beschreibungen
+-------------------------------*/
+.intro {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/*------------------------------
+  Formular-Gruppen
+-------------------------------*/
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.required {
+  color: var(--danger);
+  margin-left: 0.25rem;
+}
+
+/*------------------------------
+  Info-Button (Tooltip-Icon)
+-------------------------------*/
+.info-btn {
+  background: transparent;
+  border: none;
+  margin-left: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/*------------------------------
+  Input- und Select-Felder
+-------------------------------*/
+input[type="number"],
+input[type="text"],
+input[type="date"],
+select {
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(29, 98, 58, 0.2);
+}
+
+/*------------------------------
+  Validierungs- und Fehlermeldungen
+-------------------------------*/
+.error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.validation-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/*------------------------------
+  Formular-Aktionen (Buttons)
+-------------------------------*/
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.btn-primary {
+  flex: 1;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.btn-secondary {
+  flex: 1;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/*------------------------------
+  Ergebnis-Box (Result-Panel)
+-------------------------------*/
+.result-box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.score-good {
+  background: var(--accent);
+}
+
+.score-bad {
+  background: var(--danger);
+}
+
+.score-neutral {
+  background: var(--primary);
+}
+
+.result-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+/*------------------------------
+  Modal / Overlays
+-------------------------------*/
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.modal {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 340px;
+}
+
+/* Datumseingabe mit Kalender-Icon */
+.date-input-wrapper {
+  position: relative;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #555555;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Fade-Transition für Ergebnis-Box */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/*------------------------------
+  Statistiken (HistoryView)
+-------------------------------*/
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.stat-item {
+  background: #f9f9fb;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 0.25rem;
+}
+
+/* Chart-Container */
+.chart-card {
+  position: relative;
+  height: 300px;
+  margin-top: 1rem;
+}
+
+/*------------------------------
+  Tabelle (HistoryView)
+-------------------------------*/
+.table-card {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.table-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.table-card th {
+  background: var(--primary);
+  color: #ffffff;
+  padding: 8px;
+  font-size: 0.8rem;
+}
+
+.table-card td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 6px;
+  font-size: 0.75rem;
+}
+
+.table-card tbody tr:nth-child(odd) {
+  background: #f9f9fb;
+}
+
+.table-card tr:hover {
+  background: #e8f8f5;
+}
+
+.course-name {
+  cursor: default;
+  text-decoration: underline dotted;
+}
+
+.recalc-btn {
+  margin-bottom: 0.5rem;
+}
+
+.btn-delete {
+  background: transparent;
+  border: 2px solid var(--danger);
+  border-radius: 4px;
+  color: var(--danger);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-delete:hover {
+  background: var(--danger);
+  color: #ffffff;
+}
+
+/*------------------------------
+  Einstellungen (SettingsView)
+-------------------------------*/
+.rules-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.rules-link:hover {
+  text-decoration: underline;
+}
+
+.settings-card select {
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.settings-card p {
+  margin: 0.25rem 0;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+
+/* Tooltip-Wrapper (positioniert den Tooltip relativ zum Info-Icon) */
+.info-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Der eigentliche Tooltip */
+.tooltip {
+  position: absolute;
+  bottom: 125%; /* Tooltip erscheint oberhalb des Icons */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text); /* dunkler Hintergrund */
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 30;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+/* Pfeil unterhalb des Tooltips */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; /* unten am Tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--text) transparent transparent transparent;
+}
+
+/* Sichtbar-Klasse */
+.tooltip.visible {
+  opacity: 1;
+  pointer-events: auto;
+}

@@ -20,6 +20,10 @@
         <span class="material-icons">settings</span>
         <span>{{ $t('navSettings') }}</span>
       </router-link>
+      <router-link to="/faq" class="nav-item" active-class="active">
+        <span class="material-icons">quiz</span>
+        <span>{{ $t('navFaq') }}</span>
+      </router-link>
     </div>
   </nav>
 </div>

@@ -13,7 +13,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import FaqItem from './FaqItem.vue'
+import FaqItem from '@/components/FaqItem.vue'
 
 const { t } = useI18n()
 

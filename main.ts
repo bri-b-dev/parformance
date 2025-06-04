@@ -291,6 +291,7 @@ const messages = {
     close: 'Close',
     diffShort: 'SD',
 detailTitle: "Round-details",
+navFaq: 'FAQ',
 
   },
   de: {
@@ -573,6 +574,7 @@ detailTitle: "Round-details",
     slopeShort: 'Slope',
   detailTitle: "Details zur Runde",
   close: 'Schließen',
+navFaq: 'FAQ',
 
 
   },

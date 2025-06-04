@@ -21,6 +21,52 @@ const props = defineProps({
 </script>
 
 <style scoped>
+
+
+/* Tooltip-Wrapper (positioniert den Tooltip relativ zum Info-Icon) */
+.info-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Der eigentliche Tooltip */
+.tooltip {
+  position: absolute;
+  bottom: 125%; /* Tooltip erscheint oberhalb des Icons */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text); /* dunkler Hintergrund */
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 30;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+/* Pfeil unterhalb des Tooltips */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; /* unten am Tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--text) transparent transparent transparent;
+}
+
+/* Sichtbar-Klasse */
+.tooltip.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
 .info-wrapper {
   position: relative;
   display: inline-block;

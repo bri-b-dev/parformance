@@ -64,36 +64,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.card {
-  background: var(--bg-card);
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-top: 1rem;
-}
-
-.title {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  color: var(--primary);
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
 
 .rules-link {
   color: var(--primary);
@@ -105,7 +75,13 @@ select {
   text-decoration: underline;
 }
 
-p {
+.settings-card select {
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.settings-card p {
   margin: 0.25rem 0;
   color: var(--text);
   font-size: 0.95rem;

@@ -439,6 +439,7 @@ async function recalcAll() {
 .intro {
   margin-bottom: 1rem;
   color: var(--text-muted);
+  font-size: 1rem;
 }
 
 .form-group {

@@ -267,38 +267,26 @@ function closeDetail() {
 </script>
 
 <style scoped>
-/* Card-Überschriften etc. wie gehabt */
-.card {
-  background: var(--bg-card);
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-top: 1rem;
-}
-.card-title {
-  margin: 0 0 0.5rem;
-  font-size: 1.25rem;
-  color: var(--primary);
-}
-
-/* Stats-Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-top: 0.5rem;
 }
+
 .stat-item {
   background: #f9f9fb;
   padding: 0.75rem;
   border-radius: 6px;
   text-align: center;
 }
+
 .stat-label {
   display: block;
   font-size: 0.85rem;
   color: var(--text-muted);
 }
+
 .stat-value {
   font-size: 1.25rem;
   font-weight: 600;
@@ -313,35 +301,66 @@ function closeDetail() {
   margin-top: 1rem;
 }
 
-/* Tabelle */
 .table-card {
   margin-top: 1rem;
+  width: 100%;
   overflow-x: auto;
 }
+
 .table-card table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 100%;
   margin-top: 0.5rem;
 }
+
 .table-card th {
   background: var(--primary);
   color: #ffffff;
   padding: 8px;
   font-size: 0.8rem;
 }
+
 .table-card td {
   border: 1px solid #dddddd;
   text-align: center;
   padding: 6px;
   font-size: 0.75rem;
 }
+
 .table-card tbody tr:nth-child(odd) {
   background: #f9f9fb;
 }
-/* Hover- und Klick-Effekt */
+
 .table-card tr:hover {
   background: #e8f8f5;
 }
+
+.course-name {
+  cursor: default;
+  text-decoration: underline dotted;
+}
+
+.recalc-btn {
+  margin-bottom: 0.5rem;
+}
+
+.btn-delete {
+  background: transparent;
+  border: 2px solid var(--danger);
+  border-radius: 4px;
+  color: var(--danger);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-delete:hover {
+  background: var(--danger);
+  color: #ffffff;
+}
+
 .clickable-row {
   cursor: pointer;
 }
@@ -365,7 +384,9 @@ function closeDetail() {
   color: #ffffff;
 }
 
-/* Modal (Delete und Detail) */
+/*------------------------------
+  Modal / Overlays
+-------------------------------*/
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -378,6 +399,7 @@ function closeDetail() {
   justify-content: center;
   z-index: 20;
 }
+
 .modal {
   background: #ffffff;
   padding: 1.5rem;
@@ -385,11 +407,37 @@ function closeDetail() {
   width: 90%;
   max-width: 340px;
 }
+
+/* Datumseingabe mit Kalender-Icon */
+.date-input-wrapper {
+  position: relative;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #555555;
+}
+
 .modal-actions {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
   margin-top: 1rem;
+}
+
+/* Fade-Transition für Ergebnis-Box */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 /* Detail-Modal‐Inhalt */

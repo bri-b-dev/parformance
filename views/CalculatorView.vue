@@ -1,7 +1,6 @@
 <template>
   <div class="card calculator-card">
     <LogoIcon class="title" />
-    <!--<h1 class="title">{{ t('calculatorTitle') }}</h1>-->
     <p class="intro">{{ t('calculatorIntro') }}</p>
 
     <form @submit.prevent="onCalculate" novalidate>
@@ -9,7 +8,7 @@
       <div class="form-group">
         <label for="holes">
           {{ t('holesPlayed') }} <span class="required">*</span>
-          <InfoTooltip :text="t('holesPlayedTooltip')" />
+          <!--<InfoTooltip :text="t('holesPlayedTooltip')" />-->
         </label>
         <select id="holes" v-model="holes" required>
           <option value="" disabled>{{ t('chooseOption') }}</option>
@@ -22,8 +21,8 @@
       <!-- Handicap Index (Voraus) -->
       <div class="form-group">
         <label for="handicapInput">
-          {{ t('handicapIndexLabel') }}
-          <InfoTooltip :text="t('handicapIndexInfo')" />
+          {{ t('handicapIndexLabel') }} <span class="required">*</span>
+          <!-- <InfoTooltip :text="t('handicapIndexInfo')" /> -->
         </label>
         <input
           id="handicapInput"
@@ -39,7 +38,7 @@
       <div class="form-group">
         <label for="courseRating">
           {{ t('courseRating') }} <span class="required">*</span>
-          <InfoTooltip :text="t('courseRatingInfo')" />
+          <!-- <InfoTooltip :text="t('courseRatingInfo')" /> -->
         </label>
         <input
           id="courseRating"
@@ -56,7 +55,7 @@
       <div class="form-group">
         <label for="slope">
           {{ t('slope') }} <span class="required">*</span>
-          <InfoTooltip :text="t('slopeInfo')" />
+          <!-- <InfoTooltip :text="t('slopeInfo')" /> -->
         </label>
         <input
           id="slope"
@@ -72,7 +71,7 @@
       <div class="form-group">
         <label for="grossScore">
           {{ t('grossScore') }} <span class="required">*</span>
-          <InfoTooltip :text="t('grossScoreInfo')" />
+          <!-- <InfoTooltip :text="t('grossScoreInfo')" /> -->
         </label>
         <input
           id="grossScore"
@@ -88,7 +87,7 @@
       <div class="form-group full-width">
         <label for="pccAdjustment">
           {{ t('pcc') }} <span class="required">*</span>
-          <InfoTooltip :text="t('pccInfo')" />
+          <!-- <InfoTooltip :text="t('pccInfo')" /> -->
         </label>
         <input
           id="pccAdjustment"

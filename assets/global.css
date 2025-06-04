@@ -28,6 +28,7 @@ body {
   color: var(--text);
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
 }
 
 /*------------------------------
@@ -56,6 +57,7 @@ body {
   z-index: 100;
 }
 
+/* Innerer Container für Nav-Items, zentriert und max-width wie .container */
 .nav-inner {
   max-width: 900px;
   width: 100%;
@@ -63,7 +65,7 @@ body {
   display: flex;
 }
 
-/* Navigation-Items */
+/* Nav-Links */
 .nav-item {
   flex: 1;
   text-align: center;
@@ -75,17 +77,14 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
 .nav-item .material-icons {
   font-size: 24px;
   margin-bottom: 2px;
   color: inherit;
 }
-
 .nav-item.active {
   color: var(--primary);
 }
-
 .nav-item.active .material-icons {
   color: var(--primary);
 }
@@ -370,12 +369,14 @@ select:focus {
 -------------------------------*/
 .table-card {
   margin-top: 1rem;
+  width: 100%;
   overflow-x: auto;
 }
 
 .table-card table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 100%;
   margin-top: 0.5rem;
 }
 

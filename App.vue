@@ -55,6 +55,7 @@ onMounted(async () => {
   padding-bottom: 70px; 
   min-height: 100vh;
   box-sizing: border-box;
+  padding-bottom: calc(70px + env(safe-area-inset-bottom, 12px)); 
 }
 
 /* Bottom Navigation jetzt exakt innerhalb container */
@@ -62,11 +63,14 @@ onMounted(async () => {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;                 /* Volle Viewport-Breite */
+  width: 100%;
   background: #ffffff;
   border-top: 1px solid #dddddd;
   box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
   z-index: 100;
+
+  /* Platz für die Android/iOS-Systemnavigation */
+  padding-bottom: env(safe-area-inset-bottom, 12px);
 }
 
 /* Innerer Container für Nav-Items, zentriert und max-width wie .container */

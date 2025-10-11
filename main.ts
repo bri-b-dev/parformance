@@ -5,7 +5,7 @@ import router from './router'
 
 import '@/assets/global.css'
 
-// 1) Definiere deine Übersetzungs-Objekte
+// define i18n messages
 const messages = {
   en: {
     calculatorTitle: 'HandyCap',
@@ -569,7 +569,6 @@ navFaq: 'FAQ',
     appAuthor: "Entwickelt von Brigitte Böhm",
     holesPlayedTooltip: "Wähle, ob du 9 oder 18 Löcher gespielt hast. Bei 9 Löchern wird das Handicap entsprechend angepasst.",
 
-
     courseRatingShort: 'CR',
     slopeShort: 'Slope',
   detailTitle: "Details zur Runde",
@@ -580,7 +579,7 @@ navFaq: 'FAQ',
   },
 }
 
-// 2) Erzeuge das i18n-Plugin
+// create i18n instance with options
 const i18n = createI18n({
   legacy: false,
   locale: 'en',

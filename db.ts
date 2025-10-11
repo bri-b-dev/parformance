@@ -1,4 +1,3 @@
-// src/db.ts
 import Dexie from 'dexie'
 import type { Table } from 'dexie'
 
@@ -11,8 +10,8 @@ export interface Result {
 }
 
 export interface Setting {
-  key: string     // z. B. "locale"
-  value: any      // z. B. "de" oder "en"
+  key: string     // e.g. "locale"
+  value: any      // e.g. "de" or "en"
 }
 
 export class ScoreDiffDB extends Dexie {
@@ -21,13 +20,13 @@ export class ScoreDiffDB extends Dexie {
 
   constructor() {
     super('ScoreDiffDB')
-    // Erstes Schema für Version 1
+    // first schema for version 1
     this.version(1).stores({
       results: '++id, date, courseName, grossScore, scoreDifferential',
     })
-    // Upgrade-Schema für Version 2: neue Tabelle "settings"
+    // upgrade-schema for version 2: new table "settings"
     this.version(2).stores({
-      // "&key" sorgt dafür, dass key der Primärschlüssel ist
+      // "&key" ensures that key is the primary key
       settings: '&key'
     })
   }

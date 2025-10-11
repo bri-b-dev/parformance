@@ -1,11 +1,11 @@
 <template>
 <div id="app">
-    <!-- ZENTRIERTER INHALT -->
+    <!-- centered content -->
   <div class="container">
     <router-view />
   </div>
 
-    <!-- BOTTOM NAVIGATION (FULL WIDTH) -->
+    <!-- bottom navigation (full width) -->
   <nav class="bottom-nav">
     <div class="nav-inner">
       <router-link to="/" class="nav-item" exact-active-class="active">
@@ -35,7 +35,7 @@ import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { db } from '@/db'
 
-// Sprache aus IndexedDB laden, falls gespeichert
+// load locale from db if saved
 const { locale } = useI18n()
 onMounted(async () => {
   const saved = await db.settings.get('locale')
@@ -46,7 +46,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Container behält max-width und ist zentriert */
+/* container keeps max-width and is centered */
 .container {
   max-width: 900px;
   width: 100%;
@@ -58,7 +58,7 @@ onMounted(async () => {
   padding-bottom: calc(70px + env(safe-area-inset-bottom, 12px)); 
 }
 
-/* Bottom Navigation jetzt exakt innerhalb container */
+/* bottom navigation exactly underneigh container */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -69,11 +69,11 @@ onMounted(async () => {
   box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
   z-index: 100;
 
-  /* Platz für die Android/iOS-Systemnavigation */
+  /* place for android/ios-system-navigation */
   padding-bottom: env(safe-area-inset-bottom, 12px);
 }
 
-/* Innerer Container für Nav-Items, zentriert und max-width wie .container */
+/* inner container for nav-items, centered and max-widtih like .container */
 .nav-inner {
   max-width: 900px;
   width: 100%;
@@ -81,7 +81,7 @@ onMounted(async () => {
   display: flex;
 }
 
-/* Nav-Links */
+/* nav-links */
 .nav-item {
   flex: 1;
   text-align: center;

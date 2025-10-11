@@ -2,7 +2,7 @@
   <div class="card settings-card">
     <h1 class="title">{{ t('settingsTitle') }}</h1>
 
-    <!-- Sprache wechseln -->
+    <!-- switch locale -->
     <div class="form-group">
       <label for="languageSelect">{{ t('selectLanguage') }}</label>
       <select id="languageSelect" v-model="currentLocale" @change="onLocaleChange">
@@ -31,7 +31,7 @@
       <p>{{ t('appAuthor') }}</p>
     </div>
 
-    <!-- Datenschutz/Impressum (nur Verlinkung) -->
+    <!-- data privacy/copyright (just link) -->
     <div class="form-group">
       <label>{{ t('legal') }}</label>
       <a href="/impressum" class="rules-link">{{ t('impressum') }}</a><br/>
@@ -49,10 +49,10 @@ import { db } from '@/db'
 const { t, locale } = useI18n()
 const currentLocale = ref(locale.value)
 
-// App-Version aus Env (z. B. in vue.config.js bzw. .env definiert)
+// app-version from env (e.g. in vue.config.js or .env)
 const APP_VERSION = import.meta.env.VITE_APP_VERSION || '1.0.0'
 
-// Beim Wechsel in die Dropdown
+// on locale change: save to db
 async function onLocaleChange() {
   locale.value = currentLocale.value
   await db.settings.put({ key: 'locale', value: currentLocale.value })

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Statistiken oben -->
+    <!-- statistics -->
     <div class="card stats-card">
       <h1 class="card-title">{{ t('yourStats') }}</h1>
       <div class="stats-grid">
@@ -29,13 +29,13 @@
       </div>
     </div>
 
-    <!-- Chart -->
+    <!-- chart -->
     <div class="card chart-card" v-if="results.length">
       <h1 class="card-title">{{ t('handicapChartTitle') }}</h1>
       <HandicapChart :data="sortedResultsForChart" />
     </div>
 
-    <!-- Tabelle mit erweiterten Spalten -->
+    <!-- table with extended columns -->
     <div class="card table-card" v-if="results.length">
       <h1 class="card-title">{{ t('yourResults') }}</h1>
       <button class="btn-secondary recalc-btn" @click="recalculateAll">
@@ -76,7 +76,7 @@
       </table>
     </div>
 
-    <!-- Delete-Confirm Modal -->
+    <!-- delete-confirm-modal -->
     <div v-if="showDeleteConfirm" class="modal-backdrop">
       <div class="modal">
         <h3>{{ t('confirmDeleteTitle') }}</h3>
@@ -92,7 +92,7 @@
       </div>
     </div>
 
-    <!-- Detail-Modal (öffnet beim Klick auf eine Tabellenzeile) -->
+    <!-- detail-modal (opend uppon clicking on a table-row) -->
     <div v-if="showDetailModal" class="modal-backdrop">
       <div class="modal">
         <h3>{{ t('detailTitle') }}</h3>
@@ -142,7 +142,7 @@ import { computeBaseHandicap, applyCap } from '@/utils/calculations.ts'
 // i18n
 const { t, locale } = useI18n()
 
-// States
+// states
 const results = ref([])
 const showDeleteConfirm = ref(false)
 const deleteTargetId = ref(null)
@@ -150,12 +150,12 @@ const deleteTargetId = ref(null)
 const showDetailModal = ref(false)
 const detailEntry = ref(null)
 
-// Beim Mount alle bisherigen Ergebnisse laden
+// load results from db
 onMounted(async () => {
   results.value = await db.results.orderBy('date').reverse().toArray()
 })
 
-// Sortierte Listen
+// sort lists
 const sortedResults = computed(() =>
   [...results.value].sort((a, b) => new Date(b.date) - new Date(a.date))
 )
@@ -171,7 +171,7 @@ const sortedResultsForChart = computed(() =>
 )
 
 
-// Statistiken
+// statistics
 const lastHandicap = computed(() => {
   if (!results.value.length) return null
   return results.value[0].storedHandicap
@@ -193,12 +193,12 @@ const avgDiff5 = computed(() => {
   return sum / last5.length
 })
 
-// Formatierung für Datum
+// date formatting
 function formatDate(raw) {
   return new Date(raw).toLocaleDateString(locale.value)
 }
 
-// Parsing von courseName (z.B. "72/113")
+// parsing of course-name (e.g. "72/113")
 function parseCourseRating(courseName) {
   if (!courseName) return '-'
   const parts = courseName.split('/')
@@ -210,16 +210,16 @@ function parseSlope(courseName) {
   return parts[1] || '-'
 }
 
-// Prüfe, ob ein benutzerdefinierter Kursname (kein "72/113") vorliegt
+// check if a custom course name (not "72/113") is given
 function hasCustomCourseName(courseName) {
-  // Wenn courseName keinen Slash oder mehr als einen Slash hat,
-  // oder einer der beiden Werte keine Zahl ist, behandeln wir es als Custom.
+  // if courseName has no slash or more than one slash,
+  // or one of the two parts is not a number, we treat it as custom.
   if (!courseName.includes('/')) return true
   const parts = courseName.split('/')
   return parts.length !== 2 || isNaN(Number(parts[0])) || isNaN(Number(parts[1]))
 }
 
-// Delete-Modal-Handling
+// delete-confirm-modal handling
 function openDeleteConfirm(id) {
   deleteTargetId.value = id
   showDeleteConfirm.value = true
@@ -236,7 +236,7 @@ async function confirmDelete() {
   await recalcAll()
 }
 
-// Recalculate All (wie in CalculatorView)
+// recalculate all handicaps from scratch
 async function recalcAll() {
   const ascending = [...results.value].sort((a, b) => new Date(a.date) - new Date(b.date))
   let prevHC = null
@@ -254,7 +254,7 @@ async function recalcAll() {
   results.value = ascending.sort((a, b) => new Date(b.date) - new Date(a.date))
 }
 
-// Detail-Modal-Handling
+// detail modal handling
 function openDetail(entry) {
   detailEntry.value = entry
   showDetailModal.value = true
@@ -294,7 +294,7 @@ function closeDetail() {
   margin-top: 0.25rem;
 }
 
-/* Chart-Container */
+/* chart-container */
 .chart-card {
   position: relative;
   height: 300px;
@@ -365,7 +365,7 @@ function closeDetail() {
   cursor: pointer;
 }
 
-/* Buttons */
+/* buttons */
 .recalc-btn {
   margin-bottom: 0.5rem;
 }
@@ -408,7 +408,7 @@ function closeDetail() {
   max-width: 340px;
 }
 
-/* Datumseingabe mit Kalender-Icon */
+/* date-input with calendar-icon */
 .date-input-wrapper {
   position: relative;
 }
@@ -429,7 +429,7 @@ function closeDetail() {
   margin-top: 1rem;
 }
 
-/* Fade-Transition für Ergebnis-Box */
+/* fade-transition for result-box */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
@@ -440,7 +440,7 @@ function closeDetail() {
   opacity: 0;
 }
 
-/* Detail-Modal‐Inhalt */
+/* detail-modal-content */
 .detail-content p {
   margin: 0.5rem 0;
   font-size: 0.95rem;

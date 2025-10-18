@@ -65,16 +65,25 @@ jobs:
             :app:bundleRelease \
             :app:assembleRelease
 
-      # ===== Signieren (benötigt Secrets) =====
-      # Lege folgende GitHub Secrets an:
-      # ANDROID_KEYSTORE_BASE64   -> base64 deiner keystore-Datei (.jks oder .keystore)
-      # ANDROID_KEYSTORE_PASSWORD -> Keystore-Passwort
-      # ANDROID_KEY_ALIAS         -> Alias des Keys
-      # ANDROID_KEY_PASSWORD      -> Passwort des Keys
+      - name: Show build outputs (diagnostics)
+        run: |
+          echo "=== Built files ==="
+          find android/app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) -print || true
+
+      - name: Collect release files
+        run: |
+          mkdir -p unsigned
+          # sammelt egal ob flavor (z.B. prod/release) oder -unsigned
+          find android/app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) -print -exec cp {} unsigned/ \;
+
+      - name: Fail if nothing was built
+        run: |
+          test -n "$(ls -1 unsigned/*.apk unsigned/*.aab 2>/dev/null || true)" || { echo "No APK/AAB built"; exit 1; }
+
       - name: Sign release artifacts
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: android/app/build/outputs
+          releaseDirectory: unsigned
           signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           alias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}

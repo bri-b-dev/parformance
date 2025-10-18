@@ -1,17 +1,15 @@
 :root {
-    --bg: #f7f9f8; /* helle Fläche */
-    --surface: #ffffff; /* Karten/Hintergründe */
-    --text: #152012; /* primärer Text */
-    --muted: #647067; /* sekundärer Text */
-    --primary: #1e7a46; /* handycap-Grün */
+    --bg: #f7f9f8;
+    --surface: #ffffff;
+    --text: #152012;
+    --muted: #647067;
+    --primary: #1e7a46;
     --primary-ink: #ffffff;
     --ring: rgba(30, 122, 70, .3);
     --border: #e6ece8;
     --shadow: 0 2px 10px rgba(0, 0, 0, .06);
 }
 
-
-/* Dark Mode */
 :root[data-theme="dark"] {
     --bg: #0e1511;
     --surface: #121a15;
@@ -24,7 +22,6 @@
     --shadow: 0 2px 12px rgba(0, 0, 0, .35);
 }
 
-
 html, body, #app {
     height: 100%;
 }
@@ -33,13 +30,11 @@ body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-
-/* Layout Helpers */
 .container {
     max-width: 920px;
     margin: 0 auto;
@@ -123,8 +118,6 @@ body {
     border: 0;
 }
 
-
-/* Header & Tabs */
 .app-header {
     position: sticky;
     top: 0;
@@ -154,7 +147,6 @@ body {
     border-radius: 6px;
     background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--primary) 60%, #0a3));
 }
-
 
 .bottom-tabs {
     position: sticky;
@@ -187,7 +179,6 @@ body {
     background: color-mix(in oklab, var(--primary) 8%, transparent);
 }
 
-
 main {
-    padding-bottom: 72px; /* Platz für Tabs */
+    padding-bottom: 72px;
 }

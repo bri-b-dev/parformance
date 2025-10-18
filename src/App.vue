@@ -3,7 +3,7 @@
     <header class="app-header">
       <div class="bar container">
         <div class="brand">
-          <div class="logo" />
+          <div class="logo"/>
           <span>Golf Trainer</span>
         </div>
         <button class="btn" @click="toggle()" :aria-label="theme==='dark'?'Switch to light':'Switch to dark'">
@@ -13,15 +13,14 @@
       </div>
     </header>
     <main class="container">
-      <RouterView />
+      <RouterView/>
     </main>
-    <BottomTabs />
+    <BottomTabs/>
   </div>
 </template>
-
-
 <script setup lang="ts">
 import BottomTabs from '@/components/BottomTabs.vue';
-import { useTheme } from '@/composables/useTheme';
-const { theme, toggle } = useTheme();
+import {useTheme} from '@/composables/useTheme';
+
+const {theme, toggle} = useTheme();
 </script>

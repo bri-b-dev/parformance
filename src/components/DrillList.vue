@@ -18,7 +18,10 @@
     <div class="row">
       <article class="card" v-for="d in filtered" :key="d.id" style="flex:1 1 280px;">
         <header style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-          <RouterLink :to="`/drills/${d.id}`" style="font-weight:700; text-decoration:none; color:inherit">{{ d.title }}</RouterLink>
+          <RouterLink :to="`/drills/${d.id}`" style="font-weight:700; text-decoration:none; color:inherit">{{
+              d.title
+            }}
+          </RouterLink>
           <small class="chip">★ {{ d.difficulty ?? 3 }}</small>
         </header>
         <p style="color:var(--muted); margin:.5rem 0 0">{{ d.category }}</p>
@@ -26,7 +29,7 @@
         <div v-if="d.tags?.length" class="chips" style="margin-top:8px;">
           <span class="chip" v-for="t in d.tags" :key="t">{{ t }}</span>
         </div>
-        <hr class="hr" />
+        <hr class="hr"/>
         <div style="display:flex; gap:8px; justify-content:flex-end;">
           <RouterLink class="btn" :to="`/drills/${d.id}`">Bearbeiten</RouterLink>
           <button class="btn" @click="del(d.id)">Löschen</button>

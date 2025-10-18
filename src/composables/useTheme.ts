@@ -1,12 +1,12 @@
-import { ref, onMounted } from 'vue';
-
+import {onMounted, ref} from 'vue';
 
 const KEY = 'gt.theme';
+
 export function useTheme() {
-    const theme = ref<'light'|'dark'>('light');
+    const theme = ref<'light' | 'dark'>('light');
     const apply = () => document.documentElement.setAttribute('data-theme', theme.value);
     onMounted(() => {
-        const saved = localStorage.getItem(KEY) as 'light'|'dark'|null;
+        const saved = localStorage.getItem(KEY) as 'light' | 'dark' | null;
         theme.value = saved ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         apply();
     });
@@ -15,5 +15,5 @@ export function useTheme() {
         localStorage.setItem(KEY, theme.value);
         apply();
     };
-    return { theme, toggle };
+    return {theme, toggle};
 }

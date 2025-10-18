@@ -10,8 +10,6 @@
 </span>
         <span>Home</span>
       </RouterLink>
-
-
       <RouterLink class="tab" :class="{ active: isActive('/drills') }" to="/drills">
 <span class="icon" aria-hidden="true">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,8 +19,6 @@
 </span>
         <span>Drills</span>
       </RouterLink>
-
-
       <RouterLink class="tab" :class="{ active: isActive('/random') }" to="/random">
 <span class="icon" aria-hidden="true">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,8 +33,6 @@
     </nav>
   </div>
 </template>
-
-
 <script setup lang="ts">
 import {useRoute} from 'vue-router';
 
@@ -48,8 +42,6 @@ function isActive(prefix: string) {
   return route.path === prefix || route.path.startsWith(prefix + '/');
 }
 </script>
-
-
 <style scoped>
 .icon {
   line-height: 0;

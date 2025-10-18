@@ -37,3 +37,11 @@ npm run dev
 ```sh
 npm run build
 ```
+
+
+$ANDROID_SDK_ROOT/build-tools/$(ls $ANDROID_SDK_ROOT/build-tools | sort -V | tail -n1)/apksigner \
+sign \
+--ks /Users/brigittebohm/Workspace/golf/parformance/android/my-release-key.jks \
+--ks-key-alias bri-b-dev \
+--out android/app/build/outputs/apk/release/app-release-signed.apk \
+android/app/build/outputs/apk/release/app-release-unsigned.apk

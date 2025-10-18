@@ -11,7 +11,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Lege 6 Bälle im Kreis rund ums Loch, jeweils etwa 2–3 m entfernt. Spiele jeden Ball mit identischem Rhythmus und gleicher Technik, sodass der Ballflug und der Rollanteil übereinstimmen. Ziel ist, dass alle Bälle innerhalb eines Schlägerkopfs um das Loch liegen. Konzentriere dich auf den Treffpunkt und den Rhythmus deiner Bewegung.',
-        tags: ['shortgame', 'precision', 'rythm']
+        tags: ['precision', 'rythm']
     },
     {
         title: 'One Club Challenge',
@@ -65,7 +65,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Lege drei Zielkreise (z. B. 2 m, 4 m, 6 m) aus Seilen oder Markierungen auf das Grün. Schlage je 10 Bälle pro Zielkreis. Punktewertung: 3 Punkte für innerhalb des Kreises, 1 Punkt für auf dem Grün. Ziel: über 20 Punkte gesamt. Fokus: Konstanz beim Eintreffwinkel und Ball-Boden-Kontakt. Beobachte Sandmenge und Schwunglänge.',
-        tags: ['bunker', 'precision', 'constance']
+        tags: ['precision', 'constance']
     },
     {
         title: 'Putting — Zielbahn Challenge',
@@ -83,7 +83,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Platziere 12 Bälle im Uhrzeigersinn rund ums Loch, je ca. 1 m Entfernung. Putte einmal rundherum, alle Bälle sollen fallen. Danach erweitere auf 1,5 m und 2 m. Ziel: alle 36 Putts schaffen. Perfekt für kurze Putts und Selbstvertrauen unter Druck.',
-        tags: ['shortputts', 'focus', 'constance']
+        tags: ['focus', 'constance']
     },
     {
         title: 'Putting — Distanzpyramide',
@@ -147,7 +147,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 8,
         description:
             'Lege 6 Tees im Kreis um das Loch (1 m Abstand). Versuche alle 6 hintereinander zu lochen. Wiederhole auf 1,5 m und 2 m. Ziel: Konstanz im kurzen Bereich für sichere Pars und Birdies.',
-        tags: ['shortputts', 'constance', 'confidence']
+        tags: ['constance', 'confidence']
     },
     {
         title: 'Long Putt Progression',
@@ -156,7 +156,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 8,
         description:
             '10 Bälle aus ca. 10 m Entfernung. Ziel: 8 von 10 Bällen müssen im 2-m-Radius ums Loch liegen. Danach Radius auf 1,5 m und 1 m reduzieren. Fokus: Distanzgefühl entwickeln und Dreiputts vermeiden.',
-        tags: ['distancecontrol', 'feel', 'constance']
+        tags: ['distance', 'feel', 'constance']
     },
     {
         title: 'Distanzkontrolle – Lag Putting Points',
@@ -239,7 +239,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 8,
         description:
             '10 Chips mit lockerem Rhythmus, während du ein einfaches Mantra flüsterst („locker rollen“). Fokus auf Schwunggefühl, nicht auf Technik oder Ergebnis. Ziel: Spannung lösen, Bewegung automatisieren.',
-        tags: ['feel', 'looseness', 'rythm']
+        tags: ['feel', 'rythm']
     },
     {
         title: 'Druckspiel – Mentale Scorecard',
@@ -284,7 +284,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             '3 Zielbereiche um die Fahne (1 m, 2 m, 3 m). 10 Bälle = 30 Punkte möglich (3-2-1-0). Ziel > 21 Punkte. Variation: nur ein Schläger oder pro Runde wechseln. Einfach, motivierend, mit klarer Erfolgsmessung.',
-        tags: ['precision', 'motivation', 'competition']
+        tags: ['precision', 'fun', 'competition']
     },
     {
         title: 'One Ball Real Play',
@@ -312,7 +312,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Baue dir links und rechts der Ziel-Line je 2–3 imaginäre „Out“-Linien (z. B. 8 m breit). 10 Drives mit bewusst kontrolliertem Rhythmus und 80–85 % Power. Ziel: 8/10 in der „Fairway“-Zone. Fokus auf Balance, Zentrierung am Treffpunkt und Wiederholbarkeit.',
-        tags: ['control', 'constance', 'course-management']
+        tags: ['control', 'constance']
     },
     {
         title: 'Teehöhe & Startfenster',
@@ -330,7 +330,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Markiere eine 20 m breite Zielgasse. Spiele 12 Drives: 6 mit bewusster „Anti-Links“-Intention (z. B. Ball weiter vorne, Face leicht offen), 6 mit „Anti-Rechts“. Notiere, welche Setup-Änderung deine Streuung am besten reduziert.',
-        tags: ['dispersion', 'setup', 'strategy']
+        tags: ['dispersion', 'strategy']
     },
     {
         title: 'Tempo-Leiter (1–2–3–2–1)',
@@ -368,7 +368,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Stecke zwei Tees 1 Schlägerkopfbreite vor und hinter den Ball – „Gate“. 15 Schläge mit mittlerem Eisen. Ziel: Ball zuerst, Divot nach dem Ball, ohne die Tees zu treffen. Beobachte Divot-Lage und -Richtung.',
-        tags: ['impact', 'contact', 'basics']
+        tags: ['impact']
     },
     {
         title: '3/4-Schwung Kontrolle',
@@ -377,7 +377,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Spiele mit 3/4-Länge (Gefühl 75 % Schwung) je 5 Bälle mit 9i, 8i, 7i. Ziel: flachere Flugbahn, konstanter Kontakt und enge Längenstreuung. Nutze gleitenden Rhythmus: gleiches Tempo, nur Weg kürzer.',
-        tags: ['distancecontrol', 'rythm', 'constance']
+        tags: ['distance', 'rythm', 'constance']
     },
     {
         title: 'Trajectory Control – Knockdown',
@@ -386,7 +386,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Mit 7i/8i 12 Bälle: 6× normal, 6× „knockdown“ (Ball leicht zurück, Griff minimal vor dem Ball, finish kürzer). Ziel: niedrigere Flugbahn und windtauglicher Schlag. Vergleich der Landepunkte und Rollstrecke.',
-        tags: ['shaping', 'wind', 'control']
+        tags: ['shaping', 'control']
     },
     {
         title: 'Gapping Mini-Matrix',
@@ -395,7 +395,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 18,
         description:
             'Wähle 4 Eisen (z. B. PW, 9i, 8i, 7i). Spiele je 6 Bälle und notiere Carry-Schätzung (oder Markierungen). Ziel: durchschnittliche Carry je Schläger ermitteln, Ausreißer streichen. Ergebnis als „Gapping“-Notiz speichern.',
-        tags: ['gapping', 'carry', 'analysis']
+        tags: ['gapping', 'analysis']
     },
     {
         title: 'Hanglagen-Quickie',
@@ -404,7 +404,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             '5 Bälle „Ball über Füßen“, 5 Bälle „Ball unter Füßen“. Passe Standbreite, Kniebeuge und Zielausrichtung an (Kurvenflug einkalkulieren). Ziel: solide Kontakte und akzeptable Startlinie trotz Hang.',
-        tags: ['lie', 'course', 'adjustment']
+        tags: ['lie', 'adjustment']
     },
     {
         title: 'Zielstreifen 10 m',
@@ -417,9 +417,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
     }
 ]
 
-
-const STORAGE_KEY = 'golftrainer.drills.v1';
-
+const STORAGE_KEY = 'parformance.drills.v1';
 
 export const useDrillStore = defineStore('drills', {
     state: () => ({

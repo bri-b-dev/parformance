@@ -1,30 +1,58 @@
+/* ParFormance – Designsystem ------------------------------------------------ */
 :root {
-    --bg: #f7f9f8;
-    --surface: #ffffff;
-    --text: #152012;
-    --muted: #647067;
-    --primary: #1e7a46;
-    --primary-ink: #ffffff;
-    --ring: rgba(30, 122, 70, .3);
-    --border: #e6ece8;
+    /* Brand Core */
+    --primary: #2F7A52;          /* Fairway Green */
+    --primary-ink: #FFFFFF;
+    --accent-green: #2F7A52;     /* = primary */
+    --accent-beige: #E8DCC4;     /* Bunker Beige */
+    --accent-sky: #A7D8FF;       /* Sky Blue */
+    --accent-iron: #444C56;      /* Iron Grey */
+
+    /* UI Basis */
+    --bg: #F7F9F8;               /* helle Fläche */
+    --surface: #FFFFFF;          /* Karten/Pane */
+    --text: #444C56;             /* Iron Grey als Standard-Text */
+    --muted: #6B7280;            /* dezenter Sekundärtext */
+    --border: #E7ECEA;
     --shadow: 0 2px 10px rgba(0, 0, 0, .06);
+    --ring: rgba(47, 122, 82, .28); /* Fokus-Ring aus primary */
+
+    /* Kategorien (für farbige Chips/Badges) */
+    --cat-putting: #A7D8FF;
+    --cat-chipping: #B6E5C0;
+    --cat-driving: #FFD37A;
+    --cat-irons: #EABFFF;
+    --cat-bunker: #F7C7A3;
 }
 
 :root[data-theme="dark"] {
-    --bg: #0e1511;
-    --surface: #121a15;
-    --text: #e8f1eb;
-    --muted: #b1c0b7;
-    --primary: #47c97f;
-    --primary-ink: #0b140f;
-    --ring: rgba(71, 201, 127, .35);
+    /* Brand Core (leicht heller für Dark) */
+    --primary: #4FBF86;
+    --primary-ink: #0B140F;
+    --accent-green: #4FBF86;
+    --accent-beige: #8B816E;
+    --accent-sky: #6CB8FF;
+    --accent-iron: #C9D1D9;
+
+    /* UI Basis */
+    --bg: #0F1412;
+    --surface: #141A16;
+    --text: #E8F1EB;
+    --muted: #B1C0B7;
     --border: #243229;
     --shadow: 0 2px 12px rgba(0, 0, 0, .35);
+    --ring: rgba(79, 191, 134, .35);
+
+    /* Kategorien – etwas gedimmt, damit’s nicht „glüht“ */
+    --cat-putting: #549BD6;
+    --cat-chipping: #6FCB97;
+    --cat-driving: #E7B860;
+    --cat-irons: #C99AEF;
+    --cat-bunker: #DCAF8C;
 }
 
-html, body, #app {
-    height: 100%;
-}
+/* Global ------------------------------------------------------------------- */
+html, body, #app { height: 100%; }
 
 body {
     margin: 0;
@@ -35,12 +63,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 16px;
-}
-
+/* Layout */
+.container { max-width: 920px; margin: 0 auto; padding: 16px; }
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -49,6 +73,7 @@ body {
     padding: 14px;
 }
 
+/* Buttons */
 .btn {
     appearance: none;
     border: 1px solid var(--border);
@@ -57,19 +82,26 @@ body {
     padding: 10px 14px;
     border-radius: 12px;
     cursor: pointer;
+    transition: transform .04s ease, background-color .12s ease, border-color .12s ease;
 }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
 
 .btn-primary {
     background: var(--primary);
     color: var(--primary-ink);
     border-color: transparent;
 }
-
+.btn-primary:hover {
+    /* leicht dunkleres Primary */
+    background: color-mix(in oklab, var(--primary) 88%, #000);
+}
 .btn:focus, .btn-primary:focus {
     outline: none;
     box-shadow: 0 0 0 4px var(--ring);
 }
 
+/* Inputs */
 .input, select, textarea {
     width: 100%;
     padding: 10px 12px;
@@ -78,32 +110,14 @@ body {
     background: var(--surface);
     color: var(--text);
 }
+.label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.field { margin-bottom: 12px; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; }
 
-.label {
-    display: block;
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 6px;
-}
-
-.field {
-    margin-bottom: 12px;
-}
-
-.row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.chips {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
+/* Chips/Badges */
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
 .chip {
-    background: var(--bg);
+    background: color-mix(in oklab, var(--bg) 70%, var(--surface));
     border: 1px solid var(--border);
     padding: 4px 8px;
     border-radius: 999px;
@@ -111,85 +125,78 @@ body {
     color: var(--muted);
 }
 
-.hr {
-    height: 1px;
-    background: var(--border);
-    margin: 12px 0;
-    border: 0;
+/* Kategorie-Chips (optional nutzen) */
+.chip--putting {
+    background: color-mix(in oklab, var(--cat-putting) 18%, var(--surface));
+    border-color: color-mix(in oklab, var(--cat-putting) 45%, var(--border));
+}
+.chip--chipping {
+    background: color-mix(in oklab, var(--cat-chipping) 18%, var(--surface));
+    border-color: color-mix(in oklab, var(--cat-chipping) 45%, var(--border));
+}
+.chip--driving {
+    background: color-mix(in oklab, var(--cat-driving) 18%, var(--surface));
+    border-color: color-mix(in oklab, var(--cat-driving) 45%, var(--border));
+}
+.chip--irons {
+    background: color-mix(in oklab, var(--cat-irons) 18%, var(--surface));
+    border-color: color-mix(in oklab, var(--cat-irons) 45%, var(--border));
+}
+.chip--bunker {
+    background: color-mix(in oklab, var(--cat-bunker) 18%, var(--surface));
+    border-color: color-mix(in oklab, var(--cat-bunker) 45%, var(--border));
 }
 
+/* Divider */
+.hr { height: 1px; background: var(--border); margin: 12px 0; border: 0; }
+
+/* Header / Branding */
 .app-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: sticky; top: 0; z-index: 10;
     backdrop-filter: saturate(1.2) blur(8px);
     background: color-mix(in oklab, var(--bg) 86%, transparent);
     border-bottom: 1px solid var(--border);
 }
-
 .app-header .bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
+    display: flex; align-items: center; justify-content: space-between; padding: 10px 14px;
 }
-
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
+    display: flex; align-items: center; gap: 10px; font-weight: 700;
 }
-
 .brand .logo {
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--primary) 60%, #0a3));
+    width: 24px; height: 24px; border-radius: 6px;
+    background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--accent-sky) 60%, var(--primary)));
 }
 
+/* Tabs */
 .bottom-tabs {
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
+    position: sticky; bottom: 0; z-index: 10;
     border-top: 1px solid var(--border);
     background: color-mix(in oklab, var(--bg) 86%, transparent);
 }
-
-.bottom-tabs nav {
-    display: flex;
-    justify-content: space-around;
-    padding: 8px 6px;
-}
-
+.bottom-tabs nav { display: flex; justify-content: space-around; padding: 8px 6px; }
 .tab {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 12px;
-    padding: 6px 10px;
-    border-radius: 10px;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    text-decoration: none; color: var(--muted);
+    font-size: 12px; padding: 6px 10px; border-radius: 10px;
+    transition: background-color .12s ease, color .12s ease;
 }
-
 .tab.active {
     color: var(--primary);
-    background: color-mix(in oklab, var(--primary) 8%, transparent);
+    background: color-mix(in oklab, var(--primary) 10%, transparent);
 }
 
-main {
-    padding-bottom: 72px;
-}
+/* Content spacing for tabs */
+main { padding-bottom: 72px; }
 
+/* Brand Text Lockup */
 .brand {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    color: var(--accent-green, #2F7A52);
+    color: var(--accent-green);
 }
 .tagline {
     font-size: 0.9rem;
-    color: var(--muted, #666);
+    color: var(--muted);
     margin-top: -4px;
 }

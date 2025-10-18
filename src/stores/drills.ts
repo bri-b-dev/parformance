@@ -20,7 +20,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Spiele eine komplette Chip-Einheit ausschließlich mit einem Schläger, z. B. dem PW oder 9er Eisen. Variiere den Ballflug über deinen Stand, das Ball-Setup (vorne/mittig/hinten) und den Öffnungswinkel des Schlägers. Beobachte, wie stark sich der Rollweg verändert. Ziel: Gefühl für Loft und Energieübertragung entwickeln.',
-        tags: ['technik', 'feel', 'loft-kontrolle']
+        tags: ['technique', 'feel', 'control']
     },
     {
         title: 'Landezonen-Training',
@@ -29,7 +29,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Markiere drei Landezonen in unterschiedlicher Entfernung (z. B. 2 m, 4 m, 6 m vom Ball). Spiele abwechselnd in jede Zone und versuche, jeweils drei Bälle hintereinander korrekt zu platzieren, bevor du weitergehst. Nutze unterschiedliche Schläger (PW, SW, LW), um den Ballflug anzupassen. Fokus auf Landezonen-Kontrolle, nicht auf das Loch.',
-        tags: ['zielspiel', 'konstanz', 'kontrolle']
+        tags: ['target', 'constance', 'control']
     },
     {
         title: 'Random Chip',
@@ -38,7 +38,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Wirf den Ball zufällig rund ums Grün – jede Lage, jeder Lie ist anders. Spiele jeden Ball mit beliebigem Schläger ans Loch, aber nur **ein Versuch pro Ball**! Simuliert die Varianz realer Spielsituationen und trainiert schnelle Entscheidungsfindung und Gefühl. Ideal zum Abschluss einer Session.',
-        tags: ['dynamisch', 'realspiel', 'entscheidung']
+        tags: ['dynamic', 'realgame', 'decision']
     },
     {
         title: 'Landing Zone 3×3',
@@ -47,7 +47,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Markiere ein 3×3-Raster aus neun kleinen Landezonen (je ca. 50 cm × 50 cm) rund ums Loch. Spiele pro Feld fünf Bälle. Vergib Punkte je nach Nähe: innerstes Feld = 3 Punkte, mittleres = 2 Punkte, äußeres = 1 Punkt. Gesamtziel: > 60 Punkte. Trainiert Zielgenauigkeit und Distanzkontrolle.',
-        tags: ['precision', 'zielspiel', 'scoring']
+        tags: ['precision', 'target', 'scoring']
     },
     {
         title: 'Putting-Leiter',
@@ -65,7 +65,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Lege drei Zielkreise (z. B. 2 m, 4 m, 6 m) aus Seilen oder Markierungen auf das Grün. Schlage je 10 Bälle pro Zielkreis. Punktewertung: 3 Punkte für innerhalb des Kreises, 1 Punkt für auf dem Grün. Ziel: über 20 Punkte gesamt. Fokus: Konstanz beim Eintreffwinkel und Ball-Boden-Kontakt. Beobachte Sandmenge und Schwunglänge.',
-        tags: ['bunker', 'precision', 'konstanz']
+        tags: ['bunker', 'precision', 'constance']
     },
     {
         title: 'Putting — Zielbahn Challenge',
@@ -83,7 +83,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Platziere 12 Bälle im Uhrzeigersinn rund ums Loch, je ca. 1 m Entfernung. Putte einmal rundherum, alle Bälle sollen fallen. Danach erweitere auf 1,5 m und 2 m. Ziel: alle 36 Putts schaffen. Perfekt für kurze Putts und Selbstvertrauen unter Druck.',
-        tags: ['shortputts', 'focus', 'konstanz']
+        tags: ['shortputts', 'focus', 'constance']
     },
     {
         title: 'Putting — Distanzpyramide',
@@ -101,7 +101,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Platziere drei Zielbereiche in 10 m, 20 m und 30 m Entfernung. Spiele je 5 Bälle pro Ziel. Punktewertung: 3 Punkte = innerhalb 1 m, 2 Punkte = innerhalb 2 m, 1 Punkt = auf Grün. Ziel: 30 Punkte. Trainiert Distanzkontrolle und Rhythmus. Tipp: gleicher Schwung – nur Grifflänge ändern.',
-        tags: ['pitch', 'distanzen', 'rythm']
+        tags: ['pitch', 'distance', 'rythm']
     },
     {
         title: 'Pitching — Trajectory Control',
@@ -110,7 +110,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Spiele 9 Bälle mit drei verschiedenen Ballflügen: flach, mittel, hoch. Variiere Stand, Ballposition und Schwunglänge. Beobachte die Flugbahn und den ersten Bodenkontakt. Ziel: bewusste Steuerung des Abflugwinkels. Ideal bei Wind oder Hanglagen.',
-        tags: ['technik', 'shaping', 'control']
+        tags: ['technique', 'shaping', 'control']
     },
     {
         title: 'Bunker — Auf einem Fuß',
@@ -119,7 +119,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Lege 5 Bälle im Bunker auf normale Lagen. Schlage sie mit leicht angehobenem vorderen Fuß (Ferse oben). Das zwingt dich zu ruhigem Kopf und stabilem Unterkörper. Ziel: 3 Bälle sauber auf Grün und innerhalb 3 m. Fördert Balance, Rhythmus und Treffmoment.',
-        tags: ['balance', 'konstanz', 'technik']
+        tags: ['balance', 'constance', 'technique']
     },
     {
         title: 'Approach — Par-18 Short Game',
@@ -128,7 +128,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 20,
         description:
             'Baue 9 Spielbahnen rund ums Grün (verschiedene Distanzen und Lagen). Spiele jede Bahn wie ein Loch: Chip + max. 2 Putts = Par 2. Zähle Gesamtscore. Ziel: 18 oder besser. Simuliert echte Platzsituationen, verbindet Chipping und Putting unter Druck.',
-        tags: ['realspiel', 'scoring', 'druck']
+        tags: ['realgame', 'scoring', 'pressure']
     },
     // PUTTING -------------------------------------------------------
     {
@@ -138,7 +138,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 5,
         description:
             'Kontrolliere Ausrichtung, Körperwinkel und Griffdruck. Stelle dich gleichmäßig auf, Schultern parallel zur Ziellinie. Pendle den Putter mit lockerem Griffdruck und gleichmäßigem Rhythmus. Fokus: saubere Basisbewegung ohne Zielstress.',
-        tags: ['grundlagen', 'technik', 'rythm']
+        tags: ['basics', 'technique', 'rythm']
     },
     {
         title: 'Short Putt Circle',
@@ -147,7 +147,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 8,
         description:
             'Lege 6 Tees im Kreis um das Loch (1 m Abstand). Versuche alle 6 hintereinander zu lochen. Wiederhole auf 1,5 m und 2 m. Ziel: Konstanz im kurzen Bereich für sichere Pars und Birdies.',
-        tags: ['shortputts', 'konstanz', 'selbstvertrauen']
+        tags: ['shortputts', 'constance', 'confidence']
     },
     {
         title: 'Long Putt Progression',
@@ -156,7 +156,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 8,
         description:
             '10 Bälle aus ca. 10 m Entfernung. Ziel: 8 von 10 Bällen müssen im 2-m-Radius ums Loch liegen. Danach Radius auf 1,5 m und 1 m reduzieren. Fokus: Distanzgefühl entwickeln und Dreiputts vermeiden.',
-        tags: ['distancecontrol', 'feel', 'konstanz']
+        tags: ['distancecontrol', 'feel', 'constance']
     },
     {
         title: 'Distanzkontrolle – Lag Putting Points',
@@ -174,7 +174,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Hinter dem Loch drei Zonen markieren (0–50 cm, 50–100 cm, 100–150 cm). Putte von 6–10 m. Ziel: Ball muss hinter dem Loch stehen bleiben, je näher desto besser. Punkte wie Darts: Zone 1 = 3 P, Zone 2 = 2 P, Zone 3 = 1 P.',
-        tags: ['tempo', 'zielspiel', 'precision']
+        tags: ['tempo', 'target', 'precision']
     },
     {
         title: 'Par-Putt-Challenge',
@@ -183,7 +183,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Wähle 9 verschiedene Putts (5–15 m, unterschiedliche Breaks). Birdie = direkt gelocht (2 P), Par = Tap-In < 1 Schlägerlänge (1 P), 3-Putt = 0 P. Zähle Gesamtscore. Trainiert Platzdruck & Distanzstrategie.',
-        tags: ['realspiel', 'druck', 'strategie']
+        tags: ['realgame', 'pressure', 'strategy']
     },
     {
         title: 'Gate Drill + Distanzkontrolle',
@@ -192,7 +192,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Platziere zwei Tees 30 cm vor dem Putter als Gate. Putte zu einem Ziel in 8–10 m. Nur Putts, die durchs Gate gehen und innerhalb 1 m stoppen, zählen. Trainiert Schlagflächenkontrolle & Tempo.',
-        tags: ['technik', 'line', 'tempo']
+        tags: ['technique', 'line', 'tempo']
     },
     {
         title: 'Putting Statistik – Up & Down',
@@ -201,7 +201,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             '10 Putts aus 6–12 m. Zähle, wie viele du mit zwei Putts oder weniger beendest. Zielquote > 80 %. Realistische Messung deines Längengefühls und Dreiputt-Vermeidungsrate.',
-        tags: ['analyse', 'zielspiel', 'effizienz']
+        tags: ['analysis', 'target', 'efficiency']
     },
     {
         title: 'Spiral-Drill',
@@ -221,7 +221,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Lege drei Handtücher als Landezonen (1 m, 2 m, 3 m hinter Vorgrünkante). Wähle vor jedem Schlag bewusst eine Zone und einen Schläger. Fokus auf Vorstellung & Ausführung, nicht Technik. Ziel: Trefferquote in der gewählten Zone.',
-        tags: ['zielspiel', 'visualisierung', 'feel']
+        tags: ['target', 'visualization', 'feel']
     },
     {
         title: 'Commitment-Drill – Entscheidung zählt',
@@ -230,7 +230,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Fünf unterschiedliche Lagen ums Grün. Wähle jeweils den einfachsten Schlag, dem du vertraust, und führe **nur einen Ball** aus. Kein Wiederholungsball. Ziel: Entscheidung durchziehen und Akzeptanz trainieren.',
-        tags: ['mental', 'entscheidung', 'platzspiel']
+        tags: ['mental', 'decision', 'realgame']
     },
     {
         title: 'Lockerheits-Drill – Gefühl statt Technik',
@@ -239,7 +239,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 8,
         description:
             '10 Chips mit lockerem Rhythmus, während du ein einfaches Mantra flüsterst („locker rollen“). Fokus auf Schwunggefühl, nicht auf Technik oder Ergebnis. Ziel: Spannung lösen, Bewegung automatisieren.',
-        tags: ['feel', 'lockerheit', 'rythm']
+        tags: ['feel', 'looseness', 'rythm']
     },
     {
         title: 'Druckspiel – Mentale Scorecard',
@@ -248,7 +248,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             '10 Chips aus gleicher Lage. Zähle nur Bälle, die innerhalb 2 m vom Loch liegen. Score = Anzahl guter Chips. Vergleiche wöchentlich. Trainiert Leistung unter Druck und objektive Bewertung.',
-        tags: ['druck', 'precision', 'constance']
+        tags: ['pressure', 'precision', 'constance']
     },
     {
         title: 'Chip-Parcours – Up & Down Challenge',
@@ -257,7 +257,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 20,
         description:
             '6–9 Spots ums Grün (verschiedene Lagen). Jeweils 1 Ball pro Spot, Chip + 1 Putt. Zähle Score wie auf dem Platz: 1 = Birdie, 2 = Par, 3 = Bogey. Ziel: Par oder besser. Optional mit Timer (30 s/Station).',
-        tags: ['realspiel', 'druck', 'spaß']
+        tags: ['realgame', 'pressure', 'fun']
     },
     {
         title: 'Landespiel – Spot the Spot',
@@ -266,7 +266,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Markiere drei Landeflächen (1 m, 2 m, 3 m). Ziel ist nicht das Loch, sondern die Landestelle. Beobachte Rollverhalten und vergleiche Schläger. 1 Punkt = Landung in Zone + Roll < 1 m. Perfekt zur Loft- und Roll-Wahrnehmung.',
-        tags: ['technik', 'zielspiel', 'feel']
+        tags: ['technique', 'target', 'feel']
     },
     {
         title: 'Rule of 12 Reality Check',
@@ -275,7 +275,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Teste deine Chip-Matrix: 8i, 9i, PW, GW, SW, LW – gleicher Landepunkt, jeweils 5 Bälle. Miss Rollstrecken, trage Werte in deine Matrix ein. Ziel: reale Bestätigung deiner theoretischen Distanzen.',
-        tags: ['technik', 'analyse', 'control']
+        tags: ['technique', 'analysis', 'control']
     },
     {
         title: '21-Punkte-Spiel',
@@ -284,7 +284,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             '3 Zielbereiche um die Fahne (1 m, 2 m, 3 m). 10 Bälle = 30 Punkte möglich (3-2-1-0). Ziel > 21 Punkte. Variation: nur ein Schläger oder pro Runde wechseln. Einfach, motivierend, mit klarer Erfolgsmessung.',
-        tags: ['precision', 'motivation', 'wettkampf']
+        tags: ['precision', 'motivation', 'competition']
     },
     {
         title: 'One Ball Real Play',
@@ -293,7 +293,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 20,
         description:
             'Spiele mit nur einem Ball 9 verschiedene Lagen rund ums Grün. Jeder Schlag zählt: Lage lesen, Schläger wählen, Landepunkt visualisieren, 1 Chip + 1 Putt. Ziel: so viele Up & Downs wie möglich. Trainiert Routine & Fokus.',
-        tags: ['platzspiel', 'mental', 'routine']
+        tags: ['realgame', 'mental', 'routine']
     },
     {
         title: 'Randomizer – Würfel-Drill',
@@ -302,7 +302,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Erstelle einen Zufallsgenerator: Würfel 1 = Lage (Rough, Hang, kurz, etc.), Würfel 2 = Schläger, Würfel 3 = Zielentfernung. Kombiniere und spiele spontan. Simulation echter Platzbedingungen – Spaßfaktor hoch!',
-        tags: ['abwechslung', 'kreativität', 'realspiel']
+        tags: ['variation', 'creativity', 'fun']
     },
     // DRIVING (TEE) -------------------------------------------------------
     {
@@ -321,7 +321,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 10,
         description:
             'Teste drei Tee-Höhen (niedrig, mittel, hoch) je 5 Bälle. Beobachte Startwinkel und Treffhöhe (oberes Drittel der Schlagfläche). Wähle danach „deine“ Standardhöhe. Ziel: konstantes Startfenster und Launch.',
-        tags: ['technik', 'launch', 'treffmoment']
+        tags: ['technique', 'launch', 'impact']
     },
     {
         title: 'Dispersion Links/Rechts',
@@ -330,7 +330,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 15,
         description:
             'Markiere eine 20 m breite Zielgasse. Spiele 12 Drives: 6 mit bewusster „Anti-Links“-Intention (z. B. Ball weiter vorne, Face leicht offen), 6 mit „Anti-Rechts“. Notiere, welche Setup-Änderung deine Streuung am besten reduziert.',
-        tags: ['streuung', 'setup', 'strategie']
+        tags: ['dispersion', 'setup', 'strategy']
     },
     {
         title: 'Tempo-Leiter (1–2–3–2–1)',
@@ -357,7 +357,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             '3 Blöcke à 5 Bälle: Block 1 normal, Block 2 „schnell aber sauber“ (nur 5–8 % mehr Tempo), Block 3 wieder normal. Ziel: in Block 2 Ballgeschwindigkeit steigern, ohne Treffqualität zu verlieren. Notiere besten „schnellen“ Schwung, der noch kontrolliert ist.',
-        tags: ['speed', 'effizienz', 'techniktransfer']
+        tags: ['speed', 'efficiency', 'transfer']
     },
 
     // IRONS (APPROACH) ----------------------------------------------------
@@ -368,7 +368,7 @@ const defaultDrills: Omit<Drill, 'id' | 'updatedAt'>[] = [
         durationMin: 12,
         description:
             'Stecke zwei Tees 1 Schlägerkopfbreite vor und hinter den Ball – „Gate“. 15 Schläge mit mittlerem Eisen. Ziel: Ball zuerst, Divot nach dem Ball, ohne die Tees zu treffen. Beobachte Divot-Lage und -Richtung.',
-        tags: ['treffmoment', 'kontakt', 'grundlagen']
+        tags: ['impact', 'contact', 'basics']
     },
     {
         title: '3/4-Schwung Kontrolle',

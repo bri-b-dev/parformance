@@ -182,3 +182,14 @@ body {
 main {
     padding-bottom: 72px;
 }
+
+.brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--accent-green, #2F7A52);
+}
+.tagline {
+    font-size: 0.9rem;
+    color: var(--muted, #666);
+    margin-top: -4px;
+}

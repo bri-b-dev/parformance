@@ -4,7 +4,7 @@
       <div class="bar container">
         <div class="brand">
           <div class="logo"/>
-          <span>Golf Trainer</span>
+          <span>ParFormance</span>
         </div>
         <button class="btn" @click="toggle()" :aria-label="theme==='dark'?'Switch to light':'Switch to dark'">
           <span v-if="theme==='dark'">🌙</span>

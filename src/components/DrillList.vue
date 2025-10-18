@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button class="btn" @click="filterCategory = ''; filterTagsAny = []">Filter löschen</button>
     <div class="row">
       <div class="field" style="min-width:180px;">
         <label class="label">Kategorie</label>
@@ -17,11 +16,14 @@
         <label class="label">Tags</label>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
           <label v-for="t in uniqueTags" :key="t" class="chip" style="cursor:pointer;">
-            <input type="checkbox" :value="t" v-model="filterTagsAny" style="margin-right:6px" />
+            <input type="checkbox" :value="t" v-model="filterTagsAny" style="margin-right:6px"/>
             {{ t }}
           </label>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <button class="btn" @click="filterCategory = ''; filterTagsAny = []">Filter löschen</button>
     </div>
 
     <div class="row">
@@ -37,7 +39,7 @@
         <div v-if="d.tags?.length" class="chips" style="margin-top:8px;">
           <span class="chip" v-for="t in d.tags" :key="t">{{ t }}</span>
         </div>
-        <hr class="hr" />
+        <hr class="hr"/>
         <div style="display:flex; gap:8px; justify-content:flex-end;">
           <RouterLink class="btn" :to="`/drills/${d.id}`">Bearbeiten</RouterLink>
           <button class="btn" @click="del(d.id)">Löschen</button>
@@ -52,9 +54,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useDrillStore } from '@/stores/drills'
-import type { DrillCategory } from '@/types/drill'
+import {computed, onMounted, ref} from 'vue'
+import {useDrillStore} from '@/stores/drills'
+import type {DrillCategory} from '@/types/drill'
 
 const store = useDrillStore()
 

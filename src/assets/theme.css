@@ -23,6 +23,9 @@
     --cat-driving: #FFD37A;
     --cat-irons: #EABFFF;
     --cat-bunker: #F7C7A3;
+
+    --container-max: 920px;
+    --container-pad: 16px;
 }
 
 :root[data-theme="dark"] {
@@ -150,31 +153,53 @@ body {
 /* Divider */
 .hr { height: 1px; background: var(--border); margin: 12px 0; border: 0; }
 
-/* Header / Branding */
+#app, .app {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
 .app-header {
-    position: sticky; top: 0; z-index: 10;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     backdrop-filter: saturate(1.2) blur(8px);
     background: color-mix(in oklab, var(--bg) 86%, transparent);
     border-bottom: 1px solid var(--border);
 }
+
 .app-header .bar {
-    display: flex; align-items: center; justify-content: space-between; padding: 10px 14px;
-}
-.brand {
-    display: flex; align-items: center; gap: 10px; font-weight: 700;
-}
-.brand .logo {
-    width: 24px; height: 24px; border-radius: 6px;
-    background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--accent-sky) 60%, var(--primary)));
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 10px var(--container-pad);
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: nowrap;
+    min-height: 56px;
 }
 
 /* Tabs */
 .bottom-tabs {
-    position: sticky; bottom: 0; z-index: 10;
+    /* bleibt wie gehabt (sticky/fixed je nach deinem Layout) */
     border-top: 1px solid var(--border);
     background: color-mix(in oklab, var(--bg) 86%, transparent);
+    box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
+    padding-bottom: env(safe-area-inset-bottom, 12px);
 }
-.bottom-tabs nav { display: flex; justify-content: space-around; padding: 8px 6px; }
+
+.bottom-tabs nav {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-pad);
+    min-height: 56px;          /* oder 64px, je nach Optik */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .tab {
     display: flex; flex-direction: column; align-items: center; gap: 4px;
     text-decoration: none; color: var(--muted);
@@ -187,16 +212,46 @@ body {
 }
 
 /* Content spacing for tabs */
-main { padding-bottom: 72px; }
+main {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
+    padding-top: 8px;
+}
 
 /* Brand Text Lockup */
 .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;
     color: var(--accent-green);
+    font-weight: 700;
 }
+.brand .logo {
+    width: 24px; height: 24px; border-radius: 6px;
+    background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--accent-sky) 60%, var(--primary)));
+}
+
+.brand span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .tagline {
     font-size: 0.9rem;
     color: var(--muted);
     margin-top: -4px;
+}
+
+/* Overrides - must be at end of file */
+
+.app-header .bar > *:last-child {
+    flex: 0 0 auto;
+}
+
+@media (max-width: 360px) {
+    .brand span { font-size: 0.95rem; }
 }

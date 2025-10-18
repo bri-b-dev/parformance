@@ -1,0 +1,132 @@
+name: release-android
+
+on:
+  push:
+    tags:
+      - "v*"          # z.B. v1.2.3
+
+permissions:
+  contents: write     # damit das Release erstellt & Assets hochgeladen werden können
+
+jobs:
+  build-sign:
+    name: Build & Sign Android (Vue + Capacitor)
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_VERSION: "24"
+      JAVA_VERSION: "21"               # Android Gradle Plugin 8.x → Java 21
+      WORKING_DIRECTORY: "."           # falls dein Frontend nicht im Repo-Root ist, hier anpassen (z.B. "frontend")
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: ${{ env.WORKING_DIRECTORY }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npm ci
+
+      - name: Build web (Vue)
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npm run build
+
+      - name: Install Capacitor CLI
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npm i -D @capacitor/cli
+
+      - name: Sync Capacitor → Android
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npx cap sync android
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: "gradle"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
+
+      - name: Build AAB & APK (Gradle)
+        working-directory: android
+        run: |
+          ./gradlew clean \
+            :app:bundleRelease \
+            :app:assembleRelease
+
+      # ===== Signieren (benötigt Secrets) =====
+      # Lege folgende GitHub Secrets an:
+      # ANDROID_KEYSTORE_BASE64   -> base64 deiner keystore-Datei (.jks oder .keystore)
+      # ANDROID_KEYSTORE_PASSWORD -> Keystore-Passwort
+      # ANDROID_KEY_ALIAS         -> Alias des Keys
+      # ANDROID_KEY_PASSWORD      -> Passwort des Keys
+      - name: Sign release artifacts
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: android/app/build/outputs
+          signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: Rename signed artifacts for upload
+        run: |
+          mkdir -p signed
+          # AAB
+          cp android/app/build/outputs/bundle/release/app-release.aab signed/app-release.aab || true
+          # APK (vom Sign-Action umbenannt/überschrieben)
+          # Häufiger Pfad (falls nicht vorhanden, suche die Datei via glob)
+          APK_PATH=$(ls android/app/build/outputs/apk/release/*-signed.apk | head -n 1 || true)
+          if [ -n "$APK_PATH" ]; then cp "$APK_PATH" signed/app-release.apk; fi
+          ls -l signed
+
+      - name: Upload artifacts (CI)
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-release
+          path: signed/*
+          if-no-files-found: error
+
+  github-release:
+    name: Create GitHub Release
+    needs: build-sign
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download signed artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: android-release
+          path: dist
+
+      - name: Generate release notes (conventional commits optional)
+        id: notes
+        run: |
+          echo "## Änderungen" > RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "- Automatisches Release für $GITHUB_REF_NAME" >> RELEASE_NOTES.md
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body_path: RELEASE_NOTES.md
+          files: |
+            dist/app-release.aab
+            dist/app-release.apk
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}

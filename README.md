@@ -45,3 +45,17 @@ sign \
 --ks-key-alias bri-b-dev \
 --out android/app/build/outputs/apk/release/app-release-signed.apk \
 android/app/build/outputs/apk/release/app-release-unsigned.apk
+
+```
+# Namen kannst du anpassen (upload-keystore.jks, alias: upload)
+keytool -genkeypair \
+  -v \
+  -keystore android-keystore.jks \
+  -storetype JKS \
+  -alias parformance \
+  -keyalg RSA \
+  -keysize 2048 \
+  -validity 9125 \
+  -dname "CN=Brigitte Böhm, O=bri-b-dev, C=DE"
+
+```

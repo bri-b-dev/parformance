@@ -70,17 +70,19 @@ jobs:
           echo "=== Built files ==="
           find android/app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) -print || true
 
-      - name: Collect release files
+      - name: Collect release files (unsigned)
         run: |
           mkdir -p unsigned
-          # sammelt egal ob flavor (z.B. prod/release) oder -unsigned
           find android/app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) -print -exec cp {} unsigned/ \;
+          echo "== unsigned =="
+          ls -l unsigned || true
 
       - name: Fail if nothing was built
         run: |
           test -n "$(ls -1 unsigned/*.apk unsigned/*.aab 2>/dev/null || true)" || { echo "No APK/AAB built"; exit 1; }
 
       - name: Sign release artifacts
+        id: sign
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: unsigned
@@ -91,22 +93,19 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
 
-      - name: Rename signed artifacts for upload
+      - name: Show signed outputs
         run: |
-          mkdir -p signed
-          # AAB
-          cp android/app/build/outputs/bundle/release/app-release.aab signed/app-release.aab || true
-          # APK (vom Sign-Action umbenannt/überschrieben)
-          # Häufiger Pfad (falls nicht vorhanden, suche die Datei via glob)
-          APK_PATH=$(ls android/app/build/outputs/apk/release/*-signed.apk | head -n 1 || true)
-          if [ -n "$APK_PATH" ]; then cp "$APK_PATH" signed/app-release.apk; fi
-          ls -l signed
+          echo "== after signing =="
+          ls -l unsigned || true
+          # Erwartet: unsigned/app-release.aab  und  unsigned/*-signed.apk
 
-      - name: Upload artifacts (CI)
+      - name: Upload artifacts (AAB + APK)
         uses: actions/upload-artifact@v4
         with:
           name: android-release
-          path: signed/*
+          path: |
+            unsigned/*.aab
+            unsigned/*-signed.apk
           if-no-files-found: error
 
   github-release:
@@ -135,7 +134,7 @@ jobs:
           name: ${{ github.ref_name }}
           body_path: RELEASE_NOTES.md
           files: |
-            dist/app-release.aab
-            dist/app-release.apk
+            dist/*.aab
+            dist/*-signed.apk
           draft: false
           prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}

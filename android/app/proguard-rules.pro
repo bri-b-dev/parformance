@@ -19,3 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# reine Annotation-/Qualifier-Packages
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn javax.annotation.**
+-dontwarn javax.annotation.concurrent.**
+-dontwarn org.checkerframework.**
+-dontwarn com.google.j2objc.annotations.**
+
+# optionale Klassen, die nur von KeysDownloader gebraucht würden
+-dontwarn com.google.api.client.**
+-dontwarn org.joda.time.**

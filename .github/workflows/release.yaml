@@ -121,12 +121,38 @@ jobs:
           path: dist
 
       - name: Normalize filenames
+        shell: bash
         run: |
-          AAB=$(ls dist/*.aab | head -n1 || true)
-          APK=$(ls dist/*-signed.apk | head -n1 || true)
-          [ -n "$AAB" ] && cp "$AAB" dist/app-release.aab
-          [ -n "$APK" ] && cp "$APK" dist/app-release.apk
+          set -euo pipefail
+          
+          # AAB normalisieren (nur kopieren, wenn Quelle != Ziel)
+          AAB=$(ls dist/*.aab 2>/dev/null | head -n1 || true)
+          if [ -n "${AAB:-}" ]; then
+            TARGET_AAB="dist/app-release.aab"
+            SRC_AAB_REAL=$(realpath "$AAB")
+            TGT_AAB_REAL=$(realpath "$TARGET_AAB" 2>/dev/null || echo "")
+            if [ "$SRC_AAB_REAL" != "$TGT_AAB_REAL" ]; then
+              cp -f "$AAB" "$TARGET_AAB"
+            fi
+          fi
+          
+          # APK normalisieren (bevorzugt *-signed.apk; nur kopieren, wenn Quelle != Ziel)
+          APK=$(ls dist/*-signed.apk 2>/dev/null | head -n1 || true)
+          if [ -z "${APK:-}" ]; then
+            APK=$(ls dist/*.apk 2>/dev/null | head -n1 || true)
+          fi
+          if [ -n "${APK:-}" ]; then
+            TARGET_APK="dist/app-release.apk"
+            SRC_APK_REAL=$(realpath "$APK")
+            TGT_APK_REAL=$(realpath "$TARGET_APK" 2>/dev/null || echo "")
+            if [ "$SRC_APK_REAL" != "$TGT_APK_REAL" ]; then
+              cp -f "$APK" "$TARGET_APK"
+            fi
+          fi
+          
+          echo "== dist =="
           ls -l dist
+
 
       - name: Generate release notes (conventional commits optional)
         id: notes

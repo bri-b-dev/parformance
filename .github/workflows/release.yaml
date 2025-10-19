@@ -120,6 +120,14 @@ jobs:
           name: android-release
           path: dist
 
+      - name: Normalize filenames
+        run: |
+          AAB=$(ls dist/*.aab | head -n1 || true)
+          APK=$(ls dist/*-signed.apk | head -n1 || true)
+          [ -n "$AAB" ] && cp "$AAB" dist/app-release.aab
+          [ -n "$APK" ] && cp "$APK" dist/app-release.apk
+          ls -l dist
+
       - name: Generate release notes (conventional commits optional)
         id: notes
         run: |

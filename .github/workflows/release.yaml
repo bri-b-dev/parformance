@@ -6,7 +6,7 @@ on:
       - "v*"          # z.B. v1.2.3
 
 permissions:
-  contents: write     # damit das Release erstellt & Assets hochgeladen werden können
+  contents: write
 
 jobs:
   build-sign:
@@ -15,8 +15,8 @@ jobs:
 
     env:
       NODE_VERSION: "24"
-      JAVA_VERSION: "21"               # Android Gradle Plugin 8.x → Java 21
-      WORKING_DIRECTORY: "."           # falls dein Frontend nicht im Repo-Root ist, hier anpassen (z.B. "frontend")
+      JAVA_VERSION: "21"
+      WORKING_DIRECTORY: "."
 
     steps:
       - name: Checkout
@@ -65,21 +65,12 @@ jobs:
             :app:bundleRelease \
             :app:assembleRelease
 
-      - name: Show build outputs (diagnostics)
-        run: |
-          echo "=== Built files ==="
-          find android/app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) -print || true
-
       - name: Collect release files (unsigned)
         run: |
           mkdir -p unsigned
           find android/app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) -print -exec cp {} unsigned/ \;
           echo "== unsigned =="
           ls -l unsigned || true
-
-      - name: Fail if nothing was built
-        run: |
-          test -n "$(ls -1 unsigned/*.apk unsigned/*.aab 2>/dev/null || true)" || { echo "No APK/AAB built"; exit 1; }
 
       - name: Sign release artifacts
         id: sign
@@ -93,19 +84,27 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
 
-      - name: Show signed outputs
+      - name: Normalize signed filenames
         run: |
-          echo "== after signing =="
-          ls -l unsigned || true
-          # Erwartet: unsigned/app-release.aab  und  unsigned/*-signed.apk
+          set -euo pipefail
+          APK=$(ls unsigned/*-signed.apk 2>/dev/null | head -n1 || true)
+          if [ -n "${APK:-}" ]; then
+            mv -f "$APK" unsigned/app-release.apk
+          fi
+          AAB=$(ls unsigned/*.aab 2>/dev/null | head -n1 || true)
+          if [ -n "${AAB:-}" ] && [ "$(basename "$AAB")" != "app-release.aab" ]; then
+            mv -f "$AAB" unsigned/app-release.aab
+          fi
+          echo "== unsigned (normalized) =="
+          ls -l unsigned
 
-      - name: Upload artifacts (AAB + APK)
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: android-release
           path: |
-            unsigned/*.aab
-            unsigned/*-signed.apk
+            unsigned/app-release.aab
+            unsigned/app-release.apk
           if-no-files-found: error
 
   github-release:
@@ -120,42 +119,7 @@ jobs:
           name: android-release
           path: dist
 
-      - name: Normalize filenames
-        shell: bash
-        run: |
-          set -euo pipefail
-          
-          # AAB normalisieren (nur kopieren, wenn Quelle != Ziel)
-          AAB=$(ls dist/*.aab 2>/dev/null | head -n1 || true)
-          if [ -n "${AAB:-}" ]; then
-            TARGET_AAB="dist/app-release.aab"
-            SRC_AAB_REAL=$(realpath "$AAB")
-            TGT_AAB_REAL=$(realpath "$TARGET_AAB" 2>/dev/null || echo "")
-            if [ "$SRC_AAB_REAL" != "$TGT_AAB_REAL" ]; then
-              cp -f "$AAB" "$TARGET_AAB"
-            fi
-          fi
-          
-          # APK normalisieren (bevorzugt *-signed.apk; nur kopieren, wenn Quelle != Ziel)
-          APK=$(ls dist/*-signed.apk 2>/dev/null | head -n1 || true)
-          if [ -z "${APK:-}" ]; then
-            APK=$(ls dist/*.apk 2>/dev/null | head -n1 || true)
-          fi
-          if [ -n "${APK:-}" ]; then
-            TARGET_APK="dist/app-release.apk"
-            SRC_APK_REAL=$(realpath "$APK")
-            TGT_APK_REAL=$(realpath "$TARGET_APK" 2>/dev/null || echo "")
-            if [ "$SRC_APK_REAL" != "$TGT_APK_REAL" ]; then
-              cp -f "$APK" "$TARGET_APK"
-            fi
-          fi
-          
-          echo "== dist =="
-          ls -l dist
-
-
-      - name: Generate release notes (conventional commits optional)
-        id: notes
+      - name: Generate release notes
         run: |
           echo "## Änderungen" > RELEASE_NOTES.md
           echo "" >> RELEASE_NOTES.md
@@ -168,7 +132,7 @@ jobs:
           name: ${{ github.ref_name }}
           body_path: RELEASE_NOTES.md
           files: |
-            dist/*.aab
-            dist/*-signed.apk
+            dist/app-release.aab
+            dist/app-release.apk
           draft: false
           prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}

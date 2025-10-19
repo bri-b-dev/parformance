@@ -18,10 +18,35 @@ android {
     }
     signingConfigs {
       release {
-        storeFile file(System.getenv("ANDROID_KEYSTORE_PATH") ?: "upload-keystore.jks")
-        storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-        keyAlias System.getenv("ANDROID_KEY_ALIAS")
-        keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+      def propOrEnv = { k -> System.getenv(k) ?: (project.hasProperty(k) ? project.property(k) : null) }
+
+      // 1) Base64 zuerst versuchen
+      def ksBase64 = propOrEnv("ANDROID_KEYSTORE_BASE64")
+      File resolvedKsFile = null
+      if (ksBase64) {
+        // Whitespace entfernen (falls mit Umbrüchen gespeichert) und ins buildDir schreiben
+        def cleanB64 = ksBase64.replaceAll("\\s", "")
+        def outDir = new File("${project.buildDir}/keystore")
+        outDir.mkdirs()
+        def outFile = new File(outDir, "upload-keystore.jks")
+        outFile.bytes = cleanB64.decodeBase64()
+        resolvedKsFile = outFile
+        println "🔐 Keystore aus ANDROID_KEYSTORE_BASE64 nach ${outFile} geschrieben"
+      } else {
+        // 2) Fallback: Pfad aus Env/Property oder lokaler Default
+        def ksPath = propOrEnv("ANDROID_KEYSTORE_PATH") ?: "upload-keystore.jks"
+        resolvedKsFile = file(ksPath)
+        println "🔐 Keystore per Pfad: ${resolvedKsFile}"
+      }
+
+      if (resolvedKsFile?.exists()) {
+        storeFile resolvedKsFile
+        storePassword propOrEnv("ANDROID_KEYSTORE_PASSWORD")
+        keyAlias      propOrEnv("ANDROID_KEY_ALIAS")
+        keyPassword   propOrEnv("ANDROID_KEY_PASSWORD")
+      } else {
+        println "⚠️  Kein Keystore gefunden – Release wird UNSIGNED gebaut."
+      }
       }
     }
     buildTypes {

@@ -28,4 +28,4 @@ coverage
 *.sw?
 
 *.tsbuildinfo
-/android-keystore.jks
+/setup-android-release.sh

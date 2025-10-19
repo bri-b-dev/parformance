@@ -3,16 +3,14 @@ name: release-android
 on:
   push:
     tags:
-      - "v*"          # z.B. v1.2.3
+      - "v*"
 
 permissions:
   contents: write
 
 jobs:
-  build-sign:
-    name: Build & Sign Android (Vue + Capacitor)
+  build-release:
     runs-on: ubuntu-latest
-
     env:
       NODE_VERSION: "24"
       JAVA_VERSION: "21"
@@ -48,9 +46,9 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: "temurin"
+          distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
-          cache: "gradle"
+          cache: gradle
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -58,74 +56,66 @@ jobs:
       - name: Accept Android SDK licenses
         run: yes | sdkmanager --licenses
 
-      - name: Build AAB & APK (Gradle)
+      # ⬇️ Keystore aus Base64 herstellen + ENV für Gradle setzen
+      - name: Prepare keystore for Gradle signing
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+          echo "ANDROID_KEYSTORE_PATH=$GITHUB_WORKSPACE/android/app/upload-keystore.jks" >> $GITHUB_ENV
+          echo "ANDROID_KEYSTORE_PASSWORD=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+          echo "ANDROID_KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "ANDROID_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Build signed AAB & APK (Gradle)
         working-directory: android
         run: |
           ./gradlew clean \
             :app:bundleRelease \
             :app:assembleRelease
 
-      - name: Collect release files (unsigned)
+      - name: Show build outputs (diagnostics)
         run: |
-          mkdir -p unsigned
-          find android/app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) -print -exec cp {} unsigned/ \;
-          echo "== unsigned =="
-          ls -l unsigned || true
+          echo "=== Built files ==="
+          find android/app/build/outputs -type f \( -name "*.aab" -o -name "*.apk" \) -print || true
 
-      - name: Sign release artifacts
-        id: sign
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: unsigned
-          signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        env:
-          BUILD_TOOLS_VERSION: "34.0.0"
-
-      - name: Normalize signed filenames
+      # Optional: normalisierte Dateinamen
+      - name: Collect artifacts
         run: |
           set -euo pipefail
-          APK=$(ls unsigned/*-signed.apk 2>/dev/null | head -n1 || true)
-          if [ -n "${APK:-}" ]; then
-            mv -f "$APK" unsigned/app-release.apk
-          fi
-          AAB=$(ls unsigned/*.aab 2>/dev/null | head -n1 || true)
-          if [ -n "${AAB:-}" ] && [ "$(basename "$AAB")" != "app-release.aab" ]; then
-            mv -f "$AAB" unsigned/app-release.aab
-          fi
-          echo "== unsigned (normalized) =="
-          ls -l unsigned
+          mkdir -p release
+          # AAB
+          AAB=$(ls android/app/build/outputs/bundle/release/*.aab | head -n1)
+          cp -f "$AAB" release/app-release.aab
+          # APK
+          APK=$(ls android/app/build/outputs/apk/release/*.apk | head -n1)
+          cp -f "$APK" release/app-release.apk
+          ls -l release
 
-      - name: Upload artifacts
+      - name: Upload artifacts (AAB + APK)
         uses: actions/upload-artifact@v4
         with:
           name: android-release
           path: |
-            unsigned/app-release.aab
-            unsigned/app-release.apk
+            release/app-release.aab
+            release/app-release.apk
           if-no-files-found: error
 
   github-release:
-    name: Create GitHub Release
-    needs: build-sign
+    needs: build-release
     runs-on: ubuntu-latest
-
     steps:
-      - name: Download signed artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           name: android-release
           path: dist
 
-      - name: Generate release notes
+      - name: Release notes
         run: |
-          echo "## Änderungen" > RELEASE_NOTES.md
-          echo "" >> RELEASE_NOTES.md
-          echo "- Automatisches Release für $GITHUB_REF_NAME" >> RELEASE_NOTES.md
+          printf "## Änderungen\n\n- Automatisches Release für %s\n" "$GITHUB_REF_NAME" > RELEASE_NOTES.md
 
-      - name: Create Release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}

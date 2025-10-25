@@ -1,14 +1,15 @@
 <template>
-  <form class="card" @submit.prevent="save">
+  <form class="card" @submit.prevent="save" aria-labelledby="drill-form-title">
+    <h2 id="drill-form-title" class="sr-only">Drill anlegen oder bearbeiten</h2>
     <div class="field">
-      <label class="label">Titel</label>
-      <input class="input" v-model="model.title" required />
+      <label class="label" for="title">Titel</label>
+      <input id="title" name="title" class="input" v-model="model.title" required />
     </div>
 
     <div class="row">
       <div class="field" style="min-width:180px; flex:1">
-        <label class="label">Kategorie</label>
-        <select class="input" v-model="model.category" required>
+        <label class="label" for="category">Kategorie</label>
+        <select id="category" name="category" class="input" v-model="model.category" required>
           <option value="chipping">Chipping</option>
           <option value="putting">Putting</option>
           <option value="driving">Driving</option>
@@ -18,24 +19,25 @@
       </div>
 
       <div class="field" style="min-width:160px">
-        <label class="label">Schwierigkeit (1–5)</label>
-        <input class="input" type="number" min="1" max="5" v-model.number="model.difficulty" />
+        <label class="label" for="difficulty">Schwierigkeit (1–5)</label>
+        <input id="difficulty" name="difficulty" class="input" type="number" min="1" max="5" v-model.number="model.difficulty" />
       </div>
 
       <div class="field" style="min-width:160px">
-        <label class="label">Dauer (Min)</label>
-        <input class="input" type="number" min="1" v-model.number="model.durationMin" />
+        <label class="label" for="durationMin">Dauer (Min)</label>
+        <input id="durationMin" name="durationMin" class="input" type="number" min="1" v-model.number="model.durationMin" />
       </div>
     </div>
 
     <div class="field">
-      <label class="label">Beschreibung</label>
-      <textarea class="input" v-model="model.description" rows="4"></textarea>
+      <label class="label" for="description">Beschreibung</label>
+      <textarea id="description" name="description" class="input" v-model="model.description" rows="4"></textarea>
     </div>
 
     <div class="field">
-      <label class="label">Tags (Komma-getrennt)</label>
-      <input class="input" v-model="tagsInput" placeholder="kurzspiel, draußen" />
+      <label class="label" for="tags">Tags (Komma-getrennt)</label>
+      <input id="tags" name="tags" class="input" v-model="tagsInput" placeholder="kurzspiel, draußen" aria-describedby="tags-help" />
+      <p id="tags-help" class="sr-only">Mehrere Tags mit Komma trennen.</p>
     </div>
 
     <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">

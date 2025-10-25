@@ -1,17 +1,18 @@
 <template>
   <div>
     <!-- Loading state -->
-    <div v-if="!store.loaded" class="p-4 flex items-center justify-center">
-      <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"></span>
+    <div v-if="!store.loaded" class="p-4 flex items-center justify-center" role="status" aria-live="polite">
+      <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
       <span class="text-sm text-gray-600">Lade Trainingsspiele…</span>
     </div>
 
     <!-- Content/filters are hidden until loaded to avoid flashing -->
     <template v-else>
-      <div class="row">
+      <div class="row" role="region" aria-labelledby="filter-heading">
+        <h2 id="filter-heading" class="sr-only">Filter</h2>
         <div class="field" style="min-width:180px;">
-          <label class="label">Kategorie</label>
-          <select v-model="filterCategory" class="input">
+          <label class="label" for="filter-category">Kategorie</label>
+          <select id="filter-category" v-model="filterCategory" class="input">
             <option value="">Alle</option>
             <option value="chipping">Chipping</option>
             <option value="putting">Putting</option>
@@ -21,21 +22,24 @@
           </select>
         </div>
         <div class="field" style="min-width:220px; flex:1;">
-          <label class="label">Tags</label>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <label v-for="t in uniqueTags" :key="t" class="chip" style="cursor:pointer;">
-              <input type="checkbox" :value="t" v-model="filterTagsAny" style="margin-right:6px"/>
-              {{ t }}
-            </label>
-          </div>
+          <fieldset aria-describedby="tags-help">
+            <legend class="label">Tags</legend>
+            <p id="tags-help" class="sr-only">Wähle beliebige Tags aus, um die Liste zu filtern.</p>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <label v-for="t in uniqueTags" :key="t" class="chip" style="cursor:pointer;">
+                <input :id="`tag-${t}`" type="checkbox" :value="t" v-model="filterTagsAny" style="margin-right:6px"/>
+                {{ t }}
+              </label>
+            </div>
+          </fieldset>
         </div>
       </div>
       <div class="row">
-        <button class="btn" @click="filterCategory = ''; filterTagsAny = []">Filter löschen</button>
+        <button class="btn" type="button" @click="filterCategory = ''; filterTagsAny = []" aria-label="Filter zurücksetzen">Filter löschen</button>
       </div>
 
       <!-- Empty state -->
-      <div v-if="filtered.length === 0" class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50">
+      <div v-if="filtered.length === 0" class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50" role="status" aria-live="polite">
         <h3 class="text-base font-semibold text-gray-800">Keine Drills gefunden</h3>
         <p class="text-sm text-gray-600 mt-1">Passe die Filter an oder lege ein neues Trainingsspiel an.</p>
         <div class="mt-4">
@@ -50,7 +54,7 @@
             <RouterLink :to="`/drills/${d.id}`" style="font-weight:700; text-decoration:none; color:inherit">
               {{ d.title }}
             </RouterLink>
-            <small class="chip">★ {{ d.difficulty ?? 3 }}</small>
+            <small class="chip" aria-label="Schwierigkeit">★ {{ d.difficulty ?? 3 }}</small>
           </header>
           <p style="color:var(--muted); margin:.5rem 0 0">{{ d.category }}</p>
           <p v-if="d.description" style="margin:.5rem 0 0">{{ d.description }}</p>
@@ -59,8 +63,8 @@
           </div>
           <hr class="hr"/>
           <div style="display:flex; gap:8px; justify-content:flex-end;">
-            <RouterLink class="btn" :to="`/drills/${d.id}`">Bearbeiten</RouterLink>
-            <button class="btn" @click="del(d.id)">Löschen</button>
+            <RouterLink class="btn" :to="`/drills/${d.id}`" :aria-label="`Bearbeite ${d.title}`">Bearbeiten</RouterLink>
+            <button class="btn" type="button" @click="del(d.id)" :aria-label="`Lösche ${d.title}`">Löschen</button>
           </div>
         </article>
       </div>

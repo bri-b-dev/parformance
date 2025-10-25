@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Bridge Tailwind with existing CSS variables/theme */
+@layer base {
+  :root {
+    /* keep in sync with theme.css if needed */
+  }
+  body {
+    @apply bg-[var(--bg)] text-[var(--text)];
+  }
+}

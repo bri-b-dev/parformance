@@ -421,6 +421,10 @@ export const useDrillStore = defineStore('drills', {
     getters: {
         byCategory: (state) => (category?: DrillCategory) =>
             category ? state.drills.filter(d => d.category === category) : state.drills,
+        // New getters per acceptance criteria
+        getById: (state) => (id: string) => state.drills.find(d => d.id === id),
+        getByCategory: (state) => (cat?: DrillCategory) =>
+            cat ? state.drills.filter(d => d.category === cat) : state.drills,
     },
     actions: {
         async load() {
@@ -488,3 +492,6 @@ export const useDrillStore = defineStore('drills', {
 
     }
 });
+
+// Alias to satisfy API naming: useDrillsStore (plural)
+export const useDrillsStore = useDrillStore;

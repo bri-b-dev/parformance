@@ -1,0 +1,92 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { mount } from '@vue/test-utils'
+import { setActivePinia, createPinia } from 'pinia'
+import DrillDetail from '../../src/components/DrillDetail.vue'
+import type { Drill } from '../../src/types'
+import { useSessionsStore } from '../../src/stores/sessions'
+
+class LocalStorageMock {
+  store: Record<string, string> = {}
+  getItem(key: string) { return this.store[key] ?? null }
+  setItem(key: string, value: string) { this.store[key] = value }
+  removeItem(key: string) { delete this.store[key] }
+  clear() { this.store = {} }
+  key(i: number) { return Object.keys(this.store)[i] ?? null }
+  get length() { return Object.keys(this.store).length }
+}
+
+declare global { var window: any }
+
+// Make a minimal drill with a timer preset so timerUsed should be captured
+const drill: Drill = {
+  id: 'chip_carry_zone',
+  title: 'Carry Zone',
+  category: 'Chipping Green',
+  equipment: {},
+  setup: { schema: 'x' },
+  duration: { timerPreset: 300 },
+  instructions: { training: 'x' },
+  metric: { type: 'streak', unit: 'Zonen in Serie', hcpTargets: {} },
+}
+
+// SimpleTimer stub: when start() is called (by DrillDetail on session start), emit a fixed elapsed value.
+const SimpleTimerStub = {
+  name: 'SimpleTimer',
+  emits: ['elapsed'],
+  setup(_props: any, { emit }: any) {
+    function start() { emit('elapsed', 42) }
+    function pause() {}
+    function reset() { emit('elapsed', 0) }
+    // expose start/pause/reset so parent can call via ref
+    // @ts-ignore defineExpose in test stub
+    defineExpose({ start, pause, reset })
+    return () => null
+  }
+}
+
+describe('DrillDetail save pipes elapsed seconds into session.timerUsed', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+    // @ts-expect-error set global window
+    global.window = { localStorage: new LocalStorageMock(), crypto: { randomUUID: () => 'uuid-test' }, dispatchEvent: () => {} }
+    // Seed settings in storage so DrillDetail.load() reads hcp
+    global.window.localStorage.store['parformance.settings.v1'] = JSON.stringify({ hcp: 18, handedness: 'right' })
+    vi.useFakeTimers()
+  })
+
+  it('saves a session with timerUsed equal to elapsed seconds from timer', async () => {
+    const wrapper = mount(DrillDetail, {
+      props: { drill },
+      global: {
+        stubs: { SimpleTimer: SimpleTimerStub },
+      },
+    })
+
+    const sessions = useSessionsStore()
+    await sessions.load()
+    expect(sessions.sessions).toEqual([])
+
+    // Initially input disabled
+    const input = () => wrapper.find('input[type="number"]')
+    expect(input().attributes('disabled')).toBeDefined()
+
+    // Start session (this should call stub start() and emit elapsed=42)
+    await wrapper.find('button.btn-primary').trigger('click')
+
+    // Now enable and set a value
+    expect(input().attributes('disabled')).toBeUndefined()
+    await input().setValue('7')
+
+    // Click Save
+    const buttons = wrapper.findAll('button')
+    const saveBtn = buttons.find(b => /Speichern/i.test(b.text()))!
+    await saveBtn.trigger('click')
+
+    // Session should be added with timerUsed=42
+    expect(sessions.sessions.length).toBe(1)
+    const saved = sessions.sessions[0]
+    expect(saved.drillId).toBe(drill.id)
+    expect(saved.result.value).toBe(7)
+    expect(saved.timerUsed).toBe(42)
+  })
+})

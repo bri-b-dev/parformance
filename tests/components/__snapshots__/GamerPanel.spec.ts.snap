@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GamerPanel > renders collapsed by default and matches snapshot 1`] = `
+"<section data-v-f819347e="" class="gamer-panel" aria-hidden="true">
+  <header data-v-f819347e="" class="panel-header"><button data-v-f819347e="" class="panel-toggle" aria-expanded="false">Gamer ▼</button></header>
+  <!--v-if-->
+</section>"
+`;

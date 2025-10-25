@@ -38,6 +38,9 @@
         <p style="margin:0;">{{ drill.setup.schema }}</p>
         <p v-if="drill.setup.location" style="margin:.25rem 0 0; color:var(--muted)"><strong>Ort:</strong> {{ drill.setup.location }}</p>
       </div>
+      <aside style="flex:1; min-width:240px;">
+        <GamerPanel v-if="drill" :drillId="drill.id" />
+      </aside>
       <div style="flex:1; min-width:160px;">
         <div class="border border-dashed rounded-md" style="border-color:var(--border); background:var(--bg); height:92px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px;">
           Diagramm
@@ -62,7 +65,9 @@
       <h3 class="label" style="margin-bottom:4px;">Ablauf</h3>
       <p style="margin:0;">{{ drill.instructions.training }}</p>
       <p v-if="drill.instructions.test" style="margin:.25rem 0 0; color:var(--muted)"><strong>Test:</strong> {{ drill.instructions.test }}</p>
-      <p v-if="drill.instructions.tooEasy" style="margin:.25rem 0 0; color:var(--muted)"><strong>Zu leicht?</strong> {{ drill.instructions.tooEasy }}</p>
+      <p v-if="drill.instructions.tooEasy" style="margin:.25rem 0 0; color:var(--muted)">
+        <strong>Zu leicht?</strong> {{ drill.instructions.tooEasy }}
+      </p>
     </div>
 
     <div v-if="drill.tags?.length" class="chips" style="margin-top:8px;">
@@ -143,6 +148,7 @@ import MetricValueInput from '@/components/MetricValueInput.vue'
 import SessionHistory from '@/components/SessionHistory.vue'
 import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
 import { computeLevelForDrill } from '@/hcp/level'
+import GamerPanel from '@/components/GamerPanel.vue'
 
 const props = defineProps<{ drill: Drill }>()
 

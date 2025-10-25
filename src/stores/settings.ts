@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { Preferences } from '@capacitor/preferences'
+import { createPersist } from '@/utils/persistAdapter'
 
-const STORAGE_KEY = 'parformance.settings.v1'
+const persist = createPersist('parformance', 1)
 
 export type Handedness = 'right' | 'left'
 
@@ -24,21 +24,15 @@ export const useSettingsStore = defineStore('settings', {
   },
   actions: {
     async load() {
-      // Gracefully handle empty storage
-      const stored = await Preferences.get({ key: STORAGE_KEY })
-      if (stored.value) {
-        try {
-          const data = JSON.parse(stored.value) as Partial<SettingsState>
-          if (typeof data.hcp === 'number' || data.hcp === null) this.hcp = data.hcp ?? null
-          if (data.handedness === 'right' || data.handedness === 'left') this.handedness = data.handedness
-        } catch {
-          // ignore corrupted storage
-        }
+      const data = persist.get<Partial<SettingsState>>('settings')
+      if (data) {
+        if (typeof data.hcp === 'number' || data.hcp === null) this.hcp = data.hcp ?? null
+        if (data.handedness === 'right' || data.handedness === 'left') this.handedness = data.handedness
       }
       this.loaded = true
     },
     async persist() {
-      await Preferences.set({ key: STORAGE_KEY, value: JSON.stringify({ hcp: this.hcp, handedness: this.handedness }) })
+      persist.setDebounced('settings', { hcp: this.hcp, handedness: this.handedness })
     },
     async setHcp(hcp: number | null) {
       this.hcp = hcp

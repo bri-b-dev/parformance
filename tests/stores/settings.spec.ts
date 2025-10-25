@@ -2,18 +2,15 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useSettingsStore } from '../../src/stores/settings'
 
-// Mock Capacitor Preferences
-vi.mock('@capacitor/preferences', () => {
-  return {
-    Preferences: {
-      get: vi.fn(async ({ key }: { key: string }) => ({ value: mockStorage[key] ?? null })),
-      set: vi.fn(async ({ key, value }: { key: string, value: string }) => { mockStorage[key] = value }),
-    }
-  }
-})
-
-// In-memory mock storage
-const mockStorage: Record<string, string> = {}
+class LocalStorageMock {
+  store: Record<string, string> = {}
+  getItem(key: string) { return this.store[key] ?? null }
+  setItem(key: string, value: string) { this.store[key] = value }
+  removeItem(key: string) { delete this.store[key] }
+  clear() { this.store = {} }
+  key(i: number) { return Object.keys(this.store)[i] ?? null }
+  get length() { return Object.keys(this.store).length }
+}
 
 // Minimal jsdom-like globals for CustomEvent dispatch verification
 declare global {
@@ -25,20 +22,21 @@ describe('useSettingsStore', () => {
   beforeEach(() => {
     // reset pinia and mock storage
     setActivePinia(createPinia())
-    for (const k of Object.keys(mockStorage)) delete mockStorage[k]
-  })
-
-  it('can set and read hcp; persists and emits change event when window exists', async () => {
-    const store = useSettingsStore()
-
-    // Create a fake window to capture events
-    const listeners: any[] = []
     // @ts-expect-error assign global
     global.window = {
-      dispatchEvent: (evt: Event) => { listeners.push(evt) },
+      localStorage: new LocalStorageMock(),
+      dispatchEvent: (evt: Event) => { (global as any).__events?.push?.(evt) },
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
     }
+    ;(global as any).__events = []
+    vi.useFakeTimers()
+  })
+
+  it('can set and read hcp; persists (debounced) and emits change event when window exists', async () => {
+    const store = useSettingsStore()
+
+    const listeners: any[] = (global as any).__events
 
     expect(store.hcp).toBeNull()
 
@@ -46,8 +44,14 @@ describe('useSettingsStore', () => {
 
     expect(store.hcp).toBe(10)
 
-    // Verify persist was called via Preferences.set by checking mock storage contains settings
-    const storedValue = Object.values(mockStorage)[0]
+    // Debounced persist: nothing yet
+    const key = 'parformance.settings.v1'
+    expect(global.window.localStorage.store[key]).toBeUndefined()
+
+    // Flush timers to perform write
+    vi.runOnlyPendingTimers()
+
+    const storedValue = global.window.localStorage.store[key]
     expect(storedValue).toBeTruthy()
     const parsed = JSON.parse(storedValue as string)
     expect(parsed.hcp).toBe(10)
@@ -61,7 +65,7 @@ describe('useSettingsStore', () => {
   it('load() reads persisted settings', async () => {
     // seed storage
     const key = 'parformance.settings.v1'
-    mockStorage[key] = JSON.stringify({ hcp: 22, handedness: 'left' })
+    global.window.localStorage.store[key] = JSON.stringify({ hcp: 22, handedness: 'left' })
 
     const store = useSettingsStore()
     await store.load()
@@ -71,11 +75,17 @@ describe('useSettingsStore', () => {
     expect(store.handedness).toBe('left')
   })
 
-  it('setHandedness() persists value', async () => {
+  it('setHandedness() persists value (debounced)', async () => {
     const store = useSettingsStore()
     await store.setHandedness('left')
 
-    const storedValue = Object.values(mockStorage)[0]
+    // not yet written
+    const key = 'parformance.settings.v1'
+    expect(global.window.localStorage.store[key]).toBeUndefined()
+
+    vi.runOnlyPendingTimers()
+
+    const storedValue = global.window.localStorage.store[key]
     expect(storedValue).toBeTruthy()
     const parsed = JSON.parse(storedValue as string)
     expect(parsed.handedness).toBe('left')

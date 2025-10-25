@@ -128,11 +128,14 @@
     <!-- HCP Targets -->
     <HcpTargetsTable :drill="drill" />
 
-    <!-- Stats summary: Best, MA(5), Trend -->
-    <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
+  <!-- Stats summary: Best, MA(5), Trend -->
+  <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
 
-    <!-- Session History for this drill -->
-    <SessionHistory :drill-id="drill.id" />
+  <!-- Gambler's tip / Zocker-Tipp -->
+  <GamblerTipPanel v-if="drill" :drillId="drill.id" :tip="tipForDrill" />
+
+  <!-- Session History for this drill -->
+  <SessionHistory :drill-id="drill.id" />
   </section>
 </template>
 
@@ -147,6 +150,7 @@ import SimpleTimer from '@/components/SimpleTimer.vue'
 import MetricValueInput from '@/components/MetricValueInput.vue'
 import SessionHistory from '@/components/SessionHistory.vue'
 import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
+import GamblerTipPanel from '@/components/GamblerTipPanel.vue'
 import { computeLevelForDrill } from '@/hcp/level'
 import GamerPanel from '@/components/GamerPanel.vue'
 
@@ -176,6 +180,8 @@ const lastElapsed = ref<number>(0)
 const attemptsCount = ref<number>(0)
 
 const canSave = computed(() => active.value && value.value != null && Number.isFinite(value.value))
+
+const tipForDrill = computed(() => (props.drill as any).gamerTip ?? (props.drill as any).zockerTip)
 
 async function startSession() {
   active.value = true

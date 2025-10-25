@@ -78,7 +78,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useDrillStore } from '@/stores/drills'
-import type { Drill, DrillCategory } from '@/types/drill'
+import type { Drill, DrillCategory } from '@/types/drills'
 
 const store = useDrillStore()
 

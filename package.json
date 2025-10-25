@@ -17,9 +17,11 @@
     "@capacitor/core": "^7.4.3",
     "@capacitor/ios": "^7.4.3",
     "@capacitor/preferences": "^7.0.2",
+    "@octokit/rest": "^22.0.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.22",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.3",
+    "yaml": "^2.8.1"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",

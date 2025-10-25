@@ -77,6 +77,9 @@ The following scripts are available in package.json:
 - npm run dev: Start the Vite development server
 - npm run build: Build the production bundle to dist/
 - npm run preview: Preview the production build locally
+- npm run test: Placeholder; returns success until tests are added
+- npm run lint: Placeholder; returns success until linters are configured
+- npm run validate:drills: Validate drills JSON schema (src/data/drills.json)
 
 ## Configuration
 - Capacitor: capacitor.config.json

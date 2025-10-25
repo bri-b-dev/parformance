@@ -11,8 +11,16 @@ export const useDrillCatalogStore = defineStore('drillCatalog', {
     async load() {
       if (this.loaded && this.drills.length > 0) return
       try {
-        // Prefer dynamic import so Vite bundles JSON for production, and it also works under Vitest
-        const mod: any = await import('../data/drills.json')
+        // Prefer dynamic import so Vite bundles JSON for production.
+        // In the Vitest environment require() the JSON synchronously to avoid async loader timing issues in tests.
+        let mod: any
+        if (typeof process !== 'undefined' && (process.env.VITEST || process.env.NODE_ENV === 'test')) {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          mod = require('../data/drills.json')
+        } else {
+          // @ts-ignore - dynamic import of JSON handled by Vite during build
+          mod = await import('../data/drills.json')
+        }
         const data = (mod?.default ?? mod) as Drill[]
         if (!Array.isArray(data) || data.length === 0) {
           throw new Error('No drills found in drills.json')

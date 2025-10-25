@@ -1,5 +1,7 @@
 import { computeStreaks } from '../../src/utils/streaks'
 
+import { describe, test, expect } from 'vitest'
+
 describe('computeStreaks', () => {
   test('gap day resets streak and best preserved', () => {
     const sessions = [

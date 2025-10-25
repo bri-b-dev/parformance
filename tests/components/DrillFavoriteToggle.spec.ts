@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
 import DrillDetail from '../../src/components/DrillDetail.vue'
@@ -18,6 +19,8 @@ class LocalStorageMock {
 
 declare global { var window: any }
 
+let pinia: ReturnType<typeof createPinia>
+
 const sampleDrill: Drill = {
   id: 'chip_carry_zone',
   title: 'Carry Zone',
@@ -31,7 +34,8 @@ const sampleDrill: Drill = {
 
 describe('Favorites: ☆ toggle wiring and persistence', () => {
   beforeEach(() => {
-    setActivePinia(createPinia())
+    pinia = createPinia()
+    setActivePinia(pinia)
     // Patch existing jsdom window instead of replacing it to preserve Event constructors
     Object.assign(global.window, { localStorage: new LocalStorageMock(), dispatchEvent: () => {} })
     vi.useFakeTimers()
@@ -40,7 +44,7 @@ describe('Favorites: ☆ toggle wiring and persistence', () => {
   it('DrillDetail ☆ toggle updates favorites state immediately and persists (debounced)', async () => {
     const wrapper = mount(DrillDetail, {
       props: { drill: sampleDrill },
-      global: { plugins: [createPinia()] },
+      global: { plugins: [pinia] },
     })
 
     const store = useFavoritesStore()
@@ -83,7 +87,7 @@ describe('Favorites: ☆ toggle wiring and persistence', () => {
 
   it('DrillList favorites filter reflects immediately after toggling a favorite', async () => {
     // Mount the list component (it loads catalog + favorites on mount)
-    const wrapper = mount(DrillList, { global: { plugins: [createPinia()] } })
+  const wrapper = mount(DrillList, { global: { plugins: [pinia] } })
 
     // Wait a microtask for onMounted hooks
     await Promise.resolve()
@@ -100,14 +104,17 @@ describe('Favorites: ☆ toggle wiring and persistence', () => {
     await store.load()
     await store.toggle('chip_carry_zone')
 
-    // Run timers to persist, though UI should already update reactively
-    vi.runOnlyPendingTimers()
+  // Run timers to persist, though UI should already update reactively
+  vi.runOnlyPendingTimers()
+  // Wait for component reactivity to propagate
+  await nextTick()
+  await nextTick()
 
-    // Now one or more items should be shown (at least the favorited drill)
-    const cards = wrapper.findAll('article.card')
+  // Now one or more items should be shown (at least the favorited drill)
+  const cards = wrapper.findAll('article.card')
     expect(cards.length).toBeGreaterThan(0)
     // Sanity: one of the cards should link to the favorited drill id
-    const hasFav = cards.some(c => c.find('a').attributes('href')?.includes('chip_carry_zone'))
-    expect(hasFav).toBe(true)
+  const hasFav = cards.some(c => c.find('a').exists() && (c.find('a').attributes('href') || '').includes('chip_carry_zone'))
+  expect(hasFav).toBe(true)
   })
 })

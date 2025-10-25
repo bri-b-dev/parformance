@@ -45,7 +45,13 @@ export function makeRouter(history?: RouterHistory): Router {
     history: h,
     routes,
     scrollBehavior() {
-      return { top: 0 }
+      // Only return a scroll position when the global scroll API exists.
+      // In some test environments (jsdom) window.scrollTo may be missing or not implemented.
+      if (typeof window !== 'undefined' && typeof (window as any).scrollTo === 'function') {
+        return { top: 0 }
+      }
+      // avoid invoking scroll behavior that would call window.scrollTo in environments without it
+      return undefined
     },
   })
 }

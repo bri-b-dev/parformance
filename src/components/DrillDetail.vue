@@ -142,6 +142,7 @@ import SimpleTimer from '@/components/SimpleTimer.vue'
 import MetricValueInput from '@/components/MetricValueInput.vue'
 import SessionHistory from '@/components/SessionHistory.vue'
 import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
+import { computeLevelForDrill } from '@/hcp/level'
 
 const props = defineProps<{ drill: Drill }>()
 
@@ -194,11 +195,13 @@ function incAttempts() {
 
 async function saveSession() {
   if (!canSave.value) return
+  const level = computeLevelForDrill(props.drill, settings.hcp, value.value as number)
   const session: Omit<Session, 'id'> & Partial<Pick<Session, 'id'>> = {
     drillId: props.drill.id,
     date: new Date().toISOString(),
     hcp: typeof settings.hcp === 'number' ? settings.hcp : 0,
     result: { value: value.value as number, unit: props.drill.metric.unit },
+    levelReached: level,
     // Default favorite flag per acceptance criteria
     favorited: false,
   }

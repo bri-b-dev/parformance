@@ -12,6 +12,9 @@ A modern, mobile‑first application built with Vue 3, Vite, and Capacitor for t
   <a href="https://github.com/bri-b-dev/parformance/actions/workflows/release.yaml">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/parformance/actions/release.yaml?branch=main&label=release%20CI&logo=github" />
   </a>
+  <a href="https://github.com/bri-b-dev/parformance/actions/workflows/test.yml">
+    <img alt="Tests CI" src="https://img.shields.io/github/actions/workflow/status/bri-b-dev/parformance/test.yml?branch=main&label=tests%20CI&logo=github" />
+  </a>
 </p>
 
 ## Table of contents

@@ -10,6 +10,7 @@
         :max="max ?? undefined"
         :aria-describedby="error ? `${inputId}-error` : undefined"
         :aria-invalid="!!error"
+        :disabled="disabled"
         :step="1"
         :inputmode="'numeric'"
         :value="innerValue ?? ''"
@@ -31,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, toRef } from 'vue'
 import type { Drill } from '@/types'
 import { validateDrillResult } from '@/metrics/validation'
 
@@ -43,6 +44,8 @@ const props = defineProps<{
   min?: number
   /** Optional upper bound */
   max?: number
+  /** When true, the input is disabled */
+  disabled?: boolean
 }>()
 
 const emit = defineEmits<{

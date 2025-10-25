@@ -17,21 +17,33 @@
 
       <!-- Content -->
       <div v-else>
-        <div class="row" style="align-items:center; justify-content:center; margin:10px 0;">
+        <div class="row" style="align-items:center; justify-content:center; margin:10px 0; gap:10px;">
           <!-- Reel: Category -->
           <div class="card" style="min-width:220px; text-align:center;">
             <div class="label">Kategorie</div>
-            <div class="text-lg" :aria-live="spinning.category ? 'off' : 'polite'" role="status">{{ display.category || '—' }}</div>
+            <div class="reel-viewport" :aria-live="spinning.category ? 'off' : 'polite'" role="status">
+              <div class="reel-track" :style="catTransformStyle">
+                <div v-for="c in catItems" :key="`cat-${c}`" class="reel-item">{{ c }}</div>
+              </div>
+            </div>
           </div>
           <!-- Reel: Drill -->
           <div class="card" style="min-width:260px; text-align:center;">
             <div class="label">Drill</div>
-            <div class="text-lg" :aria-live="spinning.drill ? 'off' : 'polite'" role="status">{{ display.drill || '—' }}</div>
+            <div class="reel-viewport" :aria-live="spinning.drill ? 'off' : 'polite'" role="status">
+              <div class="reel-track" :style="drillTransformStyle">
+                <div v-for="t in drillItems" :key="`dr-${t}`" class="reel-item">{{ t }}</div>
+              </div>
+            </div>
           </div>
           <!-- Reel: Target type (optional) -->
           <div class="card" style="min-width:200px; text-align:center;">
             <div class="label">Zieltyp</div>
-            <div class="text-lg" :aria-live="spinning.target ? 'off' : 'polite'" role="status">{{ display.target || '—' }}</div>
+            <div class="reel-viewport" :aria-live="spinning.target ? 'off' : 'polite'" role="status">
+              <div class="reel-track" :style="targetTransformStyle">
+                <div v-for="t in targetItems" :key="`tg-${t}`" class="reel-item">{{ t }}</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -49,6 +61,19 @@ import { computed, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import type { Drill } from '@/types'
+
+// Configurable durations per reel (ms)
+const props = defineProps<{ durationCatMs?: number; durationDrillMs?: number; durationTargetMs?: number }>()
+const D_CAT = computed(() => props.durationCatMs ?? 600)
+const D_DRILL = computed(() => props.durationDrillMs ?? 700)
+const D_TARGET = computed(() => props.durationTargetMs ?? 500)
+
+// Reduced motion
+function prefersReducedMotion(): boolean {
+  try {
+    return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  } catch { return false }
+}
 
 // Store & router
 const catalog = useDrillCatalogStore()
@@ -71,7 +96,28 @@ function drillsFor(cat: string): Drill[] {
   return catalog.drills.filter(d => d.category === cat)
 }
 
-// Display state
+// Reel visual state
+const itemHeight = 28 // px
+const catOffset = ref(0)
+const drillOffset = ref(0)
+const targetOffset = ref(0)
+
+const catItems = computed(() => (categories.value.length ? categories.value : ['—']))
+const drillItems = computed(() => {
+  const cat = display.category || categories.value[0]
+  const list = drillsFor(cat)
+  return list.length ? list.map(d => d.title) : ['—']
+})
+const targetItems = computed(() => {
+  const d = selectedDrill.value
+  return d?.metric?.type ? [String(d.metric.type)] : ['—']
+})
+
+const catTransformStyle = computed(() => ({ transform: `translateY(${-catOffset.value}px)` }))
+const drillTransformStyle = computed(() => ({ transform: `translateY(${-drillOffset.value}px)` }))
+const targetTransformStyle = computed(() => ({ transform: `translateY(${-targetOffset.value}px)` }))
+
+// Display state (selected labels)
 const display = reactive<{ category: string | null; drill: string | null; target: string | null }>({
   category: null,
   drill: null,
@@ -83,25 +129,34 @@ const running = ref(false)
 
 const spinning = reactive({ category: false, drill: false, target: false })
 let timers: any[] = []
-let intervals: any[] = []
+let rafIds: any[] = []
 
 function clearTimers() {
   for (const t of timers) clearTimeout(t)
-  for (const i of intervals) clearInterval(i)
+  for (const r of rafIds) cancelAnimationFrame(r)
   timers = []
-  intervals = []
+  rafIds = []
 }
 
-function cycle(list: string[], assign: (val: string) => void, intervalMs = 80) {
-  if (!list.length) return
-  let idx = 0
-  assign(list[idx])
-  const id = setInterval(() => {
-    idx = (idx + 1) % list.length
-    assign(list[idx])
-  }, intervalMs)
-  intervals.push(id)
-  return { stop: () => clearInterval(id), getIndex: () => idx }
+function spin(items: string[], offsetRef: { value: number }, durationMs: number, onTick?: (index: number) => void): { stop: () => void } | null {
+  if (!items.length || durationMs <= 0) return null
+  const total = items.length * itemHeight
+  let startTs: number | null = null
+  let stopped = false
+  const speed = Math.max(100, total * 2) // px/s baseline
+
+  const tick = (ts: number) => {
+    if (stopped) return
+    if (startTs == null) startTs = ts
+    const elapsed = ts - startTs
+    const dist = Math.min(elapsed / 1000 * speed, 1e9)
+    offsetRef.value = dist % total
+    const idx = Math.floor((offsetRef.value + (itemHeight/2)) / itemHeight) % items.length
+    onTick && onTick(idx)
+    rafIds.push(requestAnimationFrame(tick))
+  }
+  rafIds.push(requestAnimationFrame(tick))
+  return { stop: () => { stopped = true } }
 }
 
 async function start() {
@@ -113,52 +168,81 @@ async function start() {
   display.drill = null
   display.target = null
   spinning.category = spinning.drill = spinning.target = false
+  catOffset.value = drillOffset.value = targetOffset.value = 0
   clearTimers()
 
-  // 1) Spin category
+  const reduce = prefersReducedMotion()
+
+  // 1) Category reel
   const cats = categories.value
-  spinning.category = true
-  const catCtl = cycle(cats, v => (display.category = v))
+  if (reduce) {
+    display.category = cats[0] || null
+  } else {
+    spinning.category = true
+    const ctl = spin(cats, catOffset, D_CAT.value, (i) => (display.category = cats[i]))
+    // stop after duration
+    timers.push(setTimeout(() => {
+      spinning.category = false
+      ctl?.stop()
+      // Snap to nearest index
+      const idx = Math.floor((catOffset.value + (itemHeight/2)) / itemHeight) % (cats.length || 1)
+      display.category = cats[idx] || null
+      nextStage()
+    }, D_CAT.value))
+  }
+  if (reduce) nextStage()
 
-  // Stop category after 600ms
-  timers.push(setTimeout(() => {
-    spinning.category = false
-    catCtl?.stop()
+  function nextStage() {
     const chosenCat = display.category || cats[0]
-
-    // 2) Spin drill within category
     const list = drillsFor(chosenCat)
     const drillTitles = list.map(d => d.title)
-    spinning.drill = true
-    const drillCtl = cycle(drillTitles, v => (display.drill = v))
 
+    if (reduce) {
+      display.drill = drillTitles[0] || null
+      afterDrill()
+      return
+    }
+
+    spinning.drill = true
+    const ctl = spin(drillTitles, drillOffset, D_DRILL.value, (i) => (display.drill = drillTitles[i]))
     timers.push(setTimeout(() => {
       spinning.drill = false
-      drillCtl?.stop()
-      // Determine selected drill by title
-      const title = display.drill || drillTitles[0]
-      const d = list.find(x => x.title === title) || list[0]
-      selectedDrill.value = d
+      ctl?.stop()
+      const idx = Math.floor((drillOffset.value + (itemHeight/2)) / itemHeight) % (drillTitles.length || 1)
+      const title = drillTitles[idx] || drillTitles[0]
+      display.drill = title
+      selectedDrill.value = list.find(x => x.title === title) || list[0] || null
+      afterDrill()
+    }, D_DRILL.value))
+  }
 
-      // 3) Spin target type (optional)
-      const targetTypes = d?.metric?.type ? [String(d.metric.type)] : []
-      if (targetTypes.length === 0) {
-        display.target = null
-      } else {
-        spinning.target = true
-        const tgtCtl = cycle(targetTypes, v => (display.target = v))
-        timers.push(setTimeout(() => {
-          spinning.target = false
-          tgtCtl?.stop()
-          finish()
-        }, 500))
-        return
-      }
+  function afterDrill() {
+    const d = selectedDrill.value || drillsFor(display.category || cats[0])[0] || null
+    if (!selectedDrill.value && d) selectedDrill.value = d
+    const tgt = d?.metric?.type ? [String(d.metric.type)] : []
 
-      // If no target reel, finish slightly later
-      timers.push(setTimeout(() => finish(), 200))
-    }, 700))
-  }, 600))
+    if (tgt.length === 0) {
+      // finish soon
+      timers.push(setTimeout(() => finish(), reduce ? 0 : 200))
+      return
+    }
+
+    if (reduce) {
+      display.target = tgt[0]
+      finish()
+      return
+    }
+
+    spinning.target = true
+    const ctl = spin(tgt, targetOffset, D_TARGET.value, (i) => (display.target = tgt[i]))
+    timers.push(setTimeout(() => {
+      spinning.target = false
+      ctl?.stop()
+      const idx = Math.floor((targetOffset.value + (itemHeight/2)) / itemHeight) % (tgt.length || 1)
+      display.target = tgt[idx]
+      finish()
+    }, D_TARGET.value))
+  }
 }
 
 function cancel() {
@@ -181,3 +265,12 @@ function close() {
 
 onBeforeUnmount(() => clearTimers())
 </script>
+
+<style scoped>
+.reel-viewport { height: 28px; overflow: hidden; position: relative; }
+.reel-track { will-change: transform; transition: none; }
+.reel-item { height: 28px; line-height: 28px; font-size: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  .reel-track { transition: none; }
+}
+</style>

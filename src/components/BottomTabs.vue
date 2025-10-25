@@ -19,7 +19,7 @@
 </span>
         <span>Drills</span>
       </RouterLink>
-      <RouterLink class="tab" :class="{ active: isActive('/random') }" to="/random">
+      <RouterLink class="tab" :class="{ active: isActive('/shuffle') }" to="/shuffle">
 <span class="icon" aria-hidden="true">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.6"/>

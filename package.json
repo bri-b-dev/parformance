@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "echo 'No tests configured yet' && exit 0",
+    "test": "vitest run",
     "lint": "echo 'No linter configured yet' && exit 0",
     "validate:drills": "node ./scripts/validate-drills.mjs"
   },
@@ -34,6 +34,7 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "vite": "^7.1.7",
-    "vite-plugin-vue-devtools": "^8.0.2"
+    "vite-plugin-vue-devtools": "^8.0.2",
+    "vitest": "^2.1.3"
   }
 }

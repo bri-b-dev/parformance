@@ -1,1 +1,39 @@
-[]
+[
+  {
+    "id": "range_14_fairways",
+    "title": "14 Fairways",
+    "category": "Driving Range",
+    "equipment": { "balls": 28, "clubs": ["Driver","Eisen 7"] },
+    "setup": { "schema": "Zielkorridor >30 m Breite, 14 Driver + 14 Eisen", "location": "Range" },
+    "duration": { "suggestedMin": 20, "timerPreset": 1200 },
+    "instructions": {
+      "training": "Je 14 Bälle mit Driver/Eisen in den Korridor. Zähle nur Treffer.",
+      "tooEasy": "Flugkurven variieren, Korridor schmaler."
+    },
+    "metric": {
+      "type": "corridor_hits",
+      "unit": "Treffer",
+      "hcpTargets": { "54-27": [4,7,11], "26-12": [7,9,11], "11-0": [11,13,14] }
+    },
+    "tags": ["Abschlag","Richtungskontrolle"]
+  },
+  {
+    "id": "chip_carry_zone",
+    "title": "Carry Zone",
+    "category": "Chipping Green",
+    "equipment": { "balls": 6, "clubs": ["Wedge"], "other": ["6 Schläger/Markierungen"] },
+    "setup": { "schema": "6 Landebänder im Meterabstand, Start 2 m vom Chip-Punkt", "location": "Chipping Green" },
+    "duration": { "suggestedMin": 5, "timerPreset": 300 },
+    "instructions": {
+      "training": "Abwechselnd kurz→lang die Carry-Zonen treffen. Längste fehlerfreie Serie zählt.",
+      "test": "Höchstserie in 5 Min.",
+      "tooEasy": "Nach jedem Schlag Schläger wechseln oder Bänder enger."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "Zonen in Serie",
+      "hcpTargets": { "54-27": [2,3,4], "26-12": [5,7,9], "11-0": [11,13,15] }
+    },
+    "tags": ["Längenkontrolle","Kontakt"]
+  }
+]

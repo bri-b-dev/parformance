@@ -165,3 +165,9 @@ This project is licensed under the Apache License, Version 2.0.
 - You may also obtain a copy at: http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.
+
+
+## Storybook
+- Run component workshop: npm run storybook (opens at http://localhost:6006)
+- Build static Storybook: npm run build-storybook (outputs to storybook-static/)
+- CI: Storybook build runs on push/PR via .github/workflows/storybook.yml

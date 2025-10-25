@@ -440,6 +440,7 @@ export const useDrillStore = defineStore('drills', {
                 }))
                 await this.save()
             }
+            this.loaded = true
         },
         async persist() {
             await Preferences.set({key: STORAGE_KEY, value: JSON.stringify(this.drills)});

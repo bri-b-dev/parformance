@@ -10,7 +10,7 @@ export default defineConfig({
     },
   },
   test: {
-    environment: 'node',
+    environment: 'jsdom',
     globals: false,
     coverage: {
       provider: 'v8',

@@ -52,6 +52,11 @@
       <div class="chip" title="Schwierigkeit" v-if="(drill as any).difficulty?.base">★ {{ (drill as any).difficulty.base }}/5</div>
     </div>
 
+    <!-- Simple Timer (optional) -->
+    <div v-if="drill.duration?.timerPreset" style="margin-top:8px;">
+      <SimpleTimer :preset-seconds="drill.duration.timerPreset" @elapsed="onElapsed" />
+    </div>
+
     <!-- Procedure -->
     <div style="margin-top:10px;">
       <h3 class="label" style="margin-bottom:4px;">Ablauf</h3>
@@ -82,6 +87,7 @@ import { computed, onMounted } from 'vue'
 import type { Drill } from '@/types'
 import { useFavoritesStore } from '@/stores/favorites'
 import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
+import SimpleTimer from '@/components/SimpleTimer.vue'
 
 const props = defineProps<{ drill: Drill }>()
 
@@ -93,5 +99,9 @@ const isFav = computed(() => favorites.isFavorite(props.drill.id))
 
 async function toggleFavorite() {
   await favorites.toggle(props.drill.id)
+}
+
+function onElapsed(_sec: number) {
+  // hook for future: could bind to a session form to set timerUsed
 }
 </script>

@@ -19,13 +19,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, watch, onMounted } from 'vue'
 import { useTimer } from '@/composables/useTimer'
 
-const props = defineProps<{ presetSeconds?: number }>()
+const props = defineProps<{ presetSeconds?: number; autoStart?: boolean }>()
 const emit = defineEmits<{ (e: 'elapsed', seconds: number): void }>()
 
 const { elapsed, running, start, pause, reset } = useTimer({ presetSeconds: props.presetSeconds })
+
+// Expose controls to parent (e.g., to start automatically when a session begins)
+// @ts-ignore defineExpose is available in <script setup>
+defineExpose({ start, pause, reset })
 
 function toggle() {
   if (running.value) pause(); else start()
@@ -37,6 +41,10 @@ function onReset() {
 }
 
 watch(elapsed, (sec) => emit('elapsed', sec))
+
+onMounted(() => {
+  if (props.autoStart) start()
+})
 
 function pad(n: number) { return n.toString().padStart(2, '0') }
 const formatted = computed(() => {

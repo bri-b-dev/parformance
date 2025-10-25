@@ -77,17 +77,44 @@
       <span class="chip" aria-label="Einheit">Einheit: {{ drill.metric.unit }}</span>
     </div>
 
+    <!-- Session controls & input -->
+    <div class="card" style="margin-top:10px;">
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <h3 class="label" style="margin:0;">Session</h3>
+        <span v-if="active" class="chip" aria-live="polite" role="status">Aktiv</span>
+      </div>
+
+      <!-- Metric input tied to this drill; disabled until session active -->
+      <MetricValueInput
+        :drill="drill"
+        v-model="value"
+        :disabled="!active"
+        :label="drill.metric.unit"
+      />
+
+      <div class="row">
+        <button v-if="!active" class="btn btn-primary" type="button" @click="startSession">Session starten</button>
+        <button v-else class="btn" type="button" @click="cancelSession">Abbrechen</button>
+      </div>
+
+      <!-- Optional timer when preset exists; show only while active; start programmatically on session start -->
+      <div v-if="active && drill.duration?.timerPreset" style="margin-top:8px;">
+        <SimpleTimer ref="timerRef" :preset-seconds="drill.duration.timerPreset" @elapsed="onElapsed" />
+      </div>
+    </div>
+
     <!-- HCP Targets -->
     <HcpTargetsTable :drill="drill" />
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import type { Drill } from '@/types'
 import { useFavoritesStore } from '@/stores/favorites'
 import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
 import SimpleTimer from '@/components/SimpleTimer.vue'
+import MetricValueInput from '@/components/MetricValueInput.vue'
 
 const props = defineProps<{ drill: Drill }>()
 
@@ -99,6 +126,25 @@ const isFav = computed(() => favorites.isFavorite(props.drill.id))
 
 async function toggleFavorite() {
   await favorites.toggle(props.drill.id)
+}
+
+// Active session state
+const active = ref(false)
+const value = ref<number | null>(null)
+const timerRef = ref<any>(null)
+
+function startSession() {
+  active.value = true
+  // If timer component exists, start it
+  timerRef.value?.start?.()
+}
+
+function cancelSession() {
+  // Reset all transient state
+  active.value = false
+  value.value = null
+  timerRef.value?.reset?.()
+  timerRef.value?.pause?.()
 }
 
 function onElapsed(_sec: number) {

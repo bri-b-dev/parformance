@@ -94,7 +94,10 @@
 
       <div class="row">
         <button v-if="!active" class="btn btn-primary" type="button" @click="startSession">Session starten</button>
-        <button v-else class="btn" type="button" @click="cancelSession">Abbrechen</button>
+        <template v-else>
+          <button class="btn" type="button" @click="cancelSession">Abbrechen</button>
+          <button class="btn btn-primary" type="button" @click="saveSession" :disabled="!canSave">Speichern</button>
+        </template>
       </div>
 
       <!-- Optional timer when preset exists; show only while active; start programmatically on session start -->
@@ -110,8 +113,10 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import type { Drill } from '@/types'
+import type { Drill, Session } from '@/types'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useSessionsStore } from '@/stores/sessions'
+import { useSettingsStore } from '@/stores/settings'
 import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
 import SimpleTimer from '@/components/SimpleTimer.vue'
 import MetricValueInput from '@/components/MetricValueInput.vue'
@@ -119,8 +124,14 @@ import MetricValueInput from '@/components/MetricValueInput.vue'
 const props = defineProps<{ drill: Drill }>()
 
 const favorites = useFavoritesStore()
+const sessions = useSessionsStore()
+const settings = useSettingsStore()
 
-onMounted(() => { if (!favorites.loaded) favorites.load() })
+onMounted(async () => {
+  if (!favorites.loaded) favorites.load()
+  if (!sessions.loaded) await sessions.load()
+  if (!settings.loaded) await settings.load()
+})
 
 const isFav = computed(() => favorites.isFavorite(props.drill.id))
 
@@ -132,6 +143,9 @@ async function toggleFavorite() {
 const active = ref(false)
 const value = ref<number | null>(null)
 const timerRef = ref<any>(null)
+const lastElapsed = ref<number>(0)
+
+const canSave = computed(() => active.value && value.value != null && Number.isFinite(value.value))
 
 function startSession() {
   active.value = true
@@ -143,11 +157,29 @@ function cancelSession() {
   // Reset all transient state
   active.value = false
   value.value = null
+  lastElapsed.value = 0
   timerRef.value?.reset?.()
   timerRef.value?.pause?.()
 }
 
-function onElapsed(_sec: number) {
-  // hook for future: could bind to a session form to set timerUsed
+async function saveSession() {
+  if (!canSave.value) return
+  const session: Omit<Session, 'id'> & Partial<Pick<Session, 'id'>> = {
+    drillId: props.drill.id,
+    date: new Date().toISOString(),
+    hcp: typeof settings.hcp === 'number' ? settings.hcp : 0,
+    result: { value: value.value as number, unit: props.drill.metric.unit },
+  }
+  // Only attach timerUsed when the drill has a preset (per acceptance)
+  if (props.drill.duration?.timerPreset) {
+    session.timerUsed = lastElapsed.value
+  }
+  await sessions.addSession(session)
+  // Reset UI state after save
+  cancelSession()
+}
+
+function onElapsed(sec: number) {
+  lastElapsed.value = sec
 }
 </script>

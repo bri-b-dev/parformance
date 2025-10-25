@@ -47,7 +47,11 @@
           </div>
         </div>
 
-        <div class="row" style="justify-content:center; margin-top:10px;">
+        <div class="row" style="justify-content:center; margin-top:10px; align-items:center; gap:16px;">
+          <label class="chip" style="display:inline-flex; align-items:center; gap:6px; cursor:pointer;">
+            <input type="checkbox" v-model="biasFavorites" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
+            Favoriten bevorzugen
+          </label>
           <button class="btn btn-primary" type="button" :disabled="disabled || running" @click="start" data-testid="shuffle-start">Start</button>
           <button class="btn" type="button" :disabled="!running" @click="cancel" data-testid="shuffle-cancel">Abbrechen</button>
         </div>
@@ -58,9 +62,11 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
+import { useFavoritesStore } from '@/stores/favorites'
 import type { Drill } from '@/types'
+import { pickWeighted } from '@/utils/weighted'
 
 // Configurable durations per reel (ms)
 const props = defineProps<{ durationCatMs?: number; durationDrillMs?: number; durationTargetMs?: number }>()
@@ -77,13 +83,24 @@ function prefersReducedMotion(): boolean {
 
 // Store & router
 const catalog = useDrillCatalogStore()
+const favorites = useFavoritesStore()
 const router = useRouter()
+const route = useRoute()
 
 onMounted(async () => {
   if (!catalog.loaded) await catalog.load()
+  if (!favorites.loaded) await favorites.load()
+  // Default bias on when favorites filter is active in the URL query
+  const q = route?.query || {}
+  const favOn = ['1','true','yes'].includes(String((q as any).fav ?? (q as any).onlyFavorites ?? '').toLowerCase())
+  if (favOn && hasAnyFavorites.value) biasFavorites.value = true
 })
 
 const disabled = computed(() => (catalog.drills.length === 0))
+
+// Favorites / bias toggle
+const hasAnyFavorites = computed(() => (favorites.list?.length ?? 0) > 0)
+const biasFavorites = ref<boolean>(false)
 
 // Data sources
 const categories = computed(() => {
@@ -96,6 +113,22 @@ function drillsFor(cat: string): Drill[] {
   return catalog.drills.filter(d => d.category === cat)
 }
 
+function isFavorite(drillId: string): boolean {
+  return favorites.list?.includes?.(drillId) ?? false
+}
+
+function weightedTitles(drills: Drill[]): string[] {
+  if (!biasFavorites.value || !hasAnyFavorites.value) return drills.map(d => d.title)
+  // Duplicate favorite titles to bias selection probability
+  const out: string[] = []
+  for (const d of drills) {
+    const weight = isFavorite(d.id) ? 3 : 1 // 3x weight for favorites
+    for (let i = 0; i < weight; i++) out.push(d.title)
+  }
+  return out.length ? out : drills.map(d => d.title)
+}
+
+
 // Reel visual state
 const itemHeight = 28 // px
 const catOffset = ref(0)
@@ -106,7 +139,8 @@ const catItems = computed(() => (categories.value.length ? categories.value : ['
 const drillItems = computed(() => {
   const cat = display.category || categories.value[0]
   const list = drillsFor(cat)
-  return list.length ? list.map(d => d.title) : ['—']
+  const titles = weightedTitles(list)
+  return titles.length ? titles : ['—']
 })
 const targetItems = computed(() => {
   const d = selectedDrill.value
@@ -198,18 +232,22 @@ async function start() {
     const drillTitles = list.map(d => d.title)
 
     if (reduce) {
-      display.drill = drillTitles[0] || null
+      const weighted = weightedTitles(list)
+      const title = pickWeighted(weighted) || weighted[0] || null
+      display.drill = title
+      selectedDrill.value = list.find(x => x.title === title) || list[0] || null
       afterDrill()
       return
     }
 
     spinning.drill = true
-    const ctl = spin(drillTitles, drillOffset, D_DRILL.value, (i) => (display.drill = drillTitles[i]))
+    const weighted = weightedTitles(list)
+    const ctl = spin(weighted, drillOffset, D_DRILL.value, (i) => (display.drill = weighted[i]))
     timers.push(setTimeout(() => {
       spinning.drill = false
       ctl?.stop()
-      const idx = Math.floor((drillOffset.value + (itemHeight/2)) / itemHeight) % (drillTitles.length || 1)
-      const title = drillTitles[idx] || drillTitles[0]
+      const idx = Math.floor((drillOffset.value + (itemHeight/2)) / itemHeight) % (weighted.length || 1)
+      const title = weighted[idx] || weighted[0]
       display.drill = title
       selectedDrill.value = list.find(x => x.title === title) || list[0] || null
       afterDrill()

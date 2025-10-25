@@ -15,8 +15,8 @@
     "lint": "echo 'No linter configured yet' && exit 0",
     "validate:drills": "node ./scripts/validate-drills.mjs",
     "a11y:axe": "node ./scripts/axe-check.mjs",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "STORYBOOK=true storybook dev -p 6006",
+    "build-storybook": "STORYBOOK=true storybook build"
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^7.0.2",

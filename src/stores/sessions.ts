@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
 import type { Session } from '@/types'
-import { Preferences } from '@capacitor/preferences'
+import { createPersist } from '@/utils/persistAdapter'
 
-const STORAGE_KEY = 'parformance.sessions.v1'
-const isBrowser = typeof window !== 'undefined'
+const persist = createPersist('parformance', 1)
 
 export const useSessionsStore = defineStore('sessions', {
   state: () => ({
@@ -27,14 +26,12 @@ export const useSessionsStore = defineStore('sessions', {
   },
   actions: {
     async load() {
-      if (!isBrowser) return // skip in non-browser envs (e.g., tests/SSR)
-      const stored = await Preferences.get({ key: STORAGE_KEY })
-      this.sessions = stored.value ? JSON.parse(stored.value) as Session[] : []
+      const stored = persist.get<Session[]>('sessions')
+      this.sessions = Array.isArray(stored) ? stored : []
       this.loaded = true
     },
     async persist() {
-      if (!isBrowser) return
-      await Preferences.set({ key: STORAGE_KEY, value: JSON.stringify(this.sessions) })
+      persist.setDebounced('sessions', this.sessions)
     },
     // Create or insert a session. If id is missing, it will be generated.
     async addSession(session: Omit<Session, 'id'> & Partial<Pick<Session, 'id'>>) {

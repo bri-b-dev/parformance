@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia';
-import type {Drill, DrillCategory} from '@/types/drill';
+import type {Drill, DrillCategory} from '@/types/drills';
 import {Preferences} from '@capacitor/preferences';
 
 

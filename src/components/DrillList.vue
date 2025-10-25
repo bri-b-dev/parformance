@@ -56,7 +56,7 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from 'vue'
 import {useDrillStore} from '@/stores/drills'
-import type {DrillCategory} from '@/types/drill'
+import type {DrillCategory} from '@/types/drills'
 
 const store = useDrillStore()
 

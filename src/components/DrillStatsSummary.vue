@@ -22,12 +22,16 @@
       <div class="chip" :aria-label="trendAria" title="Trend">
         <span aria-hidden="true">{{ trendSymbol }}</span>
       </div>
+      <div style="margin-left:8px;">
+        <SparklineLast v-if="valuesLast.length > 0" :values="valuesLast" :width="140" :height="28" color="#2F7A52" />
+      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
+import SparklineLast from '@/components/SparklineLast.vue'
 import { useSessionsStore } from '@/stores/sessions'
 import { getMovingAverageTrend } from '@/stats/movingAverage'
 
@@ -43,6 +47,15 @@ const sessionsLoaded = computed(() => sessions.loaded)
 const items = computed(() => sessions.listByDrill(props.drillId))
 const count = computed(() => items.value.length)
 const values = computed(() => items.value.map(s => Number(s.result?.value)).filter(v => Number.isFinite(v)))
+
+// Provide last up-to-10 values in chronological order (oldest → newest)
+const valuesLast = computed(() => {
+  const v = (values.value || []).slice()
+  if (!v.length) return []
+  // sessions.listByDrill returns newest-first; reverse to chronological
+  v.reverse()
+  return v.slice(-10)
+})
 
 const best = computed(() => values.value.length ? Math.max(...values.value) : 0)
 

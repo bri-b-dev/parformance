@@ -29,3 +29,4 @@ coverage
 
 *.tsbuildinfo
 /setup-android-release.sh
+.output.txt

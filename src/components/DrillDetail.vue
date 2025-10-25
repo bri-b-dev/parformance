@@ -129,7 +129,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, nextTick } from 'vue'
 import type { Drill, Session } from '@/types'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useSessionsStore } from '@/stores/sessions'
@@ -166,9 +166,10 @@ const attemptsCount = ref<number>(0)
 
 const canSave = computed(() => active.value && value.value != null && Number.isFinite(value.value))
 
-function startSession() {
+async function startSession() {
   active.value = true
-  // If timer component exists, start it
+  // Wait for timer to mount, then start it
+  await nextTick()
   timerRef.value?.start?.()
 }
 

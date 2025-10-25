@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 import SimpleTimer from '../../src/components/SimpleTimer.vue'
 
 // We verify that elapsed seconds are emitted when the timer runs,
@@ -19,8 +20,9 @@ describe('SimpleTimer', () => {
     // Click Start
     await wrapper.find('button.btn-primary').trigger('click')
 
-    // Advance 3 seconds
-    vi.advanceTimersByTime(3000)
+    // Advance 3 seconds (use async helper to flush microtasks between ticks)
+    await vi.advanceTimersByTimeAsync(3000)
+    await nextTick()
 
     const emits = wrapper.emitted<'elapsed', [number]>('elapsed') || []
     // Expect at least 3 emissions (one per second), last should be 3

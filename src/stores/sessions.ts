@@ -50,6 +50,14 @@ export const useSessionsStore = defineStore('sessions', {
     async clearAll() {
       this.sessions = []
       await this.persist()
+    },
+    async updateNotes(id: string, notes: string | undefined | null) {
+      const idx = this.sessions.findIndex(s => s.id === id)
+      if (idx !== -1) {
+        const next = { ...this.sessions[idx], notes: notes ?? undefined }
+        this.sessions[idx] = next
+        await this.persist()
+      }
     }
   }
 })

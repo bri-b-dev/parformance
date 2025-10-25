@@ -19,8 +19,8 @@ declare global { var window: any }
 describe('SessionHistory', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-    // @ts-expect-error set global window
-    global.window = { localStorage: new LocalStorageMock() }
+    // Patch existing jsdom window instead of replacing it to preserve Event constructors
+    Object.assign(global.window, { localStorage: new LocalStorageMock() })
     vi.useFakeTimers()
   })
 
@@ -40,7 +40,7 @@ describe('SessionHistory', () => {
     await store.load()
 
     // Seed some sessions across drills
-    await store.addSession({ id: 's1', drillId: 'd1', date: '2025-01-01T10:00:00Z', hcp: 12, result: { value: 5, unit: 'pts' }, attempts: 2 })
+    await store.addSession({ id: 's1', drillId: 'd1', date: '2025-01-01T10:00:00Z', hcp: 12, result: { value: 5, unit: 'pts' }, attempts: 2, notes: 'erste Notiz' })
     await store.addSession({ id: 's2', drillId: 'd1', date: '2025-02-01T10:00:00Z', hcp: 12, result: { value: 7, unit: 'pts' }, timerUsed: 90 })
     await store.addSession({ id: 's3', drillId: 'd2', date: '2025-03-01T10:00:00Z', hcp: 12, result: { value: 9, unit: 'pts' } })
 
@@ -57,5 +57,41 @@ describe('SessionHistory', () => {
     // Chips visible
     expect(wrapper.text()).toContain('↻ 2')
     expect(wrapper.text()).toContain('⏱️ 01:30')
+
+    // Snapshot the rendered HTML (Definition of Done)
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('supports inline editing of notes and persists via store.updateNotes', async () => {
+    const store = useSessionsStore()
+    await store.load()
+
+    await store.addSession({ id: 's10', drillId: 'dA', date: '2025-06-01T10:00:00Z', hcp: 18, result: { value: 3, unit: 'pts' } })
+
+    const wrapper = mount(SessionHistory, { props: { drillId: 'dA' } })
+
+    // Click notes edit
+    const editBtn = await wrapper.find('[data-testid="notes-edit"]')
+    expect(editBtn.exists()).toBe(true)
+    await editBtn.trigger('click')
+
+    const ta = wrapper.get('[data-testid="notes-textarea"]')
+    await ta.setValue('neue Notiz')
+
+    // Save notes
+    const saveBtn = wrapper.get('[data-testid="notes-save"]')
+    await saveBtn.trigger('click')
+    await wrapper.vm.$nextTick()
+    await Promise.resolve()
+    await wrapper.vm.$nextTick()
+
+    // Store should be updated
+    const saved = store.listByDrill('dA')[0]
+    expect(saved.notes).toBe('neue Notiz')
+
+    // UI shows the new notes
+    await Promise.resolve()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.text()).toContain('neue Notiz')
   })
 })

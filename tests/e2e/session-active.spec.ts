@@ -39,8 +39,8 @@ function mountDetail() {
 describe('E2E: start timer (if preset), enable inputs, mark session as active until save', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-    // @ts-expect-error set global window
-    global.window = { localStorage: new LocalStorageMock(), dispatchEvent: () => {} }
+    // Preserve jsdom window and patch only required fields
+    Object.assign(global.window, { localStorage: new LocalStorageMock(), dispatchEvent: () => {} })
     vi.useFakeTimers()
   })
 
@@ -54,16 +54,19 @@ describe('E2E: start timer (if preset), enable inputs, mark session as active un
     expect(wrapper.text()).not.toContain('Aktiv')
 
     // Click Start
-    const startBtn = wrapper.get('button.btn-primary')
+    const startBtn = wrapper.findAll('button').find(b => /Session starten/i.test(b.text()))!
     await startBtn.trigger('click')
+    await Promise.resolve()
 
     // Now: active chip visible, input enabled
     expect(wrapper.text()).toContain('Aktiv')
     expect((numberInput().element as HTMLInputElement).disabled).toBe(false)
 
     // Click Cancel
-    const cancelBtn = wrapper.get('button.btn')
+    // Click explicit "Abbrechen" button to avoid matching other .btn elements
+    const cancelBtn = wrapper.findAll('button').find(b => /Abbrechen/i.test(b.text()))!
     await cancelBtn.trigger('click')
+    await Promise.resolve()
 
     // Back to initial state
     expect(wrapper.text()).not.toContain('Aktiv')

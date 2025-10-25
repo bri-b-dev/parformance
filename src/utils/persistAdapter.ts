@@ -32,16 +32,76 @@ function makeStorage() {
   } as Storage
 }
 
-export function createPersist(namespace: string, version: number, debounceMs = 250): PersistAdapter {
+export function createPersist(
+  namespace: string,
+  version: number,
+  debounceMs = 250,
+  migrateFn?: (value: any, fromVersion: number | null, toVersion: number) => any
+): PersistAdapter {
   const timers = new Map<string, any>()
 
-  const makeKey = (key: string) => `${namespace}.${key}.v${version}`
+  const makeKey = (key: string, ver: number = version) => `${namespace}.${key}.v${ver}`
   const getStorage = () => makeStorage()
+
+  function findLegacyKey(baseKey: string): { key: string; fromVersion: number | null } | null {
+    const storage = getStorage()
+    const legacyUnversioned = `${namespace}.${baseKey}`
+    // Prefer exact unversioned key first
+    if (storage.getItem(legacyUnversioned) != null) {
+      return { key: legacyUnversioned, fromVersion: null }
+    }
+    // Then search for same namespace/key with any version other than current
+    const prefix = `${namespace}.${baseKey}.v`
+    for (let i = 0; i < storage.length; i++) {
+      const k = storage.key(i)
+      if (!k) continue
+      if (k.startsWith(prefix)) {
+        const verStr = k.slice(prefix.length)
+        const fromVersion = Number.isFinite(Number(verStr)) ? Number(verStr) : null
+        if (fromVersion !== version) {
+          return { key: k, fromVersion }
+        }
+      }
+    }
+    return null
+  }
+
+  function migrateIfNeeded<T = any>(baseKey: string): T | null {
+    const storage = getStorage()
+    const legacy = findLegacyKey(baseKey)
+    if (!legacy) return null
+    const raw = storage.getItem(legacy.key)
+    if (!raw) return null
+    let parsed: any
+    try {
+      parsed = JSON.parse(raw)
+    } catch {
+      // cannot parse legacy, drop it
+      storage.removeItem(legacy.key)
+      return null
+    }
+    const migrator = migrateFn ?? ((v: any) => v)
+    const migrated = migrator(parsed, legacy.fromVersion, version)
+    try {
+      storage.setItem(makeKey(baseKey), JSON.stringify(migrated))
+      // remove legacy after successful write
+      storage.removeItem(legacy.key)
+    } catch {
+      // ignore write errors, keep legacy
+    }
+    return migrated as T
+  }
 
   function get<T = any>(key: string): T | null {
     const k = makeKey(key)
-    const raw = getStorage().getItem(k)
-    if (!raw) return null
+    const storage = getStorage()
+    let raw = storage.getItem(k)
+    if (!raw) {
+      // Try migrate from legacy/unversioned/other-version
+      const migrated = migrateIfNeeded<T>(key)
+      if (migrated != null) return migrated
+      return null
+    }
     try {
       return JSON.parse(raw) as T
     } catch {

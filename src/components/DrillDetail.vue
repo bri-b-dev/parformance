@@ -123,6 +123,9 @@
     <!-- HCP Targets -->
     <HcpTargetsTable :drill="drill" />
 
+    <!-- Stats summary: Best, MA(5), Trend -->
+    <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
+
     <!-- Session History for this drill -->
     <SessionHistory :drill-id="drill.id" />
   </section>
@@ -138,6 +141,7 @@ import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
 import SimpleTimer from '@/components/SimpleTimer.vue'
 import MetricValueInput from '@/components/MetricValueInput.vue'
 import SessionHistory from '@/components/SessionHistory.vue'
+import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
 
 const props = defineProps<{ drill: Drill }>()
 

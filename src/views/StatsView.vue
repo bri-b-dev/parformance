@@ -33,6 +33,45 @@
           <p style="margin:0;">Keine Daten für den gewählten Zeitraum oder Kategorie.</p>
         </div>
       </div>
+
+      <!-- Areas for improvement -->
+      <div style="margin-top:16px;">
+        <h2 class="label" style="margin:0 0 8px 0;">Verbesserungsbereiche</h2>
+        <div class="grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
+          <div class="card" data-testid="areas-below-target">
+            <h3 style="margin-top:0;">Unter Ziel</h3>
+            <ul style="margin:0; padding-left:16px;">
+              <li v-for="d in areas.belowTarget" :key="d.id">
+                <router-link :to="{ name: 'DrillDetail', params: { id: d.id } }">{{ d.title || d.id }}</router-link>
+                <span class="muted" style="margin-left:8px;">(Lücke: {{ Math.round(d.gap || 0) }})</span>
+              </li>
+              <li v-if="areas.belowTarget.length === 0" class="muted">Keine</li>
+            </ul>
+          </div>
+
+          <div class="card" data-testid="areas-stagnant">
+            <h3 style="margin-top:0;">Stagnant</h3>
+            <ul style="margin:0; padding-left:16px;">
+              <li v-for="d in areas.stagnant" :key="d.id">
+                <router-link :to="{ name: 'DrillDetail', params: { id: d.id } }">{{ d.title || d.id }}</router-link>
+                <span class="muted" style="margin-left:8px;">(aktuell: {{ Math.round(d.latestLevel || 0) }})</span>
+              </li>
+              <li v-if="areas.stagnant.length === 0" class="muted">Keine</li>
+            </ul>
+          </div>
+
+          <div class="card" data-testid="areas-most-improved">
+            <h3 style="margin-top:0;">Meiste Verbesserung</h3>
+            <ul style="margin:0; padding-left:16px;">
+              <li v-for="i in areas.mostImproved.slice(0,10)" :key="i.id">
+                <router-link :to="{ name: 'DrillDetail', params: { id: i.id } }">{{ i.title || i.id }}</router-link>
+                <span class="muted" style="margin-left:8px;">(Δ {{ (i.delta || 0).toFixed(2) }})</span>
+              </li>
+              <li v-if="areas.mostImproved.length === 0" class="muted">Keine</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <slot />
@@ -43,15 +82,19 @@
 import { computed, onMounted, ref } from 'vue'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useSessionsStore } from '@/stores/sessions'
+import { useSettingsStore } from '@/stores/settings'
 import { computeCategoryScores } from '@/stats/categoryScores'
+import { computeAreasOfImprovement } from '@/stats/areas'
 import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
 
 const catalog = useDrillCatalogStore()
 const sessions = useSessionsStore()
+const settings = useSettingsStore()
 
 onMounted(async () => {
   if (!catalog.loaded) await catalog.load()
   if (!sessions.loaded) await sessions.load()
+  if (!settings.loaded) await settings.load()
 })
 
 const drillsLoaded = computed(() => catalog.loaded)
@@ -91,5 +134,15 @@ const rows = computed(() => {
   const entries = Object.entries(scores.value || {})
   entries.sort((a, b) => a[0].localeCompare(b[0]))
   return entries.map(([category, value]) => ({ category, value: Math.max(0, Math.min(100, Number(value) || 0)) }))
+})
+
+const areas = computed(() => {
+  // compute areas using currently filtered sessions/drills and the user's HCP
+  try {
+    return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], settings.hcp)
+  } catch (e) {
+    // on error, return empty buckets
+    return { belowTarget: [], stagnant: [], mostImproved: [] }
+  }
 })
 </script>

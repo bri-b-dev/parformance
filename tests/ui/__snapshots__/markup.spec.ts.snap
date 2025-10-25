@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UI markup snapshots > empty state with title and message 1`] = `
+"<div class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50">
+  <h3 class="text-base font-semibold text-gray-800">Keine Drills gefunden</h3>
+  <p class="text-sm text-gray-600 mt-1">Passe die Filter an oder lege ein neues Trainingsspiel an.</p>
+</div>"
+`;
+
+exports[`UI markup snapshots > empty state with title only 1`] = `
+"<div class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50">
+  <h3 class="text-base font-semibold text-gray-800">Keine Ergebnisse</h3>
+</div>"
+`;
+
+exports[`UI markup snapshots > spinner custom label 1`] = `
+"<div class="flex items-center justify-center p-4" role="status" aria-live="polite" aria-busy="true">
+  <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"></span>
+  <span class="text-sm text-gray-600">Bitte warten…</span>
+</div>"
+`;
+
+exports[`UI markup snapshots > spinner default label 1`] = `
+"<div class="flex items-center justify-center p-4" role="status" aria-live="polite" aria-busy="true">
+  <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"></span>
+  <span class="text-sm text-gray-600">Laden…</span>
+</div>"
+`;

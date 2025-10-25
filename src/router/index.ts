@@ -1,14 +1,16 @@
 import { createRouter, createWebHistory, createMemoryHistory, type Router, type RouterHistory, type RouteLocationRaw, type RouteLocationNormalizedLoaded } from 'vue-router'
 
-// Views/Components used by the routes (lazy to avoid SFC parsing in unit tests)
-const DrillList = () => import('@/components/DrillList.vue')
-const RandomizerView = () => import('@/views/RandomizerView.vue')
+// Views/Components used by the routes (lazy in browser; stubbed in tests/SSR to avoid SFC parsing)
+const isBrowser = typeof window !== 'undefined' && typeof (window as any).document !== 'undefined'
+const Stub = { render() { return null } }
 
-// Lightweight placeholder views to keep routing minimal for now
-// Detail view: shows a drill based on :id (actual rendering can be implemented later)
-const DrillDetailView = () => import('@/views/DrillDetailView.vue')
+const DrillList = isBrowser ? (() => import('@/components/DrillList.vue')) : Stub
+const RandomizerView = isBrowser ? (() => import('@/views/RandomizerView.vue')) : Stub
+
+// Detail view: shows a drill based on :id
+const DrillDetailView = isBrowser ? (() => import('@/views/DrillDetailView.vue')) : Stub
 // Stats view placeholder
-const StatsView = () => import('@/views/StatsView.vue')
+const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
 
 export const routes = [
   { path: '/', redirect: { name: 'DrillsList' } },
@@ -20,6 +22,8 @@ export const routes = [
   {
     name: 'DrillDetail',
     path: '/drill/:id',
+    // Support alias '/drills/:id' to match user expectation and existing list URL patterns
+    alias: '/drills/:id',
     component: DrillDetailView,
     props: true,
   },

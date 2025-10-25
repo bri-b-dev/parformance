@@ -10,23 +10,8 @@
 
     <!-- Content -->
     <div v-else>
-      <h2 class="label" style="margin-top:8px;">Durchschnittlicher Level je Kategorie</h2>
-      <div role="img" aria-label="Balkendiagramm: Normalisierte Durchschnitts-Level pro Kategorie" class="card" style="margin-top:6px;">
-        <ul class="list-none" style="padding:8px; margin:0; display:flex; flex-direction:column; gap:8px;">
-          <li v-for="row in rows" :key="row.category" style="display:flex; align-items:center; gap:10px;">
-            <div style="width:160px; color:var(--muted);">{{ row.category }}</div>
-            <div class="w-full" style="flex:1; height:12px; background: var(--bg); border:1px solid var(--border); border-radius:999px; overflow:hidden;">
-              <div :style="{ width: row.value + '%', height: '100%', background: 'var(--accent-green)' }" aria-hidden="true"></div>
-            </div>
-            <div class="chip" :aria-label="`${row.value.toFixed(0)} Prozent`" style="min-width:56px; text-align:right;">{{ row.value.toFixed(0) }}%</div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Radar placeholder -->
-      <div class="card" role="img" aria-label="Radar-Diagramm Platzhalter" style="margin-top:10px; height:180px; display:flex; align-items:center; justify-content:center; color:var(--muted);">
-        Radar (Platzhalter)
-      </div>
+      <h2 class="label" style="margin-top:8px;">Fähigkeiten je Kategorie</h2>
+      <CategoryScoresChart :scores="scores" title="Fähigkeiten je Kategorie (0–100)" />
     </div>
 
     <slot />
@@ -38,6 +23,7 @@ import { computed, onMounted } from 'vue'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useSessionsStore } from '@/stores/sessions'
 import { computeCategoryScores } from '@/stats/categoryScores'
+import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
 
 const catalog = useDrillCatalogStore()
 const sessions = useSessionsStore()

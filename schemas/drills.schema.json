@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://parformance.dev/schemas/drills.schema.json",
+  "title": "Parformance Drills",
+  "description": "Schema validating the drills.json file (array of Drill objects)",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Drill"
+  },
+  "definitions": {
+    "NonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "StringArray": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "NumberArray": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 1
+    },
+    "Equipment": {
+      "type": "object",
+      "properties": {
+        "balls": { "type": "number" },
+        "clubs": { "$ref": "#/definitions/StringArray" },
+        "other": { "$ref": "#/definitions/StringArray" }
+      },
+      "additionalProperties": false
+    },
+    "Setup": {
+      "type": "object",
+      "properties": {
+        "schema": { "$ref": "#/definitions/NonEmptyString" },
+        "diagram": { "$ref": "#/definitions/NonEmptyString" },
+        "location": { "$ref": "#/definitions/NonEmptyString" }
+      },
+      "required": ["schema"],
+      "additionalProperties": false
+    },
+    "Duration": {
+      "type": "object",
+      "properties": {
+        "suggestedMin": { "type": "number" },
+        "hardStop": { "type": "number" },
+        "timerPreset": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "Difficulty": {
+      "type": "object",
+      "properties": {
+        "base": { "type": "number", "minimum": 1, "maximum": 5 },
+        "scale": { "type": "string", "enum": ["1-5"] }
+      },
+      "required": ["base", "scale"],
+      "additionalProperties": false
+    },
+    "Instructions": {
+      "type": "object",
+      "properties": {
+        "training": { "$ref": "#/definitions/NonEmptyString" },
+        "test": { "$ref": "#/definitions/NonEmptyString" },
+        "tooEasy": { "$ref": "#/definitions/NonEmptyString" }
+      },
+      "required": ["training"],
+      "additionalProperties": false
+    },
+    "Metric": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "streak",
+            "count_in_time",
+            "points_total",
+            "stations_cleared",
+            "corridor_hits",
+            "score_vs_par"
+          ]
+        },
+        "unit": { "$ref": "#/definitions/NonEmptyString" },
+        "hcpTargets": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/NumberArray" }
+        }
+      },
+      "required": ["type", "unit", "hcpTargets"],
+      "additionalProperties": false
+    },
+    "Drill": {
+      "type": "object",
+      "properties": {
+        "id": { "$ref": "#/definitions/NonEmptyString" },
+        "title": { "$ref": "#/definitions/NonEmptyString" },
+        "category": { "$ref": "#/definitions/NonEmptyString" },
+        "source": { "$ref": "#/definitions/NonEmptyString" },
+        "equipment": { "$ref": "#/definitions/Equipment" },
+        "setup": { "$ref": "#/definitions/Setup" },
+        "duration": { "$ref": "#/definitions/Duration" },
+        "difficulty": { "$ref": "#/definitions/Difficulty" },
+        "instructions": { "$ref": "#/definitions/Instructions" },
+        "metric": { "$ref": "#/definitions/Metric" },
+        "tags": { "$ref": "#/definitions/StringArray" },
+        "zockerTip": { "$ref": "#/definitions/NonEmptyString" },
+        "variants": { "$ref": "#/definitions/StringArray" }
+      },
+      "required": [
+        "id",
+        "title",
+        "category",
+        "equipment",
+        "setup",
+        "duration",
+        "instructions",
+        "metric"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

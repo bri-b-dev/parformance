@@ -1,9 +1,11 @@
 import { defineConfig } from 'vitest/config'
 import { fileURLToPath } from 'node:url'
 
+import vue from '@vitejs/plugin-vue'
+
 export default defineConfig({
-  // Do not load Vite app plugins during unit tests
-  plugins: [],
+  // Enable Vue SFC support for component tests
+  plugins: [vue()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -12,6 +14,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: false,
+    setupFiles: ['./tests/setup.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],

@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SessionHistory > lists sessions for a drill, sorted by date desc with attempts/timer chips 1`] = `
+"<section class="card" style="margin-top: 10px;">
+  <header style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px;">
+    <h3 style="margin: 0px; font-weight: 700;">Verlauf</h3><small class="chip" aria-label="Anzahl Sessions">2 Einträge</small>
+  </header><!-- Empty state -->
+  <!-- List -->
+  <ul class="list-none" style="padding: 0px; margin: 0px;">
+    <li class="card" style="margin: 6px 0px;">
+      <div class="row" style="align-items: center; justify-content: space-between;">
+        <div style="display: flex; flex-direction: column; gap: 2px;"><strong style="line-height: 1;">7 pts</strong><small style="color: var(--muted);">2025-02-01 11:00</small></div>
+        <div class="chips" style="justify-content: flex-end;">
+          <!--v-if--><span class="chip" title="Zeit">⏱️ 01:30</span>
+        </div>
+      </div><!-- Notes display / inline edit -->
+      <div style="margin-top: 6px;">
+        <p style="margin: 0px; color: var(--muted);">Keine Notizen</p>
+        <div class="row" style="justify-content: flex-end; margin-top: 6px;"><button type="button" class="btn" aria-label="Notizen bearbeiten für 2025-02-01 11:00" data-testid="notes-edit">Notizen</button></div>
+      </div>
+    </li>
+    <li class="card" style="margin: 6px 0px;">
+      <div class="row" style="align-items: center; justify-content: space-between;">
+        <div style="display: flex; flex-direction: column; gap: 2px;"><strong style="line-height: 1;">5 pts</strong><small style="color: var(--muted);">2025-01-01 11:00</small></div>
+        <div class="chips" style="justify-content: flex-end;"><span class="chip" title="Versuche">↻ 2</span>
+          <!--v-if-->
+        </div>
+      </div><!-- Notes display / inline edit -->
+      <div style="margin-top: 6px;">
+        <p style="margin: 0px; white-space: pre-wrap;">erste Notiz</p>
+        <div class="row" style="justify-content: flex-end; margin-top: 6px;"><button type="button" class="btn" aria-label="Notizen bearbeiten für 2025-01-01 11:00" data-testid="notes-edit">Notizen</button></div>
+      </div>
+    </li>
+  </ul>
+</section>"
+`;

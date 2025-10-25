@@ -24,7 +24,7 @@ describe('Happy path: open → pick drill → start session → save → see his
 
     // Minimal browser-ish globals for stores that check window/localStorage
     // @ts-expect-error set global
-    global.window = { localStorage: new LocalStorageMock(), dispatchEvent: () => {} }
+    global.window = { localStorage: new LocalStorageMock(), dispatchEvent: () => {}, scrollTo: () => {} }
 
     vi.useFakeTimers()
   })

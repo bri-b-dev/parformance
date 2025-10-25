@@ -38,8 +38,8 @@ function mountDetail() {
 describe('DrillDetail: Optional increment button for count_in_time stores attempts on save', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-    // @ts-expect-error assign global
-    global.window = { localStorage: new LocalStorageMock(), dispatchEvent: () => {} }
+    // Preserve jsdom window (MouseEvent, Event, etc.) and only patch needed fields
+    Object.assign(global.window, { localStorage: new LocalStorageMock(), dispatchEvent: () => {} })
     vi.useFakeTimers()
   })
 
@@ -47,7 +47,7 @@ describe('DrillDetail: Optional increment button for count_in_time stores attemp
     const wrapper = mountDetail()
 
     // Start session
-    const startBtn = wrapper.get('button.btn-primary')
+    const startBtn = wrapper.findAll('button').find(b => /Session starten/i.test(b.text()))!
     await startBtn.trigger('click')
 
     // Increment attempts 3 times
@@ -62,11 +62,13 @@ describe('DrillDetail: Optional increment button for count_in_time stores attemp
     // Enter a valid result value (> 0)
     const numberInput = wrapper.get('input[type="number"]')
     await numberInput.setValue('5')
+    await wrapper.vm.$nextTick()
 
     // Save
-    const saveBtn = wrapper.get('button.btn-primary')
-    // after starting, the primary button label is "Speichern"
+    // Click the explicit "Speichern" button (avoid hitting timer Start/Pause)
+    const saveBtn = wrapper.findAll('button').find(b => /Speichern/i.test(b.text()))!
     await saveBtn.trigger('click')
+    await wrapper.vm.$nextTick()
 
     // Debounced persist may be scheduled; but we only need to inspect store state
     const sessions = useSessionsStore()

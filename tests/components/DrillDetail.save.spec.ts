@@ -30,25 +30,26 @@ const drill: Drill = {
 }
 
 // SimpleTimer stub: when start() is called (by DrillDetail on session start), emit a fixed elapsed value.
-const SimpleTimerStub = {
+import { defineComponent, h } from 'vue'
+const SimpleTimerStub = defineComponent({
   name: 'SimpleTimer',
   emits: ['elapsed'],
-  setup(_props: any, { emit }: any) {
+  setup(_props, { emit, expose }) {
     function start() { emit('elapsed', 42) }
     function pause() {}
     function reset() { emit('elapsed', 0) }
-    // expose start/pause/reset so parent can call via ref
-    // @ts-ignore defineExpose in test stub
-    defineExpose({ start, pause, reset })
-    return () => null
+    expose({ start, pause, reset })
+    return () => h('div')
   }
-}
+})
 
 describe('DrillDetail save pipes elapsed seconds into session.timerUsed', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-    // @ts-expect-error set global window
-    global.window = { localStorage: new LocalStorageMock(), crypto: { randomUUID: () => 'uuid-test' }, dispatchEvent: () => {} }
+    // Preserve jsdom window and patch required fields only
+    Object.assign(global.window, { localStorage: new LocalStorageMock(), dispatchEvent: () => {} })
+    // Define crypto.randomUUID in jsdom window
+    Object.defineProperty(global.window, 'crypto', { value: { randomUUID: () => 'uuid-test' }, configurable: true })
     // Seed settings in storage so DrillDetail.load() reads hcp
     global.window.localStorage.store['parformance.settings.v1'] = JSON.stringify({ hcp: 18, handedness: 'right' })
     vi.useFakeTimers()
@@ -71,16 +72,20 @@ describe('DrillDetail save pipes elapsed seconds into session.timerUsed', () => 
     expect(input().attributes('disabled')).toBeDefined()
 
     // Start session (this should call stub start() and emit elapsed=42)
-    await wrapper.find('button.btn-primary').trigger('click')
+    const startBtn = wrapper.findAll('button').find(b => /Session starten/i.test(b.text()))!
+    await startBtn.trigger('click')
+    await Promise.resolve()
 
     // Now enable and set a value
     expect(input().attributes('disabled')).toBeUndefined()
     await input().setValue('7')
+    await Promise.resolve()
 
     // Click Save
     const buttons = wrapper.findAll('button')
     const saveBtn = buttons.find(b => /Speichern/i.test(b.text()))!
     await saveBtn.trigger('click')
+    await Promise.resolve()
 
     // Session should be added with timerUsed=42
     expect(sessions.sessions.length).toBe(1)

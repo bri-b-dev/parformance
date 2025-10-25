@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  unit-and-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate drills schema
+        run: npm run validate:drills
+
+      - name: Run tests with coverage (headless)
+        run: npm run test:coverage
+
+      - name: Run accessibility check (axe)
+        run: npm run a11y:axe

@@ -5,12 +5,15 @@ A modern, mobile‑first application built with Vue 3, Vite, and Capacitor for t
 <!-- Badges -->
 <p align="left">
   <img alt="Node" src="https://img.shields.io/badge/node-%E2%89%A520.19%20|%20%E2%89%A522.12-3C873A?logo=node.js&logoColor=white" />
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white" />
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3-42B883?logo=vuedotjs&logoColor=white" />
   <img alt="Capacitor" src="https://img.shields.io/badge/Capacitor-7-119EFF?logo=capacitor&logoColor=white" />
   <img alt="Platforms" src="https://img.shields.io/badge/Platforms-Web%20|%20Android%20|%20iOS-0A0A0A" />
   <a href="https://github.com/bri-b-dev/parformance/actions/workflows/release.yaml">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/parformance/actions/release.yaml?branch=main&label=release%20CI&logo=github" />
+  </a>
+  <a href="https://github.com/bri-b-dev/parformance/actions/workflows/test.yml">
+    <img alt="Tests CI" src="https://img.shields.io/github/actions/workflow/status/bri-b-dev/parformance/test.yml?branch=main&label=tests%20CI&logo=github" />
   </a>
 </p>
 
@@ -43,7 +46,7 @@ ParFormance is a cross‑platform app built with Vue 3 and Capacitor. It targets
 
 ## Tech stack
 - Vue 3
-- Vite 7
+- Vite 6
 - Capacitor 7 (Android and iOS)
 - Pinia, Vue Router
 

@@ -71,6 +71,9 @@
       <strong>Metrik:</strong> <span>{{ drill.metric.type }}</span>
       <span class="chip" aria-label="Einheit">Einheit: {{ drill.metric.unit }}</span>
     </div>
+
+    <!-- HCP Targets -->
+    <HcpTargetsTable :drill="drill" />
   </section>
 </template>
 
@@ -78,6 +81,7 @@
 import { computed, onMounted } from 'vue'
 import type { Drill } from '@/types'
 import { useFavoritesStore } from '@/stores/favorites'
+import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
 
 const props = defineProps<{ drill: Drill }>()
 

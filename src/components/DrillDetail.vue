@@ -92,6 +92,20 @@
         :label="drill.metric.unit"
       />
 
+      <!-- Optional increment button for count_in_time to track attempts during the session -->
+      <div v-if="active && drill.metric.type === 'count_in_time'" class="row" style="align-items:center;">
+        <button
+          class="btn"
+          type="button"
+          @click="incAttempts"
+          :aria-label="`+1 Versuch zu ${drill.title}`"
+          data-testid="attempts-inc"
+        >+1</button>
+        <span class="chip" aria-live="polite" role="status" data-testid="attempts-chip">
+          Versuche: {{ attemptsCount }}
+        </span>
+      </div>
+
       <div class="row">
         <button v-if="!active" class="btn btn-primary" type="button" @click="startSession">Session starten</button>
         <template v-else>
@@ -144,6 +158,7 @@ const active = ref(false)
 const value = ref<number | null>(null)
 const timerRef = ref<any>(null)
 const lastElapsed = ref<number>(0)
+const attemptsCount = ref<number>(0)
 
 const canSave = computed(() => active.value && value.value != null && Number.isFinite(value.value))
 
@@ -158,8 +173,14 @@ function cancelSession() {
   active.value = false
   value.value = null
   lastElapsed.value = 0
+  attemptsCount.value = 0
   timerRef.value?.reset?.()
   timerRef.value?.pause?.()
+}
+
+function incAttempts() {
+  if (!active.value) return
+  attemptsCount.value += 1
 }
 
 async function saveSession() {
@@ -173,6 +194,10 @@ async function saveSession() {
   // Only attach timerUsed when the drill has a preset (per acceptance)
   if (props.drill.duration?.timerPreset) {
     session.timerUsed = lastElapsed.value
+  }
+  // Store attempts if this is a count_in_time drill (Acceptance Criteria)
+  if (props.drill.metric.type === 'count_in_time') {
+    session.attempts = attemptsCount.value
   }
   await sessions.addSession(session)
   // Reset UI state after save

@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, watchEffect } from 'vue'
-import type { Drill, DrillCategory } from '@/types/drill'
+import type { Drill, DrillCategory } from '@/types/drills'
 
 const props = defineProps<{
   modelValue?: Drill | Partial<Drill>

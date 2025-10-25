@@ -122,6 +122,9 @@
 
     <!-- HCP Targets -->
     <HcpTargetsTable :drill="drill" />
+
+    <!-- Session History for this drill -->
+    <SessionHistory :drill-id="drill.id" />
   </section>
 </template>
 
@@ -134,6 +137,7 @@ import { useSettingsStore } from '@/stores/settings'
 import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
 import SimpleTimer from '@/components/SimpleTimer.vue'
 import MetricValueInput from '@/components/MetricValueInput.vue'
+import SessionHistory from '@/components/SessionHistory.vue'
 
 const props = defineProps<{ drill: Drill }>()
 
@@ -190,6 +194,8 @@ async function saveSession() {
     date: new Date().toISOString(),
     hcp: typeof settings.hcp === 'number' ? settings.hcp : 0,
     result: { value: value.value as number, unit: props.drill.metric.unit },
+    // Default favorite flag per acceptance criteria
+    favorited: false,
   }
   // Only attach timerUsed when the drill has a preset (per acceptance)
   if (props.drill.duration?.timerPreset) {

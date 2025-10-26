@@ -10,9 +10,9 @@
       Lädt…
     </output>
 
-    <status v-else-if="count === 0" class="text-sm text-gray-600" aria-live="polite">
+    <output v-else-if="count === 0" class="text-sm text-gray-600" aria-live="polite">
       Noch keine Daten.
-    </status>
+    </output>
 
     <div v-else class="row" style="align-items:center;">
       <div class="chip" :aria-label="`Bester Wert: ${best} ${unit}`">🏅 Best: <strong style="margin-left:4px; color:inherit;">{{ best }}</strong> {{ unit }}</div>

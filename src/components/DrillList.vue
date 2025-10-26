@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- Loading state -->
-    <div v-if="!catalog.loaded" class="p-4 flex items-center justify-center" role="status" aria-live="polite">
+    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite">
       <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
       <span class="text-sm text-gray-600">Lade Trainingsspiele…</span>
-    </div>
+    </output>
 
     <!-- Content/filters are hidden until loaded to avoid flashing -->
     <template v-else>
@@ -37,10 +37,10 @@
       </div>
 
       <!-- Empty state -->
-      <div v-if="filtered.length === 0" class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50" role="status" aria-live="polite">
+      <output v-if="filtered.length === 0" class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50" aria-live="polite">
         <h3 class="text-base font-semibold text-gray-800">Keine Drills gefunden</h3>
         <p class="text-sm text-gray-600 mt-1">Passe die Filter an oder ändere die Suche.</p>
-      </div>
+      </output>
 
       <!-- List -->
       <div v-else class="row">

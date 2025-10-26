@@ -44,18 +44,7 @@
 
       <!-- List -->
       <div v-else class="row">
-        <article class="card" v-for="d in filtered" :key="d.id" style="flex:1 1 280px;">
-          <header style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-            <RouterLink :to="`/drill/${d.id}`" style="font-weight:700; text-decoration:none; color:inherit">
-              {{ d.title }}
-            </RouterLink>
-            <small class="chip" aria-label="Kategorie">{{ d.category }}</small>
-          </header>
-          <p v-if="d.instructions?.training" style="margin:.5rem 0 0">{{ d.instructions.training }}</p>
-          <div v-if="d.tags?.length" class="chips" style="margin-top:8px;">
-            <span class="chip" v-for="t in d.tags" :key="t">{{ t }}</span>
-          </div>
-        </article>
+        <DrillCard v-for="d in filtered" :key="d.id" :drill="d" />
       </div>
     </template>
   </div>
@@ -66,6 +55,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
 import { filterDrills } from '@/filters/drills'
+import DrillCard from '@/components/DrillCard.vue'
 
 const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()

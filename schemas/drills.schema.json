@@ -63,7 +63,7 @@
       "properties": {
         "training": { "$ref": "#/definitions/NonEmptyString" },
         "test": { "$ref": "#/definitions/NonEmptyString" },
-        "tooEasy": { "$ref": "#/definitions/NonEmptyString" }
+        "tooEasy": { "type": "string" }
       },
       "required": ["training"],
       "additionalProperties": false

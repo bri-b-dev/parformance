@@ -16,6 +16,6 @@
 
     <!-- Wordmark -->
     <text x="220" y="98" class="brand" font-size="64" fill="#2F7A52">Par</text>
-    <text x="370" y="98" class="brand" font-size="64" fill="#444C56">Formance</text>
+    <text x="320" y="98" class="brand" font-size="64" fill="#444C56">Formance</text>
     <text x="222" y="126" class="light" font-size="18" fill="#6B7280">Train smart. Play par.</text>
 </svg>

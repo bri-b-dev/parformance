@@ -86,7 +86,7 @@
     <div class="card" style="margin-top:10px;">
       <div class="row" style="align-items:center; justify-content:space-between;">
         <h3 class="label" style="margin:0;">Session</h3>
-        <span v-if="active" class="chip" aria-live="polite" role="status">Aktiv</span>
+        <output v-if="active" class="chip" aria-live="polite">Aktiv</output>
       </div>
 
       <!-- Metric input tied to this drill; disabled until session active -->
@@ -106,9 +106,9 @@
           :aria-label="`+1 Versuch zu ${drill.title}`"
           data-testid="attempts-inc"
         >+1</button>
-        <span class="chip" aria-live="polite" role="status" data-testid="attempts-chip">
+        <output class="chip" aria-live="polite" data-testid="attempts-chip">
           Versuche: {{ attemptsCount }}
-        </span>
+        </output>
       </div>
 
       <div class="row">

@@ -126,6 +126,14 @@ body {
 .field { margin-bottom: 12px; }
 .row { display: flex; gap: 12px; flex-wrap: wrap; }
 
+main { max-width: var(--container-max); margin: 0 auto; padding: 16px; padding-bottom: 88px;display:block }
+
+/* DrillCard */
+    .drill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); padding: 14px; margin: 12px 0; }
+    .drill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .category { font-size: 12px; text-transform: uppercase; color: var(--muted); }
+    .muted { color: var(--muted); }
+
 /* Screen reader only utility */
 .sr-only {
     position: absolute !important;

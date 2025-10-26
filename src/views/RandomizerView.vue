@@ -1,19 +1,19 @@
 <template>
   <section class="p-4 container">
-    <div class="card" role="dialog" aria-modal="true" aria-labelledby="shuffle-title">
+    <dialog class="card" aria-modal="true" aria-labelledby="shuffle-title">
       <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
         <h2 id="shuffle-title" style="margin:0; font-weight:700;">Zufallsauswahl</h2>
         <button class="btn" type="button" @click="close" aria-label="Schließen">✕</button>
       </header>
 
       <!-- Loading / Error -->
-      <div v-if="!catalog.loaded" class="p-4 flex items-center text-sm text-gray-600" role="status" aria-live="polite">
+      <output v-if="!catalog.loaded" class="p-4 flex items-center text-sm text-gray-600" aria-live="polite">
         <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
         Lädt…
-      </div>
-      <div v-else-if="catalog.error" class="p-4 text-sm text-red-700" role="status" aria-live="polite">
+      </output>
+      <output v-else-if="catalog.error" class="p-4 text-sm text-red-700" aria-live="polite">
         {{ catalog.error }}
-      </div>
+      </output>
 
       <!-- Content -->
       <div v-else>
@@ -21,29 +21,29 @@
           <!-- Reel: Category -->
           <div class="card" style="min-width:220px; text-align:center;">
             <div class="label">Kategorie</div>
-            <div class="reel-viewport" :aria-live="spinning.category ? 'off' : 'polite'" role="status">
+            <output class="reel-viewport" :aria-live="spinning.category ? 'off' : 'polite'">
               <div class="reel-track" :style="catTransformStyle">
                 <div v-for="c in catItems" :key="`cat-${c}`" class="reel-item">{{ c }}</div>
               </div>
-            </div>
+            </output>
           </div>
           <!-- Reel: Drill -->
           <div class="card" style="min-width:260px; text-align:center;">
             <div class="label">Drill</div>
-            <div class="reel-viewport" :aria-live="spinning.drill ? 'off' : 'polite'" role="status">
+            <output class="reel-viewport" :aria-live="spinning.drill ? 'off' : 'polite'">
               <div class="reel-track" :style="drillTransformStyle">
                 <div v-for="t in drillItems" :key="`dr-${t}`" class="reel-item">{{ t }}</div>
               </div>
-            </div>
+            </output>
           </div>
           <!-- Reel: Target type (optional) -->
           <div class="card" style="min-width:200px; text-align:center;">
             <div class="label">Zieltyp</div>
-            <div class="reel-viewport" :aria-live="spinning.target ? 'off' : 'polite'" role="status">
+            <output class="reel-viewport" :aria-live="spinning.target ? 'off' : 'polite'">
               <div class="reel-track" :style="targetTransformStyle">
                 <div v-for="t in targetItems" :key="`tg-${t}`" class="reel-item">{{ t }}</div>
               </div>
-            </div>
+            </output>
           </div>
         </div>
 
@@ -56,7 +56,7 @@
           <button class="btn" type="button" :disabled="!running" @click="cancel" data-testid="shuffle-cancel">Abbrechen</button>
         </div>
       </div>
-    </div>
+    </dialog>
   </section>
 </template>
 

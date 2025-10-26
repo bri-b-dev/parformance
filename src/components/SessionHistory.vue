@@ -6,9 +6,9 @@
     </header>
 
     <!-- Empty state -->
-    <div v-if="loaded && items.length === 0" class="p-4 text-sm text-gray-600" role="status" aria-live="polite">
+    <output v-if="loaded && items.length === 0" class="p-4 text-sm text-gray-600" aria-live="polite">
       Noch keine Einträge. Starte eine Session und speichere dein Ergebnis.
-    </div>
+    </output>
 
     <!-- List -->
     <ul v-else class="list-none" style="padding:0; margin:0;">

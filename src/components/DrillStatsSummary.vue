@@ -5,14 +5,14 @@
       <small v-if="count > 0" class="chip" aria-label="Anzahl Sessions">{{ count }} Einträge</small>
     </header>
 
-    <div v-if="!sessionsLoaded" class="p-2 flex items-center text-sm text-gray-600" role="status" aria-live="polite">
+    <output v-if="!sessionsLoaded" class="p-2 flex items-center text-sm text-gray-600" aria-live="polite">
       <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
       Lädt…
-    </div>
+    </output>
 
-    <div v-else-if="count === 0" class="text-sm text-gray-600" role="status" aria-live="polite">
+    <output v-else-if="count === 0" class="text-sm text-gray-600" aria-live="polite">
       Noch keine Daten.
-    </div>
+    </output>
 
     <div v-else class="row" style="align-items:center;">
       <div class="chip" :aria-label="`Bester Wert: ${best} ${unit}`">🏅 Best: <strong style="margin-left:4px; color:inherit;">{{ best }}</strong> {{ unit }}</div>

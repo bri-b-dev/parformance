@@ -3,10 +3,10 @@
     <h1 class="text-xl font-semibold">Stats</h1>
 
     <!-- Loading state -->
-    <div v-if="!drillsLoaded || !sessionsLoaded" class="p-4 flex items-center text-sm text-gray-600" role="status" aria-live="polite">
+    <output v-if="!drillsLoaded || !sessionsLoaded" class="p-4 flex items-center text-sm text-gray-600" aria-live="polite">
       <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
       Lädt…
-    </div>
+    </output>
 
     <!-- Content -->
     <div v-else>
@@ -29,9 +29,9 @@
       </div>
       <div style="margin-top:8px;">
         <CategoryScoresChart v-if="!isEmpty" :scores="scores" title="Fähigkeiten je Kategorie (0–100)" />
-        <div v-else class="card" role="status" aria-live="polite">
+        <output v-else class="card" aria-live="polite">
           <p style="margin:0;">Keine Daten für den gewählten Zeitraum oder Kategorie.</p>
-        </div>
+        </output>
       </div>
 
       <!-- Areas for improvement -->

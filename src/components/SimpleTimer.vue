@@ -4,9 +4,9 @@
       <div class="chip" :aria-label="`Voreinstellung ${presetLabel}`" v-if="presetSeconds && presetSeconds > 0">
         🎯 {{ presetLabel }}
       </div>
-      <div class="chip" :aria-label="ariaLabel" role="status" aria-live="polite">
+      <output class="chip" :aria-label="ariaLabel" aria-live="polite">
         ⏱️ {{ formatted }}
-      </div>
+      </output>
     </div>
 
     <div class="row" style="margin-top:8px;">

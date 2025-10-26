@@ -6,9 +6,9 @@
     </header>
 
     <!-- SR-only textual summary for accessibility -->
-    <p class="sr-only" role="status" aria-live="polite">
+    <output class="sr-only" aria-live="polite">
       {{ srSummary }}
-    </p>
+    </output>
 
     <!-- Bars (mobile) -->
     <div v-if="actualMode === 'bar'" class="row" style="flex-direction:column; gap:8px;">

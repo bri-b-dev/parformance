@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- Loading state -->
-    <div v-if="!catalog.loaded" class="p-4 flex items-center justify-center" role="status" aria-live="polite">
+    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite">
       <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
       <span class="text-sm text-gray-600">Lade Trainingsspiele…</span>
-    </div>
+    </output>
 
     <!-- Content/filters are hidden until loaded to avoid flashing -->
     <template v-else>
@@ -37,25 +37,14 @@
       </div>
 
       <!-- Empty state -->
-      <div v-if="filtered.length === 0" class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50" role="status" aria-live="polite">
+      <output v-if="filtered.length === 0" class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50" aria-live="polite">
         <h3 class="text-base font-semibold text-gray-800">Keine Drills gefunden</h3>
         <p class="text-sm text-gray-600 mt-1">Passe die Filter an oder ändere die Suche.</p>
-      </div>
+      </output>
 
       <!-- List -->
       <div v-else class="row">
-        <article class="card" v-for="d in filtered" :key="d.id" style="flex:1 1 280px;">
-          <header style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-            <RouterLink :to="`/drill/${d.id}`" style="font-weight:700; text-decoration:none; color:inherit">
-              {{ d.title }}
-            </RouterLink>
-            <small class="chip" aria-label="Kategorie">{{ d.category }}</small>
-          </header>
-          <p v-if="d.instructions?.training" style="margin:.5rem 0 0">{{ d.instructions.training }}</p>
-          <div v-if="d.tags?.length" class="chips" style="margin-top:8px;">
-            <span class="chip" v-for="t in d.tags" :key="t">{{ t }}</span>
-          </div>
-        </article>
+        <DrillCard v-for="d in filtered" :key="d.id" :drill="d" />
       </div>
     </template>
   </div>
@@ -66,6 +55,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
 import { filterDrills } from '@/filters/drills'
+import DrillCard from '@/components/DrillCard.vue'
 
 const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()

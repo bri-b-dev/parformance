@@ -6,53 +6,23 @@
         <p style="color:var(--muted); margin:.25rem 0 0">{{ drill.category }}</p>
       </div>
       <!-- Favorite toggle -->
-      <button
-        type="button"
-        class="btn"
-        :aria-pressed="isFav"
-        :aria-label="isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'"
-        @click="toggleFavorite"
-        title="Favorit"
-      >
+      <button type="button" class="btn" :aria-pressed="isFav"
+        :aria-label="isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'" @click="toggleFavorite"
+        title="Favorit">
         <span aria-hidden="true">{{ isFav ? '★' : '☆' }}</span>
       </button>
     </header>
 
-    <!-- Equipment -->
-    <div class="row" style="margin-top:8px;">
-      <div v-if="drill.equipment?.balls != null" class="chip" title="Bälle">
-        🟢 × {{ drill.equipment.balls }}
-      </div>
-      <div v-if="(drill.equipment?.clubs?.length ?? 0) > 0" class="chip" title="Schläger">
-        ⛳️ {{ drill.equipment.clubs?.join(', ') }}
-      </div>
-      <div v-if="(drill.equipment?.other?.length ?? 0) > 0" class="chip" title="Sonstiges">
-        🧰 {{ drill.equipment.other?.join(', ') }}
-      </div>
-    </div>
+     <DrillDetailGrid :drill="drill" />
 
-    <!-- Setup -->
-    <div class="row" style="margin-top:8px; align-items:flex-start;">
-      <div style="flex:2; min-width:220px;">
-        <h3 class="label" style="margin-bottom:4px;">Setup</h3>
-        <p style="margin:0;">{{ drill.setup.schema }}</p>
-        <p v-if="drill.setup.location" style="margin:.25rem 0 0; color:var(--muted)"><strong>Ort:</strong> {{ drill.setup.location }}</p>
-      </div>
-      <aside style="flex:1; min-width:240px;">
-        <GamerPanel v-if="drill" :drillId="drill.id" />
-      </aside>
-      <div style="flex:1; min-width:160px;">
-        <div class="border border-dashed rounded-md" style="border-color:var(--border); background:var(--bg); height:92px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px;">
-          Diagramm
-        </div>
-      </div>
-    </div>
-
-    <!-- Duration / Difficulty -->
+     <!-- Duration / Difficulty -->
     <div class="row" style="margin-top:8px;">
-      <div class="chip" title="Empfohlene Dauer" v-if="drill.duration?.suggestedMin">⏱️ {{ drill.duration.suggestedMin }} min</div>
-      <div class="chip" title="Timer" v-if="drill.duration?.timerPreset">▶ {{ Math.round(drill.duration.timerPreset / 60) }} min Timer</div>
-      <div class="chip" title="Schwierigkeit" v-if="(drill as any).difficulty?.base">★ {{ (drill as any).difficulty.base }}/5</div>
+      <div class="chip" title="Empfohlene Dauer" v-if="drill.duration?.suggestedMin">⏱️ {{ drill.duration.suggestedMin
+        }} min</div>
+      <div class="chip" title="Timer" v-if="drill.duration?.timerPreset">▶ {{ Math.round(drill.duration.timerPreset /
+        60) }} min Timer</div>
+      <div class="chip" title="Schwierigkeit" v-if="(drill as any).difficulty?.base">★ {{ (drill as any).difficulty.base
+        }}/5</div>
     </div>
 
     <!-- Simple Timer (optional) -->
@@ -61,15 +31,6 @@
     </div>
 
     <!-- Procedure -->
-    <div style="margin-top:10px;">
-      <h3 class="label" style="margin-bottom:4px;">Ablauf</h3>
-      <p style="margin:0;">{{ drill.instructions.training }}</p>
-      <p v-if="drill.instructions.test" style="margin:.25rem 0 0; color:var(--muted)"><strong>Test:</strong> {{ drill.instructions.test }}</p>
-      <p v-if="drill.instructions.tooEasy" style="margin:.25rem 0 0; color:var(--muted)">
-        <strong>Zu leicht?</strong> {{ drill.instructions.tooEasy }}
-      </p>
-    </div>
-
     <div v-if="drill.tags?.length" class="chips" style="margin-top:8px;">
       <span class="chip" v-for="t in drill.tags" :key="t">{{ t }}</span>
     </div>
@@ -90,22 +51,12 @@
       </div>
 
       <!-- Metric input tied to this drill; disabled until session active -->
-      <MetricValueInput
-        :drill="drill"
-        v-model="value"
-        :disabled="!active"
-        :label="drill.metric.unit"
-      />
+      <MetricValueInput :drill="drill" v-model="value" :disabled="!active" :label="drill.metric.unit" />
 
       <!-- Optional increment button for count_in_time to track attempts during the session -->
       <div v-if="active && drill.metric.type === 'count_in_time'" class="row" style="align-items:center;">
-        <button
-          class="btn"
-          type="button"
-          @click="incAttempts"
-          :aria-label="`+1 Versuch zu ${drill.title}`"
-          data-testid="attempts-inc"
-        >+1</button>
+        <button class="btn" type="button" @click="incAttempts" :aria-label="`+1 Versuch zu ${drill.title}`"
+          data-testid="attempts-inc">+1</button>
         <output class="chip" aria-live="polite" data-testid="attempts-chip">
           Versuche: {{ attemptsCount }}
         </output>
@@ -128,14 +79,14 @@
     <!-- HCP Targets -->
     <HcpTargetsTable :drill="drill" />
 
-  <!-- Stats summary: Best, MA(5), Trend -->
-  <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
+    <!-- Stats summary: Best, MA(5), Trend -->
+    <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
 
-  <!-- Gambler's tip / Zocker-Tipp -->
-  <GamblerTipPanel v-if="drill" :drillId="drill.id" :tip="tipForDrill" />
+    <!-- Gambler's tip / Zocker-Tipp -->
+    <GamblerTipPanel v-if="drill" :drillId="drill.id" :tip="tipForDrill" />
 
-  <!-- Session History for this drill -->
-  <SessionHistory :drill-id="drill.id" />
+    <!-- Session History for this drill -->
+    <SessionHistory :drill-id="drill.id" />
   </section>
 </template>
 
@@ -153,7 +104,7 @@ import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
 import GamblerTipPanel from '@/components/GamblerTipPanel.vue'
 import { computeLevelForDrill } from '@/hcp/level'
 import GamerPanel from '@/components/GamerPanel.vue'
-
+import DrillDetailGrid from './DrillDetailGrid.vue'
 const props = defineProps<{ drill: Drill }>()
 
 const favorites = useFavoritesStore()

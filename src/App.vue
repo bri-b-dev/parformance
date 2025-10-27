@@ -1,29 +1,42 @@
 <template>
   <div class="app">
     <header class="app-header">
-      <div class="bar container">
-        <div class="brand">
+      <div class="bar">
+        <div class="brand" aria-label="ParFormance">
           <img src="/logo-header.svg" alt="ParFormance" class="logo" />
-          <span>ParFormance</span>
+          <div style="display:flex; flex-direction:column; min-width:0">
+            <span>ParFormance</span>
+            <small class="tagline" style="display:block;">Train smarter — play better</small>
+          </div>
           <span class="chip" style="margin-left:12px; font-size:0.9rem;" v-if="streaksLoaded">
             Streak: <strong>{{ streaks.current }}</strong>
             <small style="color:var(--muted); margin-left:6px;">(best {{ streaks.best }})</small>
           </span>
         </div>
-        <button class="btn" @click="toggle()" :aria-label="theme==='dark'?'Switch to light':'Switch to dark'">
-          <span v-if="theme==='dark'">🌙</span>
-          <span v-else>☀️</span>
-        </button>
+
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="btn" @click="toggle()" :aria-label="theme==='dark'?'Switch to light':'Switch to dark'">
+            <span v-if="theme==='dark'">🌙</span>
+            <span v-else>☀️</span>
+          </button>
+          <button class="tab" aria-label="Einstellungen">⚙️</button>
+        </div>
       </div>
     </header>
-    <main class="container">
-      <RouterView/>
+
+    <main>
+      <div class="container">
+        <RouterView/>
+      </div>
     </main>
+
+    <ShuffleFab />
     <BottomTabs/>
   </div>
 </template>
 <script setup lang="ts">
 import BottomTabs from '@/components/BottomTabs.vue';
+import ShuffleFab from '@/components/ShuffleFab.vue'
 import {useTheme} from '@/composables/useTheme';
 import { onMounted, computed } from 'vue'
 import { useStreaksStore } from '@/stores/streaks'

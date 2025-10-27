@@ -126,13 +126,19 @@ body {
 .field { margin-bottom: 12px; }
 .row { display: flex; gap: 12px; flex-wrap: wrap; }
 
-main { max-width: var(--container-max); margin: 0 auto; padding: 16px; padding-bottom: 88px;display:block }
-
 /* DrillCard */
-    .drill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); padding: 14px; margin: 12px 0; }
-    .drill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .category { font-size: 12px; text-transform: uppercase; color: var(--muted); }
-    .muted { color: var(--muted); }
+.drill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); padding: 14px; margin: 12px 0; }
+.drill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.category { font-size: 12px; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+
+.detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 16px; margin: 16px 0; }
+.detail-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 800px){ .detail-grid { grid-template-columns: 1.1fr 1fr; } }
+.section { background: color-mix(in oklab, var(--bg) 75%, var(--surface)); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+.section h3 { margin: 0 0 8px; font-size: 0.95rem; color: var(--accent-iron); }
+.equipment-icons span { background: color-mix(in oklab, var(--bg) 70%, var(--surface)); border: 1px solid var(--border); border-radius: 10px; padding: 4px 8px; margin-right: 6px; font-size: 0.85rem; }
+
 
 /* Screen reader only utility */
 .sr-only {
@@ -241,9 +247,13 @@ main { max-width: var(--container-max); margin: 0 auto; padding: 16px; padding-b
 main {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 16px;
+    padding: 16px; 
     padding-top: 8px;
-}
+    padding-bottom: 88px;
+    max-width: var(--container-max); 
+    margin: 0 auto; 
+    display:block
+ }
 
 /* Brand Text Lockup */
 .brand {
@@ -281,3 +291,12 @@ main {
 @media (max-width: 360px) {
     .brand span { font-size: 0.95rem; }
 }
+
+/* Timer */
+.timer {
+    display: flex; align-items: center; gap: 10px; justify-content: space-between;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px;
+}
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.4rem; }
+.timer-bar { position: relative; height: 8px; background: color-mix(in oklab, var(--bg) 60%, var(--surface)); border-radius: 8px; overflow: hidden; }
+.timer-bar > div { height: 100%; background: var(--primary); width: 100%; transition: width 1s linear; }

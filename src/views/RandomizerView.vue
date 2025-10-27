@@ -229,7 +229,6 @@ async function start() {
   function nextStage() {
     const chosenCat = display.category || cats[0]
     const list = drillsFor(chosenCat)
-    const drillTitles = list.map(d => d.title)
 
     if (reduce) {
       const weighted = weightedTitles(list)
@@ -303,7 +302,7 @@ function finish() {
         try { (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
       }).catch(() => {})
     } catch (e) {
-      // ignore
+      console.error('Failed to navigate to drill detail:', e)
     }
   }
 }

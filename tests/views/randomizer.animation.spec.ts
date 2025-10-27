@@ -37,7 +37,7 @@ describe('RandomizerView animation (CSS transform + rAF)', () => {
     })
     // Default prefers-reduced-motion: no
     globalThis.window.matchMedia = (query: string) => ({
-      matches: /prefers-reduced-motion/.test(query) ? false : false,
+      matches: false,
       media: query,
       onchange: null,
       addListener: () => {},
@@ -93,7 +93,7 @@ describe('RandomizerView animation (CSS transform + rAF)', () => {
   it('respects prefers-reduced-motion: skips animation and sets results immediately', async () => {
     // Force reduced motion
     globalThis.window.matchMedia = (query: string) => ({
-      matches: /prefers-reduced-motion/.test(query) ? true : false,
+      matches: /prefers-reduced-motion/.test(query),
       media: query,
       onchange: null,
       addListener: () => {},

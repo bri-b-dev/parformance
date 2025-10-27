@@ -1,5 +1,5 @@
 <template>
-    <div class="detail-grid" role="group" aria-label="Drill Details">
+    <fieldset class="detail-grid" aria-label="Drill Details">
         <div class="section">
             <h3>Was du brauchst</h3>
             <div class="row" style="margin-top:8px;">
@@ -26,14 +26,13 @@
             <div class="hr" style="margin:10px 0;"></div>
             <div style="margin-top:10px;">
                 <p v-if="drill.instructions.test" style="margin:.25rem 0 0; color:var(--muted)"><strong>Ablauf</strong>
-                    {{
-                        drill.instructions.test }}</p>
+                    {{ drill.instructions.test }}</p>
                 <p v-if="drill.instructions.tooEasy" style="margin:.25rem 0 0; color:var(--muted)">
                     <strong>Zu leicht?</strong> {{ drill.instructions.tooEasy }}
                 </p>
             </div>
         </div>
-    </div>
+    </fieldset>
 </template>
 
 <script setup lang="ts">

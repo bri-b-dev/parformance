@@ -13,13 +13,13 @@
       <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:8px;">
         <h2 class="label" style="margin:0;">Fähigkeiten je Kategorie</h2>
         <div style="display:flex; gap:8px; align-items:center;">
-          <label class="sr-only">Kategorie</label>
-          <select v-model="selectedCategory" aria-label="Kategorie filter" data-testid="stats-category">
+          <label for="category-select" class="sr-only">Kategorie</label>
+          <select id="category-select" v-model="selectedCategory" aria-label="Kategorie filter" data-testid="stats-category">
             <option value="all">Alle Kategorien</option>
             <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
           </select>
-          <label class="sr-only">Zeitraum</label>
-          <select v-model.number="selectedPeriodDays" aria-label="Zeitraum" data-testid="stats-period">
+          <label for="period-select" class="sr-only">Zeitraum</label>
+          <select id="period-select" v-model.number="selectedPeriodDays" aria-label="Zeitraum" data-testid="stats-period">
             <option :value="0">Alle</option>
             <option :value="7">7 Tage</option>
             <option :value="30">30 Tage</option>
@@ -141,7 +141,7 @@ const areas = computed(() => {
   try {
     return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], settings.hcp)
   } catch (e) {
-    // on error, return empty buckets
+    console.error('Error computing areas of improvement:', e)
     return { belowTarget: [], stagnant: [], mostImproved: [] }
   }
 })

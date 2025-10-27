@@ -37,7 +37,7 @@ describe('Favorites: ☆ toggle wiring and persistence', () => {
     pinia = createPinia()
     setActivePinia(pinia)
     // Patch existing jsdom window instead of replacing it to preserve Event constructors
-    Object.assign(global.window, { localStorage: new LocalStorageMock(), dispatchEvent: () => {} })
+    Object.assign(globalThis.window, { localStorage: new LocalStorageMock(), dispatchEvent: () => {} })
     vi.useFakeTimers()
   })
 
@@ -67,13 +67,13 @@ describe('Favorites: ☆ toggle wiring and persistence', () => {
 
     // Not yet persisted (debounced)
     const key = 'parformance.favorites.v1'
-    expect(global.window.localStorage.store[key]).toBeUndefined()
+    expect(globalThis.window.localStorage.store[key]).toBeUndefined()
 
     // Flush timers to perform write
     vi.runOnlyPendingTimers()
 
     // Persisted favorites should contain the drill id
-    const persisted = JSON.parse(global.window.localStorage.store[key])
+    const persisted = JSON.parse(globalThis.window.localStorage.store[key])
     expect(persisted).toEqual(['chip_carry_zone'])
 
     // Click again to remove
@@ -81,7 +81,7 @@ describe('Favorites: ☆ toggle wiring and persistence', () => {
     expect(store.list).toEqual([])
 
     vi.runOnlyPendingTimers()
-    const persistedAfter = JSON.parse(global.window.localStorage.store[key])
+    const persistedAfter = JSON.parse(globalThis.window.localStorage.store[key])
     expect(persistedAfter).toEqual([])
   })
 

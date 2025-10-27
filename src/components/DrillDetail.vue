@@ -76,6 +76,7 @@
       </div>
     </div>
 
+    <GamerPanel :drill-id="drill.id" />
     <!-- HCP Targets -->
     <HcpTargetsTable :drill="drill" />
 
@@ -103,8 +104,9 @@ import SessionHistory from '@/components/SessionHistory.vue'
 import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
 import GamblerTipPanel from '@/components/GamblerTipPanel.vue'
 import { computeLevelForDrill } from '@/hcp/level'
-import GamerPanel from '@/components/GamerPanel.vue'
 import DrillDetailGrid from './DrillDetailGrid.vue'
+import GamerPanel from '@/components/GamerPanel.vue'
+
 const props = defineProps<{ drill: Drill }>()
 
 const favorites = useFavoritesStore()

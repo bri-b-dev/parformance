@@ -37,7 +37,7 @@ export const useSettingsStore = defineStore('settings', {
     async setHcp(hcp: number | null) {
       this.hcp = hcp
       // Emit a browser event so components can re-render HCP highlights
-      if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+      if (typeof globalThis !== 'undefined' && typeof globalThis.dispatchEvent === 'function') {
         let evt: any
         try {
           // Prefer CustomEvent when available (browser)
@@ -47,7 +47,7 @@ export const useSettingsStore = defineStore('settings', {
           // Fallback for non-browser test environments
           evt = { type: 'hcp-changed', detail: hcp }
         }
-        window.dispatchEvent(evt as any)
+        globalThis.dispatchEvent(evt)
       }
       await this.persist()
     },

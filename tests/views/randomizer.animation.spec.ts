@@ -31,12 +31,12 @@ describe('RandomizerView animation (CSS transform + rAF)', () => {
     setActivePinia(createPinia())
     // Patch window with basic APIs used by code
     // Preserve existing jsdom window, only add fields we need
-    Object.assign(global.window, {
+    Object.assign(globalThis.window, {
       localStorage: new LocalStorageMock(),
       dispatchEvent: () => {},
     })
     // Default prefers-reduced-motion: no
-    global.window.matchMedia = (query: string) => ({
+    globalThis.window.matchMedia = (query: string) => ({
       matches: /prefers-reduced-motion/.test(query) ? false : false,
       media: query,
       onchange: null,
@@ -92,7 +92,7 @@ describe('RandomizerView animation (CSS transform + rAF)', () => {
 
   it('respects prefers-reduced-motion: skips animation and sets results immediately', async () => {
     // Force reduced motion
-    global.window.matchMedia = (query: string) => ({
+    globalThis.window.matchMedia = (query: string) => ({
       matches: /prefers-reduced-motion/.test(query) ? true : false,
       media: query,
       onchange: null,

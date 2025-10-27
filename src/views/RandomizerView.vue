@@ -77,7 +77,7 @@ const D_TARGET = computed(() => props.durationTargetMs ?? 500)
 // Reduced motion
 function prefersReducedMotion(): boolean {
   try {
-    return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    return typeof globalThis !== 'undefined' && !!globalThis.matchMedia && globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches
   } catch { return false }
 }
 
@@ -296,11 +296,11 @@ function finish() {
     // Navigate to drill detail. Also set a test-visible global when running under Vitest
     try {
       // Set a test-observable immediately so tests can detect the intended navigation
-      try { (window as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
+      try { (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
       const p = router.push({ name: 'DrillDetail', params: { id: d.id } })
       // Also update after the push resolves in case router timing is used by tests
       p.then(() => {
-        try { (window as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
+        try { (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
       }).catch(() => {})
     } catch (e) {
       // ignore

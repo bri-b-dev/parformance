@@ -8,7 +8,7 @@
 
     <!-- Content/filters are hidden until loaded to avoid flashing -->
     <template v-else>
-      <div class="row" role="region" aria-labelledby="filter-heading">
+      <section class="row" aria-labelledby="filter-heading">
         <h2 id="filter-heading" class="sr-only">Filter</h2>
 
         <div class="field" style="min-width:180px;">
@@ -30,7 +30,7 @@
             Nur Favoriten
           </label>
         </div>
-      </div>
+      </section>
 
       <div class="row">
         <button class="btn" type="button" @click="resetFilters" aria-label="Filter zurücksetzen">Filter löschen</button>

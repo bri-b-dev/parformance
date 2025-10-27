@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, createMemoryHistory, type Router, type RouterHistory, type RouteLocationRaw, type RouteLocationNormalizedLoaded } from 'vue-router'
 
 // Views/Components used by the routes (lazy in browser; stubbed in tests/SSR to avoid SFC parsing)
-const isBrowser = typeof window !== 'undefined' && typeof (window as any).document !== 'undefined'
+const isBrowser = typeof globalThis !== 'undefined' && typeof (globalThis.window as any).document !== 'undefined'
 const Stub = { render() { return null } }
 
 const DrillList = isBrowser ? (() => import('@/components/DrillList.vue')) : Stub
@@ -68,7 +68,7 @@ export function withPreservedQuery(to: RouteLocationRaw, from: RouteLocationNorm
 }
 
 // Default router for the application. Use memory history when no window exists (tests/SSR)
-const defaultHistory = (typeof window !== 'undefined' && typeof window.document !== 'undefined')
+const defaultHistory = (typeof globalThis !== 'undefined' && typeof globalThis.document !== 'undefined')
   ? createWebHistory()
   : createMemoryHistory()
 const router = makeRouter(defaultHistory)

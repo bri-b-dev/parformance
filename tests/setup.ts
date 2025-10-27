@@ -2,26 +2,26 @@
 // Provide minimal browser APIs that some libraries assume exist.
 
 // @ts-ignore
-if (typeof window !== 'undefined') {
-  // vue-router tries to call window.scrollTo when using web history
+if (typeof globalThis !== 'undefined') {
+  // vue-router tries to call globalThis.scrollTo when using web history
   // Always override to a no-op to avoid jsdom "Not implemented" errors
   // @ts-ignore
-  window.scrollTo = () => {}
+  globalThis.scrollTo = () => {}
   // Polyfill requestAnimationFrame for timers/animations
-  if (typeof window.requestAnimationFrame !== 'function') {
+  if (typeof globalThis.requestAnimationFrame !== 'function') {
     // @ts-ignore
-    window.requestAnimationFrame = (cb: FrameRequestCallback) => setTimeout(() => cb(Date.now()), 16) as any
+    globalThis.requestAnimationFrame = (cb: FrameRequestCallback) => setTimeout(() => cb(Date.now()), 16) as any
   }
-  if (typeof window.cancelAnimationFrame !== 'function') {
+  if (typeof globalThis.cancelAnimationFrame !== 'function') {
     // @ts-ignore
-    window.cancelAnimationFrame = (id: any) => clearTimeout(id)
+    globalThis.cancelAnimationFrame = (id: any) => clearTimeout(id)
   }
   // Ensure basic Event constructors exist for @vue/test-utils trigger()
   ;['MouseEvent','KeyboardEvent','Event','InputEvent'].forEach((name) => {
     // @ts-ignore
-    if (typeof window[name] !== 'function') {
+    if (typeof globalThis[name] !== 'function') {
       // @ts-ignore
-      window[name] = class extends window.Event {}
+      globalThis[name] = class extends globalThis.Event {}
     }
   })
 }

@@ -55,7 +55,7 @@ export const useSessionsStore = defineStore('sessions', {
         const greaterIsBetter = drill?.metric?.type === 'score_vs_par' ? false : true
 
         if (isPersonalBest(newMapped as any, prevMapped as any, metricKey, { greaterIsBetter })) {
-          if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+          if (typeof globalThis !== 'undefined' && typeof globalThis.dispatchEvent === 'function') {
             let evt: any
             const message = 'PB!'
             try {
@@ -64,7 +64,7 @@ export const useSessionsStore = defineStore('sessions', {
             } catch {
               evt = { type: 'toast', detail: { type: 'success', message } }
             }
-            window.dispatchEvent(evt as any)
+            globalThis.dispatchEvent(evt as any)
           }
         }
       } catch (e) {

@@ -44,7 +44,7 @@ describe('Shuffle Overlay: 3 reels animate and navigate to Drill Detail', () => 
       expect(id.length).toBeGreaterThan(0)
     } else {
       // fallback assertion via window global set in the component
-      const w = (global.window as any)
+      const w = (globalThis.window as any)
       expect(w.__lastPushedRoute).toBeDefined()
       expect(w.__lastPushedRoute.name).toBe('DrillDetail')
       expect(typeof w.__lastPushedRoute.id).toBe('string')

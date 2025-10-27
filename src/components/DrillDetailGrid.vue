@@ -14,18 +14,16 @@
                 </div>
             </div>
             <div class="hr" style="margin:10px 0;"></div>
-            <h3>Ort</h3>
+            <strong style="margin:.25rem 0 0; color:var(--muted)">Ort</strong>
             <p class="muted">{{ drill.setup.location }}</p>
-            <h3>Aufbau</h3>
+            <strong style="margin:.25rem 0 0; color:var(--muted)">Aufbau</strong>
             <p class="muted">{{ drill.setup.schema }}</p>
-            <h3>Schematische Darstellung</h3>
+            <strong style="margin:.25rem 0 0; color:var(--muted)">Schematische Darstellung</strong>
             <div class="schema">
                 <canvas width="20%" height="200" aria-label="Schematische Darstellung des Drills"></canvas>
             </div>
 
             <div class="hr" style="margin:10px 0;"></div>
-            <h3>Ablauf</h3>
-            <p>{{ drill.instructions?.training }}</p>
             <div style="margin-top:10px;">
                 <p v-if="drill.instructions.test" style="margin:.25rem 0 0; color:var(--muted)"><strong>Ablauf</strong>
                     {{

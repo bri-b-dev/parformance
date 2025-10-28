@@ -18,10 +18,8 @@
     <hr class="hr" />
 
     <!-- Metric -->
-    <div>
-      <strong>Metrik:</strong> <span>{{ drill.metric.type }}</span>
-      <span class="chip" aria-label="Einheit">Einheit: {{ drill.metric.unit }}</span>
-    </div>
+    <div style="section">
+      <strong>Timer & Messwert</strong> 
 
     <!-- Session controls & input -->
     <div class="card" style="margin-top:10px;">
@@ -63,6 +61,7 @@
     <!-- Stats summary: Best, MA(5), Trend -->
     <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
 
+    </div>
     <!-- Gambler's tip / Zocker-Tipp -->
     <GamblerTipPanel v-if="drill" :drillId="drill.id" :tip="tipForDrill" />
 

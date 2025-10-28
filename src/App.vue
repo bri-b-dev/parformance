@@ -28,6 +28,8 @@
       <div class="container">
         <RouterView/>
       </div>
+      <!-- Render the shuffle overlay as a real modal when toggled via the UI store -->
+      <RandomizerView v-if="ui.shuffleOpen" />
     </main>
 
     <ShuffleFab />
@@ -37,10 +39,12 @@
 <script setup lang="ts">
 import BottomTabs from '@/components/BottomTabs.vue';
 import ShuffleFab from '@/components/ShuffleFab.vue'
+import RandomizerView from '@/views/RandomizerView.vue'
 import {useTheme} from '@/composables/useTheme';
 import { onMounted, computed } from 'vue'
 import { useStreaksStore } from '@/stores/streaks'
 import { useSessionsStore } from '@/stores/sessions'
+import { useUiStore } from '@/stores/ui'
 
 const {theme, toggle} = useTheme();
 
@@ -48,6 +52,7 @@ const sessions = useSessionsStore()
 const streaksStore = useStreaksStore()
 const streaks = computed(() => ({ current: streaksStore.current, best: streaksStore.best }))
 const streaksLoaded = computed(() => sessions.loaded)
+const ui = useUiStore()
 
 onMounted(async () => {
   if (!sessions.loaded) await sessions.load()

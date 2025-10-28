@@ -34,10 +34,12 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { useUiStore } from '@/stores/ui'
+const ui = useUiStore()
+
 function openShuffle() {
-    router.push({ name: 'ShuffleOverlay' })
+    // Open as real overlay/modal using the UI store
+    ui.setShuffle(true)
 }
 </script>
 

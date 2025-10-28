@@ -1,6 +1,7 @@
 <template>
-  <section class="p-4 container">
-    <dialog class="card" aria-modal="true" aria-labelledby="shuffle-title">
+  <!-- Overlay backdrop that sits on top of the current view -->
+  <div v-if="isOpen" class="overlay" @click.self="close" role="dialog" aria-modal="true" aria-labelledby="shuffle-title">
+    <div class="card overlay-panel" role="document">
       <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
         <h2 id="shuffle-title" style="margin:0; font-weight:700;">Zufallsauswahl</h2>
         <button class="btn" type="button" @click="close" aria-label="Schließen">✕</button>
@@ -56,13 +57,14 @@
           <button class="btn" type="button" :disabled="!running" @click="cancel" data-testid="shuffle-cancel">Abbrechen</button>
         </div>
       </div>
-    </dialog>
-  </section>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useUiStore } from '@/stores/ui'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
 import type { Drill } from '@/types'
@@ -86,6 +88,9 @@ const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()
 const router = useRouter()
 const route = useRoute()
+const ui = useUiStore()
+
+const isOpen = computed(() => !!(ui.shuffleOpen || route.name === 'ShuffleOverlay'))
 
 onMounted(async () => {
   if (!catalog.loaded) await catalog.load()
@@ -297,10 +302,11 @@ function finish() {
       // Set a test-observable immediately so tests can detect the intended navigation
       try { (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
       const p = router.push({ name: 'DrillDetail', params: { id: d.id } })
-      // Also update after the push resolves in case router timing is used by tests
+      // Ensure overlay is closed when navigation finishes (or fails)
       p.then(() => {
         try { (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
-      }).catch(() => {})
+        try { ui.setShuffle(false) } catch {}
+      }).catch(() => { try { ui.setShuffle(false) } catch {} })
     } catch (e) {
       console.error('Failed to navigate to drill detail:', e)
     }
@@ -308,6 +314,12 @@ function finish() {
 }
 
 function close() {
+  const ui = useUiStore()
+  // if overlay was opened via UI store, close via store; otherwise navigate back
+  if (ui.shuffleOpen) {
+    ui.setShuffle(false)
+    return
+  }
   router.back()
 }
 
@@ -320,5 +332,24 @@ onBeforeUnmount(() => clearTimers())
 .reel-item { height: 28px; line-height: 28px; font-size: 1rem; }
 @media (prefers-reduced-motion: reduce) {
   .reel-track { transition: none; }
+}
+
+/* Overlay/backdrop styles so the Randomizer appears on top of the page */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.55);
+  z-index: 1100;
+  padding: 20px;
+}
+.overlay-panel {
+  width: min(920px, 96vw);
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 14px;
+  padding: 16px;
 }
 </style>

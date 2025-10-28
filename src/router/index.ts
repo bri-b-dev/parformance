@@ -1,11 +1,10 @@
-import { createRouter, createWebHistory, createMemoryHistory, type Router, type RouterHistory, type RouteLocationRaw, type RouteLocationNormalizedLoaded } from 'vue-router'
+import { createRouter, createWebHistory, createMemoryHistory, type Router, type RouterHistory, type RouteLocationRaw, type RouteLocationNormalizedLoaded, type RouteRecordRaw } from 'vue-router'
 
 // Views/Components used by the routes (lazy in browser; stubbed in tests/SSR to avoid SFC parsing)
 const isBrowser = globalThis !== undefined && (globalThis.window as any)?.document !== undefined
 const Stub = { render() { return null } }
 
 const DrillList = isBrowser ? (() => import('@/components/DrillList.vue')) : Stub
-const RandomizerView = isBrowser ? (() => import('@/views/RandomizerView.vue')) : Stub
 
 // Detail view: shows a drill based on :id
 const DrillDetailView = isBrowser ? (() => import('@/views/DrillDetailView.vue')) : Stub
@@ -15,7 +14,7 @@ const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
 const ConstructionView = isBrowser ? (() => import('@/views/ConstructionView.vue')) : Stub
 const FavoritesView = isBrowser ? (() => import('@/views/FavoritesView.vue')) : Stub
 
-export const routes = [
+export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: { name: 'DrillsList' } },
   {
     name: 'DrillsList',
@@ -44,11 +43,6 @@ export const routes = [
     name: 'Favorites',
     path: '/favorites',
     component: FavoritesView,
-  },
-  {
-    name: 'ShuffleOverlay',
-    path: '/shuffle',
-    component: RandomizerView,
   },
 ]
 

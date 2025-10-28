@@ -27,13 +27,6 @@
     --ring: rgba(47, 122, 82, .28);
     /* Fokus-Ring aus primary */
 
-    /* Kategorien (für farbige Chips/Badges) */
-    --cat-putting: #A7D8FF;
-    --cat-chipping: #B6E5C0;
-    --cat-driving: #FFD37A;
-    --cat-irons: #EABFFF;
-    --cat-bunker: #F7C7A3;
-
     --container-max: 920px;
     --container-pad: 16px;
 }
@@ -275,32 +268,6 @@ textarea:focus-visible {
     border-radius: 999px;
     font-size: 12px;
     color: var(--muted);
-}
-
-/* Kategorie-Chips (optional nutzen) */
-.chip--putting {
-    background: color-mix(in oklab, var(--cat-putting) 18%, var(--surface));
-    border-color: color-mix(in oklab, var(--cat-putting) 45%, var(--border));
-}
-
-.chip--chipping {
-    background: color-mix(in oklab, var(--cat-chipping) 18%, var(--surface));
-    border-color: color-mix(in oklab, var(--cat-chipping) 45%, var(--border));
-}
-
-.chip--driving {
-    background: color-mix(in oklab, var(--cat-driving) 18%, var(--surface));
-    border-color: color-mix(in oklab, var(--cat-driving) 45%, var(--border));
-}
-
-.chip--irons {
-    background: color-mix(in oklab, var(--cat-irons) 18%, var(--surface));
-    border-color: color-mix(in oklab, var(--cat-irons) 45%, var(--border));
-}
-
-.chip--bunker {
-    background: color-mix(in oklab, var(--cat-bunker) 18%, var(--surface));
-    border-color: color-mix(in oklab, var(--cat-bunker) 45%, var(--border));
 }
 
 /* Divider */

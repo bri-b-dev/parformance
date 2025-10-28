@@ -28,8 +28,8 @@ export const routes = [
     props: true,
   },
   {
-    name: 'Stats',
-    path: '/stats',
+    name: 'History',
+    path: '/history',
     component: StatsView,
   },
   {

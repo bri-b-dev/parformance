@@ -62,5 +62,5 @@ const tooltip = computed(() => {
   return parts.length ? `HCP ${label}: ${parts.join(', ')}` : `HCP ${label}: —`
 })
 
-const ariaLabel = computed(() => level.value != null ? `Level erreicht: ${level.value}` : 'Kein Level ermittelt')
+const ariaLabel = computed(() => level.value ? `Level erreicht: ${level.value}` : 'Kein Level ermittelt')
 </script>

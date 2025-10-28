@@ -1,0 +1,18 @@
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="ParFormance logo icon">
+    <defs>
+        <linearGradient id="pf-grad" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2F7A52"/>
+            <stop offset="1" stop-color="#4FBF86"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Swing arc -->
+    <path d="M3 17c3-6 8-10 14-11" stroke="#A7D8FF" stroke-width="1.6" stroke-linecap="round"/>
+
+    <!-- Ball -->
+    <circle cx="18" cy="6" r="1.6" fill="#A7D8FF"/>
+
+    <!-- P -->
+    <path d="M8 4h4.5c3.8 0 6 2 6 4.7s-2.2 4.7-6 4.7H10v6.6H8V4zm2 1.8v5.8h1.8c2 0 3.1-1.2 3.1-2.9s-1.1-2.9-3.1-2.9H10z"
+          fill="url(#pf-grad)"/>
+</svg>

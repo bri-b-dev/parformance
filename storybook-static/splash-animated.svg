@@ -1,0 +1,72 @@
+<svg width="640" height="320" viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ParFormance animated splash">
+    <style>
+        :root {
+        --pf-primary: #2F7A52;     /* Fairway Green */
+        --pf-primary2:#4FBF86;     /* Gradient end */
+        --pf-sky:     #A7D8FF;     /* Sky Blue (Arc/Ball) */
+        --pf-text:    #444C56;     /* Iron Grey */
+        }
+        @media (prefers-color-scheme: dark) {
+        :root {
+        --pf-primary: #4FBF86;
+        --pf-primary2:#7BE3AE;
+        --pf-sky:     #6CB8FF;
+        --pf-text:    #E8F1EB;
+        }
+        }
+        @media (prefers-reduced-motion: reduce) {
+        .anim,*[begin] { animation: none !important; }
+        animate, animateMotion, animateTransform { display: none; }
+        .reveal { opacity: 1 !important; transform: none !important; }
+        .stroke-reveal { stroke-dasharray: 0 !important; stroke-dashoffset: 0 !important; }
+        }
+        .fade-in { animation: fade 600ms ease-out 200ms both; }
+        @keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+        .stroke-reveal {
+        stroke-dasharray: 1200;
+        stroke-dashoffset: 1200;
+        animation: draw 900ms ease-out 200ms forwards;
+        }
+        @keyframes draw { to { stroke-dashoffset: 0 } }
+        .reveal { opacity: 0; transform: translateY(8px); animation: up 500ms ease-out 800ms forwards; }
+        @keyframes up { to { opacity: 1; transform: translateY(0) } }
+    </style>
+
+    <defs>
+        <linearGradient id="pf-grad" x1="100" y1="60" x2="300" y2="220" gradientUnits="userSpaceOnUse">
+            <stop stop-color="var(--pf-primary)"/>
+            <stop offset="1" stop-color="var(--pf-primary2)"/>
+        </linearGradient>
+        <!-- Bewegungs-Pfad -->
+        <path id="arcPath" d="M80,230 C160,80 360,40 520,80" />
+        <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.18"/>
+        </filter>
+    </defs>
+
+    <!-- Arc -->
+    <path d="M80,230 C160,80 360,40 520,80"
+          class="stroke-reveal"
+          stroke="var(--pf-sky)" stroke-width="8" stroke-linecap="round" fill="none" filter="url(#soft)"/>
+
+    <!-- Ball (animateMotion mit href statt xlink:href) -->
+    <g class="anim">
+        <circle r="10" fill="var(--pf-sky)" filter="url(#soft)">
+            <animateMotion dur="900ms" begin="200ms" fill="freeze" keySplines="0.2 0.8 0.2 1" calcMode="spline">
+                <mpath href="#arcPath"/>
+            </animateMotion>
+            <animateTransform attributeName="transform" type="scale" values="1;1.08;1" keyTimes="0;0.7;1" dur="400ms" begin="1s" fill="freeze"/>
+        </circle>
+    </g>
+
+    <!-- P-Glyph -->
+    <path class="fade-in" d="M160 70h62c50 0 82 28 82 67s-32 67-82 67h-24v76h-38V70zm38 24v72h24c30 0 46-14 46-36s-16-36-46-36h-24z"
+          fill="url(#pf-grad)" filter="url(#soft)"/>
+
+    <!-- Wordmark -->
+    <g class="reveal">
+        <text x="280" y="155" font-family="Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-weight="600" font-size="56" fill="var(--pf-primary)">Par</text>
+        <text x="370" y="155" font-family="Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-weight="600" font-size="56" fill="var(--pf-text)">Formance</text>
+        <text x="282" y="184" font-family="Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-weight="400" font-size="16" fill="rgba(0,0,0,0.45)">Train smart. Play par.</text>
+    </g>
+</svg>

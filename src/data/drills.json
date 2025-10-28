@@ -470,7 +470,7 @@
   {
     "id": "chip_9m",
     "title": "9‑Meter Chip",
-    "category": "Chipping Green",
+    "category": "Chipping",
     "source": "JAM-POI",
     "equipment": {
       "balls": 6,
@@ -503,7 +503,7 @@
   {
     "id": "chip_18m",
     "title": "18‑Meter Chip",
-    "category": "Chipping Green",
+    "category": "Chipping",
     "source": "JAM-POI",
     "equipment": {
       "balls": 6,
@@ -537,7 +537,7 @@
   {
     "id": "chip_carry_zone",
     "title": "Carry Zone",
-    "category": "Chipping Green",
+    "category": "Chipping",
     "source": "JAM-POI",
     "equipment": {
       "balls": 6,
@@ -573,7 +573,7 @@
   {
     "id": "pitch_short",
     "title": "Kurzer Pitch",
-    "category": "Pitching Green",
+    "category": "Pitching",
     "source": "JAM-POI",
     "equipment": {
       "balls": 6,
@@ -606,7 +606,7 @@
   {
     "id": "pitch_long",
     "title": "Langer Pitch",
-    "category": "Pitching Green",
+    "category": "Pitching",
     "source": "JAM-POI",
     "equipment": {
       "balls": 6,
@@ -673,7 +673,7 @@
   {
     "id": "chip_ud_series",
     "title": "Up & Down Series",
-    "category": "Chipping Green",
+    "category": "Chipping",
     "source": "JAM-POI",
     "equipment": {
       "balls": 1,
@@ -707,7 +707,7 @@
   {
     "id": "chip_beat21",
     "title": "BEAT 21",
-    "category": "Chipping Green",
+    "category": "Chipping",
     "source": "JAM-POI",
     "equipment": {
       "balls": 1,
@@ -741,7 +741,7 @@
   {
     "id": "chip_worstball",
     "title": "Worstball Chipping",
-    "category": "Chipping Green",
+    "category": "Chipping",
     "source": "JAM-POI",
     "equipment": {
       "balls": 2,
@@ -775,7 +775,7 @@
   {
     "id": "chip_towel_target",
     "title": "Towel Target",
-    "category": "Chipping Green",
+    "category": "Chipping",
     "source": "JAM-POI",
     "equipment": {
       "balls": 4,
@@ -812,7 +812,7 @@
   {
     "id": "chip_hit_the_spot",
     "title": "Hit the Spot",
-    "category": "Chipping Green",
+    "category": "Chipping",
     "source": "JAM-POI",
     "equipment": {
       "balls": 15,
@@ -915,7 +915,7 @@
   {
     "id": "pitch_four_stations",
     "title": "Four Stations",
-    "category": "Pitching Green",
+    "category": "Pitching",
     "source": "JAM-POI",
     "equipment": {
       "balls": 4,
@@ -948,7 +948,7 @@
   {
     "id": "range_abschlaege",
     "title": "Abschläge",
-    "category": "Driving Range",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 20,
@@ -982,7 +982,7 @@
   {
     "id": "range_eisen",
     "title": "Eisen",
-    "category": "Driving Range",
+    "category": "Eisen",
     "source": "JAM-POI",
     "equipment": {
       "balls": 30,
@@ -1022,7 +1022,7 @@
   {
     "id": "pitch_attack_flag",
     "title": "Attack the Flag",
-    "category": "Pitching Green",
+    "category": "Pitching",
     "source": "JAM-POI",
     "equipment": {
       "balls": 9,
@@ -1055,7 +1055,7 @@
   {
     "id": "pitch_mixed_clubs",
     "title": "Mixed Clubs",
-    "category": "Pitching Green",
+    "category": "Pitching",
     "source": "JAM-POI",
     "equipment": {
       "balls": 25,
@@ -1088,7 +1088,7 @@
   {
     "id": "range_nine_drives",
     "title": "Nine Drives",
-    "category": "Driving Range",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 9,
@@ -1121,7 +1121,7 @@
   {
     "id": "range_hit_three_greens",
     "title": "Hit Three Greens",
-    "category": "Driving Range",
+    "category": "Langes Spiel",
     "source": "JAM-POI",
     "equipment": {
       "balls": 9,
@@ -1154,7 +1154,7 @@
   {
     "id": "range_14_fairways",
     "title": "14 Fairways",
-    "category": "Driving Range",
+    "category": "Langes Spiel",
     "source": "JAM-POI",
     "equipment": {
       "balls": 28,
@@ -1189,7 +1189,7 @@
   {
     "id": "range_short_aims",
     "title": "Short Aims",
-    "category": "Driving Range",
+    "category": "Eisen",
     "source": "JAM-POI",
     "equipment": {
       "balls": 20,
@@ -1223,7 +1223,7 @@
   {
     "id": "range_fade_draw",
     "title": "Fade & Draw",
-    "category": "Driving Range",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 10,
@@ -1256,7 +1256,7 @@
   {
     "id": "sweetspot_hit_1",
     "title": "Hit the Sweetspot I",
-    "category": "Sweetspot",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 10,
@@ -1292,7 +1292,7 @@
   {
     "id": "sweetspot_hit_2",
     "title": "Hit the Sweetspot II",
-    "category": "Sweetspot",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 20,
@@ -1328,7 +1328,7 @@
   {
     "id": "sweetspot_out",
     "title": "Out of the Sweetspot",
-    "category": "Sweetspot",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 18,
@@ -1364,7 +1364,7 @@
   {
     "id": "tempo_rhythm",
     "title": "Stay in the Rhythm",
-    "category": "Tempo",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 18,
@@ -1397,7 +1397,7 @@
   {
     "id": "tempo_find",
     "title": "Find Your Tempo",
-    "category": "Tempo",
+    "category": "Langes Spiel",
     "source": "JAM-POI",
     "equipment": {
       "balls": 12,
@@ -1431,7 +1431,7 @@
   {
     "id": "tempo_swing_like_pro",
     "title": "Swing Like a Pro",
-    "category": "Tempo",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 10,
@@ -1465,7 +1465,7 @@
   {
     "id": "tempo_improve_feel",
     "title": "Improve Your Feeling",
-    "category": "Tempo",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 15,
@@ -1499,7 +1499,7 @@
   {
     "id": "simulation_safety_shot",
     "title": "Safety Shot",
-    "category": "Simulation",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 10,
@@ -1535,7 +1535,7 @@
   {
     "id": "shape_it",
     "title": "Shape It",
-    "category": "Shapen",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 12,
@@ -1568,7 +1568,7 @@
   {
     "id": "simulation_imagination_on",
     "title": "Imagination On",
-    "category": "Simulation",
+    "category": "Langes Spiel",
     "source": "JAM-POI",
     "equipment": {
       "balls": 15,
@@ -1601,7 +1601,7 @@
   {
     "id": "simulation_first_tee",
     "title": "First Tee‑Shot",
-    "category": "Simulation",
+    "category": "Driver",
     "source": "JAM-POI",
     "equipment": {
       "balls": 1,

@@ -10,15 +10,6 @@
         </span>
         <span>Drills</span>
       </RouterLink>
-      <RouterLink class="tab" :class="{ active: isActive('/favorites') }" to="/favorites">
-        <span class="icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 3l2.6 5.3 5.9.9-4.3 4.2 1 5.8L12 16.8l-5.2 2.7 1-5.8-4.3-4.2 5.9-.9L12 3z"
-              stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
-        <span>Favoriten</span>
-      </RouterLink>
       <RouterLink class="tab" :class="{ active: isActive('/history') }" to="/history">
         <span class="icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

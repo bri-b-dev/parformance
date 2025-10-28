@@ -33,7 +33,7 @@
       </section>
 
       <div class="row">
-        <button class="btn" type="button" @click="resetFilters" aria-label="Filter zurücksetzen">Filter löschen</button>
+        <button class="btn" type="button" @click="resetFilters">Filter löschen</button>
       </div>
 
       <!-- Empty state -->

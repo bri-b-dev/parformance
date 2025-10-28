@@ -8,10 +8,6 @@
             <span>ParFormance</span>
             <small class="tagline" style="display:block;">Train smarter — play better</small>
           </div>
-          <span class="chip" style="margin-left:12px; font-size:0.9rem;" v-if="streaksLoaded">
-            Streak: <strong>{{ streaks.current }}</strong>
-            <small style="color:var(--muted); margin-left:6px;">(best {{ streaks.best }})</small>
-          </span>
         </div>
 
         <div style="display:flex; gap:8px; align-items:center;">
@@ -41,17 +37,13 @@ import BottomTabs from '@/components/BottomTabs.vue';
 import ShuffleFab from '@/components/ShuffleFab.vue'
 import RandomizerView from '@/views/RandomizerView.vue'
 import {useTheme} from '@/composables/useTheme';
-import { onMounted, computed } from 'vue'
-import { useStreaksStore } from '@/stores/streaks'
+import { onMounted } from 'vue'
 import { useSessionsStore } from '@/stores/sessions'
 import { useUiStore } from '@/stores/ui'
 
 const {theme, toggle} = useTheme();
 
 const sessions = useSessionsStore()
-const streaksStore = useStreaksStore()
-const streaks = computed(() => ({ current: streaksStore.current, best: streaksStore.best }))
-const streaksLoaded = computed(() => sessions.loaded)
 const ui = useUiStore()
 
 onMounted(async () => {

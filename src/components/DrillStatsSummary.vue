@@ -60,7 +60,7 @@ const valuesLast = computed(() => {
 const best = computed(() => values.value.length ? Math.max(...values.value) : 0)
 
 const ma = computed(() => getMovingAverageTrend(values.value))
-const maLast5Label = computed(() => ma.value.maLast5 != null ? ma.value.maLast5.toFixed(1) : '–')
+const maLast5Label = computed(() => ma.value.maLast5 !== undefined && ma.value.maLast5 !== null ? ma.value.maLast5.toFixed(1) : '–')
 
 const trendSymbol = computed(() => {
   switch (ma.value.trend) {

@@ -27,7 +27,9 @@
 
     <!-- Radar (desktop) -->
     <div v-else class="w-full" style="display:flex; align-items:center; justify-content:center;">
-      <svg :width="svgSize" :height="svgSize" :viewBox="`0 0 ${svgSize} ${svgSize}`" role="img" aria-label="Radar Chart">
+      <svg :width="svgSize" :height="svgSize" :viewBox="`0 0 ${svgSize} ${svgSize}`" aria-labelledby="radar-title" aria-describedby="radar-desc">
+        <title id="radar-title">Radar Chart</title>
+        <desc id="radar-desc">{{ srSummary }}</desc>
         <!-- grid circles -->
         <g :transform="`translate(${center}, ${center})`" stroke="var(--border)" fill="none">
           <circle v-for="r in [0.25, 0.5, 0.75, 1]" :key="r" :r="r * radius" />
@@ -70,7 +72,7 @@ const internalMode = ref<'bar'|'radar'>('bar')
 onMounted(() => {
   if (props.mode === 'auto' || props.mode == null) {
     try {
-      const w = typeof window !== 'undefined' ? window.innerWidth : 0
+      const w = globalThis.window === undefined ? 0 : globalThis.window.innerWidth
       internalMode.value = w >= 800 ? 'radar' : 'bar'
     } catch { internalMode.value = 'bar' }
   }
@@ -97,7 +99,10 @@ function clampPct(v: any): number {
 
 const weakestIndex = computed(() => {
   let idx = -1; let min = Infinity
-  values.value.forEach((v, i) => { if (v < min) { min = v; idx = i } })
+  for (let i = 0; i < values.value.length; i++) { 
+    const v = values.value[i]
+    if (v < min) { min = v; idx = i } 
+  }
   return idx
 })
 

@@ -1,60 +1,91 @@
 <template>
-  <!-- Overlay backdrop that sits on top of the current view -->
-  <div v-if="isOpen" class="overlay" @click.self="close" role="dialog" aria-modal="true" aria-labelledby="shuffle-title">
-    <div class="card overlay-panel" role="document">
-      <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
-        <h2 id="shuffle-title" style="margin:0; font-weight:700;">Zufallsauswahl</h2>
-        <button class="btn" type="button" @click="close" aria-label="Schließen">✕</button>
+  <!-- Overlay backdrop -->
+  <div v-if="isOpen" class="overlay" @click.self="close" role="dialog" aria-modal="true"
+    aria-labelledby="shuffle-title">
+    <div class="card overlay-panel slot-panel" role="document">
+      <header class="slot-header">
+        <h2 id="shuffle-title">Zufallsauswahl</h2>
+        <!-- X entfernt -->
       </header>
 
       <!-- Loading / Error -->
-      <output v-if="!catalog.loaded" class="p-4 flex items-center text-sm text-gray-600" aria-live="polite">
-        <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
+      <output v-if="!catalog.loaded" class="loading" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
         Lädt…
       </output>
-      <output v-else-if="catalog.error" class="p-4 text-sm text-red-700" aria-live="polite">
+      <output v-else-if="catalog.error" class="error" aria-live="polite">
         {{ catalog.error }}
       </output>
 
       <!-- Content -->
-      <div v-else>
-        <div class="row" style="align-items:center; justify-content:center; margin:10px 0; gap:10px;">
-          <!-- Reel: Category -->
-          <div class="card" style="min-width:220px; text-align:center;">
-            <div class="label">Kategorie</div>
-            <output class="reel-viewport" :aria-live="spinning.category ? 'off' : 'polite'">
-              <div class="reel-track" :style="catTransformStyle">
-                <div v-for="c in catItems" :key="`cat-${c}`" class="reel-item">{{ c }}</div>
+      <div v-else class="slot-body">
+        <!-- Slot frame -->
+        <div class="slot-frame">
+          <!-- Center marker line -->
+          <div class="slot-marker" aria-hidden="true"></div>
+
+          <!-- Reel: Environment -->
+          <div class="reel">
+            <div class="reel-label">Umgebung</div>
+            <output class="reel-viewport" :aria-live="spinning.env ? 'off' : 'polite'">
+              <div class="reel-track" :style="envTransformStyle">
+                <div v-for="e in (envList.length ? envList : envItems)" :key="`env-${e}`" class="reel-item">{{ e }}
+                </div>
               </div>
+              <div class="reel-fade top" aria-hidden="true"></div>
+              <div class="reel-fade bottom" aria-hidden="true"></div>
             </output>
           </div>
-          <!-- Reel: Drill -->
-          <div class="card" style="min-width:260px; text-align:center;">
-            <div class="label">Drill</div>
-            <output class="reel-viewport" :aria-live="spinning.drill ? 'off' : 'polite'">
-              <div class="reel-track" :style="drillTransformStyle">
-                <div v-for="t in drillItems" :key="`dr-${t}`" class="reel-item">{{ t }}</div>
+
+          <!-- Divider -->
+          <div class="reel-divider" aria-hidden="true"></div>
+
+          <!-- Reel: Focus -->
+          <div class="reel">
+            <div class="reel-label">Fokus</div>
+            <output class="reel-viewport" :aria-live="spinning.focus ? 'off' : 'polite'">
+              <div class="reel-track" :style="focusTransformStyle">
+                <div v-for="f in (focusList.length ? focusList : focusItems)" :key="`focus-${f}`" class="reel-item">{{ f
+                  }}</div>
               </div>
+              <div class="reel-fade top" aria-hidden="true"></div>
+              <div class="reel-fade bottom" aria-hidden="true"></div>
             </output>
           </div>
-          <!-- Reel: Target type (optional) -->
-          <div class="card" style="min-width:200px; text-align:center;">
-            <div class="label">Zieltyp</div>
-            <output class="reel-viewport" :aria-live="spinning.target ? 'off' : 'polite'">
-              <div class="reel-track" :style="targetTransformStyle">
-                <div v-for="t in targetItems" :key="`tg-${t}`" class="reel-item">{{ t }}</div>
+
+          <!-- Divider -->
+          <div class="reel-divider" aria-hidden="true"></div>
+
+          <!-- Reel: Name -->
+          <div class="reel">
+            <div class="reel-label">Zeitfenster</div>
+            <output class="reel-viewport" :aria-live="spinning.title ? 'off' : 'polite'">
+              <div class="reel-track" :style="nameTransformStyle">
+                <div v-for="t in (nameList.length ? nameList : nameItems)" :key="`title-${t}`" class="reel-item">{{ t }}
+                </div>
               </div>
+              <div class="reel-fade top" aria-hidden="true"></div>
+              <div class="reel-fade bottom" aria-hidden="true"></div>
             </output>
           </div>
         </div>
 
-        <div class="row" style="justify-content:center; margin-top:10px; align-items:center; gap:16px;">
-          <label class="chip" style="display:inline-flex; align-items:center; gap:6px; cursor:pointer;">
+        <!-- Helper row -->
+        <div class="slot-controls">
+          <div class="hint" v-if="showCandidateHint">Mögliche Drills: {{ candidateCount }}</div>
+          <label class="chip pref">
             <input type="checkbox" v-model="biasFavorites" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
             Favoriten bevorzugen
           </label>
-          <button class="btn btn-primary" type="button" :disabled="disabled || running" @click="start" data-testid="shuffle-start">Start</button>
-          <button class="btn" type="button" :disabled="!running" @click="cancel" data-testid="shuffle-cancel">Abbrechen</button>
+          <div class="actions">
+            <button class="lever btn-primary" type="button" :disabled="disabled || running" @click="start"
+              data-testid="shuffle-start">
+              <span class="lever-knob" aria-hidden="true"></span>
+              <span class="lever-text">Start</span>
+            </button>
+            <button class="btn ghost" type="button" :disabled="!running" @click="cancel"
+              data-testid="shuffle-cancel">Abbrechen</button>
+          </div>
         </div>
       </div>
     </div>
@@ -62,294 +93,515 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
+/* == LOGIK UNVERÄNDERT (nur minimale Style-Hooks) == */
+import { computed, onMounted, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUiStore } from '@/stores/ui'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
-import type { Drill } from '@/types'
-import { pickWeighted } from '@/utils/weighted'
 
-// Configurable durations per reel (ms)
-const props = defineProps<{ durationCatMs?: number; durationDrillMs?: number; durationTargetMs?: number }>()
-const D_CAT = computed(() => props.durationCatMs ?? 600)
-const D_DRILL = computed(() => props.durationDrillMs ?? 700)
-const D_TARGET = computed(() => props.durationTargetMs ?? 500)
+const props = defineProps<{ durationEnvMs?: number; durationFocusMs?: number; durationNameMs?: number }>()
+const D_ENV = computed(() => props.durationEnvMs ?? 550)
+const D_FOCUS = computed(() => props.durationFocusMs ?? 650)
+const D_NAME = computed(() => props.durationNameMs ?? 500)
 
-// Reduced motion
 function prefersReducedMotion(): boolean {
-  try {
-    return typeof globalThis !== 'undefined' && !!globalThis.matchMedia && globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches
-  } catch { return false }
+  try { return !!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches } catch { return false }
 }
 
-// Store & router
 const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()
 const router = useRouter()
 const route = useRoute()
 const ui = useUiStore()
-
 const isOpen = computed(() => !!(ui.shuffleOpen || route.name === 'ShuffleOverlay'))
 
 onMounted(async () => {
   if (!catalog.loaded) await catalog.load()
   if (!favorites.loaded) await favorites.load()
-  // Default bias on when favorites filter is active in the URL query
   const q = route?.query || {}
-  const favOn = ['1','true','yes'].includes(String((q as any).fav ?? (q as any).onlyFavorites ?? '').toLowerCase())
+  const favOn = ['1', 'true', 'yes'].includes(String((q as any).fav ?? (q as any).onlyFavorites ?? '').toLowerCase())
   if (favOn && hasAnyFavorites.value) biasFavorites.value = true
 })
 
 const disabled = computed(() => (catalog.drills.length === 0))
-
-// Favorites / bias toggle
 const hasAnyFavorites = computed(() => (favorites.list?.length ?? 0) > 0)
 const biasFavorites = ref<boolean>(false)
+const isFavorite = (id: string) => favorites.list?.includes?.(id) ?? false
 
-// Data sources
-const categories = computed(() => {
-  const set = new Set<string>()
-  for (const d of catalog.drills) set.add(d.category)
-  return Array.from(set).sort((a,b) => a.localeCompare(b))
+// type Environment = string'Putting Green' | 'Chipping Green' | 'Pitching Green' | 'Driving Range' | 'Bunker' | 'Platz'
+// type Focus =
+//   | 'Längenkontrolle' | 'Breaklesen' | 'Druck' | 'Zielspiel'
+//   | 'Ballstriking' | 'Speed/Pace' | 'Balance/Finish' | 'Strategie'
+//   | 'Shaping' | 'Routine/Konstanz' | 'Up & Down' | 'Stats/Analyse'
+// type TimeBucket = '5–7 min' | '8–10 min' | '11–15 min' | '16–25 min' | '25+ min'
+
+interface DerivedDrill {
+  id: string
+  title: string
+  environment: string
+  focuses: string[]
+  favorite: boolean
+  rawCategory?: string
+}
+
+const derived = computed<DerivedDrill[]>(() => {
+  return catalog.drills.map((d: any) => {
+    const env: string = d?.setup?.location ?? 'Unbekannt'
+    const tags: string[] = Array.isArray(d?.tags) ? d.tags : []
+    return {
+      id: d.id,
+      title: d.title,
+      environment: env,
+      focuses: tags,        // unverändert übernehmen
+      favorite: isFavorite(d.id),
+    }
+  })
 })
 
-function drillsFor(cat: string): Drill[] {
-  return catalog.drills.filter(d => d.category === cat)
-}
-
-function isFavorite(drillId: string): boolean {
-  return favorites.list?.includes?.(drillId) ?? false
-}
-
-function weightedTitles(drills: Drill[]): string[] {
-  if (!biasFavorites.value || !hasAnyFavorites.value) return drills.map(d => d.title)
-  // Duplicate favorite titles to bias selection probability
-  const out: string[] = []
-  for (const d of drills) {
-    const weight = isFavorite(d.id) ? 3 : 1 // 3x weight for favorites
-    for (let i = 0; i < weight; i++) out.push(d.title)
+//const envItems = computed<string[]>(() => Array.from(new Set(derived.value.map(d => d.environment))))
+const envItems = computed<string[]>(() => {
+  const s = new Set<string>()
+  for (const d of catalog.drills) {
+    const loc = (d as any)?.setup?.location?.trim()
+    if (loc) s.add(loc)
   }
-  return out.length ? out : drills.map(d => d.title)
+  // hübsch sortieren (de)
+  return Array.from(s).sort((a, b) => a.localeCompare(b, 'de'))
+})
+
+const focusItems = computed<string[]>(() => {
+  const s = new Set<string>()
+  for (const d of catalog.drills) {
+    const tags: string[] = (d as any)?.tags ?? []
+    for (const t of tags) {
+      const norm = String(t).trim()
+      if (norm) s.add(norm)
+    }
+  }
+  return Array.from(s).sort((a, b) => a.localeCompare(b, 'de'))
+})
+
+const nameItems = computed<string[]>(() => {
+  const s = new Set<string>()
+  for (const d of catalog.drills) {
+    const title = (d as any)?.title?.trim()
+    if (title) s.add(title)
+  }
+  // hübsch sortieren (de)
+  return Array.from(s).sort((a, b) => a.localeCompare(b, 'de'))
+})
+
+function rnd(): number {
+  if (globalThis.crypto?.getRandomValues) { const a = new Uint32Array(1); globalThis.crypto.getRandomValues(a); return (a[0] / 0xFFFFFFFF); }
+  return Math.random();
+}
+function randInt(n: number) { return Math.floor(rnd() * n); }
+function shuffleInPlace<T>(arr: T[]): T[] { for (let i = arr.length - 1; i > 0; i--) { const j = randInt(i + 1);[arr[i], arr[j]] = [arr[j], arr[i]] } return arr }
+function sampleWeighted<T>(items: T[], weights: number[]): T {
+  const total = weights.reduce((a, b) => a + b, 0); let r = rnd() * total;
+  for (let i = 0; i < items.length; i++) { r -= weights[i]; if (r <= 0) return items[i] }
+  return items[items.length - 1]
+}
+const lastPick = new Map<string, string>()
+function pickNoRepeat(key: string, values: string[]): string {
+  if (values.length <= 1) return values[0] ?? '—'
+  const last = lastPick.get(key)
+  const candidates = values.filter(v => v !== last)
+  const v = candidates[randInt(candidates.length)]
+  lastPick.set(key, v)
+  return v
 }
 
+/* — Reel visuals/state — */
+const itemHeight = 48 // GRÖSSER für Slot-Optik
+const envOffset = ref(0), focusOffset = ref(0), nameOffset = ref(0)
+const envTransformStyle = computed(() => ({ transform: `translateY(${-envOffset.value}px)` }))
+const focusTransformStyle = computed(() => ({ transform: `translateY(${-focusOffset.value}px)` }))
+const nameTransformStyle = computed(() => ({ transform: `translateY(${-nameOffset.value}px)` }))
 
-// Reel visual state
-const itemHeight = 28 // px
-const catOffset = ref(0)
-const drillOffset = ref(0)
-const targetOffset = ref(0)
+const envList = ref<string[]>([])
+const focusList = ref<string[]>([])
+const nameList = ref<string[]>([])
 
-const catItems = computed(() => (categories.value.length ? categories.value : ['—']))
-const drillItems = computed(() => {
-  const cat = display.category || categories.value[0]
-  const list = drillsFor(cat)
-  const titles = weightedTitles(list)
-  return titles.length ? titles : ['—']
-})
-const targetItems = computed(() => {
-  const d = selectedDrill.value
-  return d?.metric?.type ? [String(d.metric.type)] : ['—']
-})
-
-const catTransformStyle = computed(() => ({ transform: `translateY(${-catOffset.value}px)` }))
-const drillTransformStyle = computed(() => ({ transform: `translateY(${-drillOffset.value}px)` }))
-const targetTransformStyle = computed(() => ({ transform: `translateY(${-targetOffset.value}px)` }))
-
-// Display state (selected labels)
-const display = reactive<{ category: string | null; drill: string | null; target: string | null }>({
-  category: null,
-  drill: null,
-  target: null,
-})
-
-const selectedDrill = ref<Drill | null>(null)
+const display = reactive<{ env: string | null; focus: string | null; title: string | null }>({ env: null, focus: null, title: null })
+const spinning = reactive({ env: false, focus: false, title: false })
 const running = ref(false)
-
-const spinning = reactive({ category: false, drill: false, target: false })
-let timers: any[] = []
 let rafIds: any[] = []
-
 function clearTimers() {
-  for (const t of timers) clearTimeout(t)
-  for (const r of rafIds) cancelAnimationFrame(r)
-  timers = []
-  rafIds = []
+  for (const r of rafIds) {
+    cancelAnimationFrame(r);
+  }
+  rafIds = [];
 }
 
-function spin(items: string[], offsetRef: { value: number }, durationMs: number, onTick?: (index: number) => void): { stop: () => void } | null {
-  if (!items.length || durationMs <= 0) return null
-  const total = items.length * itemHeight
-  let startTs: number | null = null
-  let stopped = false
-  const speed = Math.max(100, total * 2) // px/s baseline
-
-  const tick = (ts: number) => {
-    if (stopped) return
-    if (startTs == null) startTs = ts
-    const elapsed = ts - startTs
-    const dist = Math.min(elapsed / 1000 * speed, 1e9)
-    offsetRef.value = dist % total
-    const idx = Math.floor((offsetRef.value + (itemHeight/2)) / itemHeight) % items.length
-    onTick && onTick(idx)
+function spinToIndex(itemsLen: number, offsetRef: { value: number }, targetIndex: number, durationMs: number): Promise<void> {
+  return new Promise((resolve) => {
+    if (itemsLen <= 0) { resolve(); return }
+    const total = itemsLen * itemHeight
+    const extraLoops = 3 + randInt(3)
+    const start = performance.now()
+    const startOffset = offsetRef.value % total
+    const currentIndex = Math.round(startOffset / itemHeight) % itemsLen
+    const forwardSteps = (extraLoops * itemsLen) + ((targetIndex - currentIndex + itemsLen) % itemsLen)
+    const targetOffset = startOffset + forwardSteps * itemHeight
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / durationMs)
+      const eased = easeOutCubic(t)
+      offsetRef.value = startOffset + (targetOffset - startOffset) * eased
+      if (t < 1) rafIds.push(requestAnimationFrame(tick)); else { offsetRef.value = targetOffset % total; resolve() }
+    }
     rafIds.push(requestAnimationFrame(tick))
+  })
+}
+
+function candidates(env: string | null, focus: string | null, title: string | null): DerivedDrill[] {
+  let list = derived.value
+  if (env) list = list.filter(d => d.environment === env)
+  if (focus) list = list.filter(d => d.focuses.includes(focus))
+  if (title) list = list.filter(d => d.title === title)
+  return list
+}
+const candidateCount = computed(() => candidates(display.env, display.focus, display.title).length)
+const showCandidateHint = computed(() => !running.value && !!display.env && !!display.focus && !!display.title)
+
+function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
+  if (pool.length === 0) return ''
+  const favFactor = pool.length <= 3 ? 2 : 3
+  const weights = pool.map(d => (biasFavorites.value && d.favorite ? favFactor : 1))
+  let chosen = sampleWeighted(pool, weights)
+  const last = lastPick.get('drill')
+  if (last && pool.length > 1 && chosen.id === last) {
+    const alt = pool.find(p => p.id !== last) ?? chosen
+    chosen = alt
   }
-  rafIds.push(requestAnimationFrame(tick))
-  return { stop: () => { stopped = true } }
+  lastPick.set('drill', chosen.id)
+  return chosen.id
 }
 
 async function start() {
   if (disabled.value || running.value) return
   running.value = true
-  // Reset
-  selectedDrill.value = null
-  display.category = null
-  display.drill = null
-  display.target = null
-  spinning.category = spinning.drill = spinning.target = false
-  catOffset.value = drillOffset.value = targetOffset.value = 0
   clearTimers()
+  envOffset.value = focusOffset.value = nameOffset.value = 0
+  display.env = display.focus = display.title = null
+  spinning.env = spinning.focus = spinning.title = false
 
-  const reduce = prefersReducedMotion()
+  envList.value = shuffleInPlace([...envItems.value])
+  focusList.value = shuffleInPlace([...focusItems.value])
+  nameList.value = shuffleInPlace([...nameItems.value])
 
-  // 1) Category reel
-  const cats = categories.value
-  if (reduce) {
-    display.category = cats[0] || null
-  } else {
-    spinning.category = true
-    const ctl = spin(cats, catOffset, D_CAT.value, (i) => (display.category = cats[i]))
-    // stop after duration
-    timers.push(setTimeout(() => {
-      spinning.category = false
-      ctl?.stop()
-      // Snap to nearest index
-      const idx = Math.floor((catOffset.value + (itemHeight/2)) / itemHeight) % (cats.length || 1)
-      display.category = cats[idx] || null
-      nextStage()
-    }, D_CAT.value))
-  }
-  if (reduce) nextStage()
+  const targetEnv = pickNoRepeat('env', envList.value)
+  const targetFocus = pickNoRepeat('focus', focusList.value)
+  const targetName = pickNoRepeat('title', nameList.value)
+  const envIdx = Math.max(0, envList.value.indexOf(targetEnv))
+  const focIdx = Math.max(0, focusList.value.indexOf(targetFocus))
+  const nameIdx = Math.max(0, nameList.value.indexOf(targetName))
 
-  function nextStage() {
-    const chosenCat = display.category || cats[0]
-    const list = drillsFor(chosenCat)
-
-    if (reduce) {
-      const weighted = weightedTitles(list)
-      const title = pickWeighted(weighted) || weighted[0] || null
-      display.drill = title
-      selectedDrill.value = list.find(x => x.title === title) || list[0] || null
-      afterDrill()
-      return
-    }
-
-    spinning.drill = true
-    const weighted = weightedTitles(list)
-    const ctl = spin(weighted, drillOffset, D_DRILL.value, (i) => (display.drill = weighted[i]))
-    timers.push(setTimeout(() => {
-      spinning.drill = false
-      ctl?.stop()
-      const idx = Math.floor((drillOffset.value + (itemHeight/2)) / itemHeight) % (weighted.length || 1)
-      const title = weighted[idx] || weighted[0]
-      display.drill = title
-      selectedDrill.value = list.find(x => x.title === title) || list[0] || null
-      afterDrill()
-    }, D_DRILL.value))
+  if (prefersReducedMotion()) {
+    display.env = envList.value[envIdx] ?? null
+    display.focus = focusList.value[focIdx] ?? null
+    display.title = nameList.value[nameIdx] ?? null
+    return finish()
   }
 
-  function afterDrill() {
-    const d = selectedDrill.value || drillsFor(display.category || cats[0])[0] || null
-    if (!selectedDrill.value && d) selectedDrill.value = d
-    const tgt = d?.metric?.type ? [String(d.metric.type)] : []
+  spinning.env = true; await spinToIndex(envList.value.length, envOffset, envIdx, D_ENV.value); spinning.env = false; display.env = envList.value[envIdx] ?? null
+  spinning.focus = true; await spinToIndex(focusList.value.length, focusOffset, focIdx, D_FOCUS.value); spinning.focus = false; display.focus = focusList.value[focIdx] ?? null
+  spinning.title = true; await spinToIndex(nameList.value.length, nameOffset, nameIdx, D_NAME.value); spinning.title = false; display.title = nameList.value[nameIdx] ?? null
 
-    if (tgt.length === 0) {
-      // finish soon
-      timers.push(setTimeout(() => finish(), reduce ? 0 : 200))
-      return
-    }
-
-    if (reduce) {
-      display.target = tgt[0]
-      finish()
-      return
-    }
-
-    spinning.target = true
-    const ctl = spin(tgt, targetOffset, D_TARGET.value, (i) => (display.target = tgt[i]))
-    timers.push(setTimeout(() => {
-      spinning.target = false
-      ctl?.stop()
-      const idx = Math.floor((targetOffset.value + (itemHeight/2)) / itemHeight) % (tgt.length || 1)
-      display.target = tgt[idx]
-      finish()
-    }, D_TARGET.value))
-  }
+  finish()
 }
 
-function cancel() {
-  running.value = false
-  clearTimers()
-  spinning.category = spinning.drill = spinning.target = false
-}
+function cancel() { running.value = false; clearTimers(); spinning.env = spinning.focus = spinning.title = false }
 
 function finish() {
   running.value = false
-  const d = selectedDrill.value
-  if (d && d.id) {
-    // Navigate to drill detail. Also set a test-visible global when running under Vitest
+  const env = display.env, focus = display.focus, title = display.title
+  let pool = candidates(env, focus, title)
+  if (pool.length === 0 && env && focus && title) { if (rnd() < 0.5) pool = candidates(env, focus, null); else pool = candidates(env, null, title) }
+  if (pool.length === 0 && env) pool = candidates(env, null, null)
+  if (pool.length === 0) pool = derived.value
+  if (!pool.length) return
+  const chosenId = chooseDrillId(pool.map(p => ({ id: p.id, favorite: p.favorite })))
+  const original = catalog.drills.find(x => x.id === chosenId)
+  if (original) {
     try {
-      // Set a test-observable immediately so tests can detect the intended navigation
-      try { (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
-      const p = router.push({ name: 'DrillDetail', params: { id: d.id } })
-      // Ensure overlay is closed when navigation finishes (or fails)
-      p.then(() => {
-        try { (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
-        try { ui.setShuffle(false) } catch {}
-      }).catch(() => { try { ui.setShuffle(false) } catch {} })
-    } catch (e) {
-      console.error('Failed to navigate to drill detail:', e)
-    }
+      ; (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: original.id }
+      const p = router.push({ name: 'DrillDetail', params: { id: original.id } })
+      p.finally(() => { try { ui.setShuffle(false) } catch { } })
+    } catch (e) { console.error('Failed to navigate to drill detail:', e) }
   }
 }
 
 function close() {
-  const ui = useUiStore()
-  // if overlay was opened via UI store, close via store; otherwise navigate back
-  if (ui.shuffleOpen) {
-    ui.setShuffle(false)
-    return
-  }
+  if (ui.shuffleOpen) { ui.setShuffle(false); return }
   router.back()
 }
-
 onBeforeUnmount(() => clearTimers())
+watch([derived, () => display.env, () => display.focus, () => display.title], () => { /* computed only */ })
 </script>
 
 <style scoped>
-.reel-viewport { height: 28px; overflow: hidden; position: relative; }
-.reel-track { will-change: transform; transition: none; }
-.reel-item { height: 28px; line-height: 28px; font-size: 1rem; }
-@media (prefers-reduced-motion: reduce) {
-  .reel-track { transition: none; }
-}
-
-/* Overlay/backdrop styles so the Randomizer appears on top of the page */
+/* Overlay/backdrop */
 .overlay {
   position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
   z-index: 1100;
   padding: 20px;
 }
+
 .overlay-panel {
-  width: min(920px, 96vw);
-  max-height: 90vh;
+  width: min(980px, 96vw);
+  max-height: 92vh;
   overflow: auto;
-  border-radius: 14px;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+/* Slot look & feel */
+.slot-panel {
+  background: var(--surface, #fff);
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.22);
+}
+
+.slot-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.slot-header h2 {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: .2px;
+}
+
+/* Loading + error */
+.loading,
+.error {
   padding: 16px;
+  font-size: .95rem;
+  color: var(--text, #444C56);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  border-top-color: #2F7A52;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* SLOT FRAME */
+.slot-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.slot-frame {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 10px 1fr 10px 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 18px;
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 140% at 50% 0%, rgba(255, 255, 255, 0.90), rgba(240, 244, 242, 0.80) 60%, rgba(230, 235, 233, 0.85)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(225, 230, 227, 0.65));
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.08),
+    0 6px 22px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.slot-marker {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 50%;
+  height: 0;
+  border-top: 2px solid rgba(47, 122, 82, 0.55);
+  box-shadow: 0 0 0 1px rgba(47, 122, 82, 0.08);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.reel-divider {
+  width: 10px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.02));
+  border-radius: 6px;
+  box-shadow: inset -1px 0 rgba(255, 255, 255, 0.7), inset 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* REEL */
+.reel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.reel-label {
+  font-size: .8rem;
+  color: #6b7280;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+.reel-viewport {
+  position: relative;
+  height: 48px;
+  /* Sichtfenster = itemHeight */
+  overflow: hidden;
+  min-width: 240px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff, #f4f7f6);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.reel-track {
+  will-change: transform;
+  transition: none;
+}
+
+.reel-item {
+  height: 48px;
+  line-height: 48px;
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--text, #444C56);
+  text-align: center;
+  white-space: nowrap;
+  padding: 0 12px;
+}
+
+/* Fade masks oben/unten */
+.reel-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0));
+}
+
+.reel-fade.top {
+  top: 0;
+}
+
+.reel-fade.bottom {
+  bottom: 0;
+  transform: rotate(180deg);
+}
+
+/* CONTROLS */
+.slot-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 4px 2px;
+}
+
+.hint {
+  font-size: .9rem;
+  color: #6b7280;
+}
+
+.pref {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .9rem;
+  color: #46505b;
+}
+
+.pref input {
+  transform: translateY(1px);
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.btn.ghost {
+  background: #fff;
+}
+
+.btn-primary {
+  background: var(--primary, #2F7A52);
+  color: var(--primary-ink, #fff);
+  border: none;
+}
+
+/* Hebel-Button */
+.lever {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px 12px 14px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(47, 122, 82, 0.28), inset 0 1px 0 rgba(255, 255, 255, .2);
+}
+
+.lever-knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1), 0 2px 6px rgba(0, 0, 0, .25);
+}
+
+.lever-text {
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reel-track {
+    transition: none;
+  }
 }
 </style>

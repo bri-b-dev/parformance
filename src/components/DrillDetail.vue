@@ -15,26 +15,6 @@
 
      <DrillDetailGrid :drill="drill" />
 
-     <!-- Duration / Difficulty -->
-    <div class="row" style="margin-top:8px;">
-      <div class="chip" title="Empfohlene Dauer" v-if="drill.duration?.suggestedMin">⏱️ {{ drill.duration.suggestedMin
-        }} min</div>
-      <div class="chip" title="Timer" v-if="drill.duration?.timerPreset">▶ {{ Math.round(drill.duration.timerPreset /
-        60) }} min Timer</div>
-      <div class="chip" title="Schwierigkeit" v-if="(drill as any).difficulty?.base">★ {{ (drill as any).difficulty.base
-        }}/5</div>
-    </div>
-
-    <!-- Simple Timer (optional) -->
-    <div v-if="drill.duration?.timerPreset" style="margin-top:8px;">
-      <SimpleTimer :preset-seconds="drill.duration.timerPreset" @elapsed="onElapsed" />
-    </div>
-
-    <!-- Procedure -->
-    <div v-if="drill.tags?.length" class="chips" style="margin-top:8px;">
-      <span class="chip" v-for="t in drill.tags" :key="t">{{ t }}</span>
-    </div>
-
     <hr class="hr" />
 
     <!-- Metric -->

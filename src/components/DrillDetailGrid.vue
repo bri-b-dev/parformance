@@ -1,5 +1,6 @@
 <template>
     <fieldset class="detail-grid" aria-label="Drill Details">
+
         <div class="section">
             <h3>Was du brauchst</h3>
             <div class="row" style="margin-top:8px;">

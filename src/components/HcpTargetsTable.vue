@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="margin-top:10px;">
-    <table class="w-full text-sm" aria-label="HCP Zielwerte">
+    <table class="hcp-table" aria-label="HCP Zielwerte">
       <caption class="sr-only">Zielwerte nach Handicap-Bereich (L1–L3)</caption>
       <thead>
         <tr>

@@ -23,7 +23,7 @@ import { computed, watch, onMounted } from 'vue'
 import { useTimer } from '@/composables/useTimer'
 
 const props = defineProps<{ presetSeconds?: number; autoStart?: boolean }>()
-const emit = defineEmits<{ (e: 'elapsed', seconds: number): void }>()
+const emit = defineEmits<(e: 'elapsed', seconds: number) => void>()
 
 const { elapsed, running, start, pause, reset } = useTimer({ presetSeconds: props.presetSeconds })
 

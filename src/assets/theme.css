@@ -463,3 +463,27 @@ main {
     width: 100%;
     transition: width 1s linear;
 }
+
+/* HCP Table */
+.hcp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.hcp-table th,
+.hcp-table td {
+    border: 1px solid var(--border);
+    padding: 8px;
+    text-align: center;
+}
+
+.hcp-table th {
+    background: color-mix(in oklab, var(--bg) 70%, var(--surface));
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.hcp-active {
+    background: color-mix(in oklab, var(--accent-green) 12%, var(--surface));
+}

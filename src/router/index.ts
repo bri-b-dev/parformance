@@ -12,6 +12,9 @@ const DrillDetailView = isBrowser ? (() => import('@/views/DrillDetailView.vue')
 // Stats view placeholder
 const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
 
+const ConstructionView = isBrowser ? (() => import('@/views/ConstructionView.vue')) : Stub
+const FavoritesView = isBrowser ? (() => import('@/views/FavoritesView.vue')) : Stub
+
 export const routes = [
   { path: '/', redirect: { name: 'DrillsList' } },
   {
@@ -31,6 +34,16 @@ export const routes = [
     name: 'History',
     path: '/history',
     component: StatsView,
+  },
+  {
+    name: 'Construction',
+    path: '/construction',
+    component: ConstructionView,
+  },
+    {
+    name: 'Favorites',
+    path: '/favorites',
+    component: FavoritesView,
   },
   {
     name: 'ShuffleOverlay',

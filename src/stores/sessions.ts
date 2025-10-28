@@ -52,9 +52,9 @@ export const useSessionsStore = defineStore('sessions', {
           .map(s => ({ drillId: s.drillId, metrics: { [metricKey]: s.result?.value } }))
 
         // Decide whether greater values are better based on drill metric type (fallback: greater is better)
-        const greaterIsBetter = drill?.metric?.type === 'score_vs_par' ? false : true
+        const greaterIsBetter = drill?.metric?.type !== 'score_vs_par'
 
-        if (isPersonalBest(newMapped as any, prevMapped as any, metricKey, { greaterIsBetter })) {
+        if (isPersonalBest(newMapped as any, prevMapped , metricKey, { greaterIsBetter })) {
           if (typeof globalThis !== 'undefined' && typeof globalThis.dispatchEvent === 'function') {
             let evt: any
             const message = 'PB!'
@@ -64,7 +64,7 @@ export const useSessionsStore = defineStore('sessions', {
             } catch {
               evt = { type: 'toast', detail: { type: 'success', message } }
             }
-            globalThis.dispatchEvent(evt as any)
+            globalThis.dispatchEvent(evt)
           }
         }
       } catch (e) {

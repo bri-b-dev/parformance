@@ -1,6 +1,5 @@
 <template>
   <div class="field">
-    <label class="label" :for="inputId">{{ label }}</label>
     <div class="row" style="align-items:center;">
       <input
         :id="inputId"
@@ -32,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, toRef } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { Drill } from '@/types'
 import { validateDrillResult } from '@/metrics/validation'
 
@@ -58,7 +57,6 @@ const innerValue = ref<number | null>(props.modelValue ?? null)
 watch(() => props.modelValue, (v) => { innerValue.value = v ?? null })
 
 const unit = computed(() => props.drill.metric.unit)
-const label = computed(() => props.label ?? unit.value)
 
 // Effective min: use provided prop, otherwise default to 1 (validates numeric value > 0)
 const effectiveMin = computed<number | undefined>(() => {
@@ -75,12 +73,6 @@ const error = computed(() => {
   // Then enforce generic min/max if provided
   const v = innerValue.value
   if (v == null) return null
-  if (typeof effectiveMin.value === 'number' && v < effectiveMin.value) {
-    return `${label.value} muss ≥ ${effectiveMin.value} sein`
-  }
-  if (typeof max.value === 'number' && v > max.value) {
-    return `${label.value} muss ≤ ${max.value} sein`
-  }
   return null
 })
 

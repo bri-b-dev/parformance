@@ -63,6 +63,7 @@ body,
 #app {
     height: 100%;
 }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 body {
     margin: 0;

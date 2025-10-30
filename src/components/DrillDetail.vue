@@ -29,7 +29,7 @@
       </div>
 
       <!-- Metric input tied to this drill; disabled until session active -->
-      <MetricValueInput :drill="drill" v-model="value" :disabled="!active" :label="drill.metric.unit" />
+      <MetricValueInput v-if="drill.metric.unit" :drill="drill" v-model="value" :disabled="!active" :label="drill.metric.unit" />
 
       <!-- Optional increment button for count_in_time to track attempts during the session -->
       <div v-if="active && drill.metric.type === 'count_in_time'" class="row" style="align-items:center;">

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Play Unusual Shots – Schläger vor dem Abschlag festlegen">
+  <style>
+    .panel { fill: var(--surface); }
+    .ground { fill: color-mix(in oklab, var(--cat-platz) 10%, var(--surface)); }
+    .path { stroke: var(--primary); stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    .alt { stroke: var(--accent-sky); stroke-dasharray: 6 4; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <rect width="720" height="420" rx="16" ry="16" class="panel"/>
+  <rect x="100" y="60" width="520" height="300" class="ground"/>
+
+  <!-- Normale Linie -->
+  <path d="M180,340 Q340,200 540,120" class="path"/>
+  <circle cx="180" cy="340" r="8" fill="var(--primary)"/>
+  <circle cx="540" cy="120" r="6" fill="var(--primary)"/>
+  <text x="540" y="110" class="muted">Standard</text>
+
+  <!-- Ungewöhnliche Linien -->
+  <path d="M180,340 Q280,260 520,160" class="alt"/>
+  <path d="M180,340 Q400,180 520,100" class="alt"/>
+  <text x="260" y="300" class="muted">Eisen 7</text>
+  <text x="460" y="180" class="muted">Hybrid</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

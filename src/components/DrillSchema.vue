@@ -14,7 +14,7 @@ const svg = ref("");
 
 const src = computed(() =>
   props.diagram?.startsWith("svg:")
-    ? `/drills/${props.diagram.split(":")[1]}.svg` // <- kein /public hier!
+    ? `/${props.diagram.split(":")[1]}.svg` // <- kein /public hier!
     : null
 );
 

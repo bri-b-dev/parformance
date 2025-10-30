@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Break Putts – 5 Tees pro Seite, Break links und rechts, 1 bis 3 m Entfernung">
+  <style>
+    .panel { fill: var(--surface); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: 0.35; }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag  { fill: var(--primary); }
+    .tee   { fill: var(--surface); stroke: var(--accent-iron); }
+    .line  { stroke: var(--accent-iron); stroke-dasharray: 4 6; opacity: 0.6; }
+    .curve { stroke: var(--primary); fill: none; stroke-width: 2.5; }
+    .label { fill: var(--primary); font: 500 13px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrundplatte -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+
+  <!-- Loch + Fahne -->
+  <circle cx="360" cy="210" r="12" class="hole" stroke-width="2"/>
+  <circle cx="360" cy="210" r="4" fill="var(--bg)"/>
+  <rect x="358" y="150" width="3" height="58" fill="var(--accent-iron)"/>
+  <path d="M361,150 l36,12 l-36,12 z" class="flag"/>
+
+  <!-- Tees rechts (1–3 m) -->
+  <g class="tee" stroke-width="2">
+    <circle cx="420" cy="210" r="6"/>
+    <circle cx="450" cy="210" r="6"/>
+    <circle cx="480" cy="210" r="6"/>
+    <circle cx="510" cy="210" r="6"/>
+    <circle cx="540" cy="210" r="6"/>
+  </g>
+  <!-- Tees links (1–3 m) -->
+  <g class="tee" stroke-width="2">
+    <circle cx="300" cy="210" r="6"/>
+    <circle cx="270" cy="210" r="6"/>
+    <circle cx="240" cy="210" r="6"/>
+    <circle cx="210" cy="210" r="6"/>
+    <circle cx="180" cy="210" r="6"/>
+  </g>
+
+  <!-- Beispielhafte Break-Kurven -->
+  <path d="M180 200 Q270 190 360 210" class="curve"/>
+  <path d="M540 220 Q450 230 360 210" class="curve"/>
+
+  <!-- Labels -->
+  <text x="540" y="190" class="label">1–3 m rechts</text>
+  <text x="120" y="190" class="label">1–3 m links</text>
+
+</svg>

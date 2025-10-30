@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Comfort Zone – Kreis 90 cm und Puttbälle bei 4, 6, 8, 10, 12 m">
+  <style>
+    .panel { fill: var(--surface); }
+    .ring  { stroke: color-mix(in oklab, var(--accent-iron) 70%, #fff); }
+    .guide { stroke: var(--border); }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .dot   { fill: var(--surface); stroke: var(--accent-iron); }
+    .ball  { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag  { fill: var(--primary); }
+    .line  { stroke: var(--accent-iron); }
+    .arrow { stroke: var(--primary); }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrundplatte -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+
+  <!-- Green Orientierung -->
+  <circle cx="180" cy="210" r="150" class="guide" fill="none" stroke-dasharray="6 10" stroke-width="2" opacity="0.35"/>
+
+  <!-- Comfort-Zone (90 cm Kreis um das Loch, abstrahiert) -->
+  <circle cx="180" cy="210" r="38" class="ring" fill="none" stroke-width="2" stroke-dasharray="8 8"/>
+
+  <!-- Loch + Fahne -->
+  <circle cx="180" cy="210" r="12" class="hole" stroke-width="2"/>
+  <circle cx="180" cy="210" r="4" fill="var(--bg)"/>
+  <rect x="176" y="150" width="3" height="58" class="line"/>
+  <path d="M179,150 l36,12 l-36,12 z" class="flag"/>
+
+  <!-- Acht Tees auf dem 90cm-Kreis -->
+  <g class="dot" stroke-width="2">
+    <circle cx="180" cy="172" r="7"/>
+    <circle cx="207" cy="181" r="7"/>
+    <circle cx="218" cy="210" r="7"/>
+    <circle cx="207" cy="239" r="7"/>
+    <circle cx="180" cy="248" r="7"/>
+    <circle cx="153" cy="239" r="7"/>
+    <circle cx="142" cy="210" r="7"/>
+    <circle cx="153" cy="181" r="7"/>
+  </g>
+
+  <!-- Putt-Linie nach rechts mit 4/6/8/10/12 m -->
+  <line x1="180" y1="210" x2="640" y2="210" class="line" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
+
+  <!-- Laufrichtungspfeil (aufsteigend) -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="var(--primary)"/>
+    </marker>
+  </defs>
+  <path d="M 220 260 L 620 260" fill="none" class="arrow" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- Bälle und Distanzlabels -->
+  <!-- Abstände relativ (Skala für Illustration) -->
+  <g class="ball" stroke-width="2">
+    <!-- 4 m -->
+    <circle cx="260" cy="210" r="10"/>
+    <text x="252" y="190" class="label">4 m</text>
+    <!-- 6 m -->
+    <circle cx="320" cy="210" r="10"/>
+    <text x="312" y="190" class="label">6 m</text>
+    <!-- 8 m -->
+    <circle cx="380" cy="210" r="10"/>
+    <text x="372" y="190" class="label">8 m</text>
+    <!-- 10 m -->
+    <circle cx="440" cy="210" r="10"/>
+    <text x="429" y="190" class="label">10 m</text>
+    <!-- 12 m -->
+    <circle cx="520" cy="210" r="10"/>
+    <text x="509" y="190" class="label">12 m</text>
+  </g>
+
+</svg>

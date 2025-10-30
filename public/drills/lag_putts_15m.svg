@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Lag Putts – 15 Meter Entfernung, Ziel Loch mit wenig Break">
+  <style>
+    .panel { fill: var(--surface); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: 0.35; }
+    .ring  { stroke: color-mix(in oklab, var(--accent-iron) 70%, #fff); }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag  { fill: var(--primary); }
+    .ball  { fill: var(--surface); stroke: var(--accent-iron); }
+    .line  { stroke: var(--accent-iron); }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrundplatte -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+
+  <!-- Orientierungskreis -->
+  <circle cx="160" cy="210" r="120" class="guide" fill="none"/>
+
+  <!-- Loch + Fahne -->
+  <circle cx="160" cy="210" r="12" class="hole" stroke-width="2"/>
+  <circle cx="160" cy="210" r="4" fill="var(--bg)"/>
+  <rect x="156" y="150" width="3" height="58" class="line"/>
+  <path d="M159,150 l36,12 l-36,12 z" class="flag"/>
+
+  <!-- Zielbereich (orientierend, gestrichelter Kreis um das Loch für Lag-Zone) -->
+  <circle cx="160" cy="210" r="40" class="ring" fill="none" stroke-width="2" stroke-dasharray="8 8"/>
+
+  <!-- Puttlinie -->
+  <line x1="160" y1="210" x2="640" y2="210" class="line" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
+
+  <!-- Ballposition 15 m entfernt -->
+  <circle cx="640" cy="210" r="10" class="ball" stroke-width="2"/>
+  <text x="618" y="190" class="label">15 m</text>
+
+  <!-- Zwei weitere alternative Ballpositionen (links/rechts, optional) -->
+  <circle cx="600" cy="180" r="10" class="ball" stroke-width="2" opacity="0.6"/>
+  <circle cx="600" cy="240" r="10" class="ball" stroke-width="2" opacity="0.6"/>
+
+  <!-- Richtungspfeil -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="var(--primary)"/>
+    </marker>
+  </defs>
+  <path d="M 600 210 L 180 210" fill="none" stroke="var(--primary)" stroke-width="3" marker-end="url(#arrow)" />
+
+</svg>

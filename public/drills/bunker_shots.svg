@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Bunkerschläge – 7 m, 13 m und 20 m aus dem Bunker auf Zielgrün">
+  <style>
+    .panel { fill: var(--surface); }
+    .fairway { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
+    .bunker { fill: color-mix(in oklab, var(--accent-beige) 50%, var(--surface)); stroke: var(--accent-iron); opacity: 0.6; }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag  { fill: var(--primary); }
+    .ring  { stroke: color-mix(in oklab, var(--accent-iron) 70%, #fff); stroke-dasharray: 6 8; fill: none; }
+    .arc   { stroke: var(--primary); fill: none; stroke-width: 2; opacity: 0.8; }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+  <rect x="0" y="0" width="720" height="420" class="fairway"/>
+
+  <!-- Bunker -->
+  <ellipse cx="180" cy="300" rx="120" ry="40" class="bunker"/>
+
+  <!-- Loch + Fahne -->
+  <circle cx="600" cy="210" r="12" class="hole" stroke-width="2"/>
+  <circle cx="600" cy="210" r="4" fill="var(--bg)"/>
+  <rect x="598" y="150" width="3" height="58" fill="var(--accent-iron)"/>
+  <path d="M601,150 l36,12 l-36,12 z" class="flag"/>
+
+  <!-- Zielkreise -->
+  <circle cx="600" cy="210" r="30" class="ring" stroke-width="2"/>
+  <circle cx="600" cy="210" r="60" class="ring" stroke-width="2"/>
+  <circle cx="600" cy="210" r="100" class="ring" stroke-width="2"/>
+
+  <!-- Flugbahnen -->
+  <path d="M180 300 C300 260, 420 220, 600 210" class="arc"/>
+  <path d="M180 300 C250 240, 400 200, 600 210" class="arc" opacity="0.7"/>
+  <path d="M180 300 C200 220, 380 180, 600 210" class="arc" opacity="0.5"/>
+
+  <!-- Distanzen -->
+  <text x="200" y="285" class="label">7 m</text>
+  <text x="230" y="270" class="label">13 m</text>
+  <text x="260" y="255" class="label">20 m</text>
+</svg>

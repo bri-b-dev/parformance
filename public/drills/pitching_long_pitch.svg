@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Langer Pitch – 45 m und 60 m Entfernungen, Zielkreise auf dem Grün">
+  <style>
+    .panel { fill: var(--surface); }
+    .fairway { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag  { fill: var(--primary); }
+    .ring  { stroke: color-mix(in oklab, var(--accent-iron) 70%, #fff); stroke-dasharray: 6 8; fill: none; }
+    .line  { stroke: var(--accent-iron); stroke-dasharray: 4 6; opacity: 0.6; }
+    .arc   { stroke: var(--primary); fill: none; stroke-width: 2; opacity: 0.8; }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+  <rect x="0" y="0" width="720" height="420" class="fairway"/>
+
+  <!-- Loch + Fahne -->
+  <circle cx="600" cy="210" r="12" class="hole" stroke-width="2"/>
+  <circle cx="600" cy="210" r="4" fill="var(--bg)"/>
+  <rect x="598" y="150" width="3" height="58" fill="var(--accent-iron)"/>
+  <path d="M601,150 l36,12 l-36,12 z" class="flag"/>
+
+  <!-- Zielkreise -->
+  <circle cx="600" cy="210" r="30" class="ring" stroke-width="2"/>
+  <circle cx="600" cy="210" r="60" class="ring" stroke-width="2"/>
+  <circle cx="600" cy="210" r="100" class="ring" stroke-width="2"/>
+
+  <!-- Flugbahn 45 m -->
+  <path d="M160 300 C280 220, 400 180, 600 210" class="arc"/>
+  <!-- Flugbahn 60 m -->
+  <path d="M40 320 C220 200, 420 160, 600 210" class="arc"/>
+
+  <!-- Ballpositionen -->
+  <circle cx="160" cy="300" r="10" class="hole" stroke-width="2"/>
+  <circle cx="40" cy="320" r="10" class="hole" stroke-width="2"/>
+
+  <!-- Labels -->
+  <text x="130" y="285" class="label">45 m Pitch</text>
+  <text x="20" y="345" class="label">60 m Pitch</text>
+</svg>

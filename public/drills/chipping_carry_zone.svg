@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Carry Zone – fünf Landezonen in 1-m-Abständen, Startpunkt 2 m davor">
+  <style>
+    .panel { fill: var(--surface); }
+    .grass { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag  { fill: var(--primary); }
+    .zone  { stroke: color-mix(in oklab, var(--accent-iron) 70%, #fff); stroke-dasharray: 6 8; fill: none; }
+    .chip  { fill: var(--surface); stroke: var(--accent-iron); }
+    .line  { stroke: var(--accent-iron); stroke-dasharray: 4 6; opacity: 0.6; }
+    .arc   { stroke: var(--primary); fill: none; stroke-width: 2; opacity: 0.8; }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+  <rect x="0" y="0" width="720" height="420" class="grass"/>
+
+  <!-- Chip-Punkt -->
+  <circle cx="120" cy="320" r="10" class="chip" stroke-width="2"/>
+  <text x="100" y="350" class="label">Chip-Punkt</text>
+
+  <!-- Landezonen (5 Kreise im Abstand von 1m, beginnend bei 2m) -->
+  <circle cx="120" cy="320" r="40" class="zone" stroke-width="2"/>
+  <circle cx="120" cy="320" r="80" class="zone" stroke-width="2"/>
+  <circle cx="120" cy="320" r="120" class="zone" stroke-width="2"/>
+  <circle cx="120" cy="320" r="160" class="zone" stroke-width="2"/>
+  <circle cx="120" cy="320" r="200" class="zone" stroke-width="2"/>
+
+  <!-- Beispielhafte Flugbahn -->
+  <path d="M120 320 C240 200, 400 180, 520 210" class="arc"/>
+
+  <!-- Zielbereichsmarkierung -->
+  <circle cx="520" cy="210" r="12" class="hole" stroke-width="2"/>
+  <rect x="518" y="150" width="3" height="58" fill="var(--accent-iron)"/>
+  <path d="M521,150 l36,12 l-36,12 z" class="flag"/>
+</svg>

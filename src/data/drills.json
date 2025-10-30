@@ -149,7 +149,9 @@
     "category": "Putting",
     "equipment": {
       "balls": 5,
-      "clubs": ["Putter"],
+      "clubs": [
+        "Putter"
+      ],
       "other": [
         "10 Tees (je 5 pro Seite des Lochs)",
         "Loch mit deutlichem Break",
@@ -161,8 +163,14 @@
       "diagram": "svg:drills/break_putts",
       "location": "Grün"
     },
-    "duration": { "hardStop": 5, "timerPreset": 300 },
-    "difficulty": { "base": 3, "scale": "1-5" },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
     "instructions": {
       "training": "Beginne mit dem kürzesten Putt auf einer Seite. Nachdem du gelocht hast, spielst du den kürzesten Putt auf der anderen Seite und wechselst nach jedem gelochten Putt die Seite. Du setzt dies fort, solange du alle Bälle lochst. Verpasst du einen Putt, beginnst du von vorne.",
       "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
@@ -172,9 +180,21 @@
       "type": "streak",
       "unit": "längste Serie (abwechselnd gelochte Putts von links und rechts)",
       "hcpTargets": {
-        "newbie_jam": [1, 3, 5],
-        "player_jam": [6, 7, 8],
-        "pro_jam": [9, 10, 11]
+        "newbie_jam": [
+          1,
+          3,
+          5
+        ],
+        "player_jam": [
+          6,
+          7,
+          8
+        ],
+        "pro_jam": [
+          9,
+          10,
+          11
+        ]
       }
     },
     "tags": [
@@ -678,111 +698,198 @@
     ]
   },
   {
-    "id": "chip_9m",
-    "title": "9‑Meter Chip",
+    "id": "chipping_9m_chip",
+    "title": "9-Meter Chip",
     "category": "Chipping",
     "equipment": {
       "balls": 6,
       "clubs": [
-        "Wedge"
+        "Wedge",
+        "Chip-Schläger deiner Wahl"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (9 m Distanz)",
+        "zwei Übungsbereiche (Fairway und Rough)"
       ]
     },
     "setup": {
-      "schema": "Zielkreis je nach Level (3/2/1 Putterlängen) in 9 m",
-      "location": "Chipping Green"
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill-Levels ab: Newbie – 3 Putterlängen, Player – 2 Putterlängen, Pro – 1 Putterlänge. Suche dir sowohl eine Stelle vom Fairway als auch aus dem Rough (höheres Gras), jeweils ca. 9 Meter vom Loch entfernt.",
+      "diagram": "svg:drills/chipping_9m_chip",
+      "location": "Kurzspielbereich (Fairway und Rough)"
     },
     "duration": {
-      "suggestedMin": 5,
+      "hardStop": 5,
       "timerPreset": 300
     },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Treffer im Zielbereich in Serie; Miss = Serie 0. Beide Lagen (Fairway/Rough) trainieren.",
-      "test": "Längste Serie in 5 Minuten.",
-      "tooEasy": "Schläger nach Erfolg wechseln."
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich zum Liegen kommt. Misslingt ein Versuch, startest du wieder bei null. Trainiere beide Balllagen (Fairway und Rough).",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für die Fairway- und die Rough-Lage. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann ändere nach jedem erfolgreichen Chip den Schläger!"
     },
     "metric": {
       "type": "streak",
-      "unit": "Treffer in Folge",
-      "hcpTargets": {}
+      "unit": "längste Serie (Treffer im Zielkreis)",
+      "hcpTargets": {
+        "newbie_jam": [
+          1,
+          2,
+          3
+        ],
+        "player_jam": [
+          4,
+          5,
+          6
+        ],
+        "pro_jam": [
+          4,
+          6,
+          8
+        ]
+      }
     },
     "tags": [
-      "Kontakt"
+      "Chip",
+      "Fairway",
+      "Rough",
+      "Zielkontrolle",
+      "Distanzgefühl",
+      "Kurzspiel",
+      "Streak",
+      "Chipping"
+    ],
+    "zockerTip": "Achte auf deine Landepunkte – nicht auf das Loch. So trainierst du Gefühl für Tempo und Abrollverhalten aus verschiedenen Lagen.",
+    "variants": [
+      "Wechsle nach jedem Treffer den Schläger.",
+      "Erhöhe die Distanz auf 12 oder 15 Meter.",
+      "Lege die Zielkreise an leicht unterschiedliches Gefälle (bergauf / bergab)."
     ]
   },
   {
-    "id": "chip_18m",
-    "title": "18‑Meter Chip",
+    "id": "chipping_18m_chip",
+    "title": "18-Meter Chip",
     "category": "Chipping",
     "equipment": {
       "balls": 6,
       "clubs": [
-        "Wedge"
+        "Wedge",
+        "Chip-Schläger deiner Wahl"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (18 m Distanz)",
+        "zwei Übungsbereiche (Fairway und Rough)"
       ]
     },
     "setup": {
-      "schema": "Zielkreis je nach Level (3/2/1 Putterlängen) in 18 m",
-      "location": "Chipping Green"
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill-Levels ab: Newbie – 3 Putterlängen, Player – 2 Putterlängen, Pro – 1 Putterlänge. Suche dir sowohl eine Stelle vom Fairway als auch aus dem Rough (höheres Gras), jeweils ca. 18 Meter vom Loch entfernt.",
+      "diagram": "svg:drills/chipping_18m_chip",
+      "location": "Kurzspielbereich (Fairway und Rough)"
     },
     "duration": {
-      "suggestedMin": 5,
+      "hardStop": 5,
       "timerPreset": 300
     },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Treffer im Zielbereich in Serie; Miss = Serie 0. Beide Lagen (Fairway/Rough) trainieren.",
-      "test": "Längste Serie in 5 Minuten.",
-      "tooEasy": "Schläger nach Erfolg wechseln."
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich zum Liegen kommt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere beide Balllagen (Fairway und Rough).",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für die Fairway- und die Rough-Lage. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann ändere nach jedem erfolgreichen Chip den Schläger!"
     },
     "metric": {
       "type": "streak",
-      "unit": "Treffer in Folge",
-      "hcpTargets": {}
+      "unit": "längste Serie (Treffer im Zielkreis)",
+      "hcpTargets": {
+        "newbie_jam": [
+          1,
+          2,
+          3
+        ],
+        "player_jam": [
+          4,
+          5,
+          6
+        ],
+        "pro_jam": [
+          4,
+          6,
+          8
+        ]
+      }
     },
     "tags": [
-      "Kontakt",
-      "Distance"
+      "Chip",
+      "Fairway",
+      "Rough",
+      "Zielkontrolle",
+      "Distanzgefühl",
+      "Kurzspiel",
+      "Streak",
+      "Chipping"
+    ],
+    "zockerTip": "Achte darauf, wie der Ball nach der Landung reagiert – so lernst du, Spin und Abrollverhalten auf verschiedenen Untergründen besser einzuschätzen.",
+    "variants": [
+      "Wechsle nach jedem Treffer den Schläger.",
+      "Erhöhe die Distanz auf 20 oder 25 Meter.",
+      "Lege die Zielkreise an leicht unterschiedliches Gefälle (bergauf / bergab)."
     ]
   },
   {
-    "id": "chip_carry_zone",
+    "id": "chipping_carry_zone",
     "title": "Carry Zone",
     "category": "Chipping",
     "equipment": {
       "balls": 6,
       "clubs": [
-        "Wedge"
+        "Wedge",
+        "Chip-Schläger deiner Wahl"
       ],
       "other": [
-        "6 Marker"
+        "6 Schläger oder Markierungen für Landezonen",
+        "Maßband (Abstände 1 m zwischen Zonen, 2 m bis zur ersten Zone)",
+        "ebenes Grün oder Übungsfläche"
       ]
     },
     "setup": {
-      "schema": "6 Landebänder im 1‑m‑Abstand, Start 2 m",
-      "location": "Chipping Green"
+      "schema": "Lege sechs Schläger auf das Grün, sodass fünf Landezonen mit jeweils einem Meter Abstand entstehen. Der Abstand zwischen dem Chip-Punkt und dem ersten Schläger beträgt 2 Meter.",
+      "diagram": "svg:drills/chipping_carry_zone",
+      "location": "Kurzspielbereich (Grün oder Vorgrün)"
     },
     "duration": {
-      "suggestedMin": 5,
+      "hardStop": 5,
       "timerPreset": 300
     },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Abwechselnd kurz→lang die Carry‑Zonen treffen; längste fehlerfreie Serie zählt.",
-      "test": "Längste Serie in 5 Min.",
-      "tooEasy": "Schlägerwechsel oder enger."
+      "training": "Ziel ist es, abwechselnd die jeweiligen Carry Zonen von kurz nach lang im Flug zu treffen. Wo der Ball letztendlich liegen bleibt, spielt keine Rolle. Die Wahl des Schlägers ist frei. Deine längste Serie zählt.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann wechsle nach jedem Schlag den Schläger, mache die Carry Zone kleiner oder vergrößere den Abstand zum ersten Schläger."
     },
     "metric": {
       "type": "streak",
-      "unit": "Zonen in Serie",
+      "unit": "längste Serie (Treffer in Carry-Zonen von kurz nach lang)",
       "hcpTargets": {
-        "54-27": [
+        "newbie_jam": [
           2,
           3,
           4
         ],
-        "26-12": [
+        "player_jam": [
           5,
           7,
           9
         ],
-        "11-0": [
+        "pro_jam": [
           11,
           13,
           15
@@ -790,104 +897,234 @@
       }
     },
     "tags": [
-      "Längenkontrolle"
+      "Carry Zone",
+      "Chip",
+      "Landepunkte",
+      "Ballflug",
+      "Distanzgefühl",
+      "Kurzspiel",
+      "Streak",
+      "Chipping"
+    ],
+    "zockerTip": "Fokussiere dich auf die Flugphase, nicht auf das Rollen. So schulst du dein Auge für Landepunkte und Schlägerwahl.",
+    "variants": [
+      "Verändere die Größe der Carry Zonen (kleiner oder größer).",
+      "Starte rückwärts (lange Zone zuerst).",
+      "Wechsle nach jedem erfolgreichen Schlag den Schläger."
     ]
   },
   {
-    "id": "pitch_short",
+    "id": "pitching_short_pitch",
     "title": "Kurzer Pitch",
     "category": "Pitching",
     "equipment": {
       "balls": 6,
       "clubs": [
-        "Wedge"
+        "Wedge deiner Wahl (z. B. 52°, 56°, 58°)"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (13,5 m und 27 m Distanz)",
+        "optional: Bunker oder Rough als Hindernis"
       ]
     },
     "setup": {
-      "schema": "Zielkreis je Level (Grün/6 m/3 m Radius), Distanz 13.5 m und 27 m",
-      "location": "Pitching Green"
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill Levels ab: Newbie – gesamtes Grün (ca. 10 Meter Radius), Player – 6 Meter Radius, Pro – 3 Meter Radius. Suche dir eine Stelle aus 13,5 Metern mit maximal 2 Metern Platz zwischen Grüngrenze und Loch und eine zweite Stelle aus 27 Metern über ein Hindernis (Bunker, Rough).",
+      "diagram": "svg:drills/pitching_short_pitch",
+      "location": "Pitch-Area oder Übungsgrün (mit optionalem Hindernis)"
     },
     "duration": {
-      "suggestedMin": 5,
+      "hardStop": 5,
       "timerPreset": 300
     },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Beide Distanzen im Wechsel; Ziel: im Zielbereich liegen bleiben.",
-      "test": "Längste Serie in 5 Min.",
-      "tooEasy": "Hanglagen/Rough variieren."
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere beide Situationen abwechselnd.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für beide Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Rough."
     },
     "metric": {
       "type": "streak",
-      "unit": "Treffer in Folge",
-      "hcpTargets": {}
+      "unit": "längste Serie (Treffer im Zielbereich bei 13,5 m und 27 m)",
+      "hcpTargets": {
+        "newbie_jam": [
+          1,
+          2,
+          3
+        ],
+        "player_jam": [
+          2,
+          4,
+          6
+        ],
+        "pro_jam": [
+          2,
+          4,
+          6
+        ]
+      }
     },
     "tags": [
-      "Längenkontrolle"
+      "Pitch",
+      "Kurzspiel",
+      "Zielbereich",
+      "Carry",
+      "Landepunkte",
+      "Distanzkontrolle",
+      "Streak",
+      "Pitching"
+    ],
+    "zockerTip": "Wechsle zwischen kurzen und längeren Pitches, um dein Gefühl für Schlaglänge und Spin zu verbessern.",
+    "variants": [
+      "Baue den Drill mit zusätzlichem Hindernis auf (z. B. Bunker, Baumkante).",
+      "Spiele auf unterschiedliche Zielkreise (z. B. 5 m, 7 m Radius).",
+      "Verwende verschiedene Wedges, um Spin- und Flugverhalten zu vergleichen."
     ]
   },
   {
-    "id": "pitch_long",
+    "id": "pitching_long_pitch",
     "title": "Langer Pitch",
     "category": "Pitching",
     "equipment": {
       "balls": 6,
       "clubs": [
-        "Wedge"
+        "Wedge deiner Wahl (z. B. 48°, 50°, 52°)"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (45 m und 60 m Distanz)",
+        "Übungsbereich oder Fairway mit freiem Anspiel auf Grün"
       ]
     },
     "setup": {
-      "schema": "45 m und 60 m, Zielkreis je Level",
-      "location": "Pitching Green"
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill Levels ab: Newbie – gesamtes Grün (ca. 10 Meter Radius), Player – 6 Meter Radius, Pro – 3 Meter Radius. Suche dir jeweils eine Stelle auf dem Fairway aus 45 und 60 Metern.",
+      "diagram": "svg:drills/pitching_long_pitch",
+      "location": "Pitch-Area oder Fairway mit Zielgrün"
     },
     "duration": {
-      "suggestedMin": 5,
+      "hardStop": 5,
       "timerPreset": 300
     },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Beide Distanzen im Wechsel; Serie.",
-      "test": "Längste Serie in 5 Min.",
-      "tooEasy": "Hanglagen/Rough variieren."
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere beide Situationen abwechselnd.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für beide Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Rough."
     },
     "metric": {
       "type": "streak",
-      "unit": "Treffer in Folge",
-      "hcpTargets": {}
+      "unit": "längste Serie (Treffer im Zielbereich bei 45 m und 60 m)",
+      "hcpTargets": {
+        "newbie_jam": [
+          1,
+          2,
+          3
+        ],
+        "player_jam": [
+          1,
+          2,
+          3
+        ],
+        "pro_jam": [
+          2,
+          3,
+          4
+        ]
+      }
     },
     "tags": [
-      "Contact",
-      "Distance"
+      "Pitch",
+      "Langer Pitch",
+      "Fairway",
+      "Distanzkontrolle",
+      "Zielbereich",
+      "Carry",
+      "Streak",
+      "Pitching"
+    ],
+    "zockerTip": "Fokussiere dich auf deinen Rhythmus, nicht auf die Schlaghärte – gleichmäßiger Kontakt sorgt für reproduzierbare Distanzen.",
+    "variants": [
+      "Baue den Drill mit Hanglage auf (bergauf / bergab).",
+      "Spiele beide Distanzen mit unterschiedlichen Wedges.",
+      "Verändere den Zielradius oder wechsle zwischen verschiedenen Grünhöhen."
     ]
   },
   {
-    "id": "bunker_basic",
+    "id": "bunker_shots",
     "title": "Bunkerschläge",
     "category": "Bunker",
     "equipment": {
-      "balls": 10,
+      "balls": 6,
       "clubs": [
-        "Sand Wedge"
+        "Sand Wedge",
+        "Lob Wedge"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (7 m, 13 m und 20 m Distanzen)",
+        "Übungsbunker mit ebenem Sand"
       ]
     },
     "setup": {
-      "schema": "Zielkreis je Level; Distanzen 7 m, 13 m, 20 m",
-      "location": "Bunker"
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill Levels ab: Newbie – gesamtes Grün (ca. 10 Meter Radius), Player – 6 Meter Radius, Pro – 3 Meter Radius. Suche dir jeweils eine ebene Stelle aus dem Bunker aus 7, 13 und 20 Metern.",
+      "diagram": "svg:drills/bunker_shots",
+      "location": "Übungsbunker oder Grünbunker mit Zielgrün"
     },
     "duration": {
-      "suggestedMin": 5,
+      "hardStop": 5,
       "timerPreset": 300
     },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Alle Distanzen abwechselnd; Treffer im Zielbereich zählen; Miss = 0.",
-      "test": "Längste Serie in 5 Min.",
-      "tooEasy": "Schwierige Lagen (eingebohrt, nass, hart)."
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere alle Situationen abwechselnd.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für alle Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Bunker (Ball eingebohren, wenig Sand, harter Sand)."
     },
     "metric": {
       "type": "streak",
-      "unit": "Treffer in Folge",
-      "hcpTargets": {}
+      "unit": "längste Serie (Treffer im Zielbereich aus 7, 13 und 20 m)",
+      "hcpTargets": {
+        "newbie_jam": [
+          1,
+          2,
+          3
+        ],
+        "player_jam": [
+          1,
+          2,
+          3
+        ],
+        "pro_jam": [
+          2,
+          3,
+          4
+        ]
+      }
     },
     "tags": [
-      "Bunker"
+      "Bunker",
+      "Sand Wedge",
+      "Kurzspiel",
+      "Zielkontrolle",
+      "Distanzgefühl",
+      "Hanglage",
+      "Streak",
+      "Pitching"
+    ],
+    "zockerTip": "Achte darauf, den Ball mit konstantem Eintreffwinkel zu schlagen – der Sand ist dein Freund, wenn du ihn triffst, nicht den Ball.",
+    "variants": [
+      "Baue die Distanzen auf 10, 15 und 25 m aus.",
+      "Spiele aus unterschiedlichen Bunkertiefen.",
+      "Trainiere wechselnde Sandsorten (trocken, feucht, kompakt)."
     ]
   },
   {

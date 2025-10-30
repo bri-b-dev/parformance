@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="18-Meter Chip – Fairway und Rough, Zielkreis in 18 m Entfernung">
+  <style>
+    .panel { fill: var(--surface); }
+    .fairway { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
+    .rough { fill: color-mix(in oklab, var(--accent-beige) 25%, var(--surface)); }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag  { fill: var(--primary); }
+    .tee   { fill: var(--surface); stroke: var(--accent-iron); }
+    .ring  { stroke: color-mix(in oklab, var(--accent-iron) 70%, #fff); stroke-dasharray: 6 8; }
+    .line  { stroke: var(--accent-iron); stroke-dasharray: 4 6; opacity: 0.6; }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+
+  <!-- Fairway / Rough -->
+  <rect x="0" y="0" width="360" height="420" class="fairway"/>
+  <rect x="360" y="0" width="360" height="420" class="rough"/>
+
+  <!-- Loch + Fahne -->
+  <circle cx="600" cy="210" r="12" class="hole" stroke-width="2"/>
+  <circle cx="600" cy="210" r="4" fill="var(--bg)"/>
+  <rect x="598" y="150" width="3" height="58" fill="var(--accent-iron)"/>
+  <path d="M601,150 l36,12 l-36,12 z" class="flag"/>
+
+  <!-- Zielkreis -->
+  <circle cx="600" cy="210" r="40" class="ring" fill="none" stroke-width="2"/>
+
+  <!-- Chip-Linien -->
+  <line x1="60" y1="210" x2="600" y2="210" class="line" stroke-width="2"/>
+  <line x1="300" y1="210" x2="600" y2="210" class="line" stroke-width="2"/>
+
+  <!-- Ball-Positionen -->
+  <circle cx="60" cy="210" r="10" class="tee" stroke-width="2"/>
+  <circle cx="300" cy="210" r="10" class="tee" stroke-width="2"/>
+
+  <!-- Labels -->
+  <text x="58" y="190" class="label">Fairway 18 m</text>
+  <text x="282" y="190" class="label">Rough 18 m</text>
+</svg>

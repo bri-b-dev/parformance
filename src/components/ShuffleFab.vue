@@ -27,9 +27,7 @@
                     stroke-linejoin="round" />
                 <circle cx="20.6" cy="7.8" r="1.2" fill="currentColor" />
             </svg>
-
         </span>
-
     </button>
 </template>
 

@@ -93,7 +93,6 @@
 </template>
 
 <script setup lang="ts">
-/* == LOGIK UNVERÄNDERT (nur minimale Style-Hooks) == */
 import { computed, onMounted, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUiStore } from '@/stores/ui'
@@ -129,13 +128,6 @@ const hasAnyFavorites = computed(() => (favorites.list?.length ?? 0) > 0)
 const biasFavorites = ref<boolean>(false)
 const isFavorite = (id: string) => favorites.list?.includes?.(id) ?? false
 
-// type Environment = string'Putting Green' | 'Chipping Green' | 'Pitching Green' | 'Driving Range' | 'Bunker' | 'Platz'
-// type Focus =
-//   | 'Längenkontrolle' | 'Breaklesen' | 'Druck' | 'Zielspiel'
-//   | 'Ballstriking' | 'Speed/Pace' | 'Balance/Finish' | 'Strategie'
-//   | 'Shaping' | 'Routine/Konstanz' | 'Up & Down' | 'Stats/Analyse'
-// type TimeBucket = '5–7 min' | '8–10 min' | '11–15 min' | '16–25 min' | '25+ min'
-
 interface DerivedDrill {
   id: string
   title: string
@@ -159,7 +151,6 @@ const derived = computed<DerivedDrill[]>(() => {
   })
 })
 
-//const envItems = computed<string[]>(() => Array.from(new Set(derived.value.map(d => d.environment))))
 const envItems = computed<string[]>(() => {
   const s = new Set<string>()
   for (const d of catalog.drills) {

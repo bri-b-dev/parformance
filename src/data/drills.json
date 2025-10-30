@@ -14,7 +14,7 @@
       ]
     },
     "setup": {
-      "schema": "8 Tees im 90‑cm-Radius kreisförmig um ein Loch",
+      "schema": "Stecke acht Tees im Abstand von 90 cm (eine Putterlänge) im Kreis um ein Loch. Wähle eine ebene Stelle auf dem Grün.",
       "location": "Putting Green"
     },
     "duration": {
@@ -22,14 +22,14 @@
       "timerPreset": 300
     },
     "instructions": {
-      "training": "Putts in Serie lochen, nach jedem Loch zum nächsten Tee.",
-      "test": "Höchstserie in 5 Minuten.",
-      "tooEasy": "Abstände vergrößern um 10 cm."
+      "training": "Versuche, so viele Putts wie möglich hintereinander zu lochen. Nach jedem gelochten Ball bewegst du dich im Uhrzeigersinn zum nächsten Tee. Verpasst du einen Putt, fängst du wieder bei null an.",
+      "test": "Bestimme innerhalb von fünf Minuten deine Höchstserie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die aktuelle Serie noch beenden.",
+      "tooEasy": "Dann vergrößere den Abstand der Tees zum Loch nach und nach um jeweils 10 cm."
     },
     "metric": {
       "type": "streak",
       "unit": "Putts in Serie",
-      "hcpTargets": {}
+      "hcpTargets": { "54-45": [2,4,6], "50-20": [8,10,13], "25-0": [15,17,20] }
     },
     "tags": [
       "Kurzputt",
@@ -51,7 +51,7 @@
       ]
     },
     "setup": {
-      "schema": "8 Tees im Putterlängen-Radius (90 cm) um ein Loch + Distanzmarken 4–12 m",
+      "schema": "Stecke acht Tees im Abstand von 90 cm (eine Putterlänge) im Kreis um ein Loch (Comfort Zone). Wähle eine ebene Stelle auf dem Grün. Stecke zusätzlich Tees im Abstand von 4, 6, 8, 10 und 12 Metern zum Loch und platziere jeweils einen Ball daneben.",
       "location": "Putting Green"
     },
     "duration": {
@@ -59,14 +59,14 @@
       "timerPreset": 300
     },
     "instructions": {
-      "training": "Aus 4 m beginnen, aufsteigend bis 12 m, Treffer in Comfort Zone zählen; Miss = Neustart bei 4 m.",
-      "test": "Längste Serie in 5 Minuten.",
-      "tooEasy": "Comfort Zone verkleinern oder Loch mit Break wählen."
+      "training": "Versuche, so viele Putts wie möglich in die Comfort Zone zu legen oder zu lochen. Du beginnst bei 4 Metern und spielst die Bälle in aufsteigender Reihenfolge. Hast du den 12-Meter-Putt erfolgreich absolviert, startest du wieder bei 4 Metern. Misslingt ein Putt, ist die Serie beendet und du beginnst bei 4 Metern erneut.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die aktuelle Serie noch beenden.",
+      "tooEasy": "Dann verkleinere doch die Comfort Zone oder such dir ein Loch mit Break."
     },
     "metric": {
       "type": "streak",
       "unit": "Treffer in Folge",
-      "hcpTargets": {}
+      "hcpTargets": { "54-45": [3,4,5], "50-20": [7,8,9], "25-0": [10,12,15] }
     },
     "tags": [
       "Speedcontrol",

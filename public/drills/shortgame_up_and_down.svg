@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Up & Down – fünf Chip-Positionen rund ums Grün">
+  <style>
+    .panel { fill: var(--surface); }
+    .green { fill: color-mix(in oklab, var(--cat-chipping) 12%, var(--surface)); }
+    .hole { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag { fill: var(--primary); }
+    .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); opacity: 0.9; }
+    .tee { fill: var(--accent-iron); }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Grün -->
+  <ellipse cx="360" cy="210" rx="160" ry="100" class="green"/>
+
+  <!-- Loch + Flag -->
+  <circle cx="360" cy="210" r="10" class="hole"/>
+  <rect x="359" y="160" width="2" height="50" fill="var(--accent-iron)"/>
+  <path d="M361,160 l22,8 l-22,8 z" class="flag"/>
+
+  <!-- Chip-Positionen -->
+  <circle cx="150" cy="210" r="5" class="tee"/>
+  <circle cx="570" cy="210" r="5" class="tee"/>
+  <circle cx="360" cy="80" r="5" class="tee"/>
+  <circle cx="460" cy="330" r="5" class="tee"/>
+  <circle cx="260" cy="330" r="5" class="tee"/>
+
+  <!-- Pfeile -->
+  <line x1="150" y1="210" x2="345" y2="210" class="arrow"/>
+  <line x1="570" y1="210" x2="375" y2="210" class="arrow"/>
+  <line x1="360" y1="80" x2="360" y2="200" class="arrow"/>
+  <line x1="460" y1="330" x2="370" y2="230" class="arrow"/>
+  <line x1="260" y1="330" x2="350" y2="230" class="arrow"/>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>

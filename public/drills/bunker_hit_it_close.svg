@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Hit It Close – Bunkerschläge mit Zielkreisen">
+  <style>
+    .panel { fill: var(--surface); }
+    .bunker { fill: color-mix(in oklab, var(--cat-bunker) 10%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--cat-putting) 10%, var(--surface)); }
+    .circle1, .circle2, .circle3 { fill: none; stroke-width: 2; }
+    .circle1 { stroke: var(--primary); }
+    .circle2 { stroke: color-mix(in oklab, var(--primary) 60%, var(--surface)); stroke-dasharray: 6 4; }
+    .circle3 { stroke: color-mix(in oklab, var(--primary) 30%, var(--surface)); stroke-dasharray: 4 6; }
+    .flag { fill: var(--primary); }
+    .hole { fill: var(--surface); stroke: var(--accent-iron); }
+    .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); }
+    .tee { fill: var(--accent-iron); }
+    .ball { fill: var(--primary); opacity: 0.9; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Bunker -->
+  <path d="M120,320 Q200,260 350,280 Q460,310 600,360 Q420,400 180,390 Z" class="bunker"/>
+
+  <!-- Grün -->
+  <ellipse cx="500" cy="180" rx="150" ry="90" class="green"/>
+
+  <!-- Zielkreise -->
+  <circle cx="500" cy="180" r="30" class="circle1"/>
+  <circle cx="500" cy="180" r="60" class="circle2"/>
+  <circle cx="500" cy="180" r="90" class="circle3"/>
+
+  <!-- Loch -->
+  <circle cx="500" cy="180" r="8" class="hole"/>
+  <rect x="499" y="120" width="2" height="60" fill="var(--accent-iron)"/>
+  <path d="M501,120 l18,6 l-18,6 z" class="flag"/>
+
+  <!-- Bunker-Bälle -->
+  <circle cx="220" cy="300" r="4" class="ball"/>
+  <circle cx="235" cy="310" r="4" class="ball"/>
+  <circle cx="250" cy="320" r="4" class="ball"/>
+  <circle cx="265" cy="330" r="4" class="ball"/>
+  <circle cx="280" cy="340" r="4" class="ball"/>
+
+  <!-- Pfeil -->
+  <line x1="250" y1="320" x2="480" y2="190" class="arrow"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

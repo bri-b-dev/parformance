@@ -55,7 +55,9 @@
     </div>
 
     <!-- HCP Targets -->
+     <div v-if="drill.metric.hcpTargets" style="margin-top:10px;">
     <HcpTargetsTable :drill="drill" />
+    </div>
 
     <!-- Stats summary: Best, MA(5), Trend -->
     <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />

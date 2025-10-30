@@ -20,9 +20,7 @@
             <strong style="margin:.25rem 0 0; color:var(--muted)">Aufbau</strong>
             <p class="muted">{{ drill.setup.schema }}</p>
             <strong style="margin:.25rem 0 0; color:var(--muted)">Schematische Darstellung</strong>
-            <div class="schema">
-                <canvas width="20%" height="200" aria-label="Schematische Darstellung des Drills"></canvas>
-            </div>
+            <DrillSchema :diagram="drill.setup.diagram" />
 
             <div class="hr" style="margin:10px 0;"></div>
             <div style="margin-top:10px;">
@@ -38,6 +36,7 @@
 
 <script setup lang="ts">
 import type { Drill } from '@/types'
+import DrillSchema from '@/components/DrillSchema.vue'
 
 const props = defineProps<{ drill: Drill }>()
 </script>

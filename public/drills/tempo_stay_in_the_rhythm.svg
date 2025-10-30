@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Stay in the Rhythm – Rhythmus Drill für konstante Drives">
+  <style>
+    .panel { fill: var(--surface); }
+    .golfer { fill: color-mix(in oklab, var(--cat-tempo) 20%, var(--surface)); stroke: var(--accent-iron); stroke-width: 2; }
+    .arrow { stroke: var(--primary); stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+    .phase { fill: color-mix(in oklab, var(--cat-tempo) 15%, var(--surface)); }
+  </style>
+
+  <rect width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Rückschwung (3 Teile) -->
+  <path d="M150,320 C250,220 320,150 360,140" class="arrow"/>
+  <path d="M150,320 C240,250 280,190 320,160" class="arrow" style="stroke-dasharray:4 4; opacity:0.6"/>
+  <path d="M150,320 C230,260 260,210 300,180" class="arrow" style="stroke-dasharray:2 4; opacity:0.4"/>
+
+  <!-- Abschwung (1 Teil) -->
+  <path d="M360,140 C440,200 500,300 570,320" class="arrow"/>
+
+  <!-- Golfer -->
+  <circle cx="150" cy="320" r="10" class="golfer"/>
+  <circle cx="570" cy="320" r="8" fill="var(--primary)" />
+
+  <text x="150" y="340" class="muted">Setup</text>
+  <text x="360" y="125" class="muted">Top of Backswing</text>
+  <text x="570" y="340" text-anchor="end" class="muted">Impact & Finish</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

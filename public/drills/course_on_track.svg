@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="On Track – Course Management Drill für präzises Spiel auf dem Platz">
+  <style>
+    .panel { fill: var(--surface); }
+    .fairway { fill: color-mix(in oklab, var(--cat-course) 10%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--cat-green) 25%, var(--surface)); }
+    .arrow { stroke: var(--primary); stroke-width: 2; fill: none; marker-end: url(#arrow); opacity: 0.9; }
+    .ball { fill: var(--primary); }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Fairway -->
+  <polygon points="160,380 560,380 560,160 160,160" class="fairway"/>
+
+  <!-- Green -->
+  <ellipse cx="360" cy="120" rx="80" ry="40" class="green"/>
+
+  <!-- Flugbahnen -->
+  <path d="M200,360 Q280,220 360,140" class="arrow"/>
+  <path d="M300,360 Q340,240 360,140" class="arrow"/>
+  <path d="M460,360 Q400,240 360,140" class="arrow"/>
+
+  <!-- Bälle -->
+  <circle cx="200" cy="360" r="5" class="ball"/>
+  <circle cx="300" cy="360" r="5" class="ball"/>
+  <circle cx="460" cy="360" r="5" class="ball"/>
+
+  <!-- Flagge -->
+  <line x1="360" y1="100" x2="360" y2="70" stroke="var(--accent-iron)" stroke-width="2"/>
+  <polygon points="360,70 380,80 360,90" fill="var(--primary)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

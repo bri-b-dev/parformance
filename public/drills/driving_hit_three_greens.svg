@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Hit Three Greens – Zieltraining für verschiedene Distanzen">
+  <style>
+    .panel { fill: var(--surface); }
+    .fairway { fill: color-mix(in oklab, var(--cat-range) 10%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--primary) 10%, var(--surface)); }
+    .hole { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag { fill: var(--primary); }
+    .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); opacity: 0.9; }
+    .ball { fill: var(--primary); opacity: 0.9; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Greens -->
+  <ellipse cx="460" cy="220" rx="70" ry="40" class="green"/>
+  <ellipse cx="520" cy="140" rx="50" ry="30" class="green"/>
+  <ellipse cx="580" cy="70" rx="40" ry="24" class="green"/>
+
+  <!-- Fahnen -->
+  <rect x="460" y="200" width="2" height="20" fill="var(--accent-iron)"/>
+  <path d="M462,200 l14,4 l-14,4 z" class="flag"/>
+  <rect x="520" y="120" width="2" height="20" fill="var(--accent-iron)"/>
+  <path d="M522,120 l14,4 l-14,4 z" class="flag"/>
+  <rect x="580" y="50" width="2" height="20" fill="var(--accent-iron)"/>
+  <path d="M582,50 l14,4 l-14,4 z" class="flag"/>
+
+  <!-- Bälle -->
+  <circle cx="200" cy="360" r="5" class="ball"/>
+  <circle cx="230" cy="360" r="5" class="ball"/>
+  <circle cx="260" cy="360" r="5" class="ball"/>
+
+  <!-- Pfeile -->
+  <line x1="210" y1="360" x2="460" y2="220" class="arrow"/>
+  <line x1="230" y1="360" x2="520" y2="140" class="arrow"/>
+  <line x1="250" y1="360" x2="580" y2="70" class="arrow"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="14 Fairways – Wechseltraining zwischen Driver und Eisen">
+  <style>
+    .panel { fill: var(--surface); }
+    .fairway { fill: color-mix(in oklab, var(--cat-range) 10%, var(--surface)); }
+    .rough { fill: color-mix(in oklab, var(--accent-iron) 10%, var(--surface)); }
+    .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); opacity: 0.9; }
+    .ball { fill: var(--primary); opacity: 0.9; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Fairway -->
+  <polygon points="280,40 440,40 400,380 320,380" class="fairway"/>
+
+  <!-- Rough -->
+  <polygon points="100,0 280,40 320,380 100,420" class="rough"/>
+  <polygon points="440,40 620,0 620,420 400,380" class="rough"/>
+
+  <!-- Bälle -->
+  <circle cx="330" cy="380" r="5" class="ball"/>
+  <circle cx="390" cy="380" r="5" class="ball"/>
+
+  <!-- Fluglinien -->
+  <line x1="330" y1="380" x2="360" y2="100" class="arrow"/>
+  <line x1="390" y1="380" x2="400" y2="80" class="arrow"/>
+
+  <!-- Ziel -->
+  <rect x="355" y="60" width="10" height="30" fill="var(--accent-iron)"/>
+  <path d="M365,60 l15,5 l-15,5 z" fill="var(--primary)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

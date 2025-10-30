@@ -17,19 +17,19 @@ if (typeof globalThis !== 'undefined') {
     globalThis.cancelAnimationFrame = (id: any) => clearTimeout(id)
   }
   // Ensure basic Event constructors exist for @vue/test-utils trigger()
-  ;['MouseEvent','KeyboardEvent','Event','InputEvent'].forEach((name) => {
+  for (const name of ['MouseEvent','KeyboardEvent','Event','InputEvent']) {
     // @ts-ignore
     if (typeof globalThis[name] !== 'function') {
       // @ts-ignore
       globalThis[name] = class extends globalThis.Event {}
     }
-  })
+  }
 }
 
 // Stub common router components for @vue/test-utils so tests don't need a router instance
 import { config as VTUConfig } from '@vue/test-utils'
-if (VTUConfig && VTUConfig.global) {
-  VTUConfig.global.stubs = Object.assign({}, VTUConfig.global.stubs || {}, {
+if (VTUConfig?.global) {
+  VTUConfig.global.stubs = { ...VTUConfig.global.stubs, ...{
     // Render RouterLink as a plain anchor so tests can inspect href attributes
     RouterLink: {
       props: ['to'],

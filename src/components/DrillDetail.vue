@@ -54,7 +54,6 @@
       </div>
     </div>
 
-    <GamerPanel :drill-id="drill.id" />
     <!-- HCP Targets -->
     <HcpTargetsTable :drill="drill" />
 

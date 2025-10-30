@@ -13,7 +13,6 @@ export interface Drill {
   id: string;
   title: string;
   category: string;
-  source?: string;
 
   equipment: {
     balls?: number;

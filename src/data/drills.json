@@ -3,7 +3,6 @@
     "id": "put_360",
     "title": "360° Putting",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
@@ -40,14 +39,13 @@
     "id": "put_comfort_zone",
     "title": "Comfort Zone",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
         "Putter"
       ],
       "other": [
-        "8 Tees"
+        "13 Tees"
       ]
     },
     "setup": {
@@ -77,7 +75,6 @@
     "id": "put_break_putts",
     "title": "Break Putts",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 2,
       "clubs": [
@@ -88,7 +85,7 @@
       ]
     },
     "setup": {
-      "schema": "Je 5 Tees links/rechts mit Break in 1–3 m Abständen",
+      "schema": "Suche dir ein Loch mit einem deutlichen Break und stecke jeweils fünf Tees auf beiden Seiten des Lochs, um ein Break nach rechts und links zu erzeugen. Der Abstand zu den Tees beträgt jeweils 1, 1,5, 2, 2,5 und 3 Meter.",
       "location": "Putting Green"
     },
     "duration": {
@@ -96,14 +93,14 @@
       "timerPreset": 300
     },
     "instructions": {
-      "training": "Kurzer Putt auf einer Seite, nach Lochwechsel zur anderen Seite; Serie fortsetzen.",
-      "test": "Längste Serie in 5 Minuten.",
-      "tooEasy": "Mehr Break oder mehr Tees."
+      "training": "Beginne mit dem kürzesten Putt auf einer Seite. Nachdem du gelocht hast, spielst du den kürzesten Putt auf der anderen Seite und wechselst nach jedem gelochten Putt die Seite. Du setzt dies fort, solange du die Bälle lochst. Verpasst du einen Putt, beginnst du von vorne.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längeste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die aktuelle Serie noch beenden.",
+      "tooEasy": "Dann such dir ein Loch mit noch mehr Break oder erhöhe die Anzahl der Tees (3,5, 4, 4,5 und 5 Meter)."
     },
     "metric": {
       "type": "streak",
       "unit": "Putts in Folge",
-      "hcpTargets": {}
+      "hcpTargets": { "54-45": [1,3,5], "50-20": [6,7,8], "25-0": [9,10,11] }
     },
     "tags": [
       "Breaklesen"
@@ -113,7 +110,6 @@
     "id": "put_lag",
     "title": "Lag Putts",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
@@ -121,7 +117,7 @@
       ]
     },
     "setup": {
-      "schema": "Loch mit wenig Break, 15 m Distanz",
+      "schema": "Suche dir ein Loch mit wenig Break und stecke ein Tee in 15 Metern Entfernung ins Grün.",
       "location": "Putting Green"
     },
     "duration": {
@@ -129,14 +125,14 @@
       "timerPreset": 300
     },
     "instructions": {
-      "training": "Ziel: maximal 2 Putts pro Loch; sobald 3+ nötig, Serie = 0.",
-      "test": "Längste 2‑Putt‑Serie in 5 Minuten.",
-      "tooEasy": "Mehr Break oder längere Distanz."
+      "training": "Ziel ist es, eine Höchstserie von Versuchen mit maximal 2 Putts zu erzielen. Sobald du zum ersten Mal 3 oder mehr Putts benötigst, ist die Serie beendet und du startest wieder bei null.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längeste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die aktuelle Serie noch beenden.",
+      "tooEasy": "Versuche es mit einem Loch mit Break oder verlängere den Putt."
     },
     "metric": {
       "type": "streak",
       "unit": "2‑Putt‑Serie",
-      "hcpTargets": {}
+      "hcpTargets": { "54-45": [1,3,5], "50-20": [6,7,8], "25-0": [9,10,11] }
     },
     "tags": [
       "Längenkontrolle"
@@ -146,7 +142,6 @@
     "id": "put_circle",
     "title": "Circle Putting",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
@@ -157,7 +152,7 @@
       ]
     },
     "setup": {
-      "schema": "8 Tees im Putterlängen-Radius kreisförmig um ein Loch, leichter Break",
+      "schema": "Stecke 8 Tees im Radius einer Putterlänge kreisförmig um ein Loch, das einen leichten Break aufweist.",
       "location": "Putting Green"
     },
     "duration": {
@@ -165,24 +160,24 @@
       "timerPreset": 600
     },
     "instructions": {
-      "training": "Putte im Uhrzeigersinn alle Positionen; verpasst = zurück an Start.",
-      "test": "Max. Serie (Ziel: viele in Folge).",
-      "tooEasy": "Mehr Break oder engerer Kreis."
+      "training": "Putte nacheinander von acht unterschiedlichen Positionen gegen den Uhrzeigersinn auf das Loch. Zähle dabei die in Serie gelochten Putts. Wenn du einen Putt verschiebst, geht es auf der nächsten Station wieder mit 0 los.",
+      "test": "Versuche, möglichst viele Putts in Folge zu lochen. Je öfter du in Serie lochst, desto größer wird der Druch.",
+      "tooEasy": "Beende die Übung erst, wenn du eine vorher festgelegte Anzahl an Treffern erreicht hast. Spiel auf ein Loch mit viel Break. Erhöhe die Anzahl der zu lochenden Putts."
     },
     "metric": {
       "type": "streak",
       "unit": "Putts in Folge",
-      "hcpTargets": {}
+      "hcpTargets": { "54-27": [5,6,7], "26-12": [7,8,9], "11-0": [9,10,11] }
     },
     "tags": [
       "Routine"
-    ]
+    ],
+    "zockerTip": "Stellt euch zu zweit mit eurem Spielpartner auf den gegenüberliegenden Seiten des Lochs auf. Ziel ist es, den Gegner einzuholen. Spielrichtung: Gegen den Uhrzeigersinn. Du kommst eine Station weiter, wenn du den Putt versenkst. Ansonsten musst du es von der gleichen Position erneut versuchen."
   },
   {
     "id": "put_under_pressure",
     "title": "Under Pressure",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
@@ -218,7 +213,6 @@
     "id": "put_shootout",
     "title": "Shootout",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -254,7 +248,6 @@
     "id": "put_around_world",
     "title": "Around the World",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
@@ -290,7 +283,6 @@
     "id": "put_hit_the_hall",
     "title": "Hit the Hall",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
@@ -328,7 +320,6 @@
     "id": "put_roll_control",
     "title": "Roll Control",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
@@ -365,7 +356,6 @@
     "id": "put_pace",
     "title": "Pace Putting",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 3,
       "clubs": [
@@ -401,7 +391,6 @@
     "id": "put_five_balls",
     "title": "Five Balls",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 5,
       "clubs": [
@@ -437,7 +426,6 @@
     "id": "put_draw_back",
     "title": "Draw Back",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -471,7 +459,6 @@
     "id": "chip_9m",
     "title": "9‑Meter Chip",
     "category": "Chipping",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 6,
       "clubs": [
@@ -504,7 +491,6 @@
     "id": "chip_18m",
     "title": "18‑Meter Chip",
     "category": "Chipping",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 6,
       "clubs": [
@@ -538,7 +524,6 @@
     "id": "chip_carry_zone",
     "title": "Carry Zone",
     "category": "Chipping",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 6,
       "clubs": [
@@ -574,7 +559,6 @@
     "id": "pitch_short",
     "title": "Kurzer Pitch",
     "category": "Pitching",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 6,
       "clubs": [
@@ -607,7 +591,6 @@
     "id": "pitch_long",
     "title": "Langer Pitch",
     "category": "Pitching",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 6,
       "clubs": [
@@ -641,7 +624,6 @@
     "id": "bunker_basic",
     "title": "Bunkerschläge",
     "category": "Bunker",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -674,7 +656,6 @@
     "id": "chip_ud_series",
     "title": "Up & Down Series",
     "category": "Chipping",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -708,7 +689,6 @@
     "id": "chip_beat21",
     "title": "BEAT 21",
     "category": "Chipping",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -742,7 +722,6 @@
     "id": "chip_worstball",
     "title": "Worstball Chipping",
     "category": "Chipping",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 2,
       "clubs": [
@@ -776,7 +755,6 @@
     "id": "chip_towel_target",
     "title": "Towel Target",
     "category": "Chipping",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 4,
       "clubs": [
@@ -813,7 +791,6 @@
     "id": "chip_hit_the_spot",
     "title": "Hit the Spot",
     "category": "Chipping",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 15,
       "clubs": [
@@ -849,7 +826,6 @@
     "id": "bunker_hit_it_close",
     "title": "Hit it Close",
     "category": "Bunker",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 5,
       "clubs": [
@@ -882,7 +858,6 @@
     "id": "bunker_sandy_par",
     "title": "Sandy Par",
     "category": "Bunker",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 5,
       "clubs": [
@@ -916,7 +891,6 @@
     "id": "pitch_four_stations",
     "title": "Four Stations",
     "category": "Pitching",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 4,
       "clubs": [
@@ -949,7 +923,6 @@
     "id": "range_abschlaege",
     "title": "Abschläge",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 20,
       "clubs": [
@@ -983,7 +956,6 @@
     "id": "range_eisen",
     "title": "Eisen",
     "category": "Eisen",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 30,
       "clubs": [
@@ -1023,7 +995,6 @@
     "id": "pitch_attack_flag",
     "title": "Attack the Flag",
     "category": "Pitching",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 9,
       "clubs": [
@@ -1056,7 +1027,6 @@
     "id": "pitch_mixed_clubs",
     "title": "Mixed Clubs",
     "category": "Pitching",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 25,
       "clubs": [
@@ -1089,7 +1059,6 @@
     "id": "range_nine_drives",
     "title": "Nine Drives",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 9,
       "clubs": [
@@ -1122,7 +1091,6 @@
     "id": "range_hit_three_greens",
     "title": "Hit Three Greens",
     "category": "Langes Spiel",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 9,
       "clubs": [
@@ -1155,7 +1123,6 @@
     "id": "range_14_fairways",
     "title": "14 Fairways",
     "category": "Langes Spiel",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 28,
       "clubs": [
@@ -1190,7 +1157,6 @@
     "id": "range_short_aims",
     "title": "Short Aims",
     "category": "Eisen",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 20,
       "clubs": [
@@ -1224,7 +1190,6 @@
     "id": "range_fade_draw",
     "title": "Fade & Draw",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -1257,7 +1222,6 @@
     "id": "sweetspot_hit_1",
     "title": "Hit the Sweetspot I",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -1293,7 +1257,6 @@
     "id": "sweetspot_hit_2",
     "title": "Hit the Sweetspot II",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 20,
       "clubs": [
@@ -1329,7 +1292,6 @@
     "id": "sweetspot_out",
     "title": "Out of the Sweetspot",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 18,
       "clubs": [
@@ -1365,7 +1327,6 @@
     "id": "tempo_rhythm",
     "title": "Stay in the Rhythm",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 18,
       "clubs": [
@@ -1398,7 +1359,6 @@
     "id": "tempo_find",
     "title": "Find Your Tempo",
     "category": "Langes Spiel",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 12,
       "clubs": [
@@ -1432,7 +1392,6 @@
     "id": "tempo_swing_like_pro",
     "title": "Swing Like a Pro",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -1466,7 +1425,6 @@
     "id": "tempo_improve_feel",
     "title": "Improve Your Feeling",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 15,
       "clubs": [
@@ -1500,7 +1458,6 @@
     "id": "simulation_safety_shot",
     "title": "Safety Shot",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -1536,7 +1493,6 @@
     "id": "shape_it",
     "title": "Shape It",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 12,
       "clubs": [
@@ -1569,7 +1525,6 @@
     "id": "simulation_imagination_on",
     "title": "Imagination On",
     "category": "Langes Spiel",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 15,
       "clubs": [
@@ -1602,7 +1557,6 @@
     "id": "simulation_first_tee",
     "title": "First Tee‑Shot",
     "category": "Driver",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -1635,7 +1589,6 @@
     "id": "course_on_track",
     "title": "On Track",
     "category": "Platz",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -1672,7 +1625,6 @@
     "id": "course_long_vs_easy",
     "title": "Long vs. Easy",
     "category": "Platz",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -1708,7 +1660,6 @@
     "id": "course_stats",
     "title": "Stats – Statistiken richtig führen",
     "category": "Platz",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -1744,7 +1695,6 @@
     "id": "course_get_your_points",
     "title": "Get Your Points",
     "category": "Platz",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -1780,7 +1730,6 @@
     "id": "course_no_tees",
     "title": "No Tees",
     "category": "Platz",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -1816,7 +1765,6 @@
     "id": "course_make_it_rough",
     "title": "Make it Rough",
     "category": "Platz",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -1852,7 +1800,6 @@
     "id": "course_unusual_shots",
     "title": "Play Unusual Shots",
     "category": "Platz",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [
@@ -1888,7 +1835,6 @@
     "id": "course_worst_ball",
     "title": "Worst Ball",
     "category": "Platz",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 2,
       "clubs": [
@@ -1924,7 +1870,6 @@
     "id": "put_up_down_omeara",
     "title": "Up & Down",
     "category": "Putting",
-    "source": "JAM-POI",
     "equipment": {
       "balls": 1,
       "clubs": [

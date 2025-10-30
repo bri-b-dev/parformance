@@ -332,8 +332,9 @@
     ]
   },
   {
-    "id": "put_circle",
+    "id": "putting_circle",
     "title": "Circle Putting",
+    "subtitle": "Gesehen bei Phil Mickelson",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -341,51 +342,57 @@
         "Putter"
       ],
       "other": [
-        "8 Tees"
+        "8 Tees zum Abstecken eines Kreises",
+        "Stoppuhr oder Timer"
       ]
     },
     "setup": {
       "schema": "Stecke 8 Tees im Radius einer Putterlänge kreisförmig um ein Loch, das einen leichten Break aufweist.",
+      "diagram": "svg:drills/putting_circle",
       "location": "Putting Green"
     },
     "duration": {
-      "suggestedMin": 10,
+      "hardStop": 10,
       "timerPreset": 600
     },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Putte nacheinander von acht unterschiedlichen Positionen gegen den Uhrzeigersinn auf das Loch. Zähle dabei die in Serie gelochten Putts. Wenn du einen Putt verschiebst, geht es auf der nächsten Station wieder mit 0 los.",
-      "test": "Versuche, möglichst viele Putts in Folge zu lochen. Je öfter du in Serie lochst, desto größer wird der Druch.",
-      "tooEasy": "Beende die Übung erst, wenn du eine vorher festgelegte Anzahl an Treffern erreicht hast. Spiel auf ein Loch mit viel Break. Erhöhe die Anzahl der zu lochenden Putts."
+      "training": "Putte nacheinander von acht verschiedenen Positionen um das Loch – wie die Stunden eines Uhrzeigers. Ziel ist es, möglichst viele Putts in Folge zu lochen. Misslingt dir ein Putt, gehst du zur nächsten Position und beginnst wieder von vorn.",
+      "test": "Beende die Übung erst, wenn du eine vorher festgelegte Anzahl an Treffern erreicht hast. Spiele sie mit leichtem Break für mehr Anspruch. Profis wie Phil Mickelson trainieren damit regelmäßig und haben das Ziel, 50 Putts in Serie zu lochen.",
+      "tooEasy": "Verkleinere den Kreisradius oder wähle ein Loch mit stärkerem Break."
     },
     "metric": {
       "type": "streak",
-      "unit": "Putts in Folge",
+      "unit": "maximale Serie (gelochte Putts)",
       "hcpTargets": {
-        "54-27": [
-          5,
-          6,
-          7
-        ],
-        "26-12": [
-          7,
-          8,
-          9
-        ],
-        "11-0": [
-          9,
-          10,
-          11
-        ]
+        "hcp_54_27": 6,
+        "hcp_26_12": 8,
+        "hcp_11_0": 10
       }
     },
     "tags": [
-      "Routine"
+      "Putting",
+      "Konstanz",
+      "Zieltraining",
+      "Phil Mickelson",
+      "Routine",
+      "Konzentration",
+      "Drill"
     ],
-    "zockerTip": "Stellt euch zu zweit mit eurem Spielpartner auf den gegenüberliegenden Seiten des Lochs auf. Ziel ist es, den Gegner einzuholen. Spielrichtung: Gegen den Uhrzeigersinn. Du kommst eine Station weiter, wenn du den Putt versenkst. Ansonsten musst du es von der gleichen Position erneut versuchen."
+    "zockerTip": "Spiele den Drill zu zweit: Ihr puttet abwechselnd von gegenüberliegenden Seiten des Lochs. Wer verschießt, übergibt. Wer zuerst alle acht Positionen gelocht hat, gewinnt.",
+    "variants": [
+      "Erhöhe die Anzahl der Tees auf 10 oder 12 Positionen.",
+      "Baue zwei Löcher nebeneinander und wechsle nach jedem Kreis.",
+      "Nutze nur eine Kugel, um mehr Fokus pro Putt zu trainieren."
+    ]
   },
   {
-    "id": "put_under_pressure",
+    "id": "putting_under_pressure",
     "title": "Under Pressure",
+    "subtitle": "Gesehen bei Paul Azinger",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -393,37 +400,43 @@
         "Putter"
       ],
       "other": [
-        "Tees"
+        "3 Tees oder Markierungen",
+        "Stoppuhr oder Timer"
       ]
     },
     "setup": {
-      "schema": "Such dir einen relativ geraden Putt von etwa drei Meter Länge. Markiere drei Positionen mit den folgenden Entfernungen zum Loch mit einem Tee: 90 cm (1), 180 cm (2) und 270 cm (3) - die Entfernungen entsprechen ein bis drei Putter-Längen.",
+      "schema": "Suche dir einen relativ geraden Putt von etwa drei Metern Länge. Markiere drei Positionen entlang der Puttlinie im Abstand von 90 cm (Position 1), 180 cm (Position 2) und 270 cm (Position 3). Die Entfernungen entsprechen etwa ein bis drei Putterlängen.",
+      "diagram": "svg:drills/putting_under_pressure",
       "location": "Putting Green"
     },
     "duration": {
-      "suggestedMin": 9,
-      "timerPreset": 540
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
     },
     "instructions": {
-      "training": "Putte nach den unten angegebenen Zielwerten (z.B. 10/4/2) von den drei Positionen. Du kommst erst eine Station weiter, wenn du die Anzahl an Putts in Serie gelocht hast. Sobald du einen Putt verpasst, geht es zurück zu (1).",
-      "test": "Die Übung ist erst dann beendet, wenn du von Position (3) die vorgegebene Anzahl an Putts lochen konntest.",
-      "tooEasy": "Spiel auf ein Loch mit etwas Break. Erhöhe die Anzahl der zu lochenden Putts."
+      "training": "Putte nacheinander von den drei Positionen aus, beginnend bei der kürzesten. Sobald du einen Putt verfehlst, gehst du wieder zur ersten Position zurück. Die Übung ist erst dann beendet, wenn du von Position 3 aus die vorgegebene Anzahl an Putts in Serie gelocht hast.",
+      "test": "Spiele auf ein Loch mit etwas Break. Erhöhe die Anzahl der zu lochenden Putts, wenn du die Grundversion sicher beherrschst. Paul Azinger spielt diese Übung so lange, bis er von den drei Positionen 20, 10 und 3 Putts in Serie gelocht hat.",
+      "tooEasy": "Erhöhe die Distanz oder spiele mit stärkerem Break."
     },
     "metric": {
       "type": "streak",
-      "unit": "Stationenfolge",
+      "unit": "maximale Serie gelochter Putts je Position",
       "hcpTargets": {
-        "54-27": [
+        "hcp_54_27": [
           3,
           1,
           1
         ],
-        "26-12": [
+        "hcp_26_12": [
           5,
           3,
           1
         ],
-        "11-0": [
+        "hcp_11_0": [
           10,
           4,
           2
@@ -431,13 +444,25 @@
       }
     },
     "tags": [
-      "Drucksimulation"
+      "Putting",
+      "Druck",
+      "Mentales Training",
+      "Konzentration",
+      "Routine",
+      "Serienübung",
+      "Paul Azinger"
     ],
-    "zockerTip": "Spielt zu zweit gegeneinander. Putte nebeneinander auf zwei verschiedene Löcher aus den drei Positionen. Wert schafft als erster eine vorher festgelegte Serie?"
+    "zockerTip": "Spiele zu zweit gegeneinander: Ihr puttet abwechselnd an verschiedenen Löchern auf die gleichen drei Distanzen. Wer zuerst die geforderte Serie vollständig gelocht hat, gewinnt.",
+    "variants": [
+      "Baue zusätzliche Distanzen (z. B. 4. oder 5. Position) ein.",
+      "Spiele mit nur einem Ball, um den Fokus zu erhöhen.",
+      "Wähle ein Loch mit starkem Break oder Neigung, um den Druck zu erhöhen."
+    ]
   },
   {
-    "id": "put_shootout",
+    "id": "putting_shootout",
     "title": "Shootout",
+    "subtitle": "Gesehen bei Caroline Masson",
     "category": "Putting",
     "equipment": {
       "balls": 1,
@@ -445,50 +470,57 @@
         "Putter"
       ],
       "other": [
-        "2 Tees"
+        "2 Tees zur Markierung der Positionen",
+        "Stoppuhr oder Timer"
       ]
     },
     "setup": {
-      "schema": "Zwei Positionen vor/hinter Loch je 1.5 m",
+      "schema": "Suche dir ein Loch mit geradem Verlauf. Messe eine Entfernung von etwa eineinhalb Metern vor und hinter dem Loch ab und markiere diese Positionen jeweils mit einem Tee.",
+      "diagram": "svg:drills/putting_shootout",
       "location": "Putting Green"
     },
     "duration": {
-      "suggestedMin": 10,
+      "hardStop": 10,
       "timerPreset": 600
     },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Abwechselnd von beiden Positionen, bei Miss beide zurücksetzen.",
-      "test": "Max. hintereinander gelocht.",
-      "tooEasy": "Mehr Break."
+      "training": "Putte abwechselnd von den beiden Positionen aus – also einmal von vorne, dann von hinten zum Loch. Ziel ist es, möglichst viele Putts in Folge zu lochen. Wenn du einen Putt verfehlst, gehst du im Zählstand wieder einen Punkt zurück. Wenn du also beispielsweise fünf Putts gelocht hast, aber den sechsten verfehlst, fällst du auf vier Punkte zurück.",
+      "test": "Spiele auf ein Loch mit etwas Break, um die Schwierigkeit zu steigern. Caroline Masson nutzt diesen Drill regelmäßig in der Turniervorbereitung. Sie beginnt mit dem Ziel, 30 Putts in Folge zu lochen.",
+      "tooEasy": "Erhöhe die Distanz zwischen den beiden Positionen oder spiele mit stärkerem Break."
     },
     "metric": {
       "type": "streak",
-      "unit": "Putts in Serie",
+      "unit": "maximale Serie gelochter Putts",
       "hcpTargets": {
-        "54-27": [
-          3,
-          1,
-          1
-        ],
-        "26-12": [
-          5,
-          3,
-          1
-        ],
-        "11-0": [
-          10,
-          4,
-          2
-        ]
+        "hcp_54_27": 4,
+        "hcp_26_12": 8,
+        "hcp_11_0": 14
       }
     },
     "tags": [
-      "Druck"
+      "Putting",
+      "Caroline Masson",
+      "Druck",
+      "Serientraining",
+      "Konzentration",
+      "Rückwärtszählung",
+      "Matchplay"
+    ],
+    "zockerTip": "Spielt den Drill im Matchformat: Jeder gelochte Putt gibt einen Punkt. Wer einen Putt verschießt, verliert einen Punkt. Wenn beide die gleiche Serie schaffen, verdoppelt sich der nächste Punktwert – ähnlich wie bei einem Skins-Match. Wer holt zuerst 10 Punkte?",
+    "variants": [
+      "Spiele mit nur einem Ball und wechselnden Löchern.",
+      "Verkürze oder verlängere die Distanz (z. B. 1 m / 2 m).",
+      "Setze dir ein Limit, bei dem du nach jedem Fehlschlag eine Pause machst, bevor du weiterspielst."
     ]
   },
   {
-    "id": "put_around_world",
+    "id": "putting_around_the_world",
     "title": "Around the World",
+    "subtitle": "Gesehen bei Stewart Cink",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -496,34 +528,57 @@
         "Putter"
       ],
       "other": [
-        "8 Tees"
+        "8 Tees zum Markieren der Putt-Positionen",
+        "Stoppuhr oder Timer"
       ]
     },
     "setup": {
-      "schema": "8 Positionen rund ums Loch (0.9–1.8 m)",
+      "schema": "Suche dir ein Loch mit etwas Break. Messe im Uhrzeigersinn eine Entfernung von 90 bis 120 cm um das Loch und markiere acht Positionen jeweils mit einem Tee.",
+      "diagram": "svg:drills/putting_around_the_world",
       "location": "Putting Green"
     },
     "duration": {
-      "suggestedMin": 10,
+      "hardStop": 10,
       "timerPreset": 600
     },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Alle kurzen Putts im Uhrzeigersinn, dann längere; Miss = Neustart.",
-      "test": "Max. Serie innerhalb 10 Min.",
-      "tooEasy": "Mehr Break."
+      "training": "Versuche, in maximal zehn Minuten alle Putts in Folge zu lochen. Starte mit den kürzeren Putts und arbeite dich im Uhrzeigersinn weiter. Wenn du alle kurzen Putts in Serie gelocht hast, gehst du auf einen längeren Kreis über. Verfehlst du einen Putt, startest du wieder von vorne.",
+      "test": "Spiele auf ein Loch mit stärkerem Break, um den Schwierigkeitsgrad zu erhöhen. Stewart Cink hat diesen Drill schon im College-Team von Georgia Tech gelernt. Am Ende jeder Trainingseinheit mussten alle Spieler drei Putts in Serie aus jeder Position lochen, bevor sie nach Hause durften.",
+      "tooEasy": "Erhöhe die Distanz zwischen den Tees oder spiele mit stärkerem Break."
     },
     "metric": {
       "type": "streak",
-      "unit": "Putts in Folge",
-      "hcpTargets": {}
+      "unit": "maximale Serie gelochter Putts",
+      "hcpTargets": {
+        "hcp_54_27": 5,
+        "hcp_26_12": 7,
+        "hcp_11_0": 8
+      }
     },
     "tags": [
-      "Konstanz"
+      "Putting",
+      "Stewart Cink",
+      "Zieltraining",
+      "Breaklesen",
+      "Präzision",
+      "Serienübung",
+      "College Drill"
+    ],
+    "zockerTip": "Jede:r Spieler:in sucht sich ein Loch auf dem Putting-Green. Ihr spielt drei Runden à fünf Minuten. Das Team, das im Durchschnitt die meisten Putts in Folge gelocht hat, gewinnt. Wenn du deine eigene Bestmarke schlägst, bekommst du einen Bonuspunkt. So bleibst du konzentriert – auch unter Druck.",
+    "variants": [
+      "Vergrößere die Entfernung auf 1,5 Meter für mehr Druck.",
+      "Spiele mit nur einem Ball, um jeden Putt bewusst zu machen.",
+      "Füge zusätzliche Tees zwischen den bestehenden Positionen hinzu."
     ]
   },
   {
-    "id": "put_hit_the_hall",
+    "id": "putting_hit_the_hall",
     "title": "Hit the Hall",
+    "subtitle": "Gesehen bei David Howell",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -531,107 +586,174 @@
         "Putter"
       ],
       "other": [
-        "Tees",
-        "Alignment Sticks"
+        "5 Tees oder Alignment-Sticks",
+        "Stoppuhr oder Timer",
+        "Maßband oder Schlägerlängen zur Abstandsmessung"
       ]
     },
     "setup": {
-      "schema": "90‑cm Korridor hinter Loch markieren; 5 Stationen 1–2 m",
+      "schema": "Suche dir ein Loch mit geradem Verlauf (ca. 10 m Länge). Stecke fünf Tees mit jeweils 2 Metern Abstand in den Boden – von 2 m bis 10 m Distanz. Baue aus Tees oder Alignment Sticks einen Korridor von etwa 90 cm hinter dem Loch auf. Jeder Ball, der im Korridor liegen bleibt oder das Loch trifft, zählt als Punkt.",
+      "diagram": "svg:drills/putting_hit_the_hall",
       "location": "Putting Green"
     },
     "duration": {
-      "suggestedMin": 8,
-      "timerPreset": 480
-    },
-    "instructions": {
-      "training": "Ball in Korridor stoppen; je Station Punkte sammeln.",
-      "test": "Puttzahl je nach HCP (weniger ist besser).",
-      "tooEasy": "Loch mit Break wählen."
-    },
-    "metric": {
-      "type": "points_total",
-      "unit": "Punkte",
-      "hcpTargets": {}
-    },
-    "tags": [
-      "Speed",
-      "Distance Control"
-    ]
-  },
-  {
-    "id": "put_roll_control",
-    "title": "Roll Control",
-    "category": "Putting",
-    "equipment": {
-      "balls": 3,
-      "clubs": [
-        "Putter"
-      ],
-      "other": [
-        "2 Tees"
-      ]
-    },
-    "setup": {
-      "schema": "Front-/Back‑Marke auf Linie; Distanzkontrolle relativ",
-      "location": "Putting Green"
-    },
-    "duration": {
-      "suggestedMin": 8,
-      "timerPreset": 480
-    },
-    "instructions": {
-      "training": "Ball 1 definiert Referenzlänge; Ball 2 kürzer; Ball 3 länger, aber im Zielkorridor.",
-      "test": "Max. Bälle auf Linie (3 Durchgänge).",
-      "tooEasy": "Mehr Break."
-    },
-    "metric": {
-      "type": "count_in_time",
-      "unit": "Treffer auf Linie",
-      "hcpTargets": {}
-    },
-    "tags": [
-      "Speed",
-      "Gefühl"
-    ]
-  },
-  {
-    "id": "put_pace",
-    "title": "Pace Putting",
-    "category": "Putting",
-    "equipment": {
-      "balls": 3,
-      "clubs": [
-        "Putter"
-      ],
-      "other": [
-        "Tees"
-      ]
-    },
-    "setup": {
-      "schema": "Zielzone vor/nach Loch (±30 cm, ±60 cm) mit Tees",
-      "location": "Putting Green"
-    },
-    "duration": {
-      "suggestedMin": 10,
+      "hardStop": 10,
       "timerPreset": 600
     },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Punkte je nach Endlage (innerhalb Zonen).",
-      "test": "Gesamtpunkte notieren.",
-      "tooEasy": "Loch mit Break."
+      "training": "Putte nacheinander von allen fünf Positionen aus. Jeder Ball, der im Loch oder im Korridor hinter dem Loch liegen bleibt, zählt als Punkt. Die Übung ist beendet, wenn du von der Substanzposition (2 m) oder weiter keinen Punkt mehr erzielen kannst. Ziel: So viele Punkte wie möglich innerhalb von 10 Minuten.",
+      "test": "Bringe ein Loch mit Break ins Spiel – besonders schwierig wird es bei Bergauf- oder Gefälleputts. Richte dich gezielt auf ein bestimmtes Ziel aus, z. B. den Buchstaben auf dem Ball oder einen Punkt am Lochrand. Tipp von Rory McIlroy: Zeichne mit einem Stift eine gerade Linie auf den Ball, um dein Zielen zu verbessern.",
+      "tooEasy": "Verkleinere den Korridor hinter dem Loch oder verlängere die Distanzen auf 3 – 12 m."
     },
     "metric": {
-      "type": "points_total",
-      "unit": "Punkte",
-      "hcpTargets": {}
+      "type": "score",
+      "unit": "erreichte Punkte (Bälle im Loch oder im Korridor)",
+      "hcpTargets": {
+        "hcp_54_27": 24,
+        "hcp_26_12": 18,
+        "hcp_11_0": 15
+      }
     },
     "tags": [
-      "Pace"
+      "Putting",
+      "Distanzkontrolle",
+      "Speed Control",
+      "David Howell",
+      "Zieltraining",
+      "Präzision",
+      "Rory McIlroy Tipp"
+    ],
+    "zockerTip": "Spielt zu zweit: Abwechselnd wird von jeder Position geputtet. Schafft ein:e Spieler:in es, den Ball in den Korridor oder ins Loch zu bringen, darf sie/er in der nächsten Runde von der weiter entfernten Position spielen. Wer zuerst alle fünf Stationen erfolgreich absolviert, gewinnt.",
+    "variants": [
+      "Erhöhe die Anzahl der Stationen auf 6 oder 7 für feinere Distanzabstufungen.",
+      "Verwende unterschiedliche Balltypen (weich/hart), um das Gefühl für Rollverhalten zu trainieren.",
+      "Baue die Übung auf einem leicht ansteigenden oder abfallenden Grün auf."
     ]
   },
   {
-    "id": "put_five_balls",
+    "id": "putting_roll_control",
+    "title": "Roll Control",
+    "subtitle": "Gesehen bei David Frost",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "3 Tees zur Markierung der Distanzen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Ziel oder Loch in rund 10 Metern Entfernung, idealerweise mit wenig Break. Stecke zwei Tees in einer Linie in Richtung Ziel – eines bei 5 Metern, eines bei 10 Metern Entfernung vom Startpunkt.",
+      "diagram": "svg:drills/putting_roll_control",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte den ersten Ball auf etwa 5 Meter und verwende ihn als Referenz. Dann putte den zweiten Ball so, dass er leicht *weiter* rollt als der erste – aber nicht zu weit. Der dritte Ball soll wiederum ein Stück weiter rollen. Ziel: möglichst viele Bälle in einer Reihe platzieren, ohne dass einer kürzer als der vorherige oder zu weit weg liegt. Sobald ein Ball außerhalb der Reihe liegt, ist die Runde beendet.",
+      "test": "Führe maximal drei Durchgänge durch und notiere dein bestes Ergebnis. Spiele das Ganze auch einmal auf einem Grün mit leichtem Break – das erfordert noch feinere Dosierung.",
+      "tooEasy": "Verlängere die maximale Distanz auf 12 Meter oder reduziere den erlaubten Abstand zwischen den Bällen auf 20 cm."
+    },
+    "metric": {
+      "type": "count",
+      "unit": "Bälle in einer Reihe",
+      "hcpTargets": {
+        "hcp_54_27": 5,
+        "hcp_26_12": 7,
+        "hcp_11_0": 9
+      }
+    },
+    "tags": [
+      "Putting",
+      "Speed Control",
+      "Distanzgefühl",
+      "David Frost",
+      "Touch Training",
+      "Tempo",
+      "Gefühl"
+    ],
+    "zockerTip": "Spielt diesen Drill zu zweit oder zu dritt: Jede:r puttet reihum in dieselbe Linie. Der Ball, der zu weit rollt, eliminiert den/die Spieler:in aus der Runde. Wer zuletzt übrig bleibt, gewinnt. Alternativ zählt ihr die Gesamtanzahl der erfolgreich in Reihe liegenden Bälle über drei Runden.",
+    "variants": [
+      "Erweitere den Drill um eine Rückwärtsserie (immer kürzer werdende Putts).",
+      "Spiele ihn auf unterschiedlichem Untergrund (trocken/nass) für Gefühlstraining.",
+      "Verwende nur einen Ball und markiere die Position nach jedem Putt mit einem Tee."
+    ]
+  },
+  {
+    "id": "putting_pace_putting",
+    "title": "Pace Putting",
+    "subtitle": "Gesehen bei Danny Willett",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "3 Tees zur Markierung der Distanzen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Loch mit wenig oder keinem Break und stecke drei Tees entlang der Puttlinie – bei 3 m, 4,5 m und 7,5 m. Hinter dem Loch steckst du zwei zusätzliche Tees in 30 cm und 60 cm Entfernung, um die Zielfläche für Längenkontrolle zu markieren.",
+      "diagram": "svg:drills/putting_pace_putting",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte nacheinander von allen drei Positionen. Ziel ist es, die richtige Puttlänge zu treffen. Du bekommst 1 Punkt, wenn der Ball innerhalb des 60-cm-Korridors hinter dem Loch liegen bleibt. Trifft er innerhalb von 30 cm, gibt es 2 Punkte. Wenn der Ball im Loch ist, gibt es 3 Punkte. Jeder Ball, der vor oder außerhalb des Korridors liegen bleibt, kostet 1 Punkt. Spiele maximal drei Durchgänge und notiere dein bestes Ergebnis.",
+      "test": "Spiele auf ein Loch mit Break, um das Lesen der Geschwindigkeit zu trainieren. Achte darauf, eine feste Putt-Routine zu verwenden (z. B. zwei Probeschwünge, Blick zum Ziel, Putt).",
+      "tooEasy": "Verlängere die Distanzen auf 4,5 m / 6 m / 9 m oder verkleinere den Korridor hinter dem Loch auf 40 cm."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Punkte gesamt",
+      "hcpTargets": {
+        "hcp_54_27": 8,
+        "hcp_26_12": 12,
+        "hcp_11_0": 21
+      }
+    },
+    "tags": [
+      "Putting",
+      "Speed Control",
+      "Längenkontrolle",
+      "Danny Willett",
+      "Gefühlstraining",
+      "Routine",
+      "Drei-Putt-Vermeidung"
+    ],
+    "zockerTip": "Belegt Drei-Putts mit einer kleinen Strafe – etwa einer Zusatzübung oder einem Push-up. Belohnt dich selbst, wenn du keinen Drei-Putt in der Runde hast. So trainierst du automatisch mehr Fokus auf Distanzkontrolle.",
+    "variants": [
+      "Verwende vier oder fünf Tees für feinere Abstufungen der Distanz.",
+      "Markiere den Korridor hinter dem Loch mit einem Handtuch oder Schläger.",
+      "Zähle nur Putts, die über die Lochkante hinausrollen, als gültig."
+    ]
+  },
+  {
+    "id": "putting_five_balls",
     "title": "Five Balls",
+    "subtitle": "Gesehen bei Thomas Levet",
     "category": "Putting",
     "equipment": {
       "balls": 5,
@@ -639,29 +761,52 @@
         "Putter"
       ],
       "other": [
-        "Schläger als Linie"
+        "1 Tee oder Markierung für Startposition",
+        "1 Schläger zur Begrenzung hinter dem Loch",
+        "Stoppuhr oder Timer"
       ]
     },
     "setup": {
-      "schema": "Schläger hinter Loch als Stopp; 7 m Putt",
+      "schema": "Suche dir einen Putt mit etwa 7 Metern Länge und möglichst wenig Break. Lege ca. 50 cm hinter dem Loch einen Schläger auf das Grün – das ist deine hintere Begrenzung. Ziel ist es, die Putts so zu dosieren, dass sie im Loch oder innerhalb des Bereichs zwischen Loch und Schläger liegen bleiben.",
+      "diagram": "svg:drills/putting_five_balls",
       "location": "Putting Green"
     },
     "duration": {
-      "suggestedMin": 10,
-      "timerPreset": 600
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
     },
     "instructions": {
-      "training": "5 Bälle pro Serie, Punkte nach Lage (vor/nach Schläger).",
-      "test": "Anzahl Serien mit 5 Punkten in 15 Min.",
-      "tooEasy": ""
+      "training": "Putte in einer Serie jeweils fünf Bälle in Richtung Loch. Ein gelochter Ball zählt 2 Punkte, ein Ball, der im Korridor zwischen Loch und Schläger liegen bleibt, zählt 1 Punkt. Bälle, die zu kurz bleiben oder den Schläger berühren, geben keinen Punkt. Ziel ist es, in 15 Minuten so viele Serien wie möglich mit fünf Punkten abzuschließen.",
+      "test": "Spiele auch auf ein Loch mit Break. Schließe beim Putten die Augen, um dein Distanzgefühl zu schulen – so wie es Thomas Levet empfiehlt. Du wirst merken: Dein Gefühl für Länge wird präziser.",
+      "tooEasy": "Erhöhe die Distanz auf 9 Meter oder verkleinere den Abstand zwischen Loch und Schläger auf 30 cm."
     },
     "metric": {
-      "type": "points_total",
-      "unit": "Serien",
-      "hcpTargets": {}
+      "type": "count",
+      "unit": "erfolgreiche Serien (je 5 Punkte)",
+      "hcpTargets": {
+        "hcp_54_27": 1,
+        "hcp_26_12": 2,
+        "hcp_11_0": 3
+      }
     },
     "tags": [
-      "Konstanz"
+      "Putting",
+      "Speed Control",
+      "Distance Training",
+      "Thomas Levet",
+      "Gefühlstraining",
+      "Längenkontrolle",
+      "Zielkonstanz"
+    ],
+    "zockerTip": "Spielt diesen Drill zu zweit: Abwechselnd wird von derselben Position geputtet. Wer zuerst fünf Punkte in einer Serie erreicht, gewinnt. Bei unterschiedlichen Handicaps startet der stärkere Spieler mit einem Punkt Rückstand.",
+    "variants": [
+      "Verkürze die Distanz auf 5 Meter für Anfänger:innen.",
+      "Lege den Schläger näher an das Loch (30 cm) für mehr Präzision.",
+      "Kombiniere mit einem Break-Putt, um Tempo und Linie gemeinsam zu trainieren."
     ]
   },
   {
@@ -1395,75 +1540,150 @@
     ]
   },
   {
-    "id": "range_abschlaege",
+    "id": "range_drives",
     "title": "Abschläge",
-    "category": "Driver",
+    "category": "Range",
     "equipment": {
-      "balls": 20,
+      "balls": 10,
       "clubs": [
-        "Driver"
+        "Driver oder üblicher Abschlagsschläger"
+      ],
+      "other": [
+        "Range mit ausreichender Länge",
+        "sichtbarer Zielkorridor (ca. 25 Meter Breite)",
+        "Entfernungsmesser oder Markierungen zur Längenkontrolle"
       ]
     },
     "setup": {
-      "schema": "Range-Korridor ~25 m (Fairwaybreite)",
-      "location": "Driving Range"
+      "schema": "Suche dir eine Stelle auf der Range mit ausreichender Länge und einem sichtbaren Korridor von ca. 25 Metern Breite (das entspricht in etwa der durchschnittlichen Fairwaybreite).",
+      "diagram": "svg:drills/range_drives",
+      "location": "Driving Range oder Übungsfläche mit Korridormarkierungen"
     },
     "duration": {
-      "suggestedMin": 5,
+      "hardStop": 5,
       "timerPreset": 300
     },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Trefferquote im Korridor bei ~80% Max-Distanz; Serie ohne Fehlschlag.",
-      "test": "Längste Serie in 5 Min.",
-      "tooEasy": "Korridor schmaler machen."
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der dein Ball den Zielkorridor trifft und mindestens 80 % deiner maximalen Schlaglänge erreicht. Üblicherweise wird der Driver verwendet. Falls du noch keinen benutzt, nimm deinen üblichen Schläger für Abschläge.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Fairwaytreffern. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann versuche es mit einem schmaleren Korridor!"
     },
     "metric": {
       "type": "streak",
-      "unit": "Fairwaytreffer in Folge",
-      "hcpTargets": {}
+      "unit": "längste Serie (Fairwaytreffer mit ≥ 80 % Schlaglänge)",
+      "hcpTargets": {
+        "newbie_jam": [
+          1,
+          2,
+          3
+        ],
+        "player_jam": [
+          4,
+          5,
+          6
+        ],
+        "pro_jam": [
+          8,
+          10,
+          14
+        ]
+      }
     },
     "tags": [
-      "Driver",
-      "Richtung"
+      "Drive",
+      "Abschlag",
+      "Fairwaytreffer",
+      "Distanzkontrolle",
+      "Präzision",
+      "Korridor",
+      "Range",
+      "Streak"
+    ],
+    "zockerTip": "Visualisiere vor jedem Schlag den gesamten Ballflug – Richtung, Apex und Landepunkt. Dein Körper folgt dem, was dein Kopf sieht.",
+    "variants": [
+      "Verkleinere den Zielkorridor auf 20 oder 15 Meter.",
+      "Verwende verschiedene Schläger (Driver, Holz, Hybrid) abwechselnd.",
+      "Füge Windbedingungen oder Höhenunterschiede hinzu, um die Streuung zu trainieren."
     ]
   },
   {
-    "id": "range_eisen",
+    "id": "range_irons",
     "title": "Eisen",
-    "category": "Eisen",
+    "category": "Range",
     "equipment": {
-      "balls": 30,
+      "balls": 10,
       "clubs": [
-        "PW",
-        "9I",
-        "8I",
-        "7I",
-        "6I",
-        "5I",
-        "Hybrid/FW optional"
+        "Pitching Wedge",
+        "Eisen 9",
+        "Eisen 8",
+        "Eisen 7",
+        "Eisen 6",
+        "Eisen 5",
+        "Hybrid oder Fairwayholz (optional)"
+      ],
+      "other": [
+        "Range",
+        "Toursticks oder Schläger zur Ausrichtung",
+        "Zielbereich oder Markierung auf der Range"
       ]
     },
     "setup": {
-      "schema": "Auf Ziel ausrichten, max. Abweichung je HCP",
-      "location": "Driving Range"
+      "schema": "Suche dir eine gute Stelle auf der Range und richte dich mit Hilfe eines Toursticks oder Schlägers auf ein beliebiges Ziel aus. Die maximale Abweichung von der üblichen Länge darf betragen: Newbie 20 %, Player 15 %, Pro 10 %.",
+      "diagram": "svg:drills/range_irons",
+      "location": "Driving Range oder Trainingsfläche mit Zielmarkierung"
     },
     "duration": {
-      "suggestedMin": 5,
+      "hardStop": 5,
       "timerPreset": 300
     },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
     "instructions": {
-      "training": "Aufsteigend durch Schläger; Abweichung prüfen; beim Überschreiten zurück.",
-      "test": "Längste Serie in 5 Min.",
-      "tooEasy": "Hanglagen/Schlechtere Bälle."
+      "training": "Schlage aufsteigend mit deinen Schlägern vom Pitching Wedge bis zum Eisen 5 (alternativ auch Hybrid oder Fairwayholz). Wenn du den höchsten Schläger erreicht hast, fängst du wieder beim Pitching Wedge an. Ziel ist es, eine Höchstserie zu schaffen. Die Serie wird unterbrochen, wenn ein Schlag die maximale Abweichung überschreitet, und du musst wieder bei null beginnen.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann versuche es aus Hanglagen oder mit schlechteren Balllagen!"
     },
     "metric": {
       "type": "streak",
-      "unit": "Schlägerstufen in Folge",
-      "hcpTargets": {}
+      "unit": "längste Serie (Schläge innerhalb zulässiger Abweichung)",
+      "hcpTargets": {
+        "newbie_jam": [
+          1,
+          2,
+          3
+        ],
+        "player_jam": [
+          2,
+          4,
+          6
+        ],
+        "pro_jam": [
+          4,
+          6,
+          9
+        ]
+      }
     },
     "tags": [
-      "Ballflug",
-      "Ziel"
+      "Range",
+      "Eisen",
+      "Schlaglänge",
+      "Distanzkontrolle",
+      "Präzision",
+      "Consistency",
+      "Streak"
+    ],
+    "zockerTip": "Beurteile nicht nur den Ballflug – höre auf den Treffmoment. Solider Kontakt ist der Schlüssel zu reproduzierbarer Länge.",
+    "variants": [
+      "Baue den Drill rückwärts auf (Eisen 5 → PW).",
+      "Füge Zielvorgaben für Carry-Längen hinzu.",
+      "Trainiere die Serie bei Wind oder in Hanglage."
     ]
   },
   {

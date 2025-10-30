@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Five Balls – fünf Putts mit Korridor hinter dem Loch">
+  <style>
+    .panel { fill: var(--surface); }
+    .green { fill: color-mix(in oklab, var(--cat-putting) 12%, var(--surface)); }
+    .hole { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag { fill: var(--primary); }
+    .line { stroke: var(--accent-iron); stroke-width: 1.5; opacity: 0.7; }
+    .korridor { fill: none; stroke: var(--primary); stroke-dasharray: 6 4; stroke-width: 2; opacity: 0.9; }
+    .ball { fill: var(--primary); }
+    .tee { fill: var(--accent-iron); }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Grün -->
+  <ellipse cx="360" cy="210" rx="300" ry="140" class="green"/>
+
+  <!-- Puttlinie -->
+  <line x1="100" y1="210" x2="600" y2="210" class="line"/>
+
+  <!-- Loch + Flag -->
+  <circle cx="560" cy="210" r="10" class="hole"/>
+  <rect x="559" y="160" width="2" height="50" fill="var(--accent-iron)"/>
+  <path d="M561,160 l24,8 l-24,8 z" class="flag"/>
+
+  <!-- Schläger als Begrenzung -->
+  <rect x="585" y="202" width="90" height="4" rx="2" fill="var(--accent-iron)"/>
+  <text x="630" y="195" text-anchor="middle" class="label">Schläger</text>
+
+  <!-- Korridor -->
+  <rect x="570" y="180" width="70" height="60" class="korridor"/>
+
+  <!-- Bälle -->
+  <circle cx="160" cy="210" r="6" class="ball"/>
+  <circle cx="220" cy="210" r="6" class="ball"/>
+  <circle cx="280" cy="210" r="6" class="ball"/>
+  <circle cx="340" cy="210" r="6" class="ball"/>
+  <circle cx="400" cy="210" r="6" class="ball"/>
+
+  <!-- Pfeil -->
+  <line x1="120" y1="210" x2="540" y2="210" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrow)" opacity="0.9"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>

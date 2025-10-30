@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Eisen – aufsteigende Schläge, Zielkorridor mit Abweichungszonen">
+  <style>
+    .panel { fill: var(--surface); }
+    .fairway { fill: color-mix(in oklab, var(--accent-green) 25%, var(--surface)); }
+    .rough { fill: color-mix(in oklab, var(--accent-beige) 30%, var(--surface)); }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .ring  { stroke: color-mix(in oklab, var(--accent-iron) 70%, #fff); stroke-dasharray: 6 8; fill: none; }
+    .arc   { stroke: var(--primary); fill: none; stroke-width: 2; opacity: 0.8; }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+
+  <!-- Range / Fairway-Zone -->
+  <ellipse cx="500" cy="200" rx="180" ry="80" class="fairway"/>
+  <ellipse cx="500" cy="200" rx="220" ry="100" class="rough" opacity="0.5"/>
+
+  <!-- Zielbereich -->
+  <circle cx="500" cy="200" r="12" class="hole" stroke-width="2"/>
+  <circle cx="500" cy="200" r="4" fill="var(--bg)"/>
+  <text x="480" y="190" class="label">Ziel</text>
+
+  <!-- Abweichungszonen -->
+  <circle cx="500" cy="200" r="40" class="ring"/>
+  <circle cx="500" cy="200" r="80" class="ring" stroke-dasharray="3 5"/>
+  <circle cx="500" cy="200" r="120" class="ring" stroke-dasharray="1 7"/>
+
+  <!-- Schlagverlauf -->
+  <path d="M120 350 C250 280, 400 230, 500 200" class="arc"/>
+  <path d="M130 340 C260 270, 410 220, 500 200" class="arc" opacity="0.6"/>
+  <path d="M140 330 C270 260, 420 210, 500 200" class="arc" opacity="0.4"/>
+
+  <!-- Tee -->
+  <rect x="100" y="360" width="40" height="20" fill="var(--accent-iron)" rx="4" ry="4"/>
+  <text x="90" y="355" class="label">Tee</text>
+</svg>

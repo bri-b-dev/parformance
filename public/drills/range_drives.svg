@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Abschläge – Zielkorridor ca. 25 m breit, Fairway-Treffertraining">
+  <style>
+    .panel { fill: var(--surface); }
+    .tee   { fill: color-mix(in oklab, var(--accent-green) 10%, var(--surface)); stroke: var(--accent-iron); }
+    .fairway { fill: color-mix(in oklab, var(--accent-green) 30%, var(--surface)); stroke: var(--accent-iron); }
+    .rough { fill: color-mix(in oklab, var(--accent-beige) 25%, var(--surface)); }
+    .line  { stroke: var(--accent-iron); stroke-dasharray: 4 6; opacity: 0.6; }
+    .marker { stroke: var(--primary); stroke-width: 2; fill: none; }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+
+  <!-- Fairway und Rough -->
+  <polygon points="140,380 580,240 580,180 140,40" class="fairway"/>
+  <polygon points="120,380 600,240 600,180 120,40" class="rough" opacity="0.4"/>
+
+  <!-- Abschlag / Tee -->
+  <rect x="100" y="360" width="40" height="20" class="tee" rx="4" ry="4"/>
+  <text x="90" y="355" class="label">Tee</text>
+
+  <!-- Zielkorridor-Markierung -->
+  <line x1="580" y1="180" x2="580" y2="240" class="marker"/>
+  <line x1="605" y1="180" x2="605" y2="240" class="marker"/>
+  <text x="585" y="260" class="label">≈25 m</text>
+
+  <!-- Hilfslinien -->
+  <path d="M120 370 C240 320, 400 260, 580 210" class="line"/>
+  <path d="M120 370 C260 300, 420 240, 605 210" class="line"/>
+</svg>

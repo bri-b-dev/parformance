@@ -97,7 +97,6 @@
         "id": { "$ref": "#/definitions/NonEmptyString" },
         "title": { "$ref": "#/definitions/NonEmptyString" },
         "category": { "$ref": "#/definitions/NonEmptyString" },
-        "source": { "$ref": "#/definitions/NonEmptyString" },
         "equipment": { "$ref": "#/definitions/Equipment" },
         "setup": { "$ref": "#/definitions/Setup" },
         "duration": { "$ref": "#/definitions/Duration" },

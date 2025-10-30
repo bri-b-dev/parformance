@@ -188,7 +188,7 @@
       ]
     },
     "setup": {
-      "schema": "Linie mit 90‑cm Schritten (0.9/1.8/2.7 m)",
+      "schema": "Such dir einen relativ geraden Putt von etwa drei Meter Länge. Markiere drei Positionen mit den folgenden Entfernungen zum Loch mit einem Tee: 90 cm (1), 180 cm (2) und 270 cm (3) - die Entfernungen entsprechen ein bis drei Putter-Längen.",
       "location": "Putting Green"
     },
     "duration": {
@@ -196,18 +196,19 @@
       "timerPreset": 540
     },
     "instructions": {
-      "training": "Von 0.9 m auf 1.8, 2.7 m vorrücken; bei Miss zurück.",
-      "test": "Serie 3/1/1 etc. je nach Level.",
-      "tooEasy": "Mehr Break oder längere Distanzen."
+      "training": "Putte nach den unten angegebenen Zielwerten (z.B. 10/4/2) von den drei Positionen. Du kommst erst eine Station weiter, wenn du die Anzahl an Putts in Serie gelocht hast. Sobald du einen Putt verpasst, geht es zurück zu (1).",
+      "test": "Die Übung ist erst dann beendet, wenn du von Position (3) die vorgegebene Anzahl an Putts lochen konntest.",
+      "tooEasy": "Spiel auf ein Loch mit etwas Break. Erhöhe die Anzahl der zu lochenden Putts."
     },
     "metric": {
       "type": "streak",
       "unit": "Stationenfolge",
-      "hcpTargets": {}
+      "hcpTargets": { "54-27": [3,1,1], "26-12": [5,3,1], "11-0": [10,4,2] }
     },
     "tags": [
       "Drucksimulation"
-    ]
+    ],
+    "zockerTip": "Spielt zu zweit gegeneinander. Putte nebeneinander auf zwei verschiedene Löcher aus den drei Positionen. Wert schafft als erster eine vorher festgelegte Serie?"
   },
   {
     "id": "put_shootout",
@@ -227,8 +228,8 @@
       "location": "Putting Green"
     },
     "duration": {
-      "suggestedMin": 8,
-      "timerPreset": 480
+      "suggestedMin": 10,
+      "timerPreset": 600
     },
     "instructions": {
       "training": "Abwechselnd von beiden Positionen, bei Miss beide zurücksetzen.",
@@ -238,7 +239,7 @@
     "metric": {
       "type": "streak",
       "unit": "Putts in Serie",
-      "hcpTargets": {}
+      "hcpTargets": { "54-27": [3,1,1], "26-12": [5,3,1], "11-0": [10,4,2] }
     },
     "tags": [
       "Druck"

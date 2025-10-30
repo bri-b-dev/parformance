@@ -3,8 +3,10 @@
     <h1 class="text-xl font-semibold">Stats</h1>
 
     <!-- Loading state -->
-    <output v-if="!drillsLoaded || !sessionsLoaded" class="p-4 flex items-center text-sm text-gray-600" aria-live="polite">
-      <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
+    <output v-if="!drillsLoaded || !sessionsLoaded" class="p-4 flex items-center text-sm text-gray-600"
+      aria-live="polite">
+      <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"
+        aria-hidden="true"></span>
       Lädt…
     </output>
 
@@ -14,12 +16,14 @@
         <h2 class="label" style="margin:0;">Fähigkeiten je Kategorie</h2>
         <div style="display:flex; gap:8px; align-items:center;">
           <label for="category-select" class="sr-only">Kategorie</label>
-          <select id="category-select" v-model="selectedCategory" aria-label="Kategorie filter" data-testid="stats-category">
+          <select id="category-select" v-model="selectedCategory" aria-label="Kategorie filter"
+            data-testid="stats-category">
             <option value="all">Alle Kategorien</option>
             <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
           </select>
           <label for="period-select" class="sr-only">Zeitraum</label>
-          <select id="period-select" v-model.number="selectedPeriodDays" aria-label="Zeitraum" data-testid="stats-period">
+          <select id="period-select" v-model.number="selectedPeriodDays" aria-label="Zeitraum"
+            data-testid="stats-period">
             <option :value="0">Alle</option>
             <option :value="7">7 Tage</option>
             <option :value="30">30 Tage</option>
@@ -63,7 +67,7 @@
           <div class="card" data-testid="areas-most-improved">
             <h3 style="margin-top:0;">Meiste Verbesserung</h3>
             <ul style="margin:0; padding-left:16px;">
-              <li v-for="i in areas.mostImproved.slice(0,10)" :key="i.id">
+              <li v-for="i in areas.mostImproved.slice(0, 10)" :key="i.id">
                 <router-link :to="{ name: 'DrillDetail', params: { id: i.id } }">{{ i.title || i.id }}</router-link>
                 <span class="muted" style="margin-left:8px;">(Δ {{ (i.delta || 0).toFixed(2) }})</span>
               </li>
@@ -79,13 +83,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
+import { computeAreasOfImprovement } from '@/stats/areas'
+import { computeCategoryScores } from '@/stats/categoryScores'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
-import { computeCategoryScores } from '@/stats/categoryScores'
-import { computeAreasOfImprovement } from '@/stats/areas'
-import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
+import { computed, onMounted, ref } from 'vue'
 
 const catalog = useDrillCatalogStore()
 const sessions = useSessionsStore()

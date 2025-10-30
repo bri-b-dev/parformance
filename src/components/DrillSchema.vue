@@ -52,6 +52,7 @@ watch(src, load);
   align-items: center;
   padding: 12px;
 }
+
 .schema-diagram :where(svg) {
   display: block;
   width: 100%;
@@ -62,6 +63,7 @@ watch(src, load);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
+
 .schema-fallback {
   width: 100%;
   height: 220px;

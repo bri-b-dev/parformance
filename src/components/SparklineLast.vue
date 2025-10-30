@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import Sparkline from './Sparkline.vue'
+import { computed } from 'vue';
+import Sparkline from './Sparkline.vue';
 
 const props = defineProps<{
   /** numeric array of values (preferred) */
@@ -28,10 +28,10 @@ const lastValues = computed(() => {
     vals = props.values.filter(v => typeof v === 'number' && Number.isFinite(v))
   } else if (Array.isArray(props.sessions) && props.sessions.length) {
     vals = props.sessions.map(s => {
-      if (s == null) return NaN
+      if (s == null) return Number.NaN
       // support either s.result?.value or s.value
-      const v = s?.result?.value ?? s?.value ?? NaN
-      return typeof v === 'number' && Number.isFinite(v) ? v : NaN
+      const v = s?.result?.value ?? s?.value ?? Number.NaN
+      return typeof v === 'number' && Number.isFinite(v) ? v : Number.NaN
     }).filter(v => Number.isFinite(v))
   }
   if (!vals.length) return []

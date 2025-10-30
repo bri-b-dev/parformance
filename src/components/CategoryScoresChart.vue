@@ -13,21 +13,21 @@
     <!-- Bars (mobile) -->
     <div v-if="actualMode === 'bar'" class="row" style="flex-direction:column; gap:8px;">
       <div v-for="row in rows" :key="row.category" class="w-full">
-        <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; font-size:12px; margin-bottom:4px;">
           <span>{{ row.category }}</span>
           <span>{{ row.value }}%</span>
         </div>
         <div class="w-full" style="height:10px; background: var(--border); border-radius: 999px; overflow:hidden;">
-          <div :data-testid="`bar-${row.category}`"
-               :class="['h-full']"
-               :style="barStyle(row)"></div>
+          <div :data-testid="`bar-${row.category}`" :class="['h-full']" :style="barStyle(row)"></div>
         </div>
       </div>
     </div>
 
     <!-- Radar (desktop) -->
     <div v-else class="w-full" style="display:flex; align-items:center; justify-content:center;">
-      <svg :width="svgSize" :height="svgSize" :viewBox="`0 0 ${svgSize} ${svgSize}`" aria-labelledby="radar-title" aria-describedby="radar-desc">
+      <svg :width="svgSize" :height="svgSize" :viewBox="`0 0 ${svgSize} ${svgSize}`" aria-labelledby="radar-title"
+        aria-describedby="radar-desc">
         <title id="radar-title">Radar Chart</title>
         <desc id="radar-desc">{{ srSummary }}</desc>
         <!-- grid circles -->
@@ -42,7 +42,8 @@
         <g :transform="`translate(${center}, ${center})`">
           <polygon :points="polygonPoints" :fill="polyFill" :stroke="polyStroke" stroke-width="2" />
           <!-- weakest point marker -->
-          <circle v-if="weakestIndex >= 0" :cx="valuePoint(weakestIndex).x" :cy="valuePoint(weakestIndex).y" r="4" fill="#ef4444" />
+          <circle v-if="weakestIndex >= 0" :cx="valuePoint(weakestIndex).x" :cy="valuePoint(weakestIndex).y" r="4"
+            fill="#ef4444" />
         </g>
         <!-- labels around -->
         <g font-size="11" fill="currentColor">
@@ -58,16 +59,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue';
 
-const props = defineProps<{ 
+const props = defineProps<{
   scores: Record<string, number>,
   title?: string,
   /** 'auto' picks based on viewport; tests/stories can force 'bar' or 'radar' */
   mode?: 'auto' | 'bar' | 'radar',
 }>()
 
-const internalMode = ref<'bar'|'radar'>('bar')
+const internalMode = ref<'bar' | 'radar'>('bar')
 
 onMounted(() => {
   if (props.mode === 'auto' || props.mode == null) {
@@ -99,14 +100,14 @@ function clampPct(v: any): number {
 
 const weakestIndex = computed(() => {
   let idx = -1; let min = Infinity
-  for (let i = 0; i < values.value.length; i++) { 
+  for (let i = 0; i < values.value.length; i++) {
     const v = values.value[i]
-    if (v < min) { min = v; idx = i } 
+    if (v < min) { min = v; idx = i }
   }
   return idx
 })
 
-function barStyle(row: {category: string, value: number}) {
+function barStyle(row: { category: string, value: number }) {
   const isWeak = categories.value.indexOf(row.category) === weakestIndex.value
   const color = isWeak ? '#ef4444' /* red-500 */ : '#2F7A52' /* primary */
   return {

@@ -13,54 +13,55 @@
       </button>
     </header>
 
-     <DrillDetailGrid :drill="drill" />
+    <DrillDetailGrid :drill="drill" />
 
     <hr class="hr" />
 
     <!-- Metric -->
     <div style="section">
-      <strong>Timer & Messwert</strong> 
+      <strong>Timer & Messwert</strong>
 
-    <!-- Session controls & input -->
-    <div class="card" style="margin-top:10px;">
-      <div class="row" style="align-items:center; justify-content:space-between;">
-        <h3 class="label" style="margin:0;">Session</h3>
-        <output v-if="active" class="chip" aria-live="polite">Aktiv</output>
+      <!-- Session controls & input -->
+      <div class="card" style="margin-top:10px;">
+        <div class="row" style="align-items:center; justify-content:space-between;">
+          <h3 class="label" style="margin:0;">Session</h3>
+          <output v-if="active" class="chip" aria-live="polite">Aktiv</output>
+        </div>
+
+        <!-- Metric input tied to this drill; disabled until session active -->
+        <MetricValueInput v-if="drill.metric.unit" :drill="drill" v-model="value" :disabled="!active"
+          :label="drill.metric.unit" />
+
+        <!-- Optional increment button for count_in_time to track attempts during the session -->
+        <div v-if="active && drill.metric.type === 'count_in_time'" class="row" style="align-items:center;">
+          <button class="btn" type="button" @click="incAttempts" :aria-label="`+1 Versuch zu ${drill.title}`"
+            data-testid="attempts-inc">+1</button>
+          <output class="chip" aria-live="polite" data-testid="attempts-chip">
+            Versuche: {{ attemptsCount }}
+          </output>
+        </div>
+
+        <div class="row">
+          <button v-if="!active" class="btn btn-primary" type="button" @click="startSession">Session starten</button>
+          <template v-else>
+            <button class="btn" type="button" @click="cancelSession">Abbrechen</button>
+            <button class="btn btn-primary" type="button" @click="saveSession" :disabled="!canSave">Speichern</button>
+          </template>
+        </div>
+
+        <!-- Optional timer when preset exists; show only while active; start programmatically on session start -->
+        <div v-if="active && drill.duration?.timerPreset" style="margin-top:8px;">
+          <SimpleTimer ref="timerRef" :preset-seconds="drill.duration.timerPreset" @elapsed="onElapsed" />
+        </div>
       </div>
 
-      <!-- Metric input tied to this drill; disabled until session active -->
-      <MetricValueInput v-if="drill.metric.unit" :drill="drill" v-model="value" :disabled="!active" :label="drill.metric.unit" />
-
-      <!-- Optional increment button for count_in_time to track attempts during the session -->
-      <div v-if="active && drill.metric.type === 'count_in_time'" class="row" style="align-items:center;">
-        <button class="btn" type="button" @click="incAttempts" :aria-label="`+1 Versuch zu ${drill.title}`"
-          data-testid="attempts-inc">+1</button>
-        <output class="chip" aria-live="polite" data-testid="attempts-chip">
-          Versuche: {{ attemptsCount }}
-        </output>
+      <!-- HCP Targets -->
+      <div v-if="drill.metric.hcpTargets" style="margin-top:10px;">
+        <HcpTargetsTable :drill="drill" />
       </div>
 
-      <div class="row">
-        <button v-if="!active" class="btn btn-primary" type="button" @click="startSession">Session starten</button>
-        <template v-else>
-          <button class="btn" type="button" @click="cancelSession">Abbrechen</button>
-          <button class="btn btn-primary" type="button" @click="saveSession" :disabled="!canSave">Speichern</button>
-        </template>
-      </div>
-
-      <!-- Optional timer when preset exists; show only while active; start programmatically on session start -->
-      <div v-if="active && drill.duration?.timerPreset" style="margin-top:8px;">
-        <SimpleTimer ref="timerRef" :preset-seconds="drill.duration.timerPreset" @elapsed="onElapsed" />
-      </div>
-    </div>
-
-    <!-- HCP Targets -->
-     <div v-if="drill.metric.hcpTargets" style="margin-top:10px;">
-    <HcpTargetsTable :drill="drill" />
-    </div>
-
-    <!-- Stats summary: Best, MA(5), Trend -->
-    <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
+      <!-- Stats summary: Best, MA(5), Trend -->
+      <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
 
     </div>
     <!-- Gambler's tip / Zocker-Tipp -->
@@ -72,20 +73,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, nextTick } from 'vue'
-import type { Drill, Session } from '@/types'
+import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
+import GamblerTipPanel from '@/components/GamblerTipPanel.vue'
+import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
+import MetricValueInput from '@/components/MetricValueInput.vue'
+import SessionHistory from '@/components/SessionHistory.vue'
+import SimpleTimer from '@/components/SimpleTimer.vue'
+import { computeLevelForDrill } from '@/hcp/level'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
-import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
-import SimpleTimer from '@/components/SimpleTimer.vue'
-import MetricValueInput from '@/components/MetricValueInput.vue'
-import SessionHistory from '@/components/SessionHistory.vue'
-import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
-import GamblerTipPanel from '@/components/GamblerTipPanel.vue'
-import { computeLevelForDrill } from '@/hcp/level'
+import type { Drill, Session } from '@/types'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import DrillDetailGrid from './DrillDetailGrid.vue'
-import GamerPanel from '@/components/GamerPanel.vue'
 
 const props = defineProps<{ drill: Drill }>()
 

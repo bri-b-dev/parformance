@@ -1,10 +1,5 @@
 <template>
-  <span
-    class="chip"
-    :title="tooltip"
-    :aria-label="ariaLabel"
-    data-testid="level-badge"
-  >
+  <span class="chip" :title="tooltip" :aria-label="ariaLabel" data-testid="level-badge">
     <template v-if="level != null">
       Level {{ level }}
     </template>
@@ -15,12 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import type { Drill } from '@/types'
+import { findBucketKey, formatRangeLabel } from '@/hcp/buckets'
+import { computeLevelForDrill } from '@/hcp/level'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
-import { computeLevelForDrill } from '@/hcp/level'
-import { findBucketKey, formatRangeLabel } from '@/hcp/buckets'
+import type { Drill } from '@/types'
+import { computed, onMounted } from 'vue'
 
 const props = defineProps<{ drill: Drill }>()
 
@@ -36,13 +31,13 @@ onMounted(async () => {
 const latest = computed(() => sessions.latestByDrill(props.drill.id))
 
 // Display level: prefer stored levelReached; otherwise compute from current hcp + result
-const level = computed<1|2|3|null>(() => {
+const level = computed<1 | 2 | 3 | null>(() => {
   const s = latest.value
   if (!s) return null
   let lvl = typeof s.levelReached === 'number' ? s.levelReached : computeLevelForDrill(props.drill, settings.hcp, Number(s.result?.value))
   if (!Number.isFinite(lvl)) return null
   // Only render 1..3; 0 maps to neutral
-  if (lvl >= 1 && lvl <= 3) return lvl as 1|2|3
+  if (lvl >= 1 && lvl <= 3) return lvl as 1 | 2 | 3
   return null
 })
 

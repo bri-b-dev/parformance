@@ -19,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch, onMounted } from 'vue'
-import { useTimer } from '@/composables/useTimer'
+import { useTimer } from '@/composables/useTimer';
+import { computed, onMounted, watch } from 'vue';
 
 const props = defineProps<{ presetSeconds?: number; autoStart?: boolean }>()
 const emit = defineEmits<(e: 'elapsed', seconds: number) => void>()

@@ -16,12 +16,12 @@
 </template>
 <script setup lang="ts">
 import BottomTabs from '@/components/BottomTabs.vue';
-import ShuffleFab from '@/components/ShuffleFab.vue'
-import RandomizerView from '@/views/RandomizerView.vue'
-import HeaderBar from './components/HeaderBar.vue'
-import { onMounted, ref } from 'vue'
-import { useSessionsStore } from '@/stores/sessions'
-import { useUiStore } from '@/stores/ui'
+import ShuffleFab from '@/components/ShuffleFab.vue';
+import { useSessionsStore } from '@/stores/sessions';
+import { useUiStore } from '@/stores/ui';
+import RandomizerView from '@/views/RandomizerView.vue';
+import { onMounted, ref } from 'vue';
+import HeaderBar from './components/HeaderBar.vue';
 
 const sessions = useSessionsStore()
 const ui = useUiStore()

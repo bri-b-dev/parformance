@@ -28,24 +28,20 @@
         <div style="margin-top:6px;">
           <template v-if="editingId === s.id">
             <label class="label" :for="`notes-${s.id}`">Notizen bearbeiten</label>
-            <textarea
-              :id="`notes-${s.id}`"
-              class="input"
-              rows="2"
-              v-model.trim="draftNotes"
-              data-testid="notes-textarea"
-              aria-live="polite"
-            ></textarea>
+            <textarea :id="`notes-${s.id}`" class="input" rows="2" v-model.trim="draftNotes"
+              data-testid="notes-textarea" aria-live="polite"></textarea>
             <div class="row" style="justify-content:flex-end; margin-top:6px;">
               <button type="button" class="btn" @click="cancelEdit" data-testid="notes-cancel">Abbrechen</button>
-              <button type="button" class="btn btn-primary" @click="saveNotes(s.id)" data-testid="notes-save">Speichern</button>
+              <button type="button" class="btn btn-primary" @click="saveNotes(s.id)"
+                data-testid="notes-save">Speichern</button>
             </div>
           </template>
           <template v-else>
             <p v-if="s.notes" style="margin:0; white-space:pre-wrap;">{{ s.notes }}</p>
             <p v-else style="margin:0; color:var(--muted);">Keine Notizen</p>
             <div class="row" style="justify-content:flex-end; margin-top:6px;">
-              <button type="button" class="btn" @click="startEdit(s)" :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`" data-testid="notes-edit">Notizen</button>
+              <button type="button" class="btn" @click="startEdit(s)"
+                :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`" data-testid="notes-edit">Notizen</button>
             </div>
           </template>
         </div>
@@ -55,9 +51,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import type { Session } from '@/types'
-import { useSessionsStore } from '@/stores/sessions'
+import { useSessionsStore } from '@/stores/sessions';
+import type { Session } from '@/types';
+import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps<{ drillId: string }>()
 

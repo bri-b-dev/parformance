@@ -6,7 +6,8 @@
     </header>
 
     <output v-if="!sessionsLoaded" class="p-2 flex items-center text-sm text-gray-600" aria-live="polite">
-      <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
+      <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"
+        aria-hidden="true"></span>
       Lädt…
     </output>
 
@@ -15,7 +16,8 @@
     </output>
 
     <div v-else class="row" style="align-items:center;">
-      <div class="chip" :aria-label="`Bester Wert: ${best} ${unit}`">🏅 Best: <strong style="margin-left:4px; color:inherit;">{{ best }}</strong> {{ unit }}</div>
+      <div class="chip" :aria-label="`Bester Wert: ${best} ${unit}`">🏅 Best: <strong
+          style="margin-left:4px; color:inherit;">{{ best }}</strong> {{ unit }}</div>
       <div class="chip" :aria-label="`Gleitender Schnitt (5): ${maLast5Label}`">
         📈 MA(5): <strong style="margin-left:4px; color:inherit;">{{ maLast5Label }}</strong>
       </div>
@@ -30,10 +32,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import SparklineLast from '@/components/SparklineLast.vue'
-import { useSessionsStore } from '@/stores/sessions'
-import { getMovingAverageTrend } from '@/stats/movingAverage'
+import SparklineLast from '@/components/SparklineLast.vue';
+import { getMovingAverageTrend } from '@/stats/movingAverage';
+import { useSessionsStore } from '@/stores/sessions';
+import { computed, onMounted } from 'vue';
 
 const props = defineProps<{ drillId: string; unit: string }>()
 

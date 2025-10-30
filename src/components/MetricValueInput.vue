@@ -1,39 +1,21 @@
 <template>
   <div class="field">
     <div class="row" style="align-items:center;">
-      <input
-        :id="inputId"
-        class="input"
-        type="number"
-        :min="effectiveMin ?? undefined"
-        :max="max ?? undefined"
-        :aria-describedby="error ? `${inputId}-error` : undefined"
-        :aria-invalid="!!error"
-        :disabled="disabled"
-        :step="1"
-        :inputmode="'numeric'"
-        :value="innerValue ?? ''"
-        @input="onInput"
-        style="flex:1;"
-      />
+      <input :id="inputId" class="input" type="number" :min="effectiveMin ?? undefined" :max="max ?? undefined"
+        :aria-describedby="error ? `${inputId}-error` : undefined" :aria-invalid="!!error" :disabled="disabled"
+        :step="1" :inputmode="'numeric'" :value="innerValue ?? ''" @input="onInput" style="flex:1;" />
       <span class="chip" aria-hidden="true">{{ unit }}</span>
     </div>
-    <p
-      v-if="error"
-      :id="`${inputId}-error`"
-      class="text-sm text-red-600 mt-1"
-      role="status"
-      aria-live="polite"
-    >
+    <output v-if="error" :id="`${inputId}-error`" class="text-sm text-red-600 mt-1" aria-live="polite">
       {{ error }}
-    </p>
+    </output>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import type { Drill } from '@/types'
-import { validateDrillResult } from '@/metrics/validation'
+import { validateDrillResult } from '@/metrics/validation';
+import type { Drill } from '@/types';
+import { computed, ref, watch } from 'vue';
 
 const props = defineProps<{
   drill: Drill

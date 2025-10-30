@@ -35,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Drill } from '@/types'
-import DrillSchema from '@/components/DrillSchema.vue'
+import DrillSchema from '@/components/DrillSchema.vue';
+import type { Drill } from '@/types';
 
 const props = defineProps<{ drill: Drill }>()
 </script>

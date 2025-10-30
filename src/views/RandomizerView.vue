@@ -46,7 +46,7 @@
             <output class="reel-viewport" :aria-live="spinning.focus ? 'off' : 'polite'">
               <div class="reel-track" :style="focusTransformStyle">
                 <div v-for="f in (focusList.length ? focusList : focusItems)" :key="`focus-${f}`" class="reel-item">{{ f
-                  }}</div>
+                }}</div>
               </div>
               <div class="reel-fade top" aria-hidden="true"></div>
               <div class="reel-fade bottom" aria-hidden="true"></div>
@@ -93,11 +93,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onBeforeUnmount, reactive, ref, watch } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { useUiStore } from '@/stores/ui'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useUiStore } from '@/stores/ui'
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const props = defineProps<{ durationEnvMs?: number; durationFocusMs?: number; durationNameMs?: number }>()
 const D_ENV = computed(() => props.durationEnvMs ?? 550)

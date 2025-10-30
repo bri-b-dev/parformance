@@ -23,10 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Drill } from '@/types'
-import { computed, onMounted } from 'vue'
-import { useSettingsStore } from '@/stores/settings'
-import { buildRowsForDrill } from '@/hcp/buckets'
+import { buildRowsForDrill } from '@/hcp/buckets';
+import { useSettingsStore } from '@/stores/settings';
+import type { Drill } from '@/types';
+import { computed, onMounted } from 'vue';
 
 const props = defineProps<{ drill: Drill }>()
 

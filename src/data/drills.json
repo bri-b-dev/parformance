@@ -334,7 +334,6 @@
   {
     "id": "putting_circle",
     "title": "Circle Putting",
-    "subtitle": "Gesehen bei Phil Mickelson",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -377,7 +376,6 @@
       "Putting",
       "Konstanz",
       "Zieltraining",
-      "Phil Mickelson",
       "Routine",
       "Konzentration",
       "Drill"
@@ -392,7 +390,6 @@
   {
     "id": "putting_under_pressure",
     "title": "Under Pressure",
-    "subtitle": "Gesehen bei Paul Azinger",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -449,8 +446,7 @@
       "Mentales Training",
       "Konzentration",
       "Routine",
-      "Serienübung",
-      "Paul Azinger"
+      "Serienübung"
     ],
     "zockerTip": "Spiele zu zweit gegeneinander: Ihr puttet abwechselnd an verschiedenen Löchern auf die gleichen drei Distanzen. Wer zuerst die geforderte Serie vollständig gelocht hat, gewinnt.",
     "variants": [
@@ -462,7 +458,6 @@
   {
     "id": "putting_shootout",
     "title": "Shootout",
-    "subtitle": "Gesehen bei Caroline Masson",
     "category": "Putting",
     "equipment": {
       "balls": 1,
@@ -489,7 +484,7 @@
     },
     "instructions": {
       "training": "Putte abwechselnd von den beiden Positionen aus – also einmal von vorne, dann von hinten zum Loch. Ziel ist es, möglichst viele Putts in Folge zu lochen. Wenn du einen Putt verfehlst, gehst du im Zählstand wieder einen Punkt zurück. Wenn du also beispielsweise fünf Putts gelocht hast, aber den sechsten verfehlst, fällst du auf vier Punkte zurück.",
-      "test": "Spiele auf ein Loch mit etwas Break, um die Schwierigkeit zu steigern. Caroline Masson nutzt diesen Drill regelmäßig in der Turniervorbereitung. Sie beginnt mit dem Ziel, 30 Putts in Folge zu lochen.",
+      "test": "Spiele auf ein Loch mit etwas Break, um die Schwierigkeit zu steigern.",
       "tooEasy": "Erhöhe die Distanz zwischen den beiden Positionen oder spiele mit stärkerem Break."
     },
     "metric": {
@@ -503,7 +498,6 @@
     },
     "tags": [
       "Putting",
-      "Caroline Masson",
       "Druck",
       "Serientraining",
       "Konzentration",
@@ -520,7 +514,6 @@
   {
     "id": "putting_around_the_world",
     "title": "Around the World",
-    "subtitle": "Gesehen bei Stewart Cink",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -561,7 +554,6 @@
     },
     "tags": [
       "Putting",
-      "Stewart Cink",
       "Zieltraining",
       "Breaklesen",
       "Präzision",
@@ -578,7 +570,6 @@
   {
     "id": "putting_hit_the_hall",
     "title": "Hit the Hall",
-    "subtitle": "Gesehen bei David Howell",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -606,7 +597,7 @@
     },
     "instructions": {
       "training": "Putte nacheinander von allen fünf Positionen aus. Jeder Ball, der im Loch oder im Korridor hinter dem Loch liegen bleibt, zählt als Punkt. Die Übung ist beendet, wenn du von der Substanzposition (2 m) oder weiter keinen Punkt mehr erzielen kannst. Ziel: So viele Punkte wie möglich innerhalb von 10 Minuten.",
-      "test": "Bringe ein Loch mit Break ins Spiel – besonders schwierig wird es bei Bergauf- oder Gefälleputts. Richte dich gezielt auf ein bestimmtes Ziel aus, z. B. den Buchstaben auf dem Ball oder einen Punkt am Lochrand. Tipp von Rory McIlroy: Zeichne mit einem Stift eine gerade Linie auf den Ball, um dein Zielen zu verbessern.",
+      "test": "Bringe ein Loch mit Break ins Spiel – besonders schwierig wird es bei Bergauf- oder Gefälleputts. Richte dich gezielt auf ein bestimmtes Ziel aus, z. B. den Buchstaben auf dem Ball oder einen Punkt am Lochrand.",
       "tooEasy": "Verkleinere den Korridor hinter dem Loch oder verlängere die Distanzen auf 3 – 12 m."
     },
     "metric": {
@@ -622,10 +613,8 @@
       "Putting",
       "Distanzkontrolle",
       "Speed Control",
-      "David Howell",
       "Zieltraining",
-      "Präzision",
-      "Rory McIlroy Tipp"
+      "Präzision"
     ],
     "zockerTip": "Spielt zu zweit: Abwechselnd wird von jeder Position geputtet. Schafft ein:e Spieler:in es, den Ball in den Korridor oder ins Loch zu bringen, darf sie/er in der nächsten Runde von der weiter entfernten Position spielen. Wer zuerst alle fünf Stationen erfolgreich absolviert, gewinnt.",
     "variants": [
@@ -637,7 +626,6 @@
   {
     "id": "putting_roll_control",
     "title": "Roll Control",
-    "subtitle": "Gesehen bei David Frost",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -680,7 +668,6 @@
       "Putting",
       "Speed Control",
       "Distanzgefühl",
-      "David Frost",
       "Touch Training",
       "Tempo",
       "Gefühl"
@@ -695,7 +682,6 @@
   {
     "id": "putting_pace_putting",
     "title": "Pace Putting",
-    "subtitle": "Gesehen bei Danny Willett",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -738,7 +724,6 @@
       "Putting",
       "Speed Control",
       "Längenkontrolle",
-      "Danny Willett",
       "Gefühlstraining",
       "Routine",
       "Drei-Putt-Vermeidung"
@@ -753,7 +738,6 @@
   {
     "id": "putting_five_balls",
     "title": "Five Balls",
-    "subtitle": "Gesehen bei Thomas Levet",
     "category": "Putting",
     "equipment": {
       "balls": 5,
@@ -797,7 +781,6 @@
       "Putting",
       "Speed Control",
       "Distance Training",
-      "Thomas Levet",
       "Gefühlstraining",
       "Längenkontrolle",
       "Zielkonstanz"
@@ -812,7 +795,6 @@
   {
     "id": "putting_draw_back",
     "title": "Draw Back",
-    "subtitle": "Gesehen bei Álex Norén",
     "category": "Putting",
     "equipment": {
       "balls": 1,
@@ -856,7 +838,6 @@
       "Speed Control",
       "Distance Control",
       "Pressure Drill",
-      "Álex Norén",
       "Konzentration",
       "Feinmotorik"
     ],
@@ -1300,7 +1281,6 @@
   {
     "id": "shortgame_up_and_down",
     "title": "Up & Down",
-    "subtitle": "Gesehen bei Mark O'Meara",
     "category": "Chipping",
     "equipment": {
       "balls": 1,
@@ -1343,7 +1323,6 @@
     "tags": [
       "Short Game",
       "Up & Down",
-      "Mark O'Meara",
       "Scoring",
       "Chip und Putt",
       "Pitching",
@@ -1482,7 +1461,6 @@
   {
     "id": "shortgame_hit_the_spot",
     "title": "Hit the Spot",
-    "subtitle": "Präzise Landepunkte treffen wie Tiger Woods",
     "category": "Chipping",
     "equipment": {
       "balls": 15,
@@ -1531,7 +1509,6 @@
       "Landepunkt",
       "Kontakt",
       "Präzision",
-      "Tiger Woods",
       "Kontrolle"
     ],
     "zockerTip": "Spielt zu zweit im Lochspielmodus. Jeder Spieler bestimmt vor dem Schlag eine Landezone als Ziel. Wer sie trifft, erhält einen Punkt. Wird sie verfehlt, entscheidet der Gegner, welche Zone als Nächstes gilt. Bonus: Doppelte Punkte, wenn der Ball nach dem Chip ausrollt und das Loch erreicht.",
@@ -1593,8 +1570,7 @@
       "Short Game",
       "Zielspiel",
       "Distanzkontrolle",
-      "Präzision",
-      "Phil Mickelson"
+      "Präzision"
     ],
     "zockerTip": "Spielt zu zweit: Beide schlagen abwechselnd fünf Bälle aus dem Bunker. Punktevergabe nach Zielkreis. Der Spieler mit der höheren Punktzahl gewinnt die Runde.",
     "variants": [
@@ -1718,8 +1694,7 @@
       "Short Game",
       "Zielspiel",
       "Kontrolle",
-      "Präzision",
-      "Bernd Ritthammer"
+      "Präzision"
     ],
     "zockerTip": "Spielt zu zweit im Lochspielmodus. Jeder Spieler bestimmt abwechselnd den Schläger, der an der nächsten Station verwendet werden muss. Wer zuerst alle vier Stationen mit Treffern abschließt, gewinnt die Runde.",
     "variants": [
@@ -1937,8 +1912,7 @@
       "Short Game",
       "Zielspiel",
       "Distanzkontrolle",
-      "Präzision",
-      "Bernd Ritthammer"
+      "Präzision"
     ],
     "zockerTip": "Spielt zu zweit: Jeder wählt eine der drei Distanzen. Der Spieler, dessen Ball näher an der Fahne liegt, erhält einen Punkt. Bonus: Wer den Ball einchippt, bekommt zwei Punkte. Nach neun Schlägen gewinnt der Spieler mit den meisten Punkten.",
     "variants": [
@@ -2074,8 +2048,7 @@
       "Abschlag",
       "Fairway-Trefferquote",
       "Konstanz",
-      "Richtungskontrolle",
-      "Martina Eberl"
+      "Richtungskontrolle"
     ],
     "zockerTip": "Spielt zu zweit: Jeder kündigt vor dem Schlag an, ob der Ball Draw, Fade oder gerade fliegen soll. Treffer im Korridor bringen Punkte, Bonuspunkte für die korrekte Flugkurve. Wer zuerst 9 Punkte erreicht, gewinnt.",
     "variants": [
@@ -2133,8 +2106,7 @@
       "Eisen-Training",
       "Zielspiel",
       "Distanzkontrolle",
-      "Trefferquote",
-      "Martina Eberl"
+      "Trefferquote"
     ],
     "zockerTip": "Spielt diesen Drill gegeneinander im Team. Jeder Spieler wählt pro Runde ein Ziel. Durch die wechselnden Ziele steigt der Druck. Punktewertung: nah = 2, mittel = 3, weit = 4. Wer nach 9 Schlägen die meisten Punkte hat, gewinnt.",
     "variants": [
@@ -2192,8 +2164,7 @@
       "Driver",
       "Eisen 7",
       "Fairway-Trefferquote",
-      "Rhythmus",
-      "Jim Furyk"
+      "Rhythmus"
     ],
     "zockerTip": "Spielt gegeneinander: Vergleicht eure Trefferquote. Der Eisen-Treffer zählt 1 Punkt, der Drive 2 Punkte. Nach 14 Schlägen gewinnt der Spieler mit der höchsten Punktzahl. Bonuspunkt für 3 aufeinanderfolgende Treffer.",
     "variants": [
@@ -2253,8 +2224,7 @@
       "Eisen",
       "Distanzkontrolle",
       "Längentraining",
-      "Gapping",
-      "Davis Love III"
+      "Gapping"
     ],
     "zockerTip": "Spielt gegeneinander auf dieselben Distanzen. Wer zuerst alle Ziele trifft, gewinnt. Zusatzregel: Wer das kürzeste Ziel zuerst trifft, darf den Gegner für die nächste Station herausfordern. Variation: Spiele Par-3-Löcher mit dem Driver – wie nah kommst du ans Grün?",
     "variants": [
@@ -2314,8 +2284,7 @@
       "Fairwayholz",
       "Ballflugkurven",
       "Fade",
-      "Draw",
-      "Tom Lehman"
+      "Draw"
     ],
     "zockerTip": "Spielt diesen Drill im Lochspielmodus gegeneinander. Wer seine Kurve am besten trifft und im Zielkorridor landet, gewinnt das Loch. Verfehlt ein Spieler die Kurve, muss er beim nächsten Abschlag die Kurvenrichtung wechseln.",
     "variants": [
@@ -2398,7 +2367,7 @@
       ]
     },
     "setup": {
-      "schema": "Legen Sie einen Alignment Stick oder ein Eisen parallel zur Ziellinie. Schlagen Sie 20 Bälle mit normaler Routine und vollem Fokus auf einen präzisen Balltreffer. Achten Sie darauf, ob Ihr Schwung von außen oder innen über das Ziel führt. Ziel ist, eine stabile, wiederholbare Treffposition in der Schlägermitte zu erreichen.",
+      "schema": "Lege einen Alignment Stick oder ein Eisen parallel zur Ziellinie. Schlage 20 Bälle mit normaler Routine und vollem Fokus auf einen präzisen Balltreffer. Achte darauf, ob dein Schwung von außen oder innen über das Ziel führt. Ziel ist, eine stabile, wiederholbare Treffposition in der Schlägermitte zu erreichen.",
       "diagram": "svg:drills/sweetspot_hit_the_sweetspot_2",
       "location": "Driving Range"
     },
@@ -2413,7 +2382,7 @@
     "instructions": {
       "training": "Tee den Ball auf, richte dich wie gewohnt aus und führe deine volle Routine aus. Beobachte, ob dein Schwung leicht von außen oder von innen kommt und wie der Ball startet. Fokussiere dich auf den Klang und das Gefühl im Treffmoment.",
       "test": "Triff den Ball regelmäßig mittig auf der Schlagfläche. Analysiere, ob der Ball in der Zielrichtung startet und gerade fliegt.",
-      "tooEasy": "Verkleinern Sie den Zielkorridor (z. B. Baum oder Fahne). Spielen Sie mit bewusstem Draw/Fade-Wechsel, um die Kontrolle über den Schwungpfad zu trainieren."
+      "tooEasy": "Verkleinere den Zielkorridor (z. B. Baum oder Fahne). Spiele mit bewusstem Draw/Fade-Wechsel, um die Kontrolle über den Schwungpfad zu trainieren."
     },
     "metric": {
       "type": "qualitative",
@@ -2457,7 +2426,7 @@
       ]
     },
     "setup": {
-      "schema": "Bringen Sie Impact Tape oder ein Impact Spray auf der Schlagfläche an. Schlagen Sie 18 Bälle, aufgeteilt in drei Serien à sechs Schläge. Versuchen Sie gezielt, den Ball einmal innen, einmal außen und einmal mittig (Sweetspot) zu treffen. Beobachten Sie Ballflug, Klang und Gefühl im Treffmoment.",
+      "schema": "Bringe Impact Tape oder ein Impact Spray auf der Schlagfläche an. Schlage 18 Bälle, aufgeteilt in drei Serien à sechs Schläge. Versuche gezielt, den Ball einmal innen, einmal außen und einmal mittig (Sweetspot) zu treffen. Beobachte Ballflug, Klang und Gefühl im Treffmoment.",
       "diagram": "svg:drills/sweetspot_out_of_the_sweetspot",
       "location": "Driving Range"
     },
@@ -2470,9 +2439,9 @@
       "scale": "1-5"
     },
     "instructions": {
-      "training": "Führen Sie Ihre normale Routine aus und variieren Sie gezielt den Treffpunkt. Spielen Sie je sechs Bälle innen, außen und mittig. Notieren Sie bei jedem Schlag, wie sich der Ballflug und das Gefühl im Treffmoment verändern.",
-      "test": "Vergleichen Sie Ihre Ergebnisse mit dem Drill ‚Hit the Sweetspot I‘. Ziel ist, das Gefühl für die Treffmitte zu verfeinern und Fehltreffer sofort zu erkennen.",
-      "tooEasy": "Verkleinern Sie den Sweetspot-Bereich oder spielen Sie mit einem Eisen 3 bzw. einem Blade-Schläger. So wird das Feedback deutlicher."
+      "training": "Führe deine normale Routine aus und variiere gezielt den Treffpunkt. Spiele je sechs Bälle innen, außen und mittig. Notiere bei jedem Schlag, wie sich der Ballflug und das Gefühl im Treffmoment verändern.",
+      "test": "Vergleiche deine Ergebnisse mit dem Drill ‚Hit the Sweetspot I‘. Ziel ist, das Gefühl für die Treffmitte zu verfeinern und Fehltreffer sofort zu erkennen.",
+      "tooEasy": "Verkleinere den Sweetspot-Bereich oder spiele mit einem Eisen 3 bzw. einem Blade-Schläger. So wird das Feedback deutlicher."
     },
     "metric": {
       "type": "qualitative",
@@ -2491,11 +2460,11 @@
       "Gefühlstraining",
       "Feedback"
     ],
-    "tip": "Nutzen Sie den Drill nicht zur Korrektur, sondern zur bewussten Wahrnehmung. Nur wer weiß, wie sich Off-Center-Treffer anfühlen, kann echte Mitte spüren.",
-    "compare": "Vergleichen Sie die Ergebnisse mit ‚Hit the Sweetspot I‘ – Ziel ist, die eigene Wahrnehmung zu schärfen und die Quote echter Sweetspot-Treffer zu steigern.",
+    "tip": "Nutze den Drill nicht zur Korrektur, sondern zur bewussten Wahrnehmung. Nur wer weiß, wie sich Off-Center-Treffer anfühlen, kann echte Mitte spüren.",
+    "compare": "Vergleiche die Ergebnisse mit ‚Hit the Sweetspot I‘ – Ziel ist, die eigene Wahrnehmung zu schärfen und die Quote echter Sweetspot-Treffer zu steigern.",
     "variants": [
-      "Verwenden Sie unterschiedliche Schläger (Driver, Eisen 7, Hybrid), um das Treff-Feedback zu vergleichen.",
-      "Spielen Sie die gleiche Serie mit und ohne Tees, um den Einfluss der Balllage auf den Treffpunkt zu spüren."
+      "Verwende unterschiedliche Schläger (Driver, Eisen 7, Hybrid), um das Treff-Feedback zu vergleichen.",
+      "Spiele die gleiche Serie mit und ohne Tees, um den Einfluss der Balllage auf den Treffpunkt zu spüren."
     ]
   },
   {
@@ -2949,7 +2918,7 @@
       ]
     },
     "setup": {
-      "schema": "Dieser Drill wird am Ende eines Trainings durchgeführt – nicht als Warm-up. Bereiten Sie sich so vor, als würden Sie eine Turnierrunde beginnen. Visualisieren Sie das 1. Loch Ihres Heimatplatzes und spielen Sie genau diesen Schlag auf der Range nach.",
+      "schema": "Dieser Drill wird am Ende eines Trainings durchgeführt – nicht als Warm-up. Bereite dich so vor, als würdest du eine Turnierrunde beginnen. Visualisiere das 1. Loch deines Heimatplatzes und spiele genau diesen Schlag auf der Range nach.",
       "diagram": "svg:drills/simulation_first_tee_shot",
       "location": "Driving Range"
     },
@@ -2962,9 +2931,9 @@
       "scale": "1–5"
     },
     "instructions": {
-      "training": "Nehmen Sie sich Zeit für Ihre Pre-Shot-Routine. Stellen Sie sich das erste Loch Ihres Heimatplatzes genau vor: Fairway, Hindernisse, Zuschauer. Führen Sie nur einen Schlag aus – als wäre es der echte erste Drive eines Turniers. Kein Probeschwung danach, kein zweiter Versuch.",
-      "test": "Haben Sie das Fairway getroffen? Notieren Sie das Datum und das Ergebnis (Ja/Nein). Wiederholen Sie die Übung einmal pro Woche, um Ihre Nervenstärke zu verbessern.",
-      "tooEasy": "Erhöhen Sie den Druck: Führen Sie die Übung vor anderen Spielern durch, zählen Sie laut Ihre Routine oder setzen Sie sich selbst eine mentale ‚Strafe‘ für ein verfehltes Fairway."
+      "training": "Nimm dir Zeit für deine Pre-Shot-Routine. Stelle dir das erste Loch deines Heimatplatzes genau vor: Fairway, Hindernisse, Zuschauer. Führe nur einen Schlag aus – als wäre es der echte erste Drive eines Turniers. Kein Probeschwung danach, kein zweiter Versuch.",
+      "test": "Hast du das Fairway getroffen? Notiere das Datum und das Ergebnis (Ja/Nein). Wiederhole die Übung einmal pro Woche, um deine Nervenstärke zu verbessern.",
+      "tooEasy": "Erhöhe den Druck: Führe die Übung vor anderen Spielern durch, zähle laut deine Routine oder setze dir selbst eine mentale ‚Strafe‘ für ein verfehltes Fairway."
     },
     "metric": {
       "type": "binary",
@@ -2972,9 +2941,9 @@
         "Fairway getroffen (Ja/Nein)"
       ],
       "evaluation": [
-        "Ein einzelner Ball testet Ihr mentales Vertrauen besser als zehn perfekte Drives.",
-        "Mit wachsender Routine sinkt Ihr Puls vor dem Schlag und steigt Ihr Fokus.",
-        "Langfristig steigert die Übung Ihre Gelassenheit auf dem Platz erheblich."
+        "Ein einzelner Ball testet dein mentales Vertrauen besser als zehn perfekte Drives.",
+        "Mit wachsender Routine sinkt dein Puls vor dem Schlag und steigt dein Fokus.",
+        "Langfristig steigert die Übung deine Gelassenheit auf dem Platz erheblich."
       ]
     },
     "tags": [
@@ -2984,12 +2953,12 @@
       "Turniervorbereitung",
       "Selbstvertrauen"
     ],
-    "tip": "Machen Sie diese Übung regelmäßig am Ende Ihres Trainings. Ziel ist nicht der perfekte Schlag, sondern das ruhige Vertrauen, dass Sie auch unter Druck Ihr Setup und Ihre Routine beibehalten.",
+    "tip": "Mache diese Übung regelmäßig am Ende deines Trainings. Ziel ist nicht der perfekte Schlag, sondern das ruhige Vertrauen, dass du auch unter Druck dein Setup und deine Routine beibehalten kannst.",
     "team": "Mit mehreren Spielern wird der Drill noch realistischer: Jeder schlägt einen Ball nacheinander, während die anderen zuschauen. Der erhöhte Druck simuliert echte Turnierbedingungen. Am Ende zählen alle, wer das Fairway getroffen hat.",
     "variants": [
-      "Spielen Sie denselben Schlag mit unterschiedlichen Schlägern (z. B. 3-Holz, Hybrid), um Ihre bevorzugte Sicherheit vom Tee zu finden.",
-      "Simulieren Sie andere Turniersituationen: z. B. den Abschlag an einem Par-3 mit Wasser.",
-      "Filmen Sie Ihren Versuch, um Ihre Körpersprache und Routine zu analysieren."
+      "Spiele denselben Schlag mit unterschiedlichen Schlägern (z. B. 3-Holz, Hybrid), um deine bevorzugte Sicherheit vom Tee zu finden.",
+      "Simuliere andere Turniersituationen: z. B. den Abschlag an einem Par-3 mit Wasser.",
+      "Filme deinen Versuch, um deine Körpersprache und Routine zu analysieren."
     ]
   },
   {
@@ -3070,7 +3039,7 @@
       ]
     },
     "setup": {
-      "schema": "Spielen Sie eine reguläre Runde (9 oder 18 Löcher) und notieren Sie neben dem Score vier Sonderpunkte: (1) Fairway getroffen, (2) Green in Regulation (GIR), (3) Birdie (Netto), (4) 3-Putt oder mehr. Ziel ist es, den Score inklusive dieser Parameter zu optimieren.",
+      "schema": "Spiele eine reguläre Runde (9 oder 18 Löcher) und notiere neben dem Score vier Sonderpunkte: (1) Fairway getroffen, (2) Green in Regulation (GIR), (3) Birdie (Netto), (4) 3-Putt oder mehr. Ziel ist es, den Score inklusive dieser Parameter zu optimieren.",
       "diagram": "svg:drills/course_on_track",
       "location": "Platz"
     },
@@ -3083,9 +3052,9 @@
       "scale": "1-5"
     },
     "instructions": {
-      "training": "Tragen Sie auf Ihrer Scorekarte neben dem Ergebnis jedes Lochs vier Zusatzwerte ein: 1️⃣ Fairway getroffen, 2️⃣ Green in Regulation, 3️⃣ Birdie (Netto), 4️⃣ Drei-Putt oder mehr. Nach Abschluss zählen Sie den Gesamtscore gemäß Ihrer Handicap-Vorgabe.",
-      "test": "Erreichen Sie die Zielwerte gemäß Ihrer HCP-Kategorie. Beispiel: HCP 18–12 → Ziel 49 Schläge (über 9 Löcher) inklusive GIR- und Fairway-Bonus.",
-      "tooEasy": "Zählen Sie nur Brutto-Birdies, keine Netto. Variieren Sie zusätzlich den Schläger am Abschlag – nicht immer ist der Driver die beste Wahl."
+      "training": "Trage auf deiner Scorekarte neben dem Ergebnis jedes Lochs vier Zusatzwerte ein: 1️⃣ Fairway getroffen, 2️⃣ Green in Regulation, 3️⃣ Birdie (Netto), 4️⃣ Drei-Putt oder mehr. Nach Abschluss zähle den Gesamtscore gemäß deiner Handicap-Vorgabe.",
+      "test": "Erreiche die Zielwerte gemäß deiner HCP-Kategorie. Beispiel: HCP 18–12 → Ziel 49 Schläge (über 9 Löcher) inklusive GIR- und Fairway-Bonus.",
+      "tooEasy": "Zähle nur Brutto-Birdies, keine Netto. Variiere zusätzlich den Schläger am Abschlag – nicht immer ist der Driver die beste Wahl."
     },
     "metric": {
       "type": "score",
@@ -3129,7 +3098,7 @@
       ]
     },
     "setup": {
-      "schema": "Spielen Sie 18 Löcher oder eine verkürzte Runde (mind. 9 Löcher). Auf der Hälfte der Löcher spielen Sie mit 80 % Schwungintensität („locker“) und auf der anderen Hälfte mit 100 % („vollgas“). Wechseln Sie zwischen den Modi ab oder legen Sie pro Bahn fest, welche Intensität gilt.",
+      "schema": "Spiele 18 Löcher oder eine verkürzte Runde (mind. 9 Löcher). Auf der Hälfte der Löcher spielst du mit 80 % Schwungintensität („locker“) und auf der anderen Hälfte mit 100 % („vollgas“). Wechsel zwischen den Modi ab oder lege pro Bahn fest, welche Intensität gilt.",
       "diagram": "svg:drills/platz_long_vs_easy",
       "location": "Golfplatz"
     },
@@ -3142,9 +3111,9 @@
       "scale": "1–5"
     },
     "instructions": {
-      "training": "Vergleichen Sie Ihre Ergebnisse und Spielqualität bei 80 % und 100 % Schwung. Notieren Sie Score, Fairway-Treffer (FIR), Grün-Treffer (GIR) und Schlaggefühl. Ziel ist nicht maximale Distanz, sondern herauszufinden, wann Sie präziser und konstanter sind.",
-      "test": "Werten Sie am Ende der Runde aus: Mit welcher Schwunggeschwindigkeit (80 % oder 100 %) hatten Sie mehr Fairway- und Grün-Treffer? Wie war Ihr Score und Ihr Schlaggefühl (+/-)?",
-      "tooEasy": "Kombinieren Sie die Übung mit Wind- oder Hanglagen. Oder variieren Sie Tempo pro Schlag: 70 %, 90 %, 100 % – um Ihre Kontrolle zu testen."
+      "training": "Vergleiche deine Ergebnisse und Spielqualität bei 80 % und 100 % Schwung. Notiere Score, Fairway-Treffer (FIR), Grün-Treffer (GIR) und Schlaggefühl. Ziel ist nicht maximale Distanz, sondern herauszufinden, wann du präziser und konstanter bist.",
+      "test": "Werte am Ende der Runde aus: Mit welcher Schwunggeschwindigkeit (80 % oder 100 %) hattest du mehr Fairway- und Grün-Treffer? Wie war dein Score und dein Schlaggefühl (+/-)?",
+      "tooEasy": "Kombiniere die Übung mit Wind- oder Hanglagen. Oder variiere Tempo pro Schlag: 70 %, 90 %, 100 % – um deine Kontrolle zu testen."
     },
     "metric": {
       "type": "comparison",
@@ -3156,8 +3125,8 @@
       ],
       "evaluation": [
         "80 %-Schwünge fördern Konstanz und Präzision.",
-        "100 % zeigen, ob Sie Ihren Körper unter Druck kontrollieren können.",
-        "Der Vergleich liefert wertvolle Rückschlüsse für Ihre Turnierstrategie."
+        "100 % zeigen, ob du deinen Körper unter Druck kontrollieren kannst.",
+        "Der Vergleich liefert wertvolle Rückschlüsse für deine Turnierstrategie."
       ]
     },
     "tags": [
@@ -3167,12 +3136,12 @@
       "Scoring",
       "Mentaltraining"
     ],
-    "tip": "Viele Spieler erzielen mit 80 % Schwung nicht nur mehr Fairway-Treffer, sondern auch längere Gesamtdistanzen durch bessere Kontaktqualität. Vertrauen Sie Ihrem Rhythmus statt der Kraft.",
-    "team": "Spielen Sie im Lochspielmodus gegeneinander: Jeder Spieler entscheidet pro Bahn, ob er ‚Long‘ (100 %) oder ‚Easy‘ (80 %) spielt. Am Ende gewinnt, wer bei seiner gewählten Taktik die bessere Score-Statistik erreicht.",
+    "tip": "Viele Spieler erzielen mit 80 % Schwung nicht nur mehr Fairway-Treffer, sondern auch längere Gesamtdistanzen durch bessere Kontaktqualität. Vertraue deinem Rhythmus statt der Kraft.",
+    "team": "Spielt im Lochspielmodus gegeneinander: Jeder Spieler entscheidet pro Bahn, ob er ‚Long‘ (100 %) oder ‚Easy‘ (80 %) spielt. Am Ende gewinnt, wer bei seiner gewählten Taktik die bessere Score-Statistik erreicht.",
     "variants": [
-      "Ergänzen Sie eine dritte Kategorie (z. B. 90 %) für noch feinere Abstimmung.",
-      "Verwenden Sie ein Launch-Monitor-Gerät zur objektiven Messung von Ballgeschwindigkeit und Carry.",
-      "Wenden Sie die Erkenntnisse gezielt bei schwierigen Löchern an: Wählen Sie bewusst den ‚Easy‘-Schwung, wenn Präzision wichtiger ist als Länge."
+      "Ergänze eine dritte Kategorie (z. B. 90 %) für noch feinere Abstimmung.",
+      "Verwende ein Launch-Monitor-Gerät zur objektiven Messung von Ballgeschwindigkeit und Carry.",
+      "Wende die Erkenntnisse gezielt bei schwierigen Löchern an: Wähle bewusst den ‚Easy‘-Schwung, wenn Präzision wichtiger ist als Länge."
     ]
   },
   {
@@ -3252,7 +3221,7 @@
       ]
     },
     "setup": {
-      "schema": "Spielen Sie eine volle Runde oder ein Trainingsspiel mit Fokus auf Ihre Abschläge. Notieren Sie für jeden Drive Punkte entsprechend der Schlagqualität und Lage. Par-3-Bahnen werden nicht gewertet.",
+      "schema": "Spiele eine volle Runde oder ein Trainingsspiel mit Fokus auf deine Abschläge. Notiere für jeden Drive Punkte entsprechend der Schlagqualität und Lage. Par-3-Bahnen werden nicht gewertet.",
       "diagram": "svg:drills/platz_get_your_points",
       "location": "Golfplatz"
     },
@@ -3265,9 +3234,9 @@
       "scale": "1–5"
     },
     "instructions": {
-      "training": "Spielen Sie eine Runde und vergeben Sie Punkte nach folgendem System: 4 Punkte für Fairway getroffen, 3 Punkte für Semi-Rough, 2 Punkte für Rough, 1 Punkt für Bunker, 0 Punkte für Out of Bounds oder Wasser. Erfassen Sie 14 Drives (Par 4 und 5). Ziel: Möglichst konstant Drives ins Fairway oder Semi-Rough platzieren.",
-      "test": "Zählen Sie nach der Runde Ihre Gesamtpunkte. 42–56 Punkte = ausgezeichnet, 21–41 = solide, 0–20 = Trainingsbedarf. Analysieren Sie Fehlrichtungen und Wiederholungen: Gehen Ihre Drives häufig nach links oder rechts?",
-      "tooEasy": "Verfeinern Sie die Bewertung: z. B. 5 Punkte für Mitte Fairway, 3 für Randbereich, 1 für Semi-Rough. Oder definieren Sie Fairwaybreite enger (20 m statt 30 m)."
+      "training": "Spiele eine Runde und vergebe Punkte nach folgendem System: 4 Punkte für Fairway getroffen, 3 Punkte für Semi-Rough, 2 Punkte für Rough, 1 Punkt für Bunker, 0 Punkte für Out of Bounds oder Wasser. Erfasse 14 Drives (Par 4 und 5). Ziel: Möglichst konstant Drives ins Fairway oder Semi-Rough platzieren.",
+      "test": "Zähle nach der Runde deine Gesamtpunkte. 42–56 Punkte = ausgezeichnet, 21–41 = solide, 0–20 = Trainingsbedarf. Analysiere Fehlrichtungen und Wiederholungen: Gehen deine Drives häufig nach links oder rechts?",
+      "tooEasy": "Verfeinere die Bewertung: z. B. 5 Punkte für Mitte Fairway, 3 für Randbereich, 1 für Semi-Rough. Oder definiere Fairwaybreite enger (20 m statt 30 m)."
     },
     "metric": {
       "type": "points",
@@ -3316,7 +3285,7 @@
       ]
     },
     "setup": {
-      "schema": "Spielen Sie 9 Löcher, aber schlagen Sie alle Drives ohne Tee vom Boden. Auf Par-3-Bahnen können Sie ebenfalls versuchen, den Ball flach mit dem Driver oder Holz zu spielen. Ziel ist, den Ball sauber zu treffen und auf dem Fairway zu platzieren.",
+      "schema": "Spiele 9 Löcher, aber schlage alle Drives ohne Tee vom Boden. Auf Par-3-Bahnen kannst du ebenfalls versuchen, den Ball flach mit dem Driver oder Holz zu spielen. Ziel ist, den Ball sauber zu treffen und auf dem Fairway zu platzieren.",
       "diagram": "svg:drills/platz_no_tees",
       "location": "Golfplatz oder Abschlagsmatte (ohne Tee)"
     },
@@ -3329,9 +3298,9 @@
       "scale": "1–5"
     },
     "instructions": {
-      "training": "Schlagen Sie Ihre Drives direkt vom Boden, ohne den Ball aufzuteen. Notieren Sie, wie viele Abschläge gut getroffen wurden und auf dem Fairway landeten. Auf Par-3-Bahnen zählen auch Bälle, die das Grün erreichen oder kurz davor liegen. Ziel ist saubere Treffqualität unter erschwerten Bedingungen.",
-      "test": "Werten Sie nach 9 Löchern Ihre Ergebnisse aus: Wie viele Abschläge (von 9) waren gut getroffen und im Zielbereich? 7–9 = ausgezeichnet, 4–6 = solide, 1–3 = Trainingsbedarf.",
-      "tooEasy": "Kombinieren Sie den Drill mit Wind oder Sidehill-Lagen. Oder wechseln Sie den Schläger: z. B. 3-Holz oder Driving-Iron für flache, präzise Schläge."
+      "training": "Schlage deine Drives direkt vom Boden, ohne den Ball aufzuteen. Notiere, wie viele Abschläge gut getroffen wurden und auf dem Fairway landeten. Auf Par-3-Bahnen zählen auch Bälle, die das Grün erreichen oder kurz davor liegen. Ziel ist saubere Treffqualität unter erschwerten Bedingungen.",
+      "test": "Werte nach 9 Löchern deine Ergebnisse aus: Wie viele Abschläge (von 9) waren gut getroffen und im Zielbereich? 7–9 = ausgezeichnet, 4–6 = solide, 1–3 = Trainingsbedarf.",
+      "tooEasy": "Kombiniere den Drill mit Wind oder Sidehill-Lagen. Oder wechsle den Schläger: z. B. 3-Holz oder Driving-Iron für flache, präzise Schläge."
     },
     "metric": {
       "type": "count",
@@ -3342,7 +3311,7 @@
       ],
       "evaluation": [
         "Treffer ohne Tee verbessern Bodenkontakt und Ballposition.",
-        "Die Übung stärkt das Vertrauen in Ihre Schwungkontrolle.",
+        "Die Übung stärkt das Vertrauen in deine Schwungkontrolle.",
         "Ideal zur Vorbereitung auf reale Drucksituationen bei schlechtem Lie."
       ]
     },
@@ -3353,12 +3322,12 @@
       "Schlagkontrolle",
       "Driver"
     ],
-    "tip": "Ein flacher, kontrollierter Schlag vom Boden zeigt wahre Präzision. Konzentrieren Sie sich auf ruhigen Rhythmus und sauberen Eintreffwinkel.",
-    "team": "Spielen Sie im Lochspielmodus gegeneinander. Beide Spieler schlagen ohne Tee – jeder gute Treffer zählt als Punkt. Nur wenn ein Spieler deutlich schwächer ist, darf dieser einmal pro Bahn aufteen.",
+    "tip": "Ein flacher, kontrollierter Schlag vom Boden zeigt wahre Präzision. Konzentriere dich auf ruhigen Rhythmus und sauberen Eintreffwinkel.",
+    "team": "Spiele im Lochspielmodus gegeneinander. Beide Spieler schlagen ohne Tee – jeder gute Treffer zählt als Punkt. Nur wenn ein Spieler deutlich schwächer ist, darf dieser einmal pro Bahn aufteen.",
     "variants": [
-      "Verwenden Sie den Drill mit Fairwayholz oder Hybrid, um alternative Abschläge zu trainieren.",
-      "Kombinieren Sie mit ‚Long vs. Easy‘, um Schwungkontrolle mit Treffqualität zu koppeln.",
-      "Simulieren Sie schwierige Lies: leicht bergauf, bergab oder aus dünnem Gras."
+      "Verwende den Drill mit Fairwayholz oder Hybrid, um alternative Abschläge zu trainieren.",
+      "Kombiniere mit ‚Long vs. Easy‘, um Schwungkontrolle mit Treffqualität zu koppeln.",
+      "Simuliere schwierige Lies: leicht bergauf, bergab oder aus dünnem Gras."
     ]
   },
   {
@@ -3378,7 +3347,7 @@
       ]
     },
     "setup": {
-      "schema": "Spielen Sie 9 Löcher und werten Sie nur Drives aus. Jeder Ball, der das Fairway verfehlt, zählt als Strafschlag. Bälle im Rough oder Aus werden bestraft, dürfen aber weitergespielt werden. Ziel: unter Druck das Fairway treffen.",
+      "schema": "Spiele 9 Löcher und werte nur deine Drives aus. Jeder Ball, der das Fairway verfehlt, zählt als Strafschlag. Bälle im Rough oder Aus werden bestraft, dürfen aber weitergespielt werden. Ziel: unter Druck das Fairway treffen.",
       "diagram": "svg:drills/platz_make_it_rough",
       "location": "Golfplatz oder Range mit klaren Fairwaygrenzen"
     },
@@ -3391,9 +3360,9 @@
       "scale": "1–5"
     },
     "instructions": {
-      "training": "Spielen Sie neun Löcher mit Scorewertung. Jeder Drive, der das Fairway verfehlt, bringt eine Strafschlag. Das Ziel ist, bei erhöhtem Druck möglichst viele Fairways zu treffen. Wählen Sie bei engen Bahnen lieber den Schläger, mit dem Sie sicher im Spiel bleiben.",
-      "test": "Notieren Sie Score und FIR (Fairway in Regulation). Beobachten Sie, wie stark der mentale Druck Ihren Schwung beeinflusst. Schaffen Sie es, sich auf Routine und Rhythmus zu verlassen?",
-      "tooEasy": "Reduzieren Sie die Fairwaybreite oder bestrafen Sie auch Drives im Semi-Rough. Alternativ: +2 Strafschläge für Aus- oder Wasserbälle."
+      "training": "Spiele neun Löcher mit Scorewertung. Jeder Drive, der das Fairway verfehlt, bringt eine Strafschlag. Das Ziel ist, bei erhöhtem Druck möglichst viele Fairways zu treffen. Wähle bei engen Bahnen lieber den Schläger, mit dem du sicher im Spiel bleiben.",
+      "test": "Notiere Score und FIR (Fairway in Regulation). Beobachte, wie stark der mentale Druck deinen Schwung beeinflusst. Schaffst du es, dich auf Routine und Rhythmus zu verlassen?",
+      "tooEasy": "Reduziere die Fairwaybreite oder bestrafe auch Drives im Semi-Rough. Alternativ: +2 Strafschläge für Aus- oder Wasserbälle."
     },
     "metric": {
       "type": "score",
@@ -3415,12 +3384,12 @@
       "Driver",
       "Course Management"
     ],
-    "tip": "Konzentrieren Sie sich auf Ihre Routine – nicht auf das Ergebnis. Der Druck ist gewollt: Er zeigt, ob Sie Ihrem Schwung auch in Stresssituationen vertrauen.",
-    "team": "Spielen Sie im Lochspielmodus: Nur Drives auf dem Fairway sind straffrei. Jeder Fehlschlag außerhalb kostet einen Punkt. Bei engen Bahnen entscheidet kluges Risiko-Management.",
+    "tip": "Konzentriere dich auf deine Routine – nicht auf das Ergebnis. Der Druck ist gewollt: Er zeigt, ob du deinem Schwung auch in Stresssituationen vertraust.",
+    "team": "Spiele im Lochspielmodus: Nur Drives auf dem Fairway sind straffrei. Jeder Fehlschlag außerhalb kostet einen Punkt. Bei engen Bahnen entscheidet kluges Risiko-Management.",
     "variants": [
-      "Kombinieren Sie mit ‚Safety Shot‘ für bewusste Risikoabwägung.",
-      "Spielen Sie den Drill mit unterschiedlichen Schlägern pro Loch (Driver, 3-Holz, Hybrid).",
-      "Erhöhen Sie den Druck: nur 1 Versuch pro Bahn, keine Mulligans."
+      "Kombiniere mit ‚Safety Shot‘ für bewusste Risikoabwägung.",
+      "Spiele den Drill mit unterschiedlichen Schlägern pro Loch (Driver, 3-Holz, Hybrid).",
+      "Erhöhe den Druck: nur 1 Versuch pro Bahn, keine Mulligans."
     ]
   },
   {
@@ -3438,7 +3407,7 @@
       ]
     },
     "setup": {
-      "schema": "Spielen Sie 9 Löcher, aber nicht mit Ihrer Standardstrategie. Vor jedem Loch wird der Schläger für den Abschlag festgelegt – z. B. Eisen 7 auf einem Par 4. Auf Par 3-Löchern kann sogar mit dem Driver eröffnet werden. Ziel ist, aus ungewohnten Situationen den besten Score zu machen.",
+      "schema": "Spiele 9 Löcher, aber nicht mit deiner Standardstrategie. Vor jedem Loch wird der Schläger für den Abschlag festgelegt – z. B. Eisen 7 auf einem Par 4. Auf Par 3-Löchern kann sogar mit dem Driver eröffnet werden. Ziel ist, aus ungewohnten Situationen den besten Score zu machen.",
       "diagram": "svg:drills/platz_play_unusual_shots",
       "location": "Golfplatz"
     },
@@ -3451,9 +3420,9 @@
       "scale": "1–5"
     },
     "instructions": {
-      "training": "Spielen Sie die Runde mit festgelegtem Abschlagsschläger pro Loch. Notieren Sie Score, FIR (Fairway-Treffer) und GIR (Grün-Treffer). Ziel ist es, trotz ungewohnter Schlägerwahl das beste Ergebnis zu erzielen und neue Lösungen zu entdecken.",
-      "test": "Wie gut war Ihr Score, obwohl Sie nicht Ihren gewohnten Gameplan gespielt haben? Welche Alternativstrategien haben funktioniert?",
-      "tooEasy": "Lassen Sie den Mitspieler den Abschlagsschläger für Sie wählen – zufällig oder absichtlich herausfordernd."
+      "training": "Spiele die Runde mit festgelegtem Abschlagsschläger pro Loch. Notiere Score, FIR (Fairway-Treffer) und GIR (Grün-Treffer). Ziel ist es, trotz ungewohnter Schlägerwahl das beste Ergebnis zu erzielen und neue Lösungen zu entdecken.",
+      "test": "Wie gut war dein Score, obwohl du nicht deinen gewohnten Gameplan gespielt hast? Welche Alternativstrategien haben funktioniert?",
+      "tooEasy": "Lass den Mitspieler den Abschlagsschläger für dich wählen – zufällig oder absichtlich herausfordernd."
     },
     "metric": {
       "type": "score",
@@ -3475,12 +3444,12 @@
       "Kreativität",
       "Improvisation"
     ],
-    "tip": "Verlassen Sie bewusst Ihre Komfortzone – wer im Training improvisiert, bleibt im Turnier ruhiger und flexibler. Manchmal ist der beste Schlag nicht der stärkste, sondern der klügste.",
-    "team": "Spielen Sie im Matchplay: Ein Spieler bestimmt für den anderen den Abschlagsschläger. Das sorgt für Spaß und taktische Herausforderungen – besonders, wenn der Mitspieler Sie kennt.",
+    "tip": "Verlasse bewusst deine Komfortzone – wer im Training improvisiert, bleibt im Turnier ruhiger und flexibler. Manchmal ist der beste Schlag nicht der stärkste, sondern der klügste.",
+    "team": "Spiele im Matchplay: Ein Spieler bestimmt für den anderen den Abschlagsschläger. Das sorgt für Spaß und taktische Herausforderungen – besonders, wenn der Mitspieler dich kennt.",
     "variants": [
-      "Verwenden Sie Würfel oder Karten zur zufälligen Schlägerauswahl.",
-      "Fügen Sie Handicap-Ausgleich hinzu (z. B. längere Spieler starten mit kürzeren Eisen).",
-      "Kombinieren Sie mit ‚Make It Rough‘: Wer das Fairway verfehlt, bekommt beim nächsten Loch einen zufällig gewählten Schläger."
+      "Verwende Würfel oder Karten zur zufälligen Schlägerauswahl.",
+      "Füge Handicap-Ausgleich hinzu (z. B. längere Spieler starten mit kürzeren Eisen).",
+      "Kombiniere mit ‚Make It Rough‘: Wer das Fairway verfehlt, bekommt beim nächsten Loch einen zufällig gewählten Schläger."
     ]
   },
   {
@@ -3656,8 +3625,7 @@
       "Kurzspiel",
       "Strategie",
       "Up & Down",
-      "Punktespiel",
-      "Jonas Kolbing"
+      "Punktespiel"
     ],
     "zockerTip": "Spielt zu zweit im Zählspiel-Format. Bewertet Annäherungen und Putts separat: 1 Punkt für Grün-Treffer, 1 Punkt für Up & Down, 1 Punkt für One-Putt. Am Ende gewinnt, wer pro Loch die höhere Quote erzielt – je konstanter dein Kurzspiel, desto besser dein Score.",
     "variants": [
@@ -3684,7 +3652,7 @@
       ]
     },
     "setup": {
-      "schema": "Spielen Sie auf dem Platz oder einer Kurzspielbahn sieben Löcher, vorzugsweise ohne Par-3-Bahnen. Nutzen Sie für alle Annäherungen nur Ihre Scoring-Schläger (Wedges, Eisen bis max. 8). Jeder Ball innerhalb von 100 m Entfernung zählt für die Wertung.",
+      "schema": "Spiele auf dem Platz oder einer Kurzspielbahn sieben Löcher, vorzugsweise ohne Par-3-Bahnen. Nutze für alle Annäherungen nur deine Scoring-Schläger (Wedges, Eisen bis max. 8). Jeder Ball innerhalb von 100 m Entfernung zählt für die Wertung.",
       "diagram": "svg:drills/course_scoring_clubs",
       "location": "Platz"
     },
@@ -3697,9 +3665,9 @@
       "scale": "1-5"
     },
     "instructions": {
-      "training": "Spielen Sie sieben Bahnen mit Fokus auf präzise Annäherungen. Der erste Schlag sollte zwischen 100 m und 35 m zum Grün liegen. Spielen Sie danach den Ball auf das Grün und zählen Sie Ihre Schläge bis zum Einlochen. Addieren Sie die Ergebnisse aller sieben Löcher.",
-      "test": "Addieren Sie Ihre Gesamtschläge für sieben Löcher. Vergleichen Sie das Ergebnis mit den HCP-Zielwerten. Beispiel: HCP 11–5 → Ziel = 43 Schläge.",
-      "tooEasy": "Beziehen Sie Par-3-Löcher ein und werten Sie diese ebenfalls. Liegen Sie oft nah an der Fahne, verkleinern Sie das Zielradius auf < 5 m."
+      "training": "Spiele sieben Bahnen mit Fokus auf präzise Annäherungen. Der erste Schlag sollte zwischen 100 m und 35 m zum Grün liegen. Spiele danach den Ball auf das Grün und zähle deine Schläge bis zum Einlochen. Addiere die Ergebnisse aller sieben Löcher.",
+      "test": "Addiere deine Gesamtschläge für sieben Löcher. Vergleiche das Ergebnis mit den HCP-Zielwerten. Beispiel: HCP 11–5 → Ziel = 43 Schläge.",
+      "tooEasy": "Beziehe Par-3-Löcher ein und werte diese ebenfalls. Liegst du oft nah an der Fahne, verkleinere das Zielradius auf < 5 m."
     },
     "metric": {
       "type": "score",
@@ -3715,8 +3683,7 @@
       "Wedge",
       "Annäherung",
       "Kurzspiel",
-      "Scoring",
-      "Zach Johnson"
+      "Scoring"
     ],
     "zockerTip": "Spielt diesen Drill im direkten Vergleich: Wer nach sieben Löchern näher am Zielwert liegt, gewinnt. Bei Gleichstand zählt der bessere Durchschnitt der Up & Downs. Alternativ kann die Differenz zum Zielwert als Handicap-Faktor gewertet werden.",
     "variants": [
@@ -3728,7 +3695,7 @@
   {
     "id": "course_worst_ball",
     "title": "Worst Ball",
-    "subtitle": "Mentales Präzisionsspiel unter Druck – inspiriert von Alex Norén",
+    "subtitle": "Mentales Präzisionsspiel unter Druck",
     "category": "Platz",
     "equipment": {
       "balls": 2,
@@ -3741,7 +3708,7 @@
       ]
     },
     "setup": {
-      "schema": "Spielen Sie eine 9-Loch-Runde. Schlagen Sie jeden Schlag zweimal und wählen Sie jeweils den schlechteren Ball für den nächsten Schlag. Beide Bälle werden von derselben Position gespielt. Führen Sie diese Regel für alle Schläge, inklusive Putts, fort.",
+      "schema": "Spiele eine 9-Loch-Runde. Schlage jeden Schlag zweimal und wähle jeweils den schlechteren Ball für den nächsten Schlag. Beide Bälle werden von derselben Position gespielt. Führe diese Regel für alle Schläge, inklusive Putts, fort.",
       "diagram": "svg:drills/course_worst_ball",
       "location": "Platz"
     },
@@ -3754,9 +3721,9 @@
       "scale": "1-5"
     },
     "instructions": {
-      "training": "Spielen Sie eine Runde, bei der Sie nach jedem Schlag beide Bälle bewerten und immer den schlechteren Ball weiterspielen. So trainieren Sie Konstanz und mentale Kontrolle, da kein schlechter Schlag „vergessen“ werden kann.",
-      "test": "Zählen Sie Ihren Score über 9 Löcher und addieren Sie die angegebenen Zielwerte zu Ihrer Spielvorgabe. Beispiel: HCP 11–5 → Ziel +9, HCP 4–0 → Ziel +5.",
-      "tooEasy": "Zählen Sie beide Bälle komplett aus – nicht nur den schlechteren – und bilden Sie den Durchschnitt der beiden Scores."
+      "training": "Spiele eine Runde, bei der du nach jedem Schlag beide Bälle bewertest und immer den schlechteren Ball weiterspielst. So trainierst du Konstanz und mentale Kontrolle, da kein schlechter Schlag „vergessen“ werden kann.",
+      "test": "Zähle deinen Score über 9 Löcher und addiere die angegebenen Zielwerte zu deiner Spielvorgabe. Beispiel: HCP 11–5 → Ziel +9, HCP 4–0 → Ziel +5.",
+      "tooEasy": "Zähle beide Bälle komplett aus – nicht nur den schlechteren – und bilde den Durchschnitt der beiden Scores."
     },
     "metric": {
       "type": "score",
@@ -3771,14 +3738,13 @@
       "Strategie",
       "Mentales Spiel",
       "Konzentration",
-      "Fehlerkontrolle",
-      "Alex Norén"
+      "Fehlerkontrolle"
     ],
-    "zockerTip": "Spielen Sie „Worst Ball“ zu zweit. Ihr Gegner bestimmt jeweils, welcher Ball als der schlechtere gilt. Variation: Der Gegner darf vor jedem Schlag ansagen, welchen Ball Sie spielen müssen – das trainiert Fokus und Anpassungsfähigkeit.",
+    "zockerTip": "Spiele „Worst Ball“ zu zweit. Dein Gegner bestimmt jeweils, welcher Ball als der schlechtere gilt. Variation: Der Gegner darf vor jedem Schlag ansagen, welchen Ball du spielen musst – das trainiert Fokus und Anpassungsfähigkeit.",
     "variants": [
-      "Führen Sie den Drill über 18 Löcher aus, aber werten Sie nur 9 davon als offizielle Zählung.",
-      "Fügen Sie eine Putting-Regel hinzu: bei jedem 3-Putt wird der nächste Abschlag mit Eisen statt Driver gespielt.",
-      "Spielen Sie im Teamformat – beide Partner schlagen doppelt, und der jeweils schlechtere Ball pro Paar zählt."
+      "Führe den Drill über 18 Löcher aus, aber werte nur 9 davon als offizielle Zählung.",
+      "Füge eine Putting-Regel hinzu: bei jedem 3-Putt wird der nächste Abschlag mit Eisen statt Driver gespielt.",
+      "Spiele im Teamformat – beide Partner schlagen doppelt, und der jeweils schlechtere Ball pro Paar zählt."
     ]
   }
 ]

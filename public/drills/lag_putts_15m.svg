@@ -18,31 +18,20 @@
   <circle cx="160" cy="210" r="120" class="guide" fill="none"/>
 
   <!-- Loch + Fahne -->
-  <circle cx="160" cy="210" r="12" class="hole" stroke-width="2"/>
-  <circle cx="160" cy="210" r="4" fill="var(--bg)"/>
-  <rect x="156" y="150" width="3" height="58" class="line"/>
-  <path d="M159,150 l36,12 l-36,12 z" class="flag"/>
+  <circle cx="138" cy="310" r="12" class="hole" stroke-width="2"/>
+  <rect x="136" y="250" width="3" height="58" class="line"/>
+  <path d="M139,250 l36,12 l-36,12 z" class="flag"/>
 
   <!-- Zielbereich (orientierend, gestrichelter Kreis um das Loch für Lag-Zone) -->
-  <circle cx="160" cy="210" r="40" class="ring" fill="none" stroke-width="2" stroke-dasharray="8 8"/>
+  <circle cx="190" cy="210" r="180" class="ring" fill="none" stroke-width="2" stroke-dasharray="8 8"/>
 
   <!-- Puttlinie -->
-  <line x1="160" y1="210" x2="640" y2="210" class="line" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
+  <line x1="136" y1="310" x2="220" y2="40" class="line" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
+  <line x1="136" y1="310" x2="320" y2="90" class="line" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
 
   <!-- Ballposition 15 m entfernt -->
-  <circle cx="640" cy="210" r="10" class="ball" stroke-width="2"/>
-  <text x="618" y="190" class="label">15 m</text>
-
-  <!-- Zwei weitere alternative Ballpositionen (links/rechts, optional) -->
-  <circle cx="600" cy="180" r="10" class="ball" stroke-width="2" opacity="0.6"/>
-  <circle cx="600" cy="240" r="10" class="ball" stroke-width="2" opacity="0.6"/>
-
-  <!-- Richtungspfeil -->
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L6,3 z" fill="var(--primary)"/>
-    </marker>
-  </defs>
-  <path d="M 600 210 L 180 210" fill="none" stroke="var(--primary)" stroke-width="3" marker-end="url(#arrow)" />
+  <circle cx="222" cy="35" r="5" class="ball" stroke-width="2"/>
+  <circle cx="322" cy="85" r="5" class="ball" stroke-width="2"/>
+  <text x="220" y="130" class="label">15 m</text>
 
 </svg>

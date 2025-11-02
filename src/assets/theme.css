@@ -55,6 +55,15 @@
     --cat-driving: #E7B860;
     --cat-irons: #C99AEF;
     --cat-bunker: #DCAF8C;
+    --cat-platz: #d9dc8c;
+    --cat-course: #998cdc;
+    --cat-range: #dc8c8c;
+    --cat-range: #8cdc9f;
+    --cat-pitching: #8c90dc;
+    --cat-shapen: #dc8cd0;
+    --cat-simulation: #8cd0dc;
+    --cat-sweetspot: #d0dc8c;
+    --cat-tempo: #dc8c8c;
 }
 
 /* Global ------------------------------------------------------------------- */

@@ -284,54 +284,6 @@
     ]
   },
   {
-    "id": "put_lag",
-    "title": "Lag Putts",
-    "category": "Putting",
-    "equipment": {
-      "balls": 3,
-      "clubs": [
-        "Putter"
-      ]
-    },
-    "setup": {
-      "schema": "Suche dir ein Loch mit wenig Break und stecke ein Tee in 15 Metern Entfernung ins Grün.",
-      "location": "Putting Green"
-    },
-    "duration": {
-      "suggestedMin": 5,
-      "timerPreset": 300
-    },
-    "instructions": {
-      "training": "Ziel ist es, eine Höchstserie von Versuchen mit maximal 2 Putts zu erzielen. Sobald du zum ersten Mal 3 oder mehr Putts benötigst, ist die Serie beendet und du startest wieder bei null.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längeste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die aktuelle Serie noch beenden.",
-      "tooEasy": "Versuche es mit einem Loch mit Break oder verlängere den Putt."
-    },
-    "metric": {
-      "type": "streak",
-      "unit": "2‑Putt‑Serie",
-      "hcpTargets": {
-        "54-45": [
-          1,
-          3,
-          5
-        ],
-        "50-20": [
-          6,
-          7,
-          8
-        ],
-        "25-0": [
-          9,
-          10,
-          11
-        ]
-      }
-    },
-    "tags": [
-      "Längenkontrolle"
-    ]
-  },
-  {
     "id": "putting_circle",
     "title": "Circle Putting",
     "category": "Putting",

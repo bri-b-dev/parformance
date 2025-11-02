@@ -23,50 +23,19 @@
         <div class="slot-frame">
           <!-- Center marker line -->
           <div class="slot-marker" aria-hidden="true"></div>
-
-          <!-- Reel: Environment -->
-          <div class="reel">
-            <div class="reel-label">Umgebung</div>
-            <output class="reel-viewport" :aria-live="spinning.env ? 'off' : 'polite'">
-              <div class="reel-track" :style="envTransformStyle">
-                <div v-for="e in (envList.length ? envList : envItems)" :key="`env-${e}`" class="reel-item">{{ e }}
-                </div>
-              </div>
-              <div class="reel-fade top" aria-hidden="true"></div>
-              <div class="reel-fade bottom" aria-hidden="true"></div>
-            </output>
-          </div>
-
-          <!-- Divider -->
-          <div class="reel-divider" aria-hidden="true"></div>
-
-          <!-- Reel: Focus -->
-          <div class="reel">
-            <div class="reel-label">Fokus</div>
-            <output class="reel-viewport" :aria-live="spinning.focus ? 'off' : 'polite'">
-              <div class="reel-track" :style="focusTransformStyle">
-                <div v-for="f in (focusList.length ? focusList : focusItems)" :key="`focus-${f}`" class="reel-item">{{ f
-                }}</div>
-              </div>
-              <div class="reel-fade top" aria-hidden="true"></div>
-              <div class="reel-fade bottom" aria-hidden="true"></div>
-            </output>
-          </div>
-
-          <!-- Divider -->
-          <div class="reel-divider" aria-hidden="true"></div>
-
-          <!-- Reel: Name -->
-          <div class="reel">
-            <div class="reel-label">Zeitfenster</div>
-            <output class="reel-viewport" :aria-live="spinning.title ? 'off' : 'polite'">
-              <div class="reel-track" :style="nameTransformStyle">
-                <div v-for="t in (nameList.length ? nameList : nameItems)" :key="`title-${t}`" class="reel-item">{{ t }}
-                </div>
-              </div>
-              <div class="reel-fade top" aria-hidden="true"></div>
-              <div class="reel-fade bottom" aria-hidden="true"></div>
-            </output>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="min-w-0">
+              <Reel :items="envList.length ? envList : envItems" label="Umgebung" :spinTrigger="spinTick.env"
+                :duration="D_ENV" @stopped="(v) => display.env = v" />
+            </div>
+            <div class="min-w-0">
+              <Reel :items="focusList.length ? focusList : focusItems" label="Fokus" :spinTrigger="spinTick.focus"
+                :duration="D_FOCUS" @stopped="(v) => display.focus = v" />
+            </div>
+            <div class="min-w-0">
+              <Reel :items="nameList.length ? nameList : nameItems" label="Drill" :spinTrigger="spinTick.name"
+                :duration="D_NAME" @stopped="(v) => display.title = v" />
+            </div>
           </div>
         </div>
 
@@ -78,11 +47,12 @@
             Favoriten bevorzugen
           </label>
           <div class="actions">
-            <button class="lever btn-primary" type="button" :disabled="disabled || running" @click="start"
-              data-testid="shuffle-start">
+            <button ref="leverRef" class="lever btn-primary" type="button" :disabled="disabled || running"
+              @click="onLeverClick">
               <span class="lever-knob" aria-hidden="true"></span>
               <span class="lever-text">Start</span>
             </button>
+
             <button class="btn ghost" type="button" :disabled="!running" @click="cancel"
               data-testid="shuffle-cancel">Abbrechen</button>
           </div>
@@ -98,6 +68,7 @@ import { useFavoritesStore } from '@/stores/favorites'
 import { useUiStore } from '@/stores/ui'
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Reel from '@/components/Reel.vue'
 
 const props = defineProps<{ durationEnvMs?: number; durationFocusMs?: number; durationNameMs?: number }>()
 const D_ENV = computed(() => props.durationEnvMs ?? 550)
@@ -271,6 +242,24 @@ function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
   return chosen.id
 }
 
+const leverRef = ref<HTMLButtonElement | null>(null)
+
+function onLeverClick() {
+  // Wippen auslösen
+  const el = leverRef.value
+  if (el) {
+    el.classList.remove('wobble') // reset falls spamming
+    // force reflow, damit die Animation erneut läuft
+    // @ts-ignore
+    void el.offsetWidth
+    el.classList.add('wobble')
+    el.addEventListener('animationend', () => el.classList.remove('wobble'), { once: true })
+  }
+  start()
+}
+
+const spinTick = reactive({ env: 0, focus: 0, name: 0 })
+
 async function start() {
   if (disabled.value || running.value) return
   running.value = true
@@ -300,6 +289,12 @@ async function start() {
   spinning.env = true; await spinToIndex(envList.value.length, envOffset, envIdx, D_ENV.value); spinning.env = false; display.env = envList.value[envIdx] ?? null
   spinning.focus = true; await spinToIndex(focusList.value.length, focusOffset, focIdx, D_FOCUS.value); spinning.focus = false; display.focus = focusList.value[focIdx] ?? null
   spinning.title = true; await spinToIndex(nameList.value.length, nameOffset, nameIdx, D_NAME.value); spinning.title = false; display.title = nameList.value[nameIdx] ?? null
+
+  spinTick.env++
+  await new Promise(r => setTimeout(r, 120))
+  spinTick.focus++
+  await new Promise(r => setTimeout(r, 140))
+  spinTick.name++
 
   finish()
 }
@@ -410,10 +405,7 @@ watch([derived, () => display.env, () => display.focus, () => display.title], ()
 
 .slot-frame {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 10px 1fr 10px 1fr;
   align-items: center;
-  gap: 0;
   padding: 18px;
   border-radius: 18px;
   background:
@@ -587,6 +579,29 @@ watch([derived, () => display.env, () => display.focus, () => display.title], ()
 .lever-text {
   font-weight: 800;
   letter-spacing: .2px;
+}
+
+/* sanftes Wippen: kurz runterdrücken, minimal overshoot, settle */
+.lever.wobble {
+  animation: lever-wobble 320ms cubic-bezier(.2, .8, .3, 1) both;
+}
+
+@keyframes lever-wobble {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  28% {
+    transform: translateY(3px) scale(.985);
+  }
+
+  58% {
+    transform: translateY(-1px) scale(1.008);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Accessibility: reduced motion */

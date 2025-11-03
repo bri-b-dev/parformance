@@ -29,6 +29,22 @@
 
     --container-max: 920px;
     --container-pad: 16px;
+
+    /* Kategorien */
+    --cat-chipping: #6FCB97;
+    --cat-putting: #549BD6;
+    --cat-driving: #E7B860;
+    --cat-irons: #C99AEF;
+    --cat-bunker: #DCAF8C;
+    --cat-platz: #d9dc8c;
+    --cat-course: #998cdc;
+    --cat-range: #dc8c8c;
+    --cat-range: #8cdc9f;
+    --cat-pitching: #8c90dc;
+    --cat-shapen: #dc8cd0;
+    --cat-simulation: #8cd0dc;
+    --cat-sweetspot: #d0dc8c;
+    --cat-tempo: #dc8c8c;
 }
 
 :root[data-theme="dark"] {
@@ -48,22 +64,6 @@
     --border: #243229;
     --shadow: 0 2px 12px rgba(0, 0, 0, .35);
     --ring: rgba(79, 191, 134, .35);
-
-    /* Kategorien – etwas gedimmt, damit’s nicht „glüht“ */
-    --cat-putting: #549BD6;
-    --cat-chipping: #6FCB97;
-    --cat-driving: #E7B860;
-    --cat-irons: #C99AEF;
-    --cat-bunker: #DCAF8C;
-    --cat-platz: #d9dc8c;
-    --cat-course: #998cdc;
-    --cat-range: #dc8c8c;
-    --cat-range: #8cdc9f;
-    --cat-pitching: #8c90dc;
-    --cat-shapen: #dc8cd0;
-    --cat-simulation: #8cd0dc;
-    --cat-sweetspot: #d0dc8c;
-    --cat-tempo: #dc8c8c;
 }
 
 /* Global ------------------------------------------------------------------- */

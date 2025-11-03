@@ -16,9 +16,9 @@
             </div>
             <div class="hr" style="margin:10px 0;"></div>
             <strong style="margin:.25rem 0 0; color:var(--muted)">Ort</strong>
-            <p class="muted">{{ drill.setup.location }}</p>
+            <p style="margin:.25rem 0 0; color:var(--muted)">{{ drill.setup.location }}</p>
             <strong style="margin:.25rem 0 0; color:var(--muted)">Aufbau</strong>
-            <p class="muted">{{ drill.setup.schema }}</p>
+            <p style="margin:.25rem 0 0; color:var(--muted)">{{ drill.setup.schema }}</p>
             <strong style="margin:.25rem 0 0; color:var(--muted)">Schematische Darstellung</strong>
             <DrillSchema :diagram="drill.setup.diagram" />
 

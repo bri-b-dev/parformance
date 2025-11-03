@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Mixed Clubs – variable Distanzen & Schlägerwechsel">
   <style>
     .panel { fill: var(--surface); }
-    .green { fill: color-mix(in oklab, var(--cat-pitching) 10%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
     .flag { fill: var(--primary); }
     .hole { fill: var(--surface); stroke: var(--accent-iron); }
     .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); opacity: 0.9; }

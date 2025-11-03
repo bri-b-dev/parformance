@@ -2,7 +2,7 @@
   <style>
     .panel { fill: var(--surface); }
     .bunker { fill: color-mix(in oklab, var(--cat-bunker) 10%, var(--surface)); }
-    .green { fill: color-mix(in oklab, var(--cat-putting) 10%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
     .circle1, .circle2, .circle3 { fill: none; stroke-width: 2; }
     .circle1 { stroke: var(--primary); }
     .circle2 { stroke: color-mix(in oklab, var(--primary) 60%, var(--surface)); stroke-dasharray: 6 4; }

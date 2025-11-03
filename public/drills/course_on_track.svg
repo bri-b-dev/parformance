@@ -2,7 +2,7 @@
   <style>
     .panel { fill: var(--surface); }
     .fairway { fill: color-mix(in oklab, var(--cat-course) 10%, var(--surface)); }
-    .green { fill: color-mix(in oklab, var(--cat-green) 25%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
     .arrow { stroke: var(--primary); stroke-width: 2; fill: none; marker-end: url(#arrow); opacity: 0.9; }
     .ball { fill: var(--primary); }
     .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }

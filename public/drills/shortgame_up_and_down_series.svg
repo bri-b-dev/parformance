@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Up & Down Series – mehrere Chip-Positionen rund ums Grün">
   <style>
     .panel { fill: var(--surface); }
-    .green { fill: color-mix(in oklab, var(--cat-chipping) 12%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
     .hole { fill: var(--surface); stroke: var(--accent-iron); }
     .flag { fill: var(--primary); }
     .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); opacity: 0.9; }

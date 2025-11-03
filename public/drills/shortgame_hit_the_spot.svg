@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Hit the Spot – Chip-Drill mit Landepunkten">
   <style>
     .panel { fill: var(--surface); }
-    .green { fill: color-mix(in oklab, var(--cat-chipping) 12%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
     .zone { fill: none; stroke: var(--primary); stroke-width: 2; stroke-dasharray: 6 4; }
     .tee { fill: var(--accent-iron); }
     .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); opacity: 0.9; }

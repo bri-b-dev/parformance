@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Draw Back – Putt-Distanzen in Reihe mit Rückziehregel">
   <style>
     .panel { fill: var(--surface); }
-    .green { fill: color-mix(in oklab, var(--cat-putting) 12%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
     .hole { fill: var(--surface); stroke: var(--accent-iron); }
     .flag { fill: var(--primary); }
     .line { stroke: var(--accent-iron); stroke-width: 1.5; opacity: 0.7; }

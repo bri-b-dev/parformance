@@ -18,7 +18,11 @@
                     <span v-if="theme === 'dark'">🌙</span>
                     <span v-else>☀️</span>
                 </button>
-                <button class="tab" aria-label="Einstellungen">⚙️</button>
+
+                <button class="btn" type="button" aria-label="Einstellungen" @click="$emit('open-settings')">
+                    ⚙️
+                </button>
+
             </div>
         </div>
     </header>
@@ -28,6 +32,8 @@
 import { useTheme } from '@/composables/useTheme';
 
 const { theme, toggle } = useTheme();
+
+defineEmits<{ (e: 'open-settings'): void }>()
 
 </script>
 

@@ -82,6 +82,40 @@ export const useSessionsStore = defineStore('sessions', {
       this.sessions = this.sessions.filter(s => s.id !== id)
       await this.persist()
     },
+    async replaceAll(list: Session[]) {
+      if (!Array.isArray(list)) {
+        this.sessions = []
+        await this.persist()
+        return
+      }
+      const sanitized: Session[] = []
+      for (const item of list) {
+        if (!item || typeof item !== 'object') continue
+        const drillId = (item as any).drillId
+        const date = (item as any).date
+        if (!drillId || !date) continue
+        const id = typeof (item as any).id === 'string' && (item as any).id ? (item as any).id : crypto.randomUUID()
+        const next: Session = {
+          id,
+          drillId: String(drillId),
+          date: String(date),
+          hcp: typeof (item as any).hcp === 'number' ? (item as any).hcp : 0,
+          result: {
+            value: Number((item as any).result?.value ?? 0),
+            unit: String((item as any).result?.unit ?? ''),
+          },
+        }
+        if (typeof (item as any).timerUsed === 'number') next.timerUsed = (item as any).timerUsed
+        if (typeof (item as any).attempts === 'number') next.attempts = (item as any).attempts
+        if (typeof (item as any).levelReached === 'number') next.levelReached = (item as any).levelReached
+        if (typeof (item as any).favorited === 'boolean') next.favorited = (item as any).favorited
+        if (typeof (item as any).notes === 'string') next.notes = (item as any).notes
+        sanitized.push(next)
+      }
+      sanitized.sort((a, b) => b.date.localeCompare(a.date))
+      this.sessions = sanitized
+      await this.persist()
+    },
     async clearAll() {
       this.sessions = []
       await this.persist()

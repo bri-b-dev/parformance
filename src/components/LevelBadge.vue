@@ -47,13 +47,15 @@ const tooltip = computed(() => {
   if (!key) {
     return 'Keine HCP-Zielwerte vorhanden'
   }
-  const arr = targets[key] || []
-  const [L1, L2, L3] = [arr[0], arr[1], arr[2]]
+  const targetEntry = targets[key]
+  const arr = Array.isArray(targetEntry) ? targetEntry : [targetEntry]
   const label = formatRangeLabel(key)
-  const parts: string[] = []
-  if (Number.isFinite(L1)) parts.push(`L1 ${L1}`)
-  if (Number.isFinite(L2)) parts.push(`L2 ${L2}`)
-  if (Number.isFinite(L3)) parts.push(`L3 ${L3}`)
+  const parts = arr
+    .map((val, idx) => {
+      const numeric = Number(val)
+      return Number.isFinite(numeric) ? `L${idx + 1} ${numeric}` : null
+    })
+    .filter(Boolean) as string[]
   return parts.length ? `HCP ${label}: ${parts.join(', ')}` : `HCP ${label}: —`
 })
 

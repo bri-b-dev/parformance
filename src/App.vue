@@ -10,6 +10,7 @@
       <RandomizerView v-if="ui.shuffleOpen" />
     </main>
 
+    <SettingsSheet :open="settingsOpen" @close="settingsOpen = false" />
     <ShuffleFab />
     <BottomTabs />
   </div>
@@ -22,13 +23,15 @@ import { useUiStore } from '@/stores/ui';
 import RandomizerView from '@/views/RandomizerView.vue';
 import { onMounted, ref } from 'vue';
 import HeaderBar from './components/HeaderBar.vue';
+import SettingsSheet from './components/SettingsSheet.vue'
 
 const sessions = useSessionsStore()
 const ui = useUiStore()
 
-const shuffleOpen = ref(false)
-function openShuffle() { shuffleOpen.value = true }
-function onOpenSettings() { /* open settings drawer later */ }
+function openShuffle() { ui.setShuffle(true) }
+
+const settingsOpen = ref(false)
+function onOpenSettings() { settingsOpen.value = true }
 
 onMounted(async () => {
   if (!sessions.loaded) await sessions.load()

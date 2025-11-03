@@ -61,8 +61,9 @@
 <script setup lang="ts">
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Reel from '@/components/Reel.vue'
 
@@ -75,6 +76,7 @@ function prefersReducedMotion(): boolean {
 
 const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()
+const settings = useSettingsStore()
 const router = useRouter()
 const route = useRoute()
 const ui = useUiStore()
@@ -83,14 +85,18 @@ const isOpen = computed(() => !!(ui.shuffleOpen || route.name === 'ShuffleOverla
 onMounted(async () => {
   if (!catalog.loaded) await catalog.load()
   if (!favorites.loaded) await favorites.load()
+  if (!settings.loaded) await settings.load()
   const q = route?.query || {}
   const favOn = ['1', 'true', 'yes'].includes(String((q as any).fav ?? (q as any).onlyFavorites ?? '').toLowerCase())
   if (favOn && hasAnyFavorites.value) biasFavorites.value = true
+  else biasFavorites.value = settings.shuffleFavorites ?? false
+  biasSyncReady = true
 })
 
 const disabled = computed(() => (catalog.drills.length === 0))
 const hasAnyFavorites = computed(() => (favorites.list?.length ?? 0) > 0)
-const biasFavorites = ref<boolean>(false)
+const biasFavorites = ref<boolean>(settings.shuffleFavorites ?? false)
+let biasSyncReady = settings.loaded
 const isFavorite = (id: string) => favorites.list?.includes?.(id) ?? false
 
 interface DerivedDrill {
@@ -174,6 +180,18 @@ const targetTitle = ref<string | null>(null)
 const displayTitle = ref<string | null>(null)
 const running = ref(false)
 const selectedDrillId = ref<string | null>(null)
+
+watch(() => settings.shuffleFavorites, (value) => {
+  if (!settings.loaded) return
+  if (!running.value) biasFavorites.value = !!value
+})
+
+watch(biasFavorites, async (value) => {
+  if (!settings.loaded || !biasSyncReady) return
+  if (settings.shuffleFavorites === value) return
+  await settings.update({ shuffleFavorites: value })
+})
+
 let spinResolver: (() => void) | null = null
 
 async function start() {

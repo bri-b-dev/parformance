@@ -12,6 +12,7 @@ const DrillDetailView = isBrowser ? (() => import('@/views/DrillDetailView.vue')
 const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
 
 const ConstructionView = isBrowser ? (() => import('@/views/ConstructionView.vue')) : Stub
+const UserSettingsView = isBrowser ? (() => import('@/views/UserSettingsView.vue')) : Stub
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: { name: 'DrillsList' } },
@@ -38,6 +39,11 @@ export const routes: RouteRecordRaw[] = [
     path: '/construction',
     component: ConstructionView,
   },
+  {
+    name: 'Settings',
+    path: '/settings',
+    component: UserSettingsView,
+  }
 ]
 
 export function makeRouter(history?: RouterHistory): Router {

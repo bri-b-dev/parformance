@@ -28,19 +28,17 @@ const props = defineProps<{
     label: string
     spinTrigger: number
     duration?: number | { min: number; max: number }
+    targetValue?: string
 }>()
 const emit = defineEmits<{ (e: 'stopped', value: string): void }>()
-console.log('Reel props:', props)
 
 const listRef = ref<HTMLUListElement | null>(null)
 
 // Einheitliche Höhe per CSS-Var (Default 48px)
 const rowH = 48
 const repetitions = 10
-const looped = computed(() => {
-    const base = props.items.length ? props.items : ['—']
-    return Array.from({ length: repetitions }).flatMap(() => base)
-})
+const baseItems = computed(() => (props.items.length ? props.items : ['—']))
+const looped = computed(() => Array.from({ length: repetitions }).flatMap(() => baseItems.value))
 
 function easeOutCubic(t: number) { return 1 - Math.pow(1 - t, 3) }
 
@@ -53,7 +51,8 @@ function pickDuration(): number {
 
 async function spin() {
     const el = listRef.value
-    if (!el || !looped.value.length) return
+    const items = baseItems.value
+    if (!el || !items.length) return
 
     // Reset
     el.style.transition = 'none'
@@ -65,8 +64,9 @@ async function spin() {
 
     // Ziel im mittleren Block → verhindert harte Sprünge am Rand
     const base = Math.floor(totalRows * 0.5)
-    const randOffset = Math.floor(Math.random() * Math.max(1, props.items.length))
-    const targetIndex = base + randOffset
+    const targetIdxInItems = props.targetValue ? items.indexOf(props.targetValue) : -1
+    const offsetWithin = targetIdxInItems >= 0 ? targetIdxInItems : Math.floor(Math.random() * Math.max(1, items.length))
+    const targetIndex = base + offsetWithin
     const targetY = -(targetIndex * rowH)
 
     const duration = pickDuration()
@@ -78,15 +78,17 @@ async function spin() {
         const t = Math.min(1, (now - start) / duration)
         const eased = easeOutCubic(t)
         // zusätzliche “Inertia”: 2–4 volle Umdrehungen
-        const inertia = (rowH * props.items.length) * (2 + Math.floor(Math.random() * 3))
+        const inertia = (rowH * items.length) * (2 + Math.floor(Math.random() * 3))
         const y = startY + eased * (targetY - startY - inertia)
         el.style.transform = `translateY(${y % -totalH}px)`
         if (t < 1) requestAnimationFrame(frame)
         else {
             const snapY = Math.round((y % -totalH) / rowH) * rowH
-            el.style.transform = `translateY(${snapY}px)`
-            const rawIndex = Math.abs(snapY / rowH) % (props.items.length || 1)
-            const value = (props.items[rawIndex] ?? '—')
+            const rawIndex = Math.abs(snapY / rowH) % (items.length || 1)
+            const finalIndex = targetIdxInItems >= 0 ? targetIdxInItems : rawIndex
+            const normalizedY = -(finalIndex * rowH)
+            el.style.transform = `translateY(${normalizedY}px)`
+            const value = (items[finalIndex] ?? '—')
             emit('stopped', value)
         }
     }

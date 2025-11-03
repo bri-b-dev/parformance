@@ -16,8 +16,9 @@
     </output>
 
     <div v-else class="row" style="align-items:center;">
-      <div class="chip" :aria-label="`Bester Wert: ${best} ${unit}`">🏅 Best: <strong
-          style="margin-left:4px; color:inherit;">{{ best }}</strong> {{ unit }}</div>
+      <div class="chip" :aria-label="bestAria">🏅 Best: <strong
+          style="margin-left:4px; color:inherit;">{{ best }}</strong><span v-if="unitLabel">
+          {{ unitLabel }}</span></div>
       <div class="chip" :aria-label="`Gleitender Schnitt (5): ${maLast5Label}`">
         📈 MA(5): <strong style="margin-left:4px; color:inherit;">{{ maLast5Label }}</strong>
       </div>
@@ -37,7 +38,9 @@ import { getMovingAverageTrend } from '@/stats/movingAverage';
 import { useSessionsStore } from '@/stores/sessions';
 import { computed, onMounted } from 'vue';
 
-const props = defineProps<{ drillId: string; unit: string }>()
+const props = withDefaults(defineProps<{ drillId: string; unit?: string | null }>(), {
+  unit: '',
+})
 
 const sessions = useSessionsStore()
 
@@ -84,5 +87,6 @@ const trendAria = computed(() => {
   }
 })
 
-const unit = computed(() => props.unit)
+const unitLabel = computed(() => props.unit?.trim() ?? '')
+const bestAria = computed(() => unitLabel.value ? `Bester Wert: ${best.value} ${unitLabel.value}` : `Bester Wert: ${best.value}`)
 </script>

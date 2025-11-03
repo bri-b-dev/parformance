@@ -24,24 +24,20 @@
           <!-- Center marker line -->
           <div class="slot-marker" aria-hidden="true"></div>
           <div class="grid grid-cols-3 gap-3">
-            <div class="min-w-0">
-              <Reel :items="envList.length ? envList : envItems" label="Umgebung" :spinTrigger="spinTick.env"
-                :duration="D_ENV" @stopped="(v) => display.env = v" />
-            </div>
-            <div class="min-w-0">
-              <Reel :items="focusList.length ? focusList : focusItems" label="Fokus" :spinTrigger="spinTick.focus"
-                :duration="D_FOCUS" @stopped="(v) => display.focus = v" />
-            </div>
-            <div class="min-w-0">
-              <Reel :items="nameList.length ? nameList : nameItems" label="Drill" :spinTrigger="spinTick.name"
-                :duration="D_NAME" @stopped="(v) => display.title = v" />
+            <div v-for="slot in reelOrder" :key="slot" class="min-w-0">
+              <Reel :items="nameItems" label="Drill" :spinTrigger="spinTick[slot]" :duration="D_NAME"
+                :targetValue="targetTitle || undefined" @stopped="(v) => onReelStopped(slot, v)" />
             </div>
           </div>
         </div>
 
+        <div class="slot-result" v-if="displayTitle">
+          <span class="slot-result-label">Gewählt:</span>
+          <span class="slot-result-value">{{ displayTitle }}</span>
+        </div>
+
         <!-- Helper row -->
         <div class="slot-controls">
-          <div class="hint" v-if="showCandidateHint">Mögliche Drills: {{ candidateCount }}</div>
           <label class="chip pref">
             <input type="checkbox" v-model="biasFavorites" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
             Favoriten bevorzugen
@@ -66,14 +62,12 @@
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useUiStore } from '@/stores/ui'
-import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Reel from '@/components/Reel.vue'
 
-const props = defineProps<{ durationEnvMs?: number; durationFocusMs?: number; durationNameMs?: number }>()
-const D_ENV = computed(() => props.durationEnvMs ?? 550)
-const D_FOCUS = computed(() => props.durationFocusMs ?? 650)
-const D_NAME = computed(() => props.durationNameMs ?? 500)
+const props = defineProps<{ durationNameMs?: number }>()
+const D_NAME = computed(() => props.durationNameMs ?? 650)
 
 function prefersReducedMotion(): boolean {
   try { return !!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches } catch { return false }
@@ -102,140 +96,56 @@ const isFavorite = (id: string) => favorites.list?.includes?.(id) ?? false
 interface DerivedDrill {
   id: string
   title: string
-  environment: string
-  focuses: string[]
   favorite: boolean
-  rawCategory?: string
 }
 
 const derived = computed<DerivedDrill[]>(() => {
-  return catalog.drills.map((d: any) => {
-    const env: string = d?.setup?.location ?? 'Unbekannt'
-    const tags: string[] = Array.isArray(d?.tags) ? d.tags : []
-    return {
+  return catalog.drills
+    .map((d: any) => ({
       id: d.id,
-      title: d.title,
-      environment: env,
-      focuses: tags,        // unverändert übernehmen
+      title: String(d?.title ?? '').trim(),
       favorite: isFavorite(d.id),
-    }
-  })
-})
-
-const envItems = computed<string[]>(() => {
-  const s = new Set<string>()
-  for (const d of catalog.drills) {
-    const loc = (d as any)?.setup?.location?.trim()
-    if (loc) s.add(loc)
-  }
-  // hübsch sortieren (de)
-  return Array.from(s).sort((a, b) => a.localeCompare(b, 'de'))
-})
-
-const focusItems = computed<string[]>(() => {
-  const s = new Set<string>()
-  for (const d of catalog.drills) {
-    const tags: string[] = (d as any)?.tags ?? []
-    for (const t of tags) {
-      const norm = String(t).trim()
-      if (norm) s.add(norm)
-    }
-  }
-  return Array.from(s).sort((a, b) => a.localeCompare(b, 'de'))
+    }))
+    .filter((d) => !!d.title)
 })
 
 const nameItems = computed<string[]>(() => {
   const s = new Set<string>()
-  for (const d of catalog.drills) {
-    const title = (d as any)?.title?.trim()
-    if (title) s.add(title)
+  for (const d of derived.value) {
+    if (d.title) s.add(d.title)
   }
-  // hübsch sortieren (de)
   return Array.from(s).sort((a, b) => a.localeCompare(b, 'de'))
 })
 
 function rnd(): number {
-  if (globalThis.crypto?.getRandomValues) { const a = new Uint32Array(1); globalThis.crypto.getRandomValues(a); return (a[0] / 0xFFFFFFFF); }
-  return Math.random();
+  if (globalThis.crypto?.getRandomValues) {
+    const a = new Uint32Array(1)
+    globalThis.crypto.getRandomValues(a)
+    return (a[0] / 0xFFFFFFFF)
+  }
+  return Math.random()
 }
-function randInt(n: number) { return Math.floor(rnd() * n); }
-function shuffleInPlace<T>(arr: T[]): T[] { for (let i = arr.length - 1; i > 0; i--) { const j = randInt(i + 1);[arr[i], arr[j]] = [arr[j], arr[i]] } return arr }
+
 function sampleWeighted<T>(items: T[], weights: number[]): T {
-  const total = weights.reduce((a, b) => a + b, 0); let r = rnd() * total;
-  for (let i = 0; i < items.length; i++) { r -= weights[i]; if (r <= 0) return items[i] }
+  const total = weights.reduce((a, b) => a + b, 0)
+  let r = rnd() * total
+  for (let i = 0; i < items.length; i++) {
+    r -= weights[i]
+    if (r <= 0) return items[i]
+  }
   return items[items.length - 1]
 }
+
 const lastPick = new Map<string, string>()
-function pickNoRepeat(key: string, values: string[]): string {
-  if (values.length <= 1) return values[0] ?? '—'
-  const last = lastPick.get(key)
-  const candidates = values.filter(v => v !== last)
-  const v = candidates[randInt(candidates.length)]
-  lastPick.set(key, v)
-  return v
-}
-
-/* — Reel visuals/state — */
-const itemHeight = 48 // GRÖSSER für Slot-Optik
-const envOffset = ref(0), focusOffset = ref(0), nameOffset = ref(0)
-const envTransformStyle = computed(() => ({ transform: `translateY(${-envOffset.value}px)` }))
-const focusTransformStyle = computed(() => ({ transform: `translateY(${-focusOffset.value}px)` }))
-const nameTransformStyle = computed(() => ({ transform: `translateY(${-nameOffset.value}px)` }))
-
-const envList = ref<string[]>([])
-const focusList = ref<string[]>([])
-const nameList = ref<string[]>([])
-
-const display = reactive<{ env: string | null; focus: string | null; title: string | null }>({ env: null, focus: null, title: null })
-const spinning = reactive({ env: false, focus: false, title: false })
-const running = ref(false)
-let rafIds: any[] = []
-function clearTimers() {
-  for (const r of rafIds) {
-    cancelAnimationFrame(r);
-  }
-  rafIds = [];
-}
-
-function spinToIndex(itemsLen: number, offsetRef: { value: number }, targetIndex: number, durationMs: number): Promise<void> {
-  return new Promise((resolve) => {
-    if (itemsLen <= 0) { resolve(); return }
-    const total = itemsLen * itemHeight
-    const extraLoops = 3 + randInt(3)
-    const start = performance.now()
-    const startOffset = offsetRef.value % total
-    const currentIndex = Math.round(startOffset / itemHeight) % itemsLen
-    const forwardSteps = (extraLoops * itemsLen) + ((targetIndex - currentIndex + itemsLen) % itemsLen)
-    const targetOffset = startOffset + forwardSteps * itemHeight
-    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / durationMs)
-      const eased = easeOutCubic(t)
-      offsetRef.value = startOffset + (targetOffset - startOffset) * eased
-      if (t < 1) rafIds.push(requestAnimationFrame(tick)); else { offsetRef.value = targetOffset % total; resolve() }
-    }
-    rafIds.push(requestAnimationFrame(tick))
-  })
-}
-
-function candidates(env: string | null, focus: string | null, title: string | null): DerivedDrill[] {
-  let list = derived.value
-  if (env) list = list.filter(d => d.environment === env)
-  if (focus) list = list.filter(d => d.focuses.includes(focus))
-  if (title) list = list.filter(d => d.title === title)
-  return list
-}
-const candidateCount = computed(() => candidates(display.env, display.focus, display.title).length)
-const showCandidateHint = computed(() => !running.value && !!display.env && !!display.focus && !!display.title)
 
 function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
   if (pool.length === 0) return ''
   const favFactor = pool.length <= 3 ? 2 : 3
-  const weights = pool.map(d => (biasFavorites.value && d.favorite ? favFactor : 1))
+  const weights = pool.map((d) => (biasFavorites.value && d.favorite ? favFactor : 1))
   let chosen = sampleWeighted(pool, weights)
   const last = lastPick.get('drill')
   if (last && pool.length > 1 && chosen.id === last) {
-    const alt = pool.find(p => p.id !== last) ?? chosen
+    const alt = pool.find((p) => p.id !== last) ?? chosen
     chosen = alt
   }
   lastPick.set('drill', chosen.id)
@@ -245,12 +155,9 @@ function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
 const leverRef = ref<HTMLButtonElement | null>(null)
 
 function onLeverClick() {
-  // Wippen auslösen
   const el = leverRef.value
   if (el) {
-    el.classList.remove('wobble') // reset falls spamming
-    // force reflow, damit die Animation erneut läuft
-    // @ts-ignore
+    el.classList.remove('wobble')
     void el.offsetWidth
     el.classList.add('wobble')
     el.addEventListener('animationend', () => el.classList.remove('wobble'), { once: true })
@@ -258,74 +165,127 @@ function onLeverClick() {
   start()
 }
 
-const spinTick = reactive({ env: 0, focus: 0, name: 0 })
+const reelOrder = ['left', 'center', 'right'] as const
+type SlotKey = typeof reelOrder[number]
+
+const spinTick = reactive<Record<SlotKey, number>>({ left: 0, center: 0, right: 0 })
+const spinning = reactive<Record<SlotKey, boolean>>({ left: false, center: false, right: false })
+const targetTitle = ref<string | null>(null)
+const displayTitle = ref<string | null>(null)
+const running = ref(false)
+const selectedDrillId = ref<string | null>(null)
+let spinResolver: (() => void) | null = null
 
 async function start() {
   if (disabled.value || running.value) return
   running.value = true
-  clearTimers()
-  envOffset.value = focusOffset.value = nameOffset.value = 0
-  display.env = display.focus = display.title = null
-  spinning.env = spinning.focus = spinning.title = false
+  displayTitle.value = null
+  targetTitle.value = null
+  selectedDrillId.value = null
+  reelOrder.forEach((slot) => {
+    spinning[slot] = false
+  })
 
-  envList.value = shuffleInPlace([...envItems.value])
-  focusList.value = shuffleInPlace([...focusItems.value])
-  nameList.value = shuffleInPlace([...nameItems.value])
-
-  const targetEnv = pickNoRepeat('env', envList.value)
-  const targetFocus = pickNoRepeat('focus', focusList.value)
-  const targetName = pickNoRepeat('title', nameList.value)
-  const envIdx = Math.max(0, envList.value.indexOf(targetEnv))
-  const focIdx = Math.max(0, focusList.value.indexOf(targetFocus))
-  const nameIdx = Math.max(0, nameList.value.indexOf(targetName))
-
-  if (prefersReducedMotion()) {
-    display.env = envList.value[envIdx] ?? null
-    display.focus = focusList.value[focIdx] ?? null
-    display.title = nameList.value[nameIdx] ?? null
-    return finish()
+  const pool = derived.value
+  if (!pool.length) {
+    running.value = false
+    return
   }
 
-  spinning.env = true; await spinToIndex(envList.value.length, envOffset, envIdx, D_ENV.value); spinning.env = false; display.env = envList.value[envIdx] ?? null
-  spinning.focus = true; await spinToIndex(focusList.value.length, focusOffset, focIdx, D_FOCUS.value); spinning.focus = false; display.focus = focusList.value[focIdx] ?? null
-  spinning.title = true; await spinToIndex(nameList.value.length, nameOffset, nameIdx, D_NAME.value); spinning.title = false; display.title = nameList.value[nameIdx] ?? null
+  const chosenId = chooseDrillId(pool.map((p) => ({ id: p.id, favorite: p.favorite })))
+  if (!chosenId) {
+    running.value = false
+    return
+  }
 
-  spinTick.env++
-  await new Promise(r => setTimeout(r, 120))
-  spinTick.focus++
-  await new Promise(r => setTimeout(r, 140))
-  spinTick.name++
+  const original = catalog.drills.find((x) => x.id === chosenId)
+  const chosenTitle = (original?.title ?? pool.find((p) => p.id === chosenId)?.title ?? '').trim()
+  if (!chosenTitle) {
+    running.value = false
+    return
+  }
 
+  selectedDrillId.value = chosenId
+  targetTitle.value = chosenTitle
+
+  if (prefersReducedMotion()) {
+    displayTitle.value = chosenTitle
+    running.value = false
+    finish()
+    return
+  }
+
+  const waitForSpin = new Promise<void>((resolve) => {
+    spinResolver = resolve
+  })
+  reelOrder.forEach((slot) => {
+    spinning[slot] = true
+    spinTick[slot]++
+  })
+
+  await waitForSpin
+  spinResolver = null
+
+  if (!selectedDrillId.value || !targetTitle.value) {
+    running.value = false
+    return
+  }
+
+  displayTitle.value = targetTitle.value
+  running.value = false
   finish()
 }
 
-function cancel() { running.value = false; clearTimers(); spinning.env = spinning.focus = spinning.title = false }
+function onReelStopped(slot: SlotKey, _value: string) {
+  spinning[slot] = false
+  if (!spinResolver) return
+  if (!spinning.left && !spinning.center && !spinning.right) {
+    const resolver = spinResolver
+    spinResolver = null
+    resolver()
+  }
+}
+
+function cancel() {
+  if (!running.value) return
+  running.value = false
+  targetTitle.value = null
+  selectedDrillId.value = null
+  displayTitle.value = null
+  reelOrder.forEach((slot) => {
+    spinning[slot] = false
+  })
+  if (spinResolver) {
+    const resolver = spinResolver
+    spinResolver = null
+    resolver()
+  }
+}
 
 function finish() {
+  const id = selectedDrillId.value
+  if (!id) return
+  const original = catalog.drills.find((x) => x.id === id)
+  if (!original) return
   running.value = false
-  const env = display.env, focus = display.focus, title = display.title
-  let pool = candidates(env, focus, title)
-  if (pool.length === 0 && env && focus && title) { if (rnd() < 0.5) pool = candidates(env, focus, null); else pool = candidates(env, null, title) }
-  if (pool.length === 0 && env) pool = candidates(env, null, null)
-  if (pool.length === 0) pool = derived.value
-  if (!pool.length) return
-  const chosenId = chooseDrillId(pool.map(p => ({ id: p.id, favorite: p.favorite })))
-  const original = catalog.drills.find(x => x.id === chosenId)
-  if (original) {
-    try {
-      ; (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: original.id }
-      const p = router.push({ name: 'DrillDetail', params: { id: original.id } })
-      p.finally(() => { try { ui.setShuffle(false) } catch { } })
-    } catch (e) { console.error('Failed to navigate to drill detail:', e) }
+  try {
+    ; (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: original.id }
+    const p = router.push({ name: 'DrillDetail', params: { id: original.id } })
+    p.finally(() => {
+      try { ui.setShuffle(false) } catch { }
+    })
+  } catch (e) {
+    console.error('Failed to navigate to drill detail:', e)
   }
 }
 
 function close() {
-  if (ui.shuffleOpen) { ui.setShuffle(false); return }
+  if (ui.shuffleOpen) {
+    ui.setShuffle(false)
+    return
+  }
   router.back()
 }
-onBeforeUnmount(() => clearTimers())
-watch([derived, () => display.env, () => display.focus, () => display.title], () => { /* computed only */ })
 </script>
 
 <style scoped>
@@ -416,6 +376,26 @@ watch([derived, () => display.env, () => display.focus, () => display.title], ()
     inset 0 -2px 8px rgba(0, 0, 0, 0.08),
     0 6px 22px rgba(0, 0, 0, 0.18);
   border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.slot-result {
+  margin: 10px 0 4px;
+  text-align: center;
+  color: var(--text, #444C56);
+}
+
+.slot-result-label {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: .75rem;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.slot-result-value {
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .slot-marker {
@@ -509,11 +489,6 @@ watch([derived, () => display.env, () => display.focus, () => display.title], ()
   justify-content: space-between;
   gap: 12px;
   padding: 6px 4px 2px;
-}
-
-.hint {
-  font-size: .9rem;
-  color: #6b7280;
 }
 
 .pref {

@@ -59,7 +59,12 @@ export function buildHcpRows(
   for (const key of Object.keys(hcpTargets || {})) {
     const r = parseRangeKey(key)
     if (!r) continue
-    const values = Array.isArray(hcpTargets[key]) ? hcpTargets[key] : []
+    const raw = (hcpTargets as any)[key]
+    const values = Array.isArray(raw)
+      ? raw.map(v => Number(v)).filter(v => Number.isFinite(v))
+      : (raw === null || raw === undefined)
+        ? []
+        : [Number(raw)].filter(v => Number.isFinite(v))
     rows.push({
       key,
       label: formatRangeLabel(key),

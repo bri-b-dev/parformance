@@ -1,6 +1,6 @@
 <!-- DrillSchema.vue -->
 <template>
-  <div class="schema" role="img" aria-label="Schematische Darstellung des Drills">
+  <div class="schema">
     <div v-if="svg" class="schema-diagram" v-html="svg"></div>
     <div v-else class="schema-fallback">Schema wird geladen…</div>
   </div>

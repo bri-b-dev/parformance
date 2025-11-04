@@ -171,8 +171,11 @@ function onElapsed(sec: number) {
 
 .drill-detail {
   width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   box-sizing: border-box;
   overflow: hidden;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 
 .drill-detail > :deep(*) {

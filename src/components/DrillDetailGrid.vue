@@ -3,7 +3,7 @@
 
         <div class="section">
             <h3>Was du brauchst</h3>
-            <div class="row" style="margin-top:8px;">
+            <div class="row details-row">
                 <div v-if="drill.equipment?.balls != null" class="chip" title="Bälle">
                     🟢 × {{ drill.equipment.balls }}
                 </div>
@@ -69,5 +69,10 @@ const schemaLabel = computed(() => props.drill.setup?.schema?.trim() || '—')
 .section {
     width: 100%;
     box-sizing: border-box;
+}
+
+.details-row {
+    flex-wrap: wrap;
+    gap: 6px;
 }
 </style>

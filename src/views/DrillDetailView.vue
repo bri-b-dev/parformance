@@ -44,18 +44,18 @@ const drill = computed(() => catalog.drills.find(d => d.id === id.value))
 <style scoped>
 .drill-detail-view {
   width: 100%;
-  height: 100%;
-  min-height: 100%;
-  padding: 16px 12px calc(140px + env(safe-area-inset-bottom, 0px));
+  min-height: 100dvh;
+  padding: 16px 12px calc(110px + env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .drill-detail-view > :deep(*) {
+  width: 100%;
   max-width: 720px;
-  width: min(720px, 100%);
 }
 </style>

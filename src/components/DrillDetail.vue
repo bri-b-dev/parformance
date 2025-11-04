@@ -1,5 +1,5 @@
 <template>
-  <section class="card" style="max-width: 720px;">
+  <section class="card drill-detail">
     <header style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
       <div>
         <h2 style="margin:0; font-size:1.25rem; font-weight:700;">{{ drill.title }}</h2>
@@ -18,7 +18,7 @@
     <hr class="hr" />
 
     <!-- Metric -->
-    <div style="section">
+    <div class="section">
       <strong>Timer & Messwert</strong>
 
       <!-- Session controls & input -->
@@ -166,3 +166,41 @@ function onElapsed(sec: number) {
   lastElapsed.value = sec
 }
 </script>
+
+<style scoped>
+
+.drill-detail {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.drill-detail > :deep(*) {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.drill-detail :deep(.card) {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.drill-detail :deep(.row) {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.drill-detail :deep(.chip) {
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+}
+
+.drill-detail .section {
+  width: 100%;
+  box-sizing: border-box;
+}
+</style>

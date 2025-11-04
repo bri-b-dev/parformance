@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="max-width:360px;">
+  <div class="card timer-card">
     <div class="row" style="align-items:center; justify-content:space-between;">
       <div class="chip" :aria-label="`Voreinstellung ${presetLabel}`" v-if="presetSeconds && presetSeconds > 0">
         🎯 {{ presetLabel }}
@@ -64,3 +64,15 @@ const presetLabel = computed(() => {
 
 const ariaLabel = computed(() => `Verstrichene Zeit ${formatted.value}`)
 </script>
+
+<style scoped>
+.timer-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.timer-card .row {
+  flex-wrap: wrap;
+}
+</style>

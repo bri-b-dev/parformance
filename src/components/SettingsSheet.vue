@@ -23,7 +23,7 @@ import type { Session } from '@/types'
 import { onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{ open: boolean }>()
-const emit = defineEmits<{ (e: 'close'): void }>()
+const emit = defineEmits<(e: 'close') => void>()
 
 type FormModel = {
   name: string

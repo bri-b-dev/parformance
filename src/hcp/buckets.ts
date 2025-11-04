@@ -15,7 +15,7 @@ export interface HcpRow {
 export function parseRangeKey(key: string): { hi: number; lo: number } | null {
   if (!key) return null
   const normalized = String(key).trim().replace('–', '-')
-  const m = normalized.match(/^\s*(\d{1,2})\s*-\s*(\d{1,2})\s*$/)
+  const m = /^\s*(\d{1,2})\s*-\s*(\d{1,2})\s*$/.exec(normalized)
   if (!m) return null
   const a = Number(m[1])
   const b = Number(m[2])
@@ -26,18 +26,19 @@ export function parseRangeKey(key: string): { hi: number; lo: number } | null {
 
 /** Return the bucket key whose inclusive [lo, hi] contains the given hcp. */
 export function findBucketKey(hcp: number, hcpTargets: Record<string, number[]>): string | null {
-  if (typeof hcp !== 'number' || !isFinite(hcp)) return null
+  if (typeof hcp !== 'number' || !Number.isFinite(hcp)) return null
   let found: { key: string; hi: number; lo: number } | null = null
   for (const key of Object.keys(hcpTargets || {})) {
     const r = parseRangeKey(key)
     if (!r) continue
     if (hcp >= r.lo && hcp <= r.hi) {
       // pick the narrowest matching range if multiple (prefer smaller width)
-      if (!found) found = { key, ...r }
-      else {
+      if (found) {
         const widthFound = found.hi - found.lo
         const widthNew = r.hi - r.lo
         if (widthNew < widthFound) found = { key, ...r }
+      } else {
+        found = { key, ...r }
       }
     }
   }
@@ -60,11 +61,14 @@ export function buildHcpRows(
     const r = parseRangeKey(key)
     if (!r) continue
     const raw = (hcpTargets as any)[key]
-    const values = Array.isArray(raw)
-      ? raw.map(v => Number(v)).filter(v => Number.isFinite(v))
-      : (raw === null || raw === undefined)
-        ? []
-        : [Number(raw)].filter(v => Number.isFinite(v))
+    let values: number[]
+    if (Array.isArray(raw)) {
+      values = raw.map(Number).filter(v => Number.isFinite(v))
+    } else if (raw === null || raw === undefined) {
+      values = []
+    } else {
+      values = [Number(raw)].filter(v => Number.isFinite(v))
+    }
     rows.push({
       key,
       label: formatRangeLabel(key),

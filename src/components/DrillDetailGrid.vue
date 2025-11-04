@@ -58,3 +58,16 @@ const otherLabel = computed(() => {
 const locationLabel = computed(() => props.drill.setup?.location?.trim() || '—')
 const schemaLabel = computed(() => props.drill.setup?.schema?.trim() || '—')
 </script>
+
+<style scoped>
+.detail-grid {
+    width: 100%;
+    min-inline-size: 0;
+    box-sizing: border-box;
+}
+
+.section {
+    width: 100%;
+    box-sizing: border-box;
+}
+</style>

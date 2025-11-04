@@ -1,5 +1,5 @@
 <template>
-  <section class="card" style="margin-top:10px;">
+  <section class="card history-card" style="margin-top:10px;">
     <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
       <h3 style="margin:0; font-weight:700;">Verlauf</h3>
       <small class="chip" v-if="items.length" aria-label="Anzahl Sessions">{{ items.length }} Einträge</small>
@@ -11,8 +11,8 @@
     </output>
 
     <!-- List -->
-    <ul v-else class="list-none" style="padding:0; margin:0;">
-      <li v-for="s in items" :key="s.id" class="card" style="margin:6px 0;">
+    <ul v-else class="history-list">
+      <li v-for="s in items" :key="s.id" class="card history-item">
         <div class="row" style="align-items:center; justify-content:space-between;">
           <div style="display:flex; flex-direction:column; gap:2px;">
             <strong style="line-height:1;">{{ s.result.value }} {{ s.result.unit }}</strong>
@@ -106,3 +106,33 @@ function formatDate(iso: string) {
   }
 }
 </script>
+
+<style scoped>
+.history-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.history-item {
+  width: 100%;
+  max-width: 100%;
+  margin: 6px 0;
+  box-sizing: border-box;
+}
+
+.history-item .row {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.history-item .chip {
+  max-width: 100%;
+}
+</style>

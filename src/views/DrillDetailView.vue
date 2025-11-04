@@ -1,5 +1,5 @@
 <template>
-  <section class="p-4 container">
+  <section class="drill-detail-view">
     <!-- Loading state -->
     <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite">
       <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"
@@ -40,3 +40,22 @@ onMounted(async () => {
 
 const drill = computed(() => catalog.drills.find(d => d.id === id.value))
 </script>
+
+<style scoped>
+.drill-detail-view {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  padding: 16px 12px calc(140px + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.drill-detail-view > :deep(*) {
+  max-width: 720px;
+  width: min(720px, 100%);
+}
+</style>

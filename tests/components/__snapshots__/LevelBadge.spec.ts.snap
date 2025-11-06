@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`LevelBadge > renders neutral when there are no sessions and shows thresholds in tooltip (snapshot) 1`] = `"<span class="chip" title="HCP 26–12: L1 5, L2 7, L3 9" aria-label="Kein Level ermittelt" data-testid="level-badge"> Level — </span>"`;

@@ -22,6 +22,7 @@ A modern, mobile‑first application built with Vue 3, Vite, and Capacitor for t
   - [Table of contents](#table-of-contents)
   - [About](#about)
   - [Features](#features)
+  - [UX Philosophy](#ux-philosophy)
   - [Tech stack](#tech-stack)
   - [Prerequisites](#prerequisites)
   - [Getting started](#getting-started)
@@ -38,20 +39,40 @@ A modern, mobile‑first application built with Vue 3, Vite, and Capacitor for t
   - [Storybook](#storybook)
 
 ## About
-ParFormance is a cross‑platform app built with Vue 3 and Capacitor. It targets the web, Android, and iOS from a single codebase. Use this repository as a starting point for rapid development with modern tooling.
+**ParFormance** is a modern golf training companion designed to make practice measurable, motivating, and fun.  
+It combines structured drills, lightweight analytics, and an intuitive UX that helps players track their progress over time — all within a single cross-platform app.
+
+Built with **Vue 3**, **Tailwind**, and **Capacitor**, ParFormance runs seamlessly on web, Android, and iOS.
 
 ## Features
-- Vue 3 application scaffolded with Vite for fast DX
-- Capacitor 7 for native Android and iOS integration
-- Pinia for state management and Vue Router for navigation
-- Ready‑to‑use scripts for development, build, and preview
-- Dockerfile for static hosting with NGINX
+- **Drill Catalog** — categorized by *Putting, Chipping, Pitching, Range, Course, Tempo, and more*  
+- **Smart Shuffle (🎰 Slot Machine)** — randomized drill selection with animated reels  
+- **Drill Details** — clear setup, step-by-step flow, and measurable targets  
+- **Favorites & History** — quick access to starred drills and past sessions  
+- **Progress Analytics** — radar charts, micro-trends, and personal-best badges  
+- **User Settings** — HCP, language, units, themes, and data export/import  
+- **Offline Mode** — data stored locally via LocalStorage or IndexedDB  
+- **Responsive Design** — optimized for mobile and tablet  
+- **Soft Animations** — Framer Motion effects for clean, lightweight transitions  
+
+## UX Philosophy
+> “As little text as necessary, as much clarity as possible.”
+
+Every drill answers three questions:
+1. What do I need?  
+2. How does it work?  
+3. How do I see that I’m improving?
+
+The app’s flow follows a simple loop:  
+**Shuffle → Drill → Session → Result → History → Progress**
 
 ## Tech stack
-- Vue 3
+- Vue 3 (Composition API)
 - Vite 6
+- Tailwind CSS
 - Capacitor 7 (Android and iOS)
-- Pinia, Vue Router
+- Pinia for state management
+- Framer Motion for animations
 
 ## Prerequisites
 - Node.js: >= 20.19 or >= 22.12 (as defined in package.json engines)
@@ -176,7 +197,6 @@ This project is licensed under the Apache License, Version 2.0.
 - You may also obtain a copy at: http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.
-
 
 ## Storybook
 - Run component workshop: npm run storybook (opens at http://localhost:6006)

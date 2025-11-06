@@ -81,7 +81,10 @@ export function computeAreasOfImprovement(
     const trend = getMovingAverageTrend(vals)
     const maLast = trend.maLast5
     const maPrev = trend.maPrev5
-    const delta = (maLast != null && maPrev != null) ? (maLast - maPrev) : 0
+    // For drills where smaller metric values are better (e.g. time, strokes),
+    // an improvement is represented by a decrease in the moving average.
+    const smallerIsBetter = Boolean(d.metric?.smallerIsBetter)
+    const delta = (maLast != null && maPrev != null) ? (smallerIsBetter ? (maPrev - maLast) : (maLast - maPrev)) : 0
     if (maLast != null && maPrev != null && Math.abs(delta) <= tolerance) {
       stagnant.push({ id, title: d.title, category: d.category, latestLevel: latest })
     }

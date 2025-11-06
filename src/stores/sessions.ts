@@ -51,8 +51,11 @@ export const useSessionsStore = defineStore('sessions', {
           .filter(s => s.drillId === session.drillId)
           .map(s => ({ drillId: s.drillId, metrics: { [metricKey]: s.result?.value } }))
 
-        // Decide whether greater values are better based on drill metric type (fallback: greater is better)
-        const greaterIsBetter = drill?.metric?.type !== 'score_vs_par'
+  // Decide whether greater values are better. New flag `smallerIsBetter` lets drills
+  // declare that lower metric values are better (e.g. fewer strokes). Keep fallback
+  // for legacy drills where only type === 'score_vs_par' implied smaller-is-better.
+  const smallerIsBetter = Boolean(drill?.metric?.smallerIsBetter)
+  const greaterIsBetter = smallerIsBetter ? false : (drill?.metric?.type !== 'score_vs_par')
 
         if (isPersonalBest(newMapped as any, prevMapped , metricKey, { greaterIsBetter })) {
           if (typeof globalThis !== 'undefined' && typeof globalThis.dispatchEvent === 'function') {

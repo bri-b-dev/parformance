@@ -25,7 +25,7 @@
         <span aria-hidden="true">{{ trendSymbol }}</span>
       </div>
       <div style="margin-left:8px;">
-        <SparklineLast v-if="valuesLast.length > 0" :values="valuesLast" :width="140" :height="28" color="#2F7A52" />
+  <SparklineLast v-if="valuesLast.length > 0" :values="valuesLast" :width="140" :height="28" color="#2F7A52" :smallerIsBetter="smallerIsBetter" />
       </div>
     </div>
   </section>
@@ -34,6 +34,7 @@
 <script setup lang="ts">
 import SparklineLast from '@/components/SparklineLast.vue';
 import { getMovingAverageTrend } from '@/stats/movingAverage';
+import { useDrillCatalogStore } from '@/stores/drillCatalog';
 import { useSessionsStore } from '@/stores/sessions';
 import { computed, onMounted } from 'vue';
 
@@ -48,6 +49,7 @@ onMounted(async () => {
 })
 
 const sessionsLoaded = computed(() => sessions.loaded)
+const drillCatalog = useDrillCatalogStore()
 const items = computed(() => sessions.listByDrill(props.drillId))
 const count = computed(() => items.value.length)
 const values = computed(() => items.value.map(s => Number(s.result?.value)).filter(v => Number.isFinite(v)))
@@ -61,13 +63,27 @@ const valuesLast = computed(() => {
   return v.slice(-10)
 })
 
-const best = computed(() => values.value.length ? Math.max(...values.value) : 0)
+const drillMeta = computed(() => drillCatalog.drills.find(d => d.id === props.drillId))
+const smallerIsBetter = computed(() => Boolean(drillMeta.value?.metric?.smallerIsBetter))
+const best = computed(() => {
+  if (!values.value.length) return 0
+  return smallerIsBetter.value ? Math.min(...values.value) : Math.max(...values.value)
+})
 
 const ma = computed(() => getMovingAverageTrend(values.value))
+// If smallerIsBetter, invert the semantic meaning of the trend so that 'up' always
+// indicates improvement. We'll compute an effectiveTrend for display.
+const effectiveTrend = computed(() => {
+  const t = ma.value.trend
+  if (!smallerIsBetter.value) return t
+  if (t === 'up') return 'down'
+  if (t === 'down') return 'up'
+  return t
+})
 const maLast5Label = computed(() => ma.value.maLast5 !== undefined && ma.value.maLast5 !== null ? ma.value.maLast5.toFixed(1) : '–')
 
 const trendSymbol = computed(() => {
-  switch (ma.value.trend) {
+  switch (effectiveTrend.value) {
     case 'up': return '↑'
     case 'down': return '↓'
     case 'flat':
@@ -77,7 +93,7 @@ const trendSymbol = computed(() => {
 })
 
 const trendAria = computed(() => {
-  switch (ma.value.trend) {
+  switch (effectiveTrend.value) {
     case 'up': return 'Trend: steigend (letzte 5 vs. vorherige 5)'
     case 'down': return 'Trend: fallend (letzte 5 vs. vorherige 5)'
     case 'flat': return 'Trend: neutral (gleich)'

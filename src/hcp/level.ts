@@ -17,6 +17,7 @@ export function computeLevelReached(
   hcp: number | null | undefined,
   hcpTargets: Record<string, number[]>,
   value: number | null | undefined,
+  smallerIsBetter?: boolean,
 ): 0 | 1 | 2 | 3 {
   if (typeof value !== 'number' || !isFinite(value)) return 0
   const key = (typeof hcp === 'number') ? findBucketKey(hcp, hcpTargets || {}) : null
@@ -36,7 +37,15 @@ export function computeLevelReached(
 
   const [L1, L2, L3] = thresholds
 
-  // Compare against ascending thresholds; if a threshold is Infinity (missing), it will not be reached
+  // If smallerIsBetter is true, lower metric values correspond to higher levels
+  if (smallerIsBetter) {
+    if (value <= L1) return 3
+    if (value <= L2) return 2
+    if (value <= L3) return 1
+    return 0
+  }
+
+  // Default: greater is better
   if (value >= L3) return 3
   if (value >= L2) return 2
   if (value >= L1) return 1
@@ -45,7 +54,8 @@ export function computeLevelReached(
 
 /** Convenience wrapper using a Drill object */
 export function computeLevelForDrill(drill: Drill, hcp: number | null | undefined, value: number | null | undefined): 0 | 1 | 2 | 3 {
-  return computeLevelReached(hcp, drill.metric?.hcpTargets || {}, value)
+  const smaller = !!drill?.metric?.smallerIsBetter
+  return computeLevelReached(hcp, drill.metric?.hcpTargets || {}, value, smaller)
 }
 
 export default { computeLevelReached, computeLevelForDrill }

@@ -86,7 +86,8 @@
         "hcpTargets": {
           "type": "object",
           "additionalProperties": { "$ref": "#/definitions/NumberArray" }
-        }
+        },
+        "smallerIsBetter": { "type": "boolean", "description": "When true, lower metric values are better (e.g. 'fewer strokes' drills). Defaults to false." }
       },
       "required": ["type", "unit", "hcpTargets"],
       "additionalProperties": false

@@ -47,6 +47,8 @@ export interface Drill {
     type: MetricType;
     unit: string;
     hcpTargets: Record<string, number[]>;
+    /** If true, smaller metric values are better (e.g. fewer strokes). Defaults to false. */
+    smallerIsBetter?: boolean;
   };
 
   tags?: string[];

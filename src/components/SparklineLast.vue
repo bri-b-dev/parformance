@@ -15,6 +15,8 @@ const props = defineProps<{
   width?: number
   height?: number
   color?: string
+  /** if true, lower numeric values are better; invert sparkline vertically so upward means improvement */
+  smallerIsBetter?: boolean
 }>()
 
 const limit = computed(() => props.limit ?? 10)
@@ -35,7 +37,8 @@ const lastValues = computed(() => {
     }).filter(v => Number.isFinite(v))
   }
   if (!vals.length) return []
-  if (vals.length <= limit.value) return vals.slice()
-  return vals.slice(-limit.value)
+  if (vals.length <= limit.value) return props.smallerIsBetter ? vals.slice().map(v => -v) : vals.slice()
+  const slice = vals.slice(-limit.value)
+  return props.smallerIsBetter ? slice.map(v => -v) : slice
 })
 </script>

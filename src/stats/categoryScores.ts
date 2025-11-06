@@ -1,4 +1,5 @@
 import type { Drill, Session } from '@/types'
+import { computeLevelForDrill } from '@/hcp/level'
 
 /**
  * Build a lookup of drillId -> category for quick grouping.
@@ -15,14 +16,27 @@ export function buildDrillCategoryMap(drills: Drill[]): Record<string, string> {
  * From a list of sessions, compute the latest (by date) levelReached per drill.
  * If a session has no levelReached, treat it as 0 for aggregation purposes.
  */
-export function latestLevelByDrill(sessions: Session[]): Record<string, number> {
+export function latestLevelByDrill(sessions: Session[], drills?: Drill[]): Record<string, number> {
   const latest: Record<string, { date: string; level: number }> = {}
+  const drillMap: Record<string, Drill> = {}
+  if (Array.isArray(drills)) {
+    for (const d of drills) {
+      if (d?.id) drillMap[d.id] = d
+    }
+  }
   for (const s of sessions || []) {
     if (!s || !s.drillId || !s.date) continue
-    const level = typeof s.levelReached === 'number' && isFinite(s.levelReached) ? s.levelReached : 0
+    let level = typeof s.levelReached === 'number' && isFinite(s.levelReached) ? s.levelReached : undefined
+    if (level == null) {
+      const drill = drillMap[s.drillId]
+      if (drill) {
+        level = computeLevelForDrill(drill, typeof s.hcp === 'number' ? s.hcp : null, Number(s.result?.value))
+      }
+    }
+    if (!Number.isFinite(level)) level = 0
     const cur = latest[s.drillId]
     if (!cur || s.date.localeCompare(cur.date) > 0) {
-      latest[s.drillId] = { date: s.date, level }
+      latest[s.drillId] = { date: s.date, level: Number(level) }
     }
   }
   const out: Record<string, number> = {}
@@ -46,7 +60,7 @@ export function levelToPct(level: number): number {
  */
 export function computeCategoryScores(sessions: Session[], drills: Drill[]): Record<string, number> {
   const catByDrill = buildDrillCategoryMap(drills)
-  const lastLevel = latestLevelByDrill(sessions)
+  const lastLevel = latestLevelByDrill(sessions, drills)
 
   // Collect categories present in drills
   const categories = new Set<string>()

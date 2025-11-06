@@ -1597,7 +1597,7 @@
     "id": "pitching_four_stations",
     "title": "Four Stations",
     "subtitle": "Zielspiel aus vier Entfernungen",
-    "category": "Pitching Green",
+    "category": "Pitching",
     "equipment": {
       "balls": 4,
       "clubs": [
@@ -1658,7 +1658,7 @@
   {
     "id": "range_drives",
     "title": "Abschläge",
-    "category": "Range",
+    "category": "Driving Range",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -1729,7 +1729,7 @@
   {
     "id": "range_irons",
     "title": "Eisen",
-    "category": "Range",
+    "category": "Driving Range",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -1806,7 +1806,7 @@
     "id": "pitching_attack_the_flag",
     "title": "Attack the Flag",
     "subtitle": "Zielspiel für Distanzen zwischen 20 und 40 Metern",
-    "category": "Pitching Green",
+    "category": "Pitching",
     "equipment": {
       "balls": 9,
       "clubs": [
@@ -1877,7 +1877,7 @@
     "id": "pitching_mixed_clubs",
     "title": "Mixed Clubs",
     "subtitle": "Variiere Schläger und Distanzen für präzises Wedge-Play",
-    "category": "Pitching Green",
+    "category": "Pitching",
     "equipment": {
       "balls": 25,
       "clubs": [
@@ -1908,7 +1908,7 @@
     },
     "instructions": {
       "training": "Spiele von jeder der fünf Stationen fünf Bälle, wobei du jedes Mal den Schläger wechselst. Ziel ist es, möglichst viele Bälle im definierten Radius zur Fahne zu platzieren. Experimentiere mit unterschiedlichen Flugbahnen und Landepunkten.",
-      "test": "Zähle Punkte: Jeder Ball, der innerhalb deines Handicap-Radius liegt, gibt 1 Punkt. Maximal sind 20 Punkte möglich. Wiederhole den Test mit variierenden Landezonen oder Hanglagen.",
+      "test": "Zähle Punkte: Jeder Ball, der innerhalb deines Handicap-Radius liegt, gibt 1 Punkt. Maximal sind 20 Punkte möglich. Wiederhole den Test mit variierenden Landezonen oder Hanglagen.\n54-27: ≤ 8 m\n26-19: ≤ 6 m\n18-12: ≤ 4 m\n11-5: ≤ 3 m\n4-0: ≤ 1.5 m",
       "tooEasy": "Verkleinere den Radius oder platziere Hindernisse (Bunker, Rough). Alternativ: spiele durch ein Alignment-Stick-Tor auf dem Weg zum Ziel."
     },
     "metric": {
@@ -2249,7 +2249,7 @@
     "id": "sweetspot_hit_the_sweetspot_1",
     "title": "Hit the Sweetspot I",
     "subtitle": "Finde dein Treffmuster mit Impact Tape oder Spray",
-    "category": "Sweetspot",
+    "category": "Technik",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -2307,7 +2307,7 @@
     "id": "sweetspot_hit_the_sweetspot_2",
     "title": "Hit the Sweetspot II",
     "subtitle": "Drill für präzise Ballkontakte mit Fokus auf Schwungrichtung",
-    "category": "Sweetspot",
+    "category": "Technik",
     "equipment": {
       "balls": 20,
       "clubs": [
@@ -2366,7 +2366,7 @@
     "id": "sweetspot_out_of_the_sweetspot",
     "title": "Out of the Sweetspot",
     "subtitle": "Drill zur bewussten Schulung des Treffgefühls bei Off-Center-Schlägen",
-    "category": "Sweetspot",
+    "category": "Technik",
     "equipment": {
       "balls": 18,
       "clubs": [
@@ -2423,7 +2423,7 @@
     "id": "tempo_stay_in_the_rhythm",
     "title": "Stay in the Rhythm",
     "subtitle": "Trainiere ein gleichmäßiges 3:1-Tempo für präzise, wiederholbare Drives",
-    "category": "Tempo",
+    "category": "Technik",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -2483,7 +2483,7 @@
     "id": "tempo_find_your_tempo",
     "title": "Find Your Tempo",
     "subtitle": "Finde das Schwungtempo, mit dem du am konstantesten triffst",
-    "category": "Tempo",
+    "category": "Technik",
     "equipment": {
       "balls": 8,
       "clubs": [
@@ -2547,7 +2547,7 @@
     "id": "tempo_swing_like_a_pro",
     "title": "Swing like a Pro",
     "subtitle": "Perfektioniere dein Finish – der sichtbare Beweis für Rhythmus und Balance",
-    "category": "Tempo",
+    "category": "Technik",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -2607,7 +2607,7 @@
     "id": "tempo_improve_your_feeling",
     "title": "Improve Your Feeling",
     "subtitle": "Trainiere Ballgefühl und Kontrolle durch variable Schwunggeschwindigkeiten",
-    "category": "Tempo",
+    "category": "Technik",
     "equipment": {
       "balls": 15,
       "clubs": [
@@ -2670,7 +2670,7 @@
     "id": "shapen_safety_shot",
     "title": "Safety Shot",
     "subtitle": "Lerne deinen Sicherheitsschlag kennen und kontrolliere deine Tendenz",
-    "category": "Shapen",
+    "category": "Technik",
     "equipment": {
       "balls": 10,
       "clubs": [
@@ -2732,7 +2732,7 @@
     "id": "shapen_shape_it",
     "title": "Shape It",
     "subtitle": "Lerne, den Ball bewusst zu formen – Draw, Fade, hoch oder flach",
-    "category": "Shapen",
+    "category": "Technik",
     "equipment": {
       "balls": 12,
       "clubs": [

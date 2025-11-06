@@ -129,7 +129,8 @@ function angleFor(i: number) {
 
 function axisPoint(i: number) {
   const a = angleFor(i)
-  return { x: center + Math.cos(a) * radius, y: center + Math.sin(a) * radius }
+  // return coordinates relative to the group origin (the group is already translated to center)
+  return { x: Math.cos(a) * radius, y: Math.sin(a) * radius }
 }
 
 function valuePoint(i: number) {
@@ -147,7 +148,8 @@ function labelPoint(i: number) {
 const polygonPoints = computed(() => {
   return categories.value.map((_c, i) => {
     const p = valuePoint(i)
-    return `${center + p.x},${center + p.y}`
+    // polygon is rendered inside a group translated to the center, so use relative coords
+    return `${p.x},${p.y}`
   }).join(' ')
 })
 

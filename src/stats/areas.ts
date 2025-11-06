@@ -35,7 +35,7 @@ export function computeAreasOfImprovement(
 ): AreasResult {
   const tolerance = opts?.stagnantTolerance ?? 0.1
 
-  const lastLevelMap = latestLevelByDrill(sessions || [])
+  const lastLevelMap = latestLevelByDrill(sessions || [], drills || [])
 
   const drillById: Record<string, Drill> = {}
   for (const d of drills || []) drillById[d.id] = d
@@ -46,6 +46,8 @@ export function computeAreasOfImprovement(
 
   for (const d of drills || []) {
     const id = d.id
+    const hasSession = Object.prototype.hasOwnProperty.call(lastLevelMap, id)
+    if (!hasSession) continue
     const latest = Number.isFinite(Number(lastLevelMap[id])) ? Number(lastLevelMap[id]) : 0
 
     // determine target level from drill.metric.hcpTargets using user's HCP bucket
@@ -53,10 +55,16 @@ export function computeAreasOfImprovement(
     try {
       const bucket = findBucketKey(typeof userHcp === 'number' ? userHcp : NaN, d.metric?.hcpTargets ?? {})
       if (bucket) {
-        const arr = (d.metric?.hcpTargets ?? {})[bucket]
-        if (Array.isArray(arr) && arr.length) {
-          // choose the maximum target as the goal
-          targetLevel = Math.max(...arr.map(v => Number(v) || 0))
+        const raw = (d.metric?.hcpTargets ?? {})[bucket]
+        const normalized = Array.isArray(raw) ? raw : [raw]
+        const thresholds = normalized
+          .slice(0, 3)
+          .map(v => Number(v))
+          .filter(v => Number.isFinite(v))
+          .sort((a, b) => a - b)
+
+        if (thresholds.length > 0) {
+          targetLevel = Math.min(3, thresholds.length)
         }
       }
     } catch {}

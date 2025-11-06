@@ -145,7 +145,6 @@ const filteredSessions = computed(() => {
 
 const hasAnySessions = computed(() => (sessions.sessions?.length ?? 0) > 0)
 const isEmpty = computed(() => (filteredSessions.value || []).length === 0)
-
 const scores = computed(() => computeCategoryScores(filteredSessions.value, filteredDrills.value))
 
 const rows = computed(() => {

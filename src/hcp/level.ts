@@ -20,12 +20,21 @@ export function computeLevelReached(
 ): 0 | 1 | 2 | 3 {
   if (typeof value !== 'number' || !isFinite(value)) return 0
   const key = (typeof hcp === 'number') ? findBucketKey(hcp, hcpTargets || {}) : null
-  const thresholds = key ? (hcpTargets?.[key] ?? []) : []
+  const rawThresholds = key != null ? (hcpTargets?.[key]) : undefined
+  const array = Array.isArray(rawThresholds)
+    ? rawThresholds
+    : (rawThresholds == null ? [] : [rawThresholds])
 
-  // Normalize to three numbers (can be undefined); ignore non-finite entries
-  const L1 = (typeof thresholds[0] === 'number' && isFinite(thresholds[0])) ? thresholds[0] : Infinity
-  const L2 = (typeof thresholds[1] === 'number' && isFinite(thresholds[1])) ? thresholds[1] : Infinity
-  const L3 = (typeof thresholds[2] === 'number' && isFinite(thresholds[2])) ? thresholds[2] : Infinity
+  // Normalize to ascending numeric thresholds (fill missing with Infinity)
+  const thresholds = array
+    .slice(0, 3)
+    .map(v => Number(v))
+    .filter(v => Number.isFinite(v))
+    .sort((a, b) => a - b)
+
+  while (thresholds.length < 3) thresholds.push(Infinity)
+
+  const [L1, L2, L3] = thresholds
 
   // Compare against ascending thresholds; if a threshold is Infinity (missing), it will not be reached
   if (value >= L3) return 3

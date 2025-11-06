@@ -17,8 +17,7 @@
 
     <div v-else class="row" style="align-items:center;">
       <div class="chip" :aria-label="bestAria">🏅 Best: <strong
-          style="margin-left:4px; color:inherit;">{{ best }}</strong><span v-if="unitLabel">
-          {{ unitLabel }}</span></div>
+          style="margin-left:4px; color:inherit;">{{ best }}</strong><span v-if="unitLabel"> {{ unitLabel }}</span></div>
       <div class="chip" :aria-label="`Gleitender Schnitt (5): ${maLast5Label}`">
         📈 MA(5): <strong style="margin-left:4px; color:inherit;">{{ maLast5Label }}</strong>
       </div>

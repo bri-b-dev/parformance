@@ -1,5 +1,5 @@
 import type { Drill, Session } from '@/types'
-import { computeLevelForDrill } from '@/hcp/level'
+import { evaluateSessionLevel } from '@/hcp/evaluator'
 
 /**
  * Build a lookup of drillId -> category for quick grouping.
@@ -16,7 +16,7 @@ export function buildDrillCategoryMap(drills: Drill[]): Record<string, string> {
  * From a list of sessions, compute the latest (by date) levelReached per drill.
  * If a session has no levelReached, treat it as 0 for aggregation purposes.
  */
-export function latestLevelByDrill(sessions: Session[], drills?: Drill[]): Record<string, number> {
+export function latestLevelByDrill(sessions: Session[], drills?: Drill[], mode: 'historical' | 'current' = 'historical'): Record<string, number> {
   const latest: Record<string, { date: string; level: number }> = {}
   const drillMap: Record<string, Drill> = {}
   if (Array.isArray(drills)) {
@@ -30,7 +30,7 @@ export function latestLevelByDrill(sessions: Session[], drills?: Drill[]): Recor
     if (level == null) {
       const drill = drillMap[s.drillId]
       if (drill) {
-        level = computeLevelForDrill(drill, typeof s.hcp === 'number' ? s.hcp : null, Number(s.result?.value))
+        level = evaluateSessionLevel(s, drill, mode)
       }
     }
     if (!Number.isFinite(level)) level = 0
@@ -58,9 +58,9 @@ export function levelToPct(level: number): number {
  *
  * Returns a map: { [category]: percentage0to100 }
  */
-export function computeCategoryScores(sessions: Session[], drills: Drill[]): Record<string, number> {
+export function computeCategoryScores(sessions: Session[], drills: Drill[], mode: 'historical' | 'current' = 'historical'): Record<string, number> {
   const catByDrill = buildDrillCategoryMap(drills)
-  const lastLevel = latestLevelByDrill(sessions, drills)
+  const lastLevel = latestLevelByDrill(sessions, drills, mode)
 
   // Collect categories present in drills
   const categories = new Set<string>()
@@ -80,7 +80,7 @@ export function computeCategoryScores(sessions: Session[], drills: Drill[]): Rec
 
   // Produce results for all known categories; default to 0
   const out: Record<string, number> = {}
-  for (const cat of categories) {
+  for (const cat of Array.from(categories)) {
     if ((count[cat] ?? 0) > 0) out[cat] = sum[cat] / count[cat]
     else out[cat] = 0
   }

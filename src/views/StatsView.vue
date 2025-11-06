@@ -30,6 +30,11 @@
               <option :value="30">30 Tage</option>
               <option :value="90">90 Tage</option>
             </select>
+            <label for="eval-mode" class="sr-only">Auswertung</label>
+            <select id="eval-mode" v-model="evaluationMode" aria-label="Auswertungsmodus" data-testid="stats-eval-mode">
+              <option value="current">Aktuell (mit aktuellem HCP)</option>
+              <option value="historical">Historisch (mit HCP bei Session)</option>
+            </select>
           </div>
         </div>
         <div class="chart-wrapper">
@@ -121,6 +126,8 @@ const sessionsLoaded = computed(() => sessions.loaded)
 // Filter controls
 const selectedCategory = ref<string>('all')
 const selectedPeriodDays = ref<number>(0) // 0 = all
+// Evaluation mode: 'current' evaluates past sessions using latest HCP; 'historical' uses the HCP valid at session time
+const evaluationMode = ref<'historical' | 'current'>('current')
 
 const categories = computed(() => {
   const set = new Set<string>()
@@ -145,7 +152,8 @@ const filteredSessions = computed(() => {
 
 const hasAnySessions = computed(() => (sessions.sessions?.length ?? 0) > 0)
 const isEmpty = computed(() => (filteredSessions.value || []).length === 0)
-const scores = computed(() => computeCategoryScores(filteredSessions.value, filteredDrills.value))
+// Use current evaluation mode for progress UI: evaluate past sessions using current HCP
+const scores = computed(() => computeCategoryScores(filteredSessions.value, filteredDrills.value, evaluationMode.value))
 
 const rows = computed(() => {
   // Show categories alphabetically for stability
@@ -155,9 +163,9 @@ const rows = computed(() => {
 })
 
 const areas = computed(() => {
-  // compute areas using currently filtered sessions/drills and the user's HCP
+  // compute areas using currently filtered sessions/drills and the current evaluation mode
   try {
-    return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], settings.hcp)
+  return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], settings.hcp, { mode: evaluationMode.value })
   } catch (e) {
     console.error('Error computing areas of improvement:', e)
     return { belowTarget: [], stagnant: [], mostImproved: [] }

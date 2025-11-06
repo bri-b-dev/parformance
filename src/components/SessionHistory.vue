@@ -39,10 +39,14 @@
           <template v-else>
             <p v-if="s.notes" style="margin:0; white-space:pre-wrap;">{{ s.notes }}</p>
             <p v-else style="margin:0; color:var(--muted);">Keine Notizen</p>
-            <div class="row" style="justify-content:flex-end; margin-top:6px;">
-              <button type="button" class="btn" @click="startEdit(s)"
-                :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`" data-testid="notes-edit">Notizen</button>
-            </div>
+                    <div class="row" style="justify-content:flex-end; margin-top:6px;">
+                      <button type="button" class="btn" @click="startEdit(s)"
+                        :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`" data-testid="notes-edit">Notizen</button>
+                      <template v-if="!isAwarded(s)">
+                        <button type="button" class="btn" @click="awardBadge(s)" data-testid="award-badge">Badge vergeben</button>
+                      </template>
+                      <button v-else type="button" class="chip" title="Auszeichnung entfernen" @click="removeAward(s)">🏅</button>
+                    </div>
           </template>
         </div>
       </li>
@@ -52,15 +56,18 @@
 
 <script setup lang="ts">
 import { useSessionsStore } from '@/stores/sessions';
+import { useAchievementsStore } from '@/stores/achievements'
 import type { Session } from '@/types';
 import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps<{ drillId: string }>()
 
 const sessions = useSessionsStore()
+const achievements = useAchievementsStore()
 
 onMounted(async () => {
   if (!sessions.loaded) await sessions.load()
+  if (!achievements.loaded) await achievements.load()
 })
 
 const loaded = computed(() => sessions.loaded)
@@ -103,6 +110,45 @@ function formatDate(iso: string) {
     return `${y}-${m}-${day} ${hh}:${mm}`
   } catch {
     return iso
+  }
+}
+
+function isAwarded(s: Session) {
+  return achievements.items.some(i => i.sessionId === s.id)
+}
+
+async function awardBadge(s: Session) {
+  try {
+    // create a stable id for the snapshot
+    const id = `badge_${s.id}_${Date.now()}`
+    const snap = await achievements.awardBadgeFromSession({
+      id,
+      sessionId: s.id,
+      criteriaVersion: 'v1',
+      title: `Badge für ${formatDate(s.date)}`,
+      description: `Manuell vergeben für Session ${s.id}`,
+    })
+    // simple feedback
+    // eslint-disable-next-line no-console
+    console.log('Awarded snapshot', snap)
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to award badge', e)
+    alert('Fehler beim Vergeben der Auszeichnung')
+  }
+}
+
+async function removeAward(s: Session) {
+  try {
+    const item = achievements.items.find(i => i.sessionId === s.id)
+    if (!item) return
+    // simple confirmation
+    if (!confirm('Auszeichnung für diese Session entfernen?')) return
+    await achievements.remove(item.id)
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to remove award', e)
+    alert('Fehler beim Entfernen der Auszeichnung')
   }
 }
 </script>

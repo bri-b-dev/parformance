@@ -178,6 +178,12 @@ function onElapsed(sec: number) {
   padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 
+/* Allow flex children to shrink on small viewports */
+.drill-detail,
+.drill-detail * {
+  min-inline-size: 0;
+}
+
 .drill-detail > :deep(*) {
   max-width: 100%;
   box-sizing: border-box;

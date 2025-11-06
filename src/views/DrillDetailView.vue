@@ -44,18 +44,17 @@ const drill = computed(() => catalog.drills.find(d => d.id === id.value))
 <style scoped>
 .drill-detail-view {
   width: 100%;
-  min-height: 100dvh;
-  padding: 16px 12px calc(110px + env(safe-area-inset-bottom, 0px));
+  /* Let the outer app container handle horizontal padding; keep only vertical spacing here. */
+  padding: 12px 0 calc(110px + env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
+  display: block;
   overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
 }
 
 .drill-detail-view > :deep(*) {
   width: 100%;
-  max-width: 720px;
+  /* Keep a responsive max width: never exceed 720px but always leave a small viewport gutter on small screens */
+  max-width: min(720px, calc(100vw - 24px));
+  margin: 0 auto;
 }
 </style>

@@ -13,6 +13,8 @@
     <SettingsSheet :open="settingsOpen" @close="settingsOpen = false" />
     <ShuffleFab />
     <BottomTabs />
+    <Toasts />
+    <ConfirmModal />
   </div>
 </template>
 <script setup lang="ts">
@@ -24,6 +26,8 @@ import RandomizerView from '@/views/RandomizerView.vue';
 import { onMounted, ref } from 'vue';
 import HeaderBar from './components/HeaderBar.vue';
 import SettingsSheet from './components/SettingsSheet.vue'
+import Toasts from './components/Toasts.vue'
+import ConfirmModal from './components/ConfirmModal.vue'
 
 const sessions = useSessionsStore()
 const ui = useUiStore()

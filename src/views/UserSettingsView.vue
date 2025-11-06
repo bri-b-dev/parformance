@@ -13,6 +13,7 @@ import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
 import type { Session } from '@/types'
 import { onMounted, ref, watch } from 'vue'
+import { requestConfirm } from '@/utils/confirmService'
 
 type FormModel = {
   name: string
@@ -75,7 +76,15 @@ function downloadJson(filename: string, data: any) {
 }
 
 function showAlert(message: string) {
-  if (typeof window !== 'undefined' && typeof window.alert === 'function') window.alert(message)
+  try {
+    // @ts-ignore
+    globalThis.dispatchEvent(new CustomEvent('toast', { detail: { type: 'info', message } }))
+  } catch {
+    // fallback
+    // fallback: log to console instead of blocking alert
+    // eslint-disable-next-line no-console
+    console.log(message)
+  }
 }
 
 async function save(values: FormModel) {
@@ -148,9 +157,8 @@ async function importData(data: any) {
 }
 
 async function resetAll() {
-  if (typeof window !== 'undefined' && typeof window.confirm === 'function') {
-    if (!window.confirm('Wirklich alle lokalen Daten löschen?')) return
-  }
+  const confirmed = await requestConfirm('Wirklich alle lokalen Daten löschen?')
+  if (!confirmed) return
   await ensureStoresLoaded()
   await Promise.all([
     settingsStore.clearAll(),

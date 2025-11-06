@@ -105,7 +105,21 @@ function downloadJson(filename: string, data: any) {
 }
 
 function showAlert(message: string) {
-  if (typeof window !== 'undefined' && typeof window.alert === 'function') window.alert(message)
+  try {
+    // @ts-ignore
+    globalThis.dispatchEvent(new CustomEvent('toast', { detail: { type: 'info', message } }))
+  } catch {
+    // fallback
+    // fallback: log to console instead of blocking alert
+    // eslint-disable-next-line no-console
+    console.log(message)
+  }
+}
+
+import { requestConfirm } from '@/utils/confirmService'
+
+function showConfirm(message: string): Promise<boolean> {
+  return requestConfirm(message)
 }
 
 async function exportData() {
@@ -161,9 +175,8 @@ async function importData(data: any) {
 }
 
 async function resetAll() {
-  if (typeof window !== 'undefined' && typeof window.confirm === 'function') {
-    if (!window.confirm('Wirklich alle lokalen Daten löschen?')) return
-  }
+  const ok = await showConfirm('Wirklich alle lokalen Daten löschen?')
+  if (!ok) return
   await ensureStoresLoaded()
   await Promise.all([
     settingsStore.clearAll(),

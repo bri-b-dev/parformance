@@ -40,7 +40,7 @@ export const useHcpHistoryStore = defineStore('hcpHistory', {
       // find row where valid_from <= iso < valid_to (or valid_to is null)
       for (let i = this.rows.length - 1; i >= 0; i--) {
         const r = this.rows[i]
-        if (!r || !r.valid_from) continue
+        if (!r?.valid_from) continue
         if (iso >= r.valid_from) {
           if (!r.valid_to || iso < r.valid_to) return r.hcp
         }

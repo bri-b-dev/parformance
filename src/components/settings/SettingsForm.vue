@@ -149,6 +149,7 @@ function onImport(e: Event){
 }
 
 function confirmReset(){
-  if (confirm('Wirklich alle lokalen Daten löschen?')) emit('reset')
+  // Let the parent handle confirmation so we don't show the modal twice.
+  emit('reset')
 }
 </script>

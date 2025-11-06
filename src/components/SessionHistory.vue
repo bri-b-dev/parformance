@@ -39,14 +39,16 @@
           <template v-else>
             <p v-if="s.notes" style="margin:0; white-space:pre-wrap;">{{ s.notes }}</p>
             <p v-else style="margin:0; color:var(--muted);">Keine Notizen</p>
-                    <div class="row" style="justify-content:flex-end; margin-top:6px;">
-                      <button type="button" class="btn" @click="startEdit(s)"
-                        :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`" data-testid="notes-edit">Notizen</button>
-                      <template v-if="!isAwarded(s)">
-                        <button type="button" class="btn" @click="awardBadge(s)" data-testid="award-badge">Badge vergeben</button>
-                      </template>
-                      <button v-else type="button" class="chip" title="Auszeichnung entfernen" @click="removeAward(s)">🏅</button>
-                    </div>
+            <div class="row" style="justify-content:flex-end; margin-top:6px;">
+              <button type="button" class="btn" @click="startEdit(s)"
+                :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`" data-testid="notes-edit">Notizen</button>
+              <template v-if="!isAwarded(s)">
+                <button type="button" class="btn" @click="awardBadge(s)" data-testid="award-badge">Badge
+                  vergeben</button>
+              </template>
+              <button v-else type="button" class="chip" title="Auszeichnung entfernen"
+                @click="removeAward(s)">🏅</button>
+            </div>
           </template>
         </div>
       </li>
@@ -128,13 +130,26 @@ async function awardBadge(s: Session) {
       title: `Badge für ${formatDate(s.date)}`,
       description: `Manuell vergeben für Session ${s.id}`,
     })
-    // simple feedback
-    // eslint-disable-next-line no-console
-    console.log('Awarded snapshot', snap)
+    // fire a success toast
+    try {
+      // @ts-ignore
+      globalThis.dispatchEvent(new CustomEvent('toast', { detail: { type: 'success', message: 'Auszeichnung vergeben' } }))
+    } catch {
+      // fallback: console
+      // eslint-disable-next-line no-console
+      console.log('Awarded snapshot', snap)
+    }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error('Failed to award badge', e)
-    alert('Fehler beim Vergeben der Auszeichnung')
+    try {
+      // @ts-ignore
+      globalThis.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', message: 'Fehler beim Vergeben der Auszeichnung' } }))
+    } catch {
+      // fallback: log instead of blocking alert
+      // eslint-disable-next-line no-console
+      console.log('Fehler beim Vergeben der Auszeichnung')
+    }
   }
 }
 
@@ -142,14 +157,32 @@ async function removeAward(s: Session) {
   try {
     const item = achievements.items.find(i => i.sessionId === s.id)
     if (!item) return
-    // simple confirmation
-    if (!confirm('Auszeichnung für diese Session entfernen?')) return
+    // ask via global confirm modal (falls available)
+    const confirmed = await showConfirm('Auszeichnung für diese Session entfernen?')
+    if (!confirmed) return
     await achievements.remove(item.id)
+    try {
+      // @ts-ignore
+      globalThis.dispatchEvent(new CustomEvent('toast', { detail: { type: 'success', message: 'Auszeichnung entfernt' } }))
+    } catch { /* noop */ }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error('Failed to remove award', e)
-    alert('Fehler beim Entfernen der Auszeichnung')
+    try {
+      // @ts-ignore
+      globalThis.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', message: 'Fehler beim Entfernen der Auszeichnung' } }))
+    } catch {
+      // fallback: log instead of blocking alert
+      // eslint-disable-next-line no-console
+      console.log('Fehler beim Entfernen der Auszeichnung')
+    }
   }
+}
+
+import { requestConfirm } from '@/utils/confirmService'
+
+function showConfirm(message: string): Promise<boolean> {
+  return requestConfirm(message)
 }
 </script>
 

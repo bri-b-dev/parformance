@@ -87,7 +87,8 @@ body {
 .container {
     max-width: 920px;
     margin: 0 auto;
-    padding: 16px;
+    /* reduced horizontal padding to help center content on narrow viewports */
+    padding: 8px;
 }
 
 .card {
@@ -368,7 +369,7 @@ main {
     /* stop overscroll from propagating and pulling other page chrome into view */
     overscroll-behavior: contain;
     /* slightly reduced padding so pages feel more centered on narrow viewports */
-    padding: 12px;
+    padding: 8px;
     padding-top: 8px;
     padding-bottom: 88px;
     max-width: var(--container-max);

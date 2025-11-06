@@ -53,8 +53,11 @@ const drill = computed(() => catalog.drills.find(d => d.id === id.value))
 
 .drill-detail-view > :deep(*) {
   width: 100%;
-  /* Keep a responsive max width: never exceed 720px but always leave a small viewport gutter on small screens */
-  max-width: min(720px, calc(100vw - 24px));
+  /* Keep a responsive max width: never exceed 720px but leave symmetric gutters on small screens */
+  max-width: min(720px, calc(100vw - 32px));
   margin: 0 auto;
+  /* Symmetric internal gutter so content appears centered on narrow viewports */
+  padding-inline: 16px;
+  padding-inline-end: 16px;
 }
 </style>

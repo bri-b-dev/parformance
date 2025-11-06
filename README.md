@@ -18,21 +18,24 @@ A modern, mobile‑first application built with Vue 3, Vite, and Capacitor for t
 </p>
 
 ## Table of contents
-* [Table of contents](#table-of-contents)
-* [About](#about)
-* [Features](#features)
-* [Tech stack](#tech-stack)
-* [Prerequisites](#prerequisites)
-* [Getting started](#getting-started)
-* [Scripts](#scripts)
-* [Configuration](#configuration)
-* [Development](#development)
-* [Building for production](#building-for-production)
-* [Running on mobile (Capacitor)](#running-on-mobile-capacitor)
-* [Project structure](#project-structure)
-* [Troubleshooting](#troubleshooting)
-* [Contributing](#contributing)
-* [License](#license)
+- [ParFormance](#parformance)
+  - [Table of contents](#table-of-contents)
+  - [About](#about)
+  - [Features](#features)
+  - [Tech stack](#tech-stack)
+  - [Prerequisites](#prerequisites)
+  - [Getting started](#getting-started)
+  - [Scripts](#scripts)
+  - [Configuration](#configuration)
+  - [Development](#development)
+  - [Building for production](#building-for-production)
+  - [Running on mobile (Capacitor)](#running-on-mobile-capacitor)
+  - [Docker usage](#docker-usage)
+  - [Project structure](#project-structure)
+  - [Troubleshooting](#troubleshooting)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Storybook](#storybook)
 
 ## About
 ParFormance is a cross‑platform app built with Vue 3 and Capacitor. It targets the web, Android, and iOS from a single codebase. Use this repository as a starting point for rapid development with modern tooling.
@@ -128,10 +131,10 @@ You can also run directly from the IDE and manage signing, emulators, and device
 
 ## Docker usage
 Build a production image:
-- docker build -t handycap:latest .
+- docker build -t parformance:latest .
 
 Run the container (serves dist/ via NGINX):
-- docker run --rm -p 8080:80 handycap:latest
+- docker run --rm -p 8080:80 parformance:latest
 
 Then open http://localhost:8080
 

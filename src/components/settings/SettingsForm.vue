@@ -6,29 +6,29 @@
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
           <label class="text-sm text-app-sub">Anzeigename</label>
-          <input v-model="local.name" type="text" class="input-select w-full" placeholder="Optional" />
+          <input v-model="local.name" type="text" class="input w-full" placeholder="Optional" />
         </div>
         <div>
           <label class="text-sm text-app-sub">Handicap (HCP)</label>
-          <input v-model.number="local.hcp" type="number" step="0.1" min="-10" max="54" class="input-select w-full" />
+          <input v-model.number="local.hcp" type="number" step="0.1" min="-10" max="54" class="input w-full" />
         </div>
         <div>
           <label class="text-sm text-app-sub">Schlaghand</label>
-          <select v-model="local.handedness" class="input-select w-full">
+          <select v-model="local.handedness" class="input w-full">
             <option value="right">Rechtshänder*in</option>
             <option value="left">Linkshänder*in</option>
           </select>
         </div>
         <div>
           <label class="text-sm text-app-sub">Sprache</label>
-          <select v-model="local.language" class="input-select w-full">
+          <select v-model="local.language" class="input w-full">
             <option value="de">Deutsch</option>
             <option value="en">English</option>
           </select>
         </div>
         <div>
           <label class="text-sm text-app-sub">Einheiten</label>
-          <select v-model="local.units" class="input-select w-full">
+          <select v-model="local.units" class="input w-full">
             <option value="metric">Metrisch (m, km/h)</option>
             <option value="imperial">Imperial (yd, mph)</option>
           </select>
@@ -42,7 +42,7 @@
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
           <label class="text-sm text-app-sub">Theme</label>
-          <select v-model="local.theme" class="input-select w-full">
+          <select v-model="local.theme" class="input w-full">
             <option value="system">System</option>
             <option value="light">Hell</option>
             <option value="dark">Dunkel</option>
@@ -86,14 +86,14 @@
         <div class="text-sm font-medium mb-2">Zurücksetzen</div>
         <div class="flex items-center justify-between">
           <p class="text-sm text-app-sub">Alle lokalen Daten löschen (Sessions, Favoriten, Einstellungen)</p>
-          <button class="btn-primary" type="button" @click="confirmReset">Reset</button>
+          <button class="btn btn-primary" type="button" @click="confirmReset">Reset</button>
         </div>
       </div>
     </section>
 
     <div class="flex items-center justify-end gap-2">
       <button type="button" class="btn" @click="$emit('cancel')">Abbrechen</button>
-      <button type="submit" class="btn-primary">Speichern</button>
+      <button type="submit" class="btn btn-primary">Speichern</button>
     </div>
   </form>
 </template>

@@ -15,18 +15,18 @@
                 </div>
             </div>
             <div class="hr" style="margin:10px 0;"></div>
-            <strong style="margin:.25rem 0 0; color:var(--muted)">Ort</strong>
-            <p style="margin:.25rem 0 0; color:var(--muted)">{{ locationLabel }}</p>
-            <strong style="margin:.25rem 0 0; color:var(--muted)">Aufbau</strong>
-            <p style="margin:.25rem 0 0; color:var(--muted)">{{ schemaLabel }}</p>
-            <strong style="margin:.25rem 0 0; color:var(--muted)">Schematische Darstellung</strong>
+            <strong class="muted">Ort</strong>
+            <p class="muted">{{ locationLabel }}</p>
+            <strong class="muted">Aufbau</strong>
+            <p class="muted">{{ schemaLabel }}</p>
+            <strong class="muted">Schematische Darstellung</strong>
             <DrillSchema :diagram="drill.setup.diagram" />
 
             <div class="hr" style="margin:10px 0;"></div>
             <div style="margin-top:10px;">
-                <p v-if="drill.instructions.test" style="margin:.25rem 0 0; color:var(--muted)"><strong>Ablauf</strong>
+                <p v-if="drill.instructions.test" class="muted"><strong>Ablauf</strong>
                     {{ drill.instructions.test }}</p>
-                <p v-if="drill.instructions.tooEasy" style="margin:.25rem 0 0; color:var(--muted)">
+                <p v-if="drill.instructions.tooEasy" class="muted">
                     <strong>Zu leicht?</strong> {{ drill.instructions.tooEasy }}
                 </p>
             </div>

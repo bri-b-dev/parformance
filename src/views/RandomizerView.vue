@@ -544,12 +544,6 @@ function close() {
   background: #fff;
 }
 
-.btn-primary {
-  background: var(--primary, #2F7A52);
-  color: var(--primary-ink, #fff);
-  border: none;
-}
-
 /* Hebel-Button */
 .lever {
   position: relative;

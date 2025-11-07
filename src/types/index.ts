@@ -54,6 +54,8 @@ export interface Drill {
   tags?: string[];
   zockerTip?: string;
   variants?: string[];
+  /** Short human-readable summary to display on cards and lists. Optional. */
+  summary?: string;
 }
 
 export interface Session {

@@ -108,6 +108,7 @@
         "zockerTip": { "$ref": "#/definitions/NonEmptyString" },
         "variants": { "$ref": "#/definitions/StringArray" }
       },
+      "summary": { "$ref": "#/definitions/NonEmptyString" },
       "required": [
         "id",
         "title",

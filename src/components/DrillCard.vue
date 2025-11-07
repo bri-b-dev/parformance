@@ -8,7 +8,7 @@
       <small class="chip">{{ difficultyLabel }}</small>
     </header>
     <p style="color:var(--muted); margin:.25rem 0 0" class="category">{{ drill.category }}</p>
-    <p v-if="drill.instructions?.training" style="margin:.5rem 0 0">{{ drill.instructions.training }}</p>
+  <p v-if="drill.summary ?? drill.instructions?.training" style="margin:.5rem 0 0">{{ drill.summary ?? drill.instructions.training }}</p>
     <div v-if="drill.tags?.length" class="chips" style="margin-top:8px;">
       <span class="chip" v-for="t in drill.tags" :key="t">{{ t }}</span>
     </div>

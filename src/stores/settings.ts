@@ -49,6 +49,38 @@ export const useSettingsStore = defineStore('settings', {
         globalThis.dispatchEvent(evt)
       }
     },
+    emitThemeChanged(value: SettingsState['theme']) {
+      if (typeof globalThis !== 'undefined' && typeof globalThis.dispatchEvent === 'function') {
+        let evt: any
+        try {
+          // @ts-ignore
+          evt = new CustomEvent('theme-preference-changed', { detail: value })
+        } catch {
+          evt = { type: 'theme-preference-changed', detail: value }
+        }
+        globalThis.dispatchEvent(evt)
+      }
+      // Persist the lightweight theme key used by the UI composable so listeners
+      // that read localStorage (useTheme) stay in sync even if event timing differs.
+      try {
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('gt.theme', value)
+        }
+      } catch {
+        /* ignore */
+      }
+      // Also proactively apply the resolved theme to the document so UI updates immediately
+      try {
+        const resolved = value === 'system'
+          ? (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : value
+        if (typeof document !== 'undefined' && document.documentElement) {
+          document.documentElement.setAttribute('data-theme', resolved)
+        }
+      } catch (e) {
+        // ignore
+      }
+    },
     async load() {
       const data = persist.get<Partial<SettingsState>>('settings')
       if (data) {
@@ -109,6 +141,9 @@ export const useSettingsStore = defineStore('settings', {
       if ('hcp' in partial && this.hcp !== prevHcp) {
         this.emitHcpChanged(this.hcp)
       }
+      if ('theme' in partial) {
+        this.emitThemeChanged(this.theme)
+      }
     },
     async clearAll() {
       this.hcp = null
@@ -122,6 +157,7 @@ export const useSettingsStore = defineStore('settings', {
       this.notifications = false
       await this.persist()
       this.emitHcpChanged(this.hcp)
+      this.emitThemeChanged(this.theme)
     },
   },
 })

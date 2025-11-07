@@ -30,8 +30,15 @@
 
 <script setup lang="ts">
 import { useTheme } from '@/composables/useTheme';
+import { useSettingsStore } from '@/stores/settings'
 
-const { theme, toggle } = useTheme();
+const { theme } = useTheme();
+const settingsStore = useSettingsStore()
+
+const toggle = async () => {
+    const next = theme.value === 'light' ? 'dark' : 'light'
+    await settingsStore.update({ theme: next })
+}
 
 defineEmits<{ (e: 'open-settings'): void }>()
 

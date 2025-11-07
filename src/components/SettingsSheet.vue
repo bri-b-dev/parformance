@@ -91,6 +91,19 @@ async function saveAndClose(values: FormModel) {
     shuffleFavorites: values.shuffleFavorites,
     notifications: values.notifications,
   })
+  // Ensure theme is applied immediately even if listeners miss the event
+  try {
+    const pref = values.theme
+    const resolved = pref === 'system'
+      ? (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      : pref
+    if (typeof document !== 'undefined' && document.documentElement) {
+      document.documentElement.setAttribute('data-theme', resolved)
+    }
+    try { window.dispatchEvent(new CustomEvent('theme-preference-changed', { detail: pref })) } catch {}
+  } catch (e) {
+    // ignore
+  }
   emit('close')
 }
 

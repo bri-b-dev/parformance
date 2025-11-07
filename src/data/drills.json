@@ -55,7 +55,6 @@
       }
     },
     "tags": [
-      "Comfort Zone",
       "4m",
       "6m",
       "8m",
@@ -63,8 +62,7 @@
       "12m",
       "Konstanz",
       "Speed Control",
-      "Streak",
-      "Putting"
+      "Streak"
     ],
     "zockerTip": "Markiere dir die Comfort Zone dezent (z. B. mit Tees flach gedrückt) und halte dein Pre-Shot-Ritual identisch — das stabilisiert Tempo und Richtung.",
     "variants": [
@@ -129,13 +127,11 @@
       }
     },
     "tags": [
-      "Break Putts",
       "Linke Seite",
       "Rechte Seite",
       "Konstanz",
       "Puttlinie",
-      "Streak",
-      "Putting"
+      "Streak"
     ],
     "zockerTip": "Achte auf den Break aus beiden Richtungen - du lernst, Breaks gespiegelt zu lesen und dein Gefühl für Hangputts zu verfeinern.",
     "variants": [
@@ -202,11 +198,9 @@
     "tags": [
       "Lag Putting",
       "Speed Control",
-      "Distance Putting",
       "Konstanz",
       "2-Putt",
-      "Routine",
-      "Putting"
+      "Routine"
     ],
     "zockerTip": "Behandle jeden Lag Putt, als müsstest du ihn lochen. Dein Gehirn lernt Entfernungsgefühl besser, wenn du mit echter Zielintention puttest.",
     "variants": [
@@ -258,7 +252,6 @@
       }
     },
     "tags": [
-      "Putting",
       "Konstanz",
       "Zieltraining",
       "Routine",
@@ -327,7 +320,6 @@
       }
     },
     "tags": [
-      "Putting",
       "Druck",
       "Mentales Training",
       "Konzentration",
@@ -384,11 +376,9 @@
       }
     },
     "tags": [
-      "Putting",
       "Druck",
       "Serientraining",
       "Konzentration",
-      "Rückwärtszählung",
       "Matchplay"
     ],
     "zockerTip": "Spielt den Drill im Matchformat: Jeder gelochte Putt gibt einen Punkt. Wer einen Putt verschießt, verliert einen Punkt. Wenn beide die gleiche Serie schaffen, verdoppelt sich der nächste Punktwert - ähnlich wie bei einem Skins-Match. Wer holt zuerst 10 Punkte?",
@@ -441,7 +431,6 @@
       }
     },
     "tags": [
-      "Putting",
       "Zieltraining",
       "Breaklesen",
       "Präzision",
@@ -499,8 +488,6 @@
       }
     },
     "tags": [
-      "Putting",
-      "Distanzkontrolle",
       "Speed Control",
       "Zieltraining",
       "Präzision"
@@ -567,9 +554,7 @@
       }
     },
     "tags": [
-      "Putting",
       "Speed Control",
-      "Distanzgefühl",
       "Touch Training",
       "Tempo",
       "Gefühl"
@@ -624,9 +609,7 @@
       }
     },
     "tags": [
-      "Putting",
       "Speed Control",
-      "Längenkontrolle",
       "Gefühlstraining",
       "Routine",
       "Drei-Putt-Vermeidung"
@@ -682,11 +665,8 @@
       }
     },
     "tags": [
-      "Putting",
       "Speed Control",
-      "Distance Training",
       "Gefühlstraining",
-      "Längenkontrolle",
       "Zielkonstanz"
     ],
     "zockerTip": "Spielt diesen Drill zu zweit: Abwechselnd wird von derselben Position geputtet. Wer zuerst fünf Punkte in einer Serie erreicht, gewinnt. Bei unterschiedlichen Handicaps startet der stärkere Spieler mit einem Punkt Rückstand.",
@@ -740,9 +720,7 @@
       }
     },
     "tags": [
-      "Putting",
       "Speed Control",
-      "Distance Control",
       "Pressure Drill",
       "Konzentration",
       "Feinmotorik"
@@ -3030,7 +3008,6 @@
       "Fairway",
       "GIR",
       "Birdie",
-      "Putting",
       "Scoring",
       "Course Management"
     ],
@@ -3772,11 +3749,10 @@
       }
     },
     "tags": [
-      "Distanzkontrolle",
+      "Speed Control",
       "Pace",
       "Leave-Zone",
-      "Gamification",
-      "Putting"
+      "Gamification"
     ],
     "zockerTip": "Beide spielen 10 Putts. Höhere Trefferzahl gewinnt die Runde.",
     "variants": [
@@ -3841,8 +3817,7 @@
       "Drucktraining",
       "Kreismuster",
       "Kurzputts",
-      "Routine",
-      "Putting"
+      "Routine"
     ],
     "zockerTip": "Beide spielen 20 Putts. Bei Gleichstand Stechen von 2.4 m.",
     "variants": [
@@ -3907,8 +3882,7 @@
     "tags": [
       "Pace",
       "Lag Putting",
-      "Feinmotorik",
-      "Putting"
+      "Feinmotorik"
     ],
     "zockerTip": "Wer zuerst 10 gültige Pace-Treffer erreicht, gewinnt.",
     "variants": [
@@ -4244,8 +4218,7 @@
       "Tempo",
       "Rhythmus",
       "Pace",
-      "Ausdauer",
-      "Putting"
+      "Ausdauer"
     ],
     "zockerTip": "Gleichzeitig starten. Wer mehr Treffer in 5 min hat, gewinnt.",
     "variants": [

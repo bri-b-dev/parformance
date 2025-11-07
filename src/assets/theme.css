@@ -45,6 +45,9 @@
     --cat-simulation: #8cd0dc;
     --cat-sweetspot: #d0dc8c;
     --cat-tempo: #dc8c8c;
+    /* Danger (used for reset/danger zones) */
+    --danger: #dc2626; /* red-600 — stronger red */
+    --danger-600: #ef4444; /* red-500 — highlight */
 }
 
 :root[data-theme="dark"] {
@@ -64,6 +67,9 @@
     --border: #243229;
     --shadow: 0 2px 12px rgba(0, 0, 0, .35);
     --ring: rgba(79, 191, 134, .35);
+    /* Danger tones tuned for dark surfaces */
+    --danger: #dc2626; /* red-600 tuned for dark surfaces */
+    --danger-600: #ff6b6b;
 }
 
 /* Global ------------------------------------------------------------------- */
@@ -481,6 +487,21 @@ html, body {
 }
 
 /* Theme tweaks for the settings sheet (improve contrast in dark mode) */
+:root .settings-sheet-panel .danger-zone {
+    /* Light theme: subtle red-tinged surface and border to signal danger */
+    background: color-mix(in oklab, var(--danger, #dc2626) 6%, var(--surface));
+    border-color: color-mix(in oklab, var(--danger-600, #ef4444) 10%, var(--border));
+    color: var(--text);
+}
+
+:root .settings-sheet-panel .danger-zone p {
+    color: color-mix(in oklab, var(--text) 72%, var(--surface));
+}
+
+:root .settings-sheet-panel .danger-zone > .text-sm.font-medium {
+    color: color-mix(in oklab, var(--text) 92%, var(--surface));
+}
+
 :root[data-theme="dark"] .settings-sheet-panel {
   background: var(--surface);
   color: var(--text);
@@ -538,9 +559,9 @@ html, body {
 
 /* Danger zone should be clearly visible and contrasted in dark mode */
 :root[data-theme="dark"] .settings-sheet-panel .danger-zone {
-  background: color-mix(in oklab, var(--red-700, #6b0f0f) 18%, var(--bg));
-  border-color: color-mix(in oklab, var(--red-600, #9b2b2b) 32%, var(--bg));
-  color: color-mix(in oklab, var(--text) 96%, var(--bg));
+    background: color-mix(in oklab, var(--danger, #b91c1c) 18%, var(--bg));
+    border-color: color-mix(in oklab, var(--danger-600, #ef4444) 32%, var(--bg));
+    color: color-mix(in oklab, var(--text) 96%, var(--bg));
 }
 
 :root[data-theme="dark"] .settings-sheet-panel .danger-zone .text-app-sub {

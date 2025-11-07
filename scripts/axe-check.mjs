@@ -181,48 +181,58 @@ async function buildDocument() {
 
   // Globals were set earlier (so axe-core can detect them on import).
 
-  try {
-    // Ensure proper `this` binding in case the implementation expects it.
-    results = await runFn.call(axe?.default || axe, window.document, {
-      runOnly: {
-        type: 'tag',
-        values: ['wcag2a', 'wcag2aa', 'best-practice']
-      }
-    })
-  } catch (e) {
-    console.error('Error invoking axe.run:', e && e.message ? e.message : String(e))
-
-    // If axe complains about missing globals, attempt a CJS require fallback.
-    const msg = e && e.message ? e.message : String(e)
-    if (msg.includes('Required "window" or "document" globals not defined')) {
-      console.log('Attempting CJS require fallback for axe-core using createRequire')
-      try {
-        const req = createRequire(import.meta.url)
-        const axeCjs = req('axe-core')
-        // detect run function similarly
-        const runCandidates = [axeCjs?.run, axeCjs?.default?.run, axeCjs?.['module.exports']?.run]
-        const runCandidate = runCandidates.find(fn => typeof fn === 'function')
-        if (!runCandidate) {
-          console.error('CJS axe-core loaded but run function not found:', Object.keys(axeCjs || {}))
-          fail('CJS axe.run unavailable')
-        }
-        console.log('Using CJS axe run')
-        results = await runCandidate.call(axeCjs?.default || axeCjs, window.document, {
-          runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'best-practice'] }
-        })
-      } catch (e2) {
-        console.error('CJS axe.run attempt failed:', e2 && e2.message ? e2.message : String(e2))
-        // Print some diagnostics about global property descriptors to help debugging
+  // Helper: try to run axe using the resolved run function; fall back to
+  // a CJS require if axe.run fails due to missing globals.
+  async function attemptRun(doc) {
+    try {
+      return await runFn.call(axe?.default || axe, doc, {
+        runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'best-practice'] }
+      })
+    } catch (e) {
+      console.error('Error invoking axe.run:', e && e.message ? e.message : String(e))
+      const msg = e && e.message ? e.message : String(e)
+      if (msg.includes('Required "window" or "document" globals not defined')) {
+        console.log('Attempting CJS require fallback for axe-core using createRequire')
         try {
-          console.log('global.window descriptor:', Object.getOwnPropertyDescriptor(global, 'window'))
-          console.log('global.document descriptor:', Object.getOwnPropertyDescriptor(global, 'document'))
-          console.log('global.navigator descriptor:', Object.getOwnPropertyDescriptor(global, 'navigator'))
-        } catch (dErr) {}
-        fail('axe.run failed')
+          const req = createRequire(import.meta.url)
+          const axeCjs = req('axe-core')
+          const runCandidates = [axeCjs?.run, axeCjs?.default?.run, axeCjs?.['module.exports']?.run]
+          const runCandidate = runCandidates.find(fn => typeof fn === 'function')
+          if (!runCandidate) {
+            console.error('CJS axe-core loaded but run function not found:', Object.keys(axeCjs || {}))
+            fail('CJS axe.run unavailable')
+          }
+          console.log('Using CJS axe run')
+          return await runCandidate.call(axeCjs?.default || axeCjs, doc, {
+            runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'best-practice'] }
+          })
+        } catch (e2) {
+          console.error('CJS axe.run attempt failed:', e2 && e2.message ? e2.message : String(e2))
+          try {
+            console.log('global.window descriptor:', Object.getOwnPropertyDescriptor(global, 'window'))
+            console.log('global.document descriptor:', Object.getOwnPropertyDescriptor(global, 'document'))
+            console.log('global.navigator descriptor:', Object.getOwnPropertyDescriptor(global, 'navigator'))
+          } catch (dErr) {}
+          fail('axe.run failed')
+        }
       }
-    } else {
       fail('axe.run failed')
     }
+  }
+
+  // Run axe twice: light and dark themes. Set the document attribute
+  // `data-theme` accordingly so theme-specific CSS rules apply.
+  let resultsLight, resultsDark
+  try {
+    // Light
+    window.document.documentElement.setAttribute('data-theme', 'light')
+    console.log('Running axe for theme: light')
+    resultsLight = await attemptRun(window.document)
+
+    // Dark
+    window.document.documentElement.setAttribute('data-theme', 'dark')
+    console.log('Running axe for theme: dark')
+    resultsDark = await attemptRun(window.document)
   } finally {
     // restore only the globals we assigned
     for (const name of Object.keys(prevGlobals)) {
@@ -237,12 +247,23 @@ async function buildDocument() {
     }
   }
 
-  if (results.violations.length > 0) {
-    console.error('Axe violations found:')
-    for (const v of results.violations) {
-      console.error(` - [${v.id}] ${v.help}: ${v.nodes.length} node(s)`) 
+  // Consolidate results: prefer reporting per-theme but fail if any violations
+  const lightCount = (resultsLight && resultsLight.violations && resultsLight.violations.length) || 0
+  const darkCount = (resultsDark && resultsDark.violations && resultsDark.violations.length) || 0
+  if (lightCount > 0) {
+    console.error('Axe violations found (light):')
+    for (const v of resultsLight.violations) {
+      console.error(` - [${v.id}] ${v.help}: ${v.nodes.length} node(s)`)
     }
-    fail(`${results.violations.length} violation(s)`) 
+  }
+  if (darkCount > 0) {
+    console.error('Axe violations found (dark):')
+    for (const v of resultsDark.violations) {
+      console.error(` - [${v.id}] ${v.help}: ${v.nodes.length} node(s)`)
+    }
+  }
+  if (lightCount + darkCount > 0) {
+    fail(`${lightCount + darkCount} violation(s) across themes`) 
   }
 
   ok('No violations')

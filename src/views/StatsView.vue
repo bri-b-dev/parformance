@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="chart-wrapper">
-          <CategoryScoresChart v-if="!isEmpty" :scores="scores" title="Fähigkeiten je Kategorie (0–100)" />
+          <CategoryScoresChart v-if="!isEmpty" :scores="scores" title="Fähigkeiten je Kategorie (0-100)" />
           <div v-else class="card empty-card" aria-live="polite">
             <h3>Keine Daten für diesen Filter</h3>
             <p>Wähle einen anderen Zeitraum oder eine andere Kategorie, um Ergebnisse zu sehen.</p>

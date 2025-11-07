@@ -44,7 +44,7 @@ export function latestLevelByDrill(sessions: Session[], drills?: Drill[], mode: 
   return out
 }
 
-/** Normalize a 0–3 level to a 0–100 percentage. */
+/** Normalize a 0-3 level to a 0-100 percentage. */
 export function levelToPct(level: number): number {
   const l = Math.max(0, Math.min(3, Math.floor(level)))
   return (l / 3) * 100

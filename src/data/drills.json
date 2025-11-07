@@ -70,7 +70,7 @@
       "Loch mit Break wählen und die Reihenfolge 4→12 m beibehalten.",
       "Starte rückwärts (12 m → 4 m), wenn du die 4→12 m-Variante sicher beherrschst."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Lange Putts aus verschiedenen Distanzen in die Comfort Zone legen und konstante Längenkontrolle entwickeln."
   },
   {
     "id": "putting_break_putts",
@@ -139,7 +139,7 @@
       "Baue den Drill auf einem stärkeren Gefälle auf.",
       "Spiele zuerst alle Putts von einer Seite, dann von der anderen, um das Gefühl für unterschiedliche Breaks zu isolieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Beidseitig abwechselnd kurze Hangputts lochen und das Break sicher lesen."
   },
   {
     "id": "putting_lag_putts_15m",
@@ -208,7 +208,7 @@
       "Loch mit stärkerem Break wählen.",
       "Nur einen Ball verwenden und die Serie über Distanzdisziplin trainieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Lange Putts aus 15 m kontrolliert spielen und eine Serie von 2-Putts oder besser halten."
   },
   {
     "id": "putting_circle",
@@ -264,7 +264,7 @@
       "Baue zwei Löcher nebeneinander und wechsle nach jedem Kreis.",
       "Nutze nur eine Kugel, um mehr Fokus pro Putt zu trainieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Acht Putts im Kreis rund ums Loch spielen und eine möglichst lange Treffer-Serie erzielen."
   },
   {
     "id": "putting_under_pressure",
@@ -332,7 +332,7 @@
       "Spiele mit nur einem Ball, um den Fokus zu erhöhen.",
       "Wähle ein Loch mit starkem Break oder Neigung, um den Druck zu erhöhen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Drei Putts aus zunehmender Distanz unter Druck lochen und mentale Stabilität festigen."
   },
   {
     "id": "putting_shootout",
@@ -387,7 +387,7 @@
       "Verkürze oder verlängere die Distanz (z. B. 1 m / 2 m).",
       "Setze dir ein Limit, bei dem du nach jedem Fehlschlag eine Pause machst, bevor du weiterspielst."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Abwechselnd von zwei Positionen putten und eine möglichst lange Treffer-Serie ohne Fehler halten."
   },
   {
     "id": "putting_around_the_world",
@@ -443,7 +443,7 @@
       "Spiele mit nur einem Ball, um jeden Putt bewusst zu machen.",
       "Füge zusätzliche Tees zwischen den bestehenden Positionen hinzu."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Acht Putts rund ums Loch lochen und die längste fehlerfreie Serie im Uhrzeigersinn aufbauen."
   },
   {
     "id": "putting_hit_the_hall",
@@ -498,7 +498,7 @@
       "Verwende unterschiedliche Balltypen (weich/hart), um das Gefühl für Rollverhalten zu trainieren.",
       "Baue die Übung auf einem leicht ansteigenden oder abfallenden Grün auf."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Fünf Putts aus steigender Distanz spielen und Punkte für präzise Längenkontrolle im Zielkorridor sammeln."
   },
   {
     "id": "putting_roll_control",
@@ -565,7 +565,7 @@
       "Spiele ihn auf unterschiedlichem Untergrund (trocken/nass) für Gefühlstraining.",
       "Verwende nur einen Ball und markiere die Position nach jedem Putt mit einem Tee."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Mehrere Bälle mit fein abgestufter Länge rollen lassen, um Gefühl und Tempo präzise zu kontrollieren."
   },
   {
     "id": "putting_pace_putting",
@@ -620,7 +620,7 @@
       "Markiere den Korridor hinter dem Loch mit einem Handtuch oder Schläger.",
       "Zähle nur Putts, die über die Lochkante hinausrollen, als gültig."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Drei Putts aus verschiedenen Distanzen spielen und präzise Längenkontrolle durch Punktewertung trainieren."
   },
   {
     "id": "putting_five_balls",
@@ -675,7 +675,7 @@
       "Lege den Schläger näher an das Loch (30 cm) für mehr Präzision.",
       "Kombiniere mit einem Break-Putt, um Tempo und Linie gemeinsam zu trainieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Fünf Putts in Serie mit präziser Länge spielen und möglichst viele Punkte durch gutes Dosieren erzielen."
   },
   {
     "id": "putting_draw_back",
@@ -731,7 +731,7 @@
       "Erweitere auf bis zu 10 m und nutze unterschiedliche Grünneigungen.",
       "Spiele mit Handicap-Anpassung (besserer Spieler startet mit -1 Putt)."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Mit jedem gelochten Putt zur nächsten Distanz vorrücken und Präzision bei Länge und Richtung bewahren."
   },
   {
     "id": "chipping_9m_chip",
@@ -789,7 +789,6 @@
       }
     },
     "tags": [
-      "Chip",
       "Fairway",
       "Rough",
       "Zielkontrolle",
@@ -804,7 +803,7 @@
       "Erhöhe die Distanz auf 12 oder 15 Meter.",
       "Lege die Zielkreise an leicht unterschiedliches Gefälle (bergauf / bergab)."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Chips aus Fairway und Rough präzise in den Zielkreis spielen und eine fehlerfreie Treffer-Serie aufbauen."
   },
   {
     "id": "chipping_18m_chip",
@@ -862,7 +861,6 @@
       }
     },
     "tags": [
-      "Chip",
       "Fairway",
       "Rough",
       "Zielkontrolle",
@@ -877,7 +875,7 @@
       "Erhöhe die Distanz auf 20 oder 25 Meter.",
       "Lege die Zielkreise an leicht unterschiedliches Gefälle (bergauf / bergab)."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Chips aus 18 Metern gezielt ins Ziel spielen und konstante Längenkontrolle aus unterschiedlichen Lagen trainieren."
   },
   {
     "id": "chipping_carry_zone",
@@ -936,7 +934,6 @@
     },
     "tags": [
       "Carry Zone",
-      "Chip",
       "Landepunkte",
       "Ballflug",
       "Distanzgefühl",
@@ -950,7 +947,7 @@
       "Starte rückwärts (lange Zone zuerst).",
       "Wechsle nach jedem erfolgreichen Schlag den Schläger."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Abwechselnd alle Landezonen von kurz bis lang im Flug treffen und präzise Kontrolle über Carry-Distanz entwickeln."
   },
   {
     "id": "pitching_short_pitch",
@@ -1007,7 +1004,6 @@
       }
     },
     "tags": [
-      "Pitch",
       "Kurzspiel",
       "Zielbereich",
       "Carry",
@@ -1022,7 +1018,7 @@
       "Spiele auf unterschiedliche Zielkreise (z. B. 5 m, 7 m Radius).",
       "Verwende verschiedene Wedges, um Spin- und Flugverhalten zu vergleichen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Kurze Pitches über unterschiedliche Distanzen präzise in den Zielbereich spielen und eine fehlerfreie Serie halten."
   },
   {
     "id": "pitching_long_pitch",
@@ -1079,7 +1075,6 @@
       }
     },
     "tags": [
-      "Pitch",
       "Langer Pitch",
       "Fairway",
       "Distanzkontrolle",
@@ -1094,7 +1089,7 @@
       "Spiele beide Distanzen mit unterschiedlichen Wedges.",
       "Verändere den Zielradius oder wechsle zwischen verschiedenen Grünhöhen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Lange Pitches aus 45 und 60 Metern konstant im Zielbereich landen und kontrollierte Schlaglängen entwickeln."
   },
   {
     "id": "bunker_shots",
@@ -1152,7 +1147,6 @@
       }
     },
     "tags": [
-      "Bunker",
       "Sand Wedge",
       "Kurzspiel",
       "Zielkontrolle",
@@ -1167,7 +1161,7 @@
       "Spiele aus unterschiedlichen Bunkertiefen.",
       "Trainiere wechselnde Sandsorten (trocken, feucht, kompakt)."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Bunkerschläge aus verschiedenen Distanzen präzise ins Ziel bringen und eine stabile, wiederholbare Technik entwickeln."
   },
   {
     "id": "shortgame_up_and_down",
@@ -1226,7 +1220,7 @@
       "Führe separate Serien für Fairway- und Rough-Lagen durch.",
       "Baue kleine Hindernisse (z. B. eine Pitchmarke oder Mini-Bunker) ein."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Fünf Up-and-Down-Situationen rund ums Grün spielen und jedes Loch in höchstens zwei Schlägen beenden."
   },
   {
     "id": "shortgame_beat_21",
@@ -1290,7 +1284,7 @@
       "Zähle eingechippte Bälle als 0 Punkte (Bonus).",
       "Verwende schwierige Lagen: Hang, dichter Rough, nasses Gras."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "21 Up-and-Downs aus variierenden Lagen spielen und mit möglichst wenigen Gesamtschlägen den Zielscore schlagen."
   },
   {
     "id": "shortgame_towel_target",
@@ -1364,7 +1358,7 @@
       "Kombiniere mit ‘Worstball Chipping’ - nur Treffer mit beiden Bällen zählen.",
       "Trainiere mit unterschiedlich hohen Handtüchern (dick, dünn) für realistischere Landezonen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Vier Chips aus unterschiedlichen Distanzen im Flug präzise auf ein Handtuch oder eine markierte Zielzone landen lassen."
   },
   {
     "id": "shortgame_hit_the_spot",
@@ -1425,7 +1419,7 @@
       "Führe einen 'Bounce Check' durch - prüfe, wie sich Loft und Eintreffwinkel verändern.",
       "Kombiniere mit ‘Towel Target’ für Flug- und Rollkontrolle."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Mehrere Chips mit präzisem Landepunkt spielen und Kontrolle über Distanz, Kontakt und Ballflug verbessern."
   },
   {
     "id": "bunker_hit_it_close",
@@ -1475,7 +1469,6 @@
       }
     },
     "tags": [
-      "Bunker",
       "Short Game",
       "Zielspiel",
       "Distanzkontrolle",
@@ -1487,7 +1480,7 @@
       "Füge Bonuspunkte für 'up & down' hinzu, wenn du anschließend einlochst.",
       "Nutze eine Distanz von 12 m für mehr Fluganteil (höherer Schwierigkeitsgrad)."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Fünf Bunkerschläge präzise an die Fahne spielen und durch Punktewertung die Nähe zum Ziel verbessern."
   },
   {
     "id": "bunker_sandy_par",
@@ -1537,7 +1530,6 @@
       }
     },
     "tags": [
-      "Bunker",
       "Short Game",
       "Up & Down",
       "Scoring",
@@ -1550,7 +1542,7 @@
       "Nutze markierte Linien im Bunker für unterschiedliche Schwierigkeitsgrade (tiefer, flach, Hang).",
       "Zähle Bonuspunkte für erfolgreiche Up & Downs bei mehr als 10 m Entfernung."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Fünf Bunkerschläge mit anschließendem Putt spielen und gezielt Up-and-Downs zur Par-Rettung trainieren."
   },
   {
     "id": "pitching_four_stations",
@@ -1613,7 +1605,7 @@
       "Füge einen ‚Penalty Zone‘-Bereich hinzu - kein Punkt, wenn der Ball hinter dem Loch liegt.",
       "Erweitere auf sechs Stationen (bis 30 m) für Advanced-Pitch-Training."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Vier Pitches aus unterschiedlichen Distanzen zur Fahne spielen und durch Punktewertung Präzision und Distanzgefühl trainieren."
   },
   {
     "id": "range_drives",
@@ -1670,7 +1662,6 @@
       }
     },
     "tags": [
-      "Drive",
       "Abschlag",
       "Fairwaytreffer",
       "Distanzkontrolle",
@@ -1685,7 +1676,7 @@
       "Verwende verschiedene Schläger (Driver, Holz, Hybrid) abwechselnd.",
       "Füge Windbedingungen oder Höhenunterschiede hinzu, um die Streuung zu trainieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Drives präzise in den Zielkorridor schlagen und eine fehlerfreie Serie mit konstanter Länge aufbauen."
   },
   {
     "id": "range_irons",
@@ -1762,7 +1753,7 @@
       "Füge Zielvorgaben für Carry-Längen hinzu.",
       "Trainiere die Serie bei Wind oder in Hanglage."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Schläge mit aufsteigenden Eisen innerhalb der zulässigen Längenabweichung treffen und eine durchgehende Serie halten."
   },
   {
     "id": "pitching_attack_the_flag",
@@ -1834,7 +1825,7 @@
       "Baue Hindernisse ein (z. B. Bunker, Rough oder erhöhte Fahne).",
       "Messe die durchschnittliche Distanz zum Loch für objektives Feedback."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Neun Pitches aus 20, 30 und 40 Metern gezielt an die Fahne spielen und möglichst viele Treffer im Zielkreis erzielen."
   },
   {
     "id": "pitching_mixed_clubs",
@@ -1909,7 +1900,7 @@
       "Spiele in entgegengesetzter Reihenfolge (30 → 10 m) für rückwärts ansteigende Präzision.",
       "Baue ein Zielhindernis ein (z. B. eine kleine Zone hinter der Fahne, in der kein Punkt zählt)."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Fünf Distanzen mit wechselnden Schlägern spielen und durch Variation von Flughöhe und Landepunkt präzises Wedge-Play trainieren."
   },
   {
     "id": "driving_nine_drives",
@@ -1972,7 +1963,7 @@
       "Verwende eine GPS-App oder Range-Tracking-System zur Messung der Streuung.",
       "Baue Hindernisse (z. B. imaginäre Bäume links/rechts) ein, um das Zielen zu verschärfen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Neun Drives mit voller Routine schlagen und Konstanz sowie Richtungskontrolle im Zielkorridor verbessern."
   },
   {
     "id": "driving_hit_three_greens",
@@ -2031,7 +2022,7 @@
       "Verwende pro Ziel einen anderen Schläger.",
       "Erhöhe den Schwierigkeitsgrad mit Rückenwind, Gegenwind oder wechselnden Lies."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Neun Bälle abwechselnd auf drei Zielentfernungen schlagen und Präzision sowie Distanzkontrolle trainieren."
   },
   {
     "id": "driving_14_fairways",
@@ -2090,7 +2081,7 @@
       "Nutze GPS oder Launch-Monitor, um Streuung und Carry-Distanzen zu analysieren.",
       "Reduziere den Rhythmus beim Driver auf 80 % Schwungtempo für Konstanztraining."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Abwechselnd Drives und Eisen-7-Schläge im Zielkorridor platzieren und so Rhythmus und Fairwaytrefferquote verbessern."
   },
   {
     "id": "driving_short_aims",
@@ -2151,7 +2142,7 @@
       "Spiele mit unterschiedlichen Balltypen, um Carry-Unterschiede zu testen.",
       "Führe den Drill mit Launch-Monitor-Messung (Carry, Apex, Roll) durch."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Mit verschiedenen Eisen gezielt auf drei Distanzen schlagen und präzise Längenkontrolle über mehrere Ziele trainieren."
   },
   {
     "id": "driving_fade_and_draw",
@@ -2212,7 +2203,7 @@
       "Spiele mit verschiedenen Zielhöhen - flach für Kontrolle, hoch für Shape-Feeling.",
       "Führe die Übung mit geschlossenen Augen im Finish aus, um Gefühl zu fördern (wie Rickie Fowler)."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Abwechselnd Fade und Draw schlagen, um Flugkurven gezielt zu steuern und Kontrolle über Richtung und Shape zu entwickeln."
   },
   {
     "id": "sweetspot_hit_the_sweetspot_1",
@@ -2271,7 +2262,7 @@
       "Führe denselben Test mit Eisen 7 und Hybrid durch, um den Unterschied im Impact-Muster zu sehen.",
       "Verwende ein Launch-Monitor-Tool oder Smartphone-App, um Treffpunkt und Ballgeschwindigkeit zu korrelieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Zehn Bälle schlagen, Treffpunkte auf dem Schlägerblatt analysieren und das persönliche Sweetspot-Muster erkennen."
   },
   {
     "id": "sweetspot_hit_the_sweetspot_2",
@@ -2331,7 +2322,7 @@
       "Schlage abwechselnd Draws und Fades, um die Kontrolle über den Eintreffwinkel zu schulen.",
       "Kombiniere mit „Hit the Sweetspot I“ als Voranalyse-Drill."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Zwanzig Bälle mit Fokus auf zentrierten Treffmoment schlagen und eine wiederholbare, stabile Schwungrichtung entwickeln."
   },
   {
     "id": "sweetspot_out_of_the_sweetspot",
@@ -2389,7 +2380,7 @@
       "Verwende unterschiedliche Schläger (Driver, Eisen 7, Hybrid), um das Treff-Feedback zu vergleichen.",
       "Spiele die gleiche Serie mit und ohne Tees, um den Einfluss der Balllage auf den Treffpunkt zu spüren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Ziel ist ein gleichmäßiger Rhythmus im Schwung, um die Kontrolle und Wiederholbarkeit zu verbessern."
   },
   {
     "id": "tempo_stay_in_the_rhythm",
@@ -2450,7 +2441,7 @@
       "Kombiniere mit „Hit the Sweetspot II“, um Rhythmus und Treffmoment zu verbinden.",
       "Probiere Rhythmusverhältnisse 2:1 oder 4:1 aus und vergleiche Ballflüge."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Zehn Drives mit konstantem 3:1-Schwungrhythmus schlagen, um Timing, Balance und Treffstabilität zu verbessern."
   },
   {
     "id": "tempo_find_your_tempo",
@@ -2515,7 +2506,7 @@
       "Führe den Drill mit Eisen 7 statt Driver aus, um die Bewegung präziser zu spüren.",
       "Kombiniere mit ‚Stay in the Rhythm‘, um Tempo und Timing zu verbinden."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Acht Bälle mit variierendem Schwungtempo schlagen, um das persönliche Idealtempo für konstante Ballkontakte zu finden."
   },
   {
     "id": "tempo_swing_like_a_pro",
@@ -2576,7 +2567,7 @@
       "Verwende Videoaufnahmen zur Kontrolle von Haltung und Gleichgewicht.",
       "Kombiniere mit ‚Find Your Tempo‘: Zuerst Tempo finden, dann Finish stabilisieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Zehn Drives mit stabilem Finish schlagen und Balance, Rhythmus sowie Körperkontrolle im Abschluss gezielt trainieren."
   },
   {
     "id": "tempo_improve_your_feeling",
@@ -2640,7 +2631,7 @@
       "Führe die Übung mit geschlossenen Augen im Treffmoment aus, um Gefühl statt Kraft zu fördern.",
       "Kombiniere mit ‚Find Your Tempo‘: Nutze dort gefundene Idealgeschwindigkeit als Referenz."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Fünfzehn Drives mit variierendem Schwungtempo schlagen, um Gefühl, Timing und Kontrolle über unterschiedliche Geschwindigkeiten zu verbessern."
   },
   {
     "id": "shapen_safety_shot",
@@ -2703,7 +2694,7 @@
       "Wähle einen anderen Schläger (z. B. 3-Holz oder Hybrid) für präzisere Kontrolle.",
       "Kombiniere mit ‚Fade & Draw‘, um deinen Safety Shot gezielt zu verfeinern."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Mit ca. 80 % Tempo den persönlichen Safety-Shot (Draw oder Fade) stabil in den Zielkorridor schlagen."
   },
   {
     "id": "shapen_shape_it",
@@ -2769,7 +2760,7 @@
       "Führe den Drill mit Eisen 5 durch, um Flugbahnkontrolle auch bei flacheren Schlägen zu üben.",
       "Markiere die Zielbereiche farblich (z. B. blaue Linie = Fade, rote = Draw) für visuelles Feedback."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Zwölf Drives als flacher/hoher Fade und Draw gezielt formen und im Zielkorridor landen."
   },
   {
     "id": "simulation_imagination_on",
@@ -2831,7 +2822,7 @@
       "Simuliere ein Turnier unter Druck: zähle Schläge und verhalte dich, als würdest du wirklich scoren.",
       "Ergänze Wind- oder Wetterbedingungen zur mentalen Simulation."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Drei echte Löcher mental auf der Range nachspielen und Routine, Strategie sowie Konzentration wie im Turnier trainieren."
   },
   {
     "id": "simulation_first_tee_shot",
@@ -2891,7 +2882,7 @@
       "Simuliere andere Turniersituationen: z. B. den Abschlag an einem Par-3 mit Wasser.",
       "Filme deinen Versuch, um deine Körpersprache und Routine zu analysieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Am Ende des Trainings einen einzigen Drive wie im Turnier spielen - voller Fokus, echte Routine, kein zweiter Versuch."
   },
   {
     "id": "course_iron_play",
@@ -2953,7 +2944,7 @@
       "Erlaube nur ein einziges Fairway-Trefferfenster pro Loch - für Präzisionsdruck.",
       "Analysiere die Runde danach in Bezug auf Schlagverteilung und Bogey-Vermeidung."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Eine komplette Runde nur mit Eisen spielen, um Strategie, Präzision und Course Management zu schärfen."
   },
   {
     "id": "course_on_track",
@@ -3017,7 +3008,7 @@
       "Nutze die GIR- und Fairway-Quote als KPI im Trainingstagebuch.",
       "Verwende einen anderen Schläger als Driver, um taktischere Entscheidungen zu erzwingen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Eine komplette Runde spielen und neben dem Score Fairway-, GIR-, Birdie- und Putt-Statistiken erfassen, um dein Course Management messbar zu verbessern."
   },
   {
     "id": "platz_long_vs_easy",
@@ -3078,7 +3069,7 @@
       "Verwende ein Launch-Monitor-Gerät zur objektiven Messung von Ballgeschwindigkeit und Carry.",
       "Wende die Erkenntnisse gezielt bei schwierigen Löchern an: Wähle bewusst den ‚Easy‘-Schwung, wenn Präzision wichtiger ist als Länge."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Spiele eine Runde mit abwechselnd 80 % und 100 % Schwung, um herauszufinden, wann du präziser, konstanter und mental stabiler spielst."
   },
   {
     "id": "platz_stats",
@@ -3139,7 +3130,7 @@
       "Erstelle eine persönliche Heatmap: Wo verlierst du am meisten Schläge?",
       "Kombiniere mit dem Drill ‚On Track‘, um reale Statistiken mit Trainingsergebnissen zu vergleichen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Erfasse während deiner Runde zusätzliche Statistiken wie Fairways, Greens, Putts und Up & Downs, um dein Spiel objektiv zu analysieren und gezielt zu verbessern."
   },
   {
     "id": "platz_get_your_points",
@@ -3181,7 +3172,6 @@
         "Fairwaytreffer",
         "Semi-Rough",
         "Rough",
-        "Bunker",
         "Out/Wasser"
       ],
       "evaluation": [
@@ -3204,7 +3194,7 @@
       "Nutze GPS-Tracking oder Shot-Apps zur objektiven Auswertung.",
       "Kombiniere mit dem Drill „Safety Shot“, um gezielte Risikokontrolle zu trainieren."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Über 14 Abschläge Punkte für Fairway/Semi/Rough/Bunker/Out sammeln und so die Drive-Konstanz messbar steigern."
   },
   {
     "id": "platz_no_tees",
@@ -3267,7 +3257,7 @@
       "Kombiniere mit ‚Long vs. Easy‘, um Schwungkontrolle mit Treffqualität zu koppeln.",
       "Simuliere schwierige Lies: leicht bergauf, bergab oder aus dünnem Gras."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Spiele 9 Löcher ohne Tee und trainiere sauberen Ballkontakt, flache Flugbahn und präzise Kontrolle direkt vom Boden."
   },
   {
     "id": "platz_make_it_rough",
@@ -3330,7 +3320,7 @@
       "Spiele den Drill mit unterschiedlichen Schlägern pro Loch (Driver, 3-Holz, Hybrid).",
       "Erhöhe den Druck: nur 1 Versuch pro Bahn, keine Mulligans."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Neun Löcher spielen, jeder Drive neben dem Fairway gibt einen Strafschlag - Fairwaytreffer unter Druck erzwingen."
   },
   {
     "id": "platz_play_unusual_shots",
@@ -3391,7 +3381,7 @@
       "Füge Handicap-Ausgleich hinzu (z. B. längere Spieler starten mit kürzeren Eisen).",
       "Kombiniere mit ‚Make It Rough‘: Wer das Fairway verfehlt, bekommt beim nächsten Loch einen zufällig gewählten Schläger."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Neun Löcher mit vorab festgelegtem Abschlagsschläger spielen und aus ungewohnten Setups das bestmögliche Ergebnis herausholen."
   },
   {
     "id": "shortgame_worstball_chipping",
@@ -3455,7 +3445,7 @@
       "Führe Bonuspunkte ein, wenn beide Chips innerhalb von 1 m liegen.",
       "Kombiniere mit ‘Beat 21’ für realistische Scoring-Bedingungen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Chippe von mehreren Positionen zwei Bälle und spiele immer den schlechteren weiter - Präzision und Nervenstärke sind gefragt."
   },
   {
     "id": "shortgame_up_and_down_series",
@@ -3518,7 +3508,7 @@
       "Führe für jede Station eine Zeitbegrenzung (z. B. 30 Sekunden) ein.",
       "Kombiniere mit Bunker- oder Rough-Schlägen im Wechsel."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Mehrere Chip-Positionen als Parcours spielen - jedes erfolgreiche Up & Down in zwei Schlägen bringt dich zur nächsten Station."
   },
   {
     "id": "course_spot_on_targets",
@@ -3577,7 +3567,7 @@
       "Spiele den Drill als Scramble mit Teampartner und addiere nur gemeinsame Up & Downs.",
       "Nutze ihn als Wochenbenchmark, um Fortschritt im Kurzspiel zu messen."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Neun-Loch-Runde mit Fokus auf Annäherungen und Putts - Grün treffen oder Up & Down schaffen, um das Loch effizient zu beenden."
   },
   {
     "id": "course_scoring_clubs",
@@ -3636,7 +3626,7 @@
       "Ersetze jedes Eisen über der 8 durch ein Wedge deiner Wahl, um Distanzgefühl zu schärfen.",
       "Simuliere Turnierdruck: 30 Schläge maximal, sonst gilt der Drill als nicht bestanden."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Sieben Löcher mit kurzen Eisen und Wedges spielen - präzise Annäherungen zählen, Ziel sind möglichst wenige Gesamtschläge."
   },
   {
     "id": "course_worst_ball",
@@ -3692,11 +3682,11 @@
       "Füge eine Putting-Regel hinzu: bei jedem 3-Putt wird der nächste Abschlag mit Eisen statt Driver gespielt.",
       "Spiele im Teamformat - beide Partner schlagen doppelt, und der jeweils schlechtere Ball pro Paar zählt."
     ],
-    "summary": "Kompaktes Training mit klarem Ziel und messbarem Fortschritt."
+    "summary": "Neun-Loch-Runde, bei der immer der schlechtere Ball weitergespielt wird - trainiert Konstanz, Fokus und mentale Stärke unter Druck."
   },
   {
     "id": "putting_ladder_distance_control",
-    "title": "Ladder Putting – Distanzkontrolle",
+    "title": "Ladder Putting - Distanzkontrolle",
     "category": "Putting",
     "equipment": {
       "balls": 5,
@@ -3704,13 +3694,13 @@
         "Putter"
       ],
       "other": [
-        "3–5 Zielmarken bei 3 m, 4.5 m, 6 m, 9 m",
+        "3-5 Zielmarken bei 3 m, 4.5 m, 6 m, 9 m",
         "Tees oder Marker",
         "Ebene Puttfläche"
       ]
     },
     "setup": {
-      "schema": "Markiere 4–5 Distanzen in einer Linie (z. B. 3 m, 4.5 m, 6 m, 9 m). Definiere eine 'Leave-Zone' von maximal 45 cm hinter dem Loch.",
+      "schema": "Markiere 4-5 Distanzen in einer Linie (z. B. 3 m, 4.5 m, 6 m, 9 m). Definiere eine 'Leave-Zone' von maximal 45 cm hinter dem Loch.",
       "diagram": "svg:drills/putting_ladder_distance_control",
       "location": "Putting Green"
     },
@@ -3759,11 +3749,11 @@
       "Baue Gefälle ein (leichter Break).",
       "Wechsle die Reihenfolge zufällig per App/Timer."
     ],
-    "summary": "Längenkontrolle über mehrere Putt-Distanzen verbessern."
+    "summary": "Putte von mehreren Distanzen und zähle nur Treffer, die fallen oder innerhalb von 45 cm hinter dem Loch liegen."
   },
   {
     "id": "putting_star_pressure_20",
-    "title": "Star Drill – Druck aus 4 Richtungen",
+    "title": "Star Drill - Druck aus 4 Richtungen",
     "category": "Putting",
     "equipment": {
       "balls": 1,
@@ -3771,7 +3761,7 @@
         "Putter"
       ],
       "other": [
-        "4–5 Markierungen im Kreis um das Loch (1.2–2.4 m)"
+        "4-5 Markierungen im Kreis um das Loch (1.2-2.4 m)"
       ]
     },
     "setup": {
@@ -3790,7 +3780,7 @@
     "instructions": {
       "training": "Spiele je einen Putt von jeder Position, wiederhole den Kreis.",
       "test": "20 Putts insgesamt, reihum um das Loch. Zähle gelochte Putts.",
-      "tooEasy": "Erhöhe die Distanzen auf 1.8–3.0 m oder spiele „Sudden Death“ bei Fehlschlag Neustart."
+      "tooEasy": "Erhöhe die Distanzen auf 1.8-3.0 m oder spiele „Sudden Death“ bei Fehlschlag Neustart."
     },
     "metric": {
       "type": "points_total",
@@ -3824,11 +3814,11 @@
       "Wechsel Rechts-/Linkshang.",
       "Nur ein Ball, kein Probeputt."
     ],
-    "summary": "Routine und Druckresistenz bei kurzen Putts schärfen."
+    "summary": "Putte reihum aus fünf Richtungen rund ums Loch und zähle, wie viele von 20 Putts fallen."
   },
   {
     "id": "putting_pace_stop_zone",
-    "title": "Pace Stop-Zone – 30 cm hinter dem Loch",
+    "title": "Pace Stop-Zone - 30 cm hinter dem Loch",
     "category": "Putting",
     "equipment": {
       "balls": 5,
@@ -3854,7 +3844,7 @@
       "scale": "1-5"
     },
     "instructions": {
-      "training": "Putt je 5 Bälle pro Distanz. Treffer sind: gelocht oder Stop in der 0–30-cm-Zone hinter dem Loch.",
+      "training": "Putt je 5 Bälle pro Distanz. Treffer sind: gelocht oder Stop in der 0-30-cm-Zone hinter dem Loch.",
       "test": "15 Putts (5 je Distanz). Zähle gültige Pace-Treffer.",
       "tooEasy": "Reduziere die Zone auf 20 cm oder füge Seitengefälle hinzu."
     },
@@ -3889,11 +3879,11 @@
       "Distanzen würfeln.",
       "Zeitdruck: 90 Sekunden pro 5 Bälle."
     ],
-    "summary": "Putts mit präzisem Stopp im 30‑cm‑Fenster hinter dem Loch spielen."
+    "summary": "Putte von drei Distanzen und zähle nur Bälle, die fallen oder in der 30-cm-Zone hinter dem Loch stoppen."
   },
   {
     "id": "chipping_landing_spot_5x10",
-    "title": "Chipping Landing-Spot – 5 Ziele à 10 Bälle",
+    "title": "Chipping Landing-Spot - 5 Ziele à 10 Bälle",
     "category": "Chipping",
     "equipment": {
       "balls": 10,
@@ -3908,7 +3898,7 @@
       ]
     },
     "setup": {
-      "schema": "Markiere 5 unterschiedliche Landepunkte zwischen 2–6 m vor dem Loch. Definiere eine 1-m-Leave-Zone um das Loch.",
+      "schema": "Markiere 5 unterschiedliche Landepunkte zwischen 2-6 m vor dem Loch. Definiere eine 1-m-Leave-Zone um das Loch.",
       "diagram": "svg:drills/chipping_landing_spot_5x10",
       "location": "Rund ums Grün"
     },
@@ -3957,11 +3947,11 @@
       "Rough-Kante als Startlage.",
       "Hanglage einbauen."
     ],
-    "summary": "Treffgenaues Chippen auf definierte Landepunkte üben."
+    "summary": "Chippe auf fünf markierte Landepunkte und zähle nur Bälle, die in der 1-m-Zone um das Loch liegen bleiben."
   },
   {
     "id": "chipping_up_and_down_9_balls",
-    "title": "Up-and-Down Challenge – 9 Bälle",
+    "title": "Up-and-Down Challenge - 9 Bälle",
     "category": "Chipping",
     "equipment": {
       "balls": 9,
@@ -4025,11 +4015,11 @@
       "Pflicht: erster Putt muss aggressiv über Lochkante.",
       "Random-Lage ziehen."
     ],
-    "summary": "Up‑and‑Down‑Spiel aus verschiedenen Lagen trainieren."
+    "summary": "Neun Chips aus drei Lagen auf drei Ziele - spiele jeden Ball zu Ende und zähle erfolgreiche Up-and-Downs."
   },
   {
     "id": "pitching_9_box_distance_grid",
-    "title": "9-Box Pitch Grid – Carrykontrolle",
+    "title": "9-Box Pitch Grid - Carrykontrolle",
     "category": "Pitching",
     "equipment": {
       "balls": 9,
@@ -4090,13 +4080,13 @@
     "zockerTip": "Abwechselndes Ansagen der Felder. Punkte zählen, höchster Sieg.",
     "variants": [
       "Trajectory-Mix: niedrig/mittel/hoch als Pflicht.",
-      "Spin-Challenge: nur 1–2 Bounces erlaubt."
+      "Spin-Challenge: nur 1-2 Bounces erlaubt."
     ],
-    "summary": "Carry‑Kontrolle und Flugkonstanz auf neun Zielzonen entwickeln."
+    "summary": "Neun Pitches auf ein 3×3-Zielraster - triff die angesagten Korridore für präzise Carry-Kontrolle."
   },
   {
     "id": "bunker_target_circle_12",
-    "title": "Bunker Target Circle – 12 Versuche",
+    "title": "Bunker Target Circle - 12 Versuche",
     "category": "Bunker",
     "equipment": {
       "balls": 12,
@@ -4148,7 +4138,6 @@
       }
     },
     "tags": [
-      "Bunker",
       "Zielkreis",
       "Längenkontrolle",
       "Spin"
@@ -4158,11 +4147,11 @@
       "Nasse Sandlage.",
       "Hohe Lippe: höhere Flugbahn erzwingen."
     ],
-    "summary": "Bunkerschläge mit kontrollierter Länge und Präzision verbessern."
+    "summary": "Zwölf Bunkerschläge ins Ziel - Punkte für Treffer im 2-m- oder Bonuskreis um die Fahne."
   },
   {
     "id": "lag_putting_5_min_sprint",
-    "title": "Lag Putting Sprint – 5 Minuten",
+    "title": "Lag Putting Sprint - 5 Minuten",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -4175,7 +4164,7 @@
       ]
     },
     "setup": {
-      "schema": "Freie Distanzen 7–12 m. Zielzone 60 cm um das Loch. Wiederholter Rhythmus mit 3 Bällen.",
+      "schema": "Freie Distanzen 7-12 m. Zielzone 60 cm um das Loch. Wiederholter Rhythmus mit 3 Bällen.",
       "diagram": "svg:drills/lag_putting_5_min_sprint",
       "location": "Putting Green"
     },
@@ -4222,14 +4211,14 @@
     ],
     "zockerTip": "Gleichzeitig starten. Wer mehr Treffer in 5 min hat, gewinnt.",
     "variants": [
-      "Metronom-Tempo 70–80 bpm.",
+      "Metronom-Tempo 70-80 bpm.",
       "Nur ein Blick aufs Loch erlaubt."
     ],
-    "summary": "In fünf Minuten so viele Lag‑Putts wie möglich nahe ans Loch bringen."
+    "summary": "Drei Bälle, fünf Minuten - zähle alle Putts, die innerhalb von 60 cm am Loch liegen bleiben."
   },
   {
     "id": "short_game_par18",
-    "title": "Short-Game Par-18 – 9 Stationen",
+    "title": "Short-Game Par-18 - 9 Stationen",
     "category": "Chipping",
     "equipment": {
       "balls": 9,
@@ -4293,11 +4282,11 @@
       "Zwangsstrategie: nur Loft ≤50° an 3 Stationen.",
       "Kein Probeschwung."
     ],
-    "summary": "Komplettes Kurzspiel über neun Stationen wie eine Par‑18‑Runde spielen."
+    "summary": "Neun Kurzspiel-Stationen als Par-2 spielen - Chip oder Pitch aufs Grün, dann einlochen und den Gesamtscore gegen Par werten."
   },
   {
     "id": "wedge_ladder_50_70_90",
-    "title": "Wedge Ladder – 50/70/90 m",
+    "title": "Wedge Ladder - 50/70/90 m",
     "category": "Pitching",
     "equipment": {
       "balls": 9,
@@ -4361,11 +4350,11 @@
       "Flight-Law: nur halber/¾-Schwung.",
       "Nur ein Schläger für alle Distanzen."
     ],
-    "summary": "Wedge‑Distanzen bei 50, 70 und 90 Metern gezielt festigen."
+    "summary": "Neun Wedge-Schläge aus 50, 70 und 90 Metern - Punkte für Treffer in die jeweiligen Zielzonen sammeln."
   },
   {
     "id": "bunker_updown_6_ball_par12",
-    "title": "Bunker Up-and-Down – 6 Bälle Par-12",
+    "title": "Bunker Up-and-Down - 6 Bälle Par-12",
     "category": "Bunker",
     "equipment": {
       "balls": 6,
@@ -4419,7 +4408,6 @@
       "smallerIsBetter": true
     },
     "tags": [
-      "Bunker",
       "Up-and-Down",
       "Realismus",
       "Putt-Druck"
@@ -4429,6 +4417,6 @@
       "Feste Fußspuren als Startlage.",
       "Ball halb vergraben."
     ],
-    "summary": "Up‑and‑Down‑Fähigkeit aus dem Bunker realitätsnah testen."
+    "summary": "Sechs Bunkerschläge als Par-2 spielen - Sandschlag und Putt zählen, Gesamtscore gegen Par werten."
   }
 ]

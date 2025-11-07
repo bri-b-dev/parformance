@@ -9,7 +9,7 @@
       </button>
     </header>
 
-    <div v-if="!collapsed" class="p-2 text-sm text-gray-800">
+    <div v-if="!collapsed" class="p-2 text-sm text-gray-600">
       <div v-if="tip && tip.length">{{ tip }}</div>
       <div v-else class="text-gray-600">Kein Zocker-Tipp verfügbar.</div>
     </div>

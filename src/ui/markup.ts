@@ -11,7 +11,7 @@ export function renderSpinner(label: string = 'Laden…'): string {
 }
 
 export function renderEmptyState(title: string, message?: string): string {
-  const heading = `<h3 class=\"text-base font-semibold text-gray-800\">${escapeHtml(title)}</h3>`
+  const heading = `<h3 class=\"text-base font-semibold text-gray-600\">${escapeHtml(title)}</h3>`
   const body = message
     ? `\n  <p class=\"text-sm text-gray-600 mt-1\">${escapeHtml(message)}</p>`
     : ''

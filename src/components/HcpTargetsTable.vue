@@ -43,8 +43,34 @@ const columnCount = computed(() => {
 const columnLabels = computed(() => Array.from({ length: columnCount.value }, (_, i) => `L${i + 1}`))
 
 function cellClass(row: any, _i: number) {
-  return row.highlighted
-    ? 'inline-block px-2 py-1 rounded-md font-semibold text-emerald-900 bg-emerald-100'
-    : 'inline-block px-2 py-1 rounded-md text-gray-700'
+  // Use theme-aware CSS classes (variables) so contrast adapts for light/dark themes.
+  return row.highlighted ? 'hcp-cell hcp-cell--highlight' : 'hcp-cell'
 }
 </script>
+
+<style scoped>
+.hcp-cell {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  color: var(--text);
+  background: transparent;
+  font-weight: 500;
+}
+
+/* Highlighted cell: stronger contrast using accent color mixed with surface.
+   This uses CSS variables so the result adapts between light and dark themes. */
+.hcp-cell--highlight {
+  /* mix a bit of the accent-green into the surface for background */
+  background: color-mix(in oklab, var(--accent-green) 14%, var(--surface));
+  /* text should be readable: mix accent-green heavily with text color */
+  color: color-mix(in oklab, var(--accent-green) 82%, var(--text));
+  box-shadow: 0 1px 0 color-mix(in oklab, rgba(0,0,0,0.06) 10%, transparent) inset;
+  font-weight: 700;
+}
+
+/* Non-highlighted smaller contrast but still readable */
+.hcp-cell:not(.hcp-cell--highlight) {
+  color: var(--muted);
+}
+</style>

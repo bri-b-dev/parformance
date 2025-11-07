@@ -2,7 +2,8 @@
   <transition name="sheet">
     <div v-if="open" class="fixed inset-0 z-50">
       <div class="absolute inset-0 bg-black/50" @click="$emit('close')"></div>
-      <div class="absolute right-0 top-0 h-full w-[min(480px,92vw)] bg-white shadow-2xl p-4 overflow-y-auto">
+      <div
+        class="absolute right-0 top-0 h-full w-[min(480px,92vw)] settings-sheet-panel shadow-2xl p-4 overflow-y-auto">
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-lg font-semibold">Einstellungen</h3>
           <button class="btn" type="button" @click="$emit('close')">Schließen</button>

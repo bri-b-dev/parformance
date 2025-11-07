@@ -82,7 +82,7 @@
           Daten importieren
         </label>
       </div>
-      <div class="mt-4 p-3 rounded-xl border border-red-200 bg-red-50">
+      <div class="mt-4 p-3 rounded-xl border danger-zone">
         <div class="text-sm font-medium mb-2">Zurücksetzen</div>
         <div class="flex items-center justify-between">
           <p class="text-sm text-app-sub">Alle lokalen Daten löschen (Sessions, Favoriten, Einstellungen)</p>

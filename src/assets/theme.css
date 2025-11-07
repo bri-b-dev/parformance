@@ -479,3 +479,124 @@ html, body {
 .hcp-active {
     background: color-mix(in oklab, var(--accent-green) 12%, var(--surface));
 }
+
+/* Theme tweaks for the settings sheet (improve contrast in dark mode) */
+:root[data-theme="dark"] .settings-sheet-panel {
+  background: var(--surface);
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .card {
+  /* Slightly lift cards above the page surface for readability */
+  background: color-mix(in oklab, var(--surface) 8%, var(--bg));
+  border-color: color-mix(in oklab, var(--border) 18%, var(--bg));
+}
+
+/* Strong, high-specificity overrides to ensure readability in dark browsers */
+:root[data-theme="dark"] .settings-sheet-panel .card,
+:root[data-theme="dark"] .settings-sheet-panel .card * {
+  color: var(--text) !important;
+}
+
+
+:root[data-theme="dark"] .settings-sheet-panel .input,
+:root[data-theme="dark"] .settings-sheet-panel select,
+:root[data-theme="dark"] .settings-sheet-panel textarea {
+  background: color-mix(in oklab, var(--surface) 4%, var(--bg));
+  border-color: color-mix(in oklab, var(--border) 28%, var(--bg));
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .btn {
+  color: var(--text);
+}
+
+/* Dark-mode checkbox and danger zone styling for readability */
+:root[data-theme="dark"] .settings-sheet-panel input[type="checkbox"] {
+    /* Use accent-color for modern browsers for a consistent checked color */
+    accent-color: var(--primary);
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+    /* keep native appearance so inputs remain interactive */
+    display: inline-block !important;
+    vertical-align: middle !important;
+    border-radius: 0.25rem !important;
+    border: 1.5px solid color-mix(in oklab, var(--border) 36%, var(--bg)) !important;
+    background: color-mix(in oklab, var(--bg) 6%, var(--surface)) !important;
+    box-shadow: none;
+    cursor: pointer !important;
+}
+
+:root[data-theme="dark"] .settings-sheet-panel input[type="checkbox"]:checked {
+  background: var(--primary) !important;
+  border-color: color-mix(in oklab, var(--primary) 64%, var(--border)) !important;
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .text-app-sub {
+  color: color-mix(in oklab, var(--text) 72%, var(--bg));
+}
+
+/* Danger zone should be clearly visible and contrasted in dark mode */
+:root[data-theme="dark"] .settings-sheet-panel .danger-zone {
+  background: color-mix(in oklab, var(--red-700, #6b0f0f) 18%, var(--bg));
+  border-color: color-mix(in oklab, var(--red-600, #9b2b2b) 32%, var(--bg));
+  color: color-mix(in oklab, var(--text) 96%, var(--bg));
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .danger-zone .text-app-sub {
+  color: color-mix(in oklab, var(--text) 64%, var(--bg));
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .danger-zone .btn {
+  /* ensure the Reset button remains distinct */
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .danger-zone > .text-sm.font-medium {
+  color: color-mix(in oklab, var(--text) 92%, var(--bg)) !important;
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .danger-zone p {
+  color: color-mix(in oklab, var(--text) 86%, var(--bg)) !important;
+}
+
+:root[data-theme="dark"] .settings-sheet-panel [class*="bg-zinc-50"] {
+  background: color-mix(in oklab, var(--surface) 12%, var(--bg)) !important;
+  border-color: color-mix(in oklab, var(--border) 26%, var(--bg)) !important;
+  color: var(--text) !important;
+}
+
+/* Target the small option tiles specifically (sound, favorites, notifications) */
+:root[data-theme="dark"] .settings-sheet-panel .grid > div > .flex.items-center.justify-between,
+:root[data-theme="dark"] .settings-sheet-panel .grid > .flex.items-center.justify-between {
+  background: color-mix(in oklab, var(--surface) 28%, var(--bg)) !important;
+  border-color: color-mix(in oklab, var(--border) 40%, var(--bg)) !important;
+  color: var(--text) !important;
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .grid > div > .flex.items-center.justify-between .text-app-sub,
+:root[data-theme="dark"] .settings-sheet-panel .grid > .flex.items-center.justify-between .text-app-sub {
+  color: color-mix(in oklab, var(--text) 82%, var(--bg)) !important;
+}
+
+/* Explicit override for tiles that still carry light utility backgrounds (e.g. bg-zinc-50) */
+:root[data-theme="dark"] .settings-sheet-panel .flex.items-center.justify-between.bg-zinc-50,
+:root[data-theme="dark"] .settings-sheet-panel .flex.items-center.justify-between.bg-white {
+  background: color-mix(in oklab, var(--surface) 22%, var(--bg)) !important;
+  border-color: color-mix(in oklab, var(--border) 40%, var(--bg)) !important;
+  color: var(--text) !important;
+}
+
+:root[data-theme="dark"] .settings-sheet-panel .flex.items-center.justify-between.bg-zinc-50 .text-sm,
+:root[data-theme="dark"] .settings-sheet-panel .flex.items-center.justify-between.bg-zinc-50 .text-xs,
+:root[data-theme="dark"] .settings-sheet-panel .flex.items-center.justify-between.bg-white .text-sm,
+:root[data-theme="dark"] .settings-sheet-panel .flex.items-center.justify-between.bg-white .text-xs {
+  color: color-mix(in oklab, var(--text) 84%, var(--bg)) !important;
+}
+
+/* Ensure the checkbox inside the tile has a visible border and background */
+:root[data-theme="dark"] .settings-sheet-panel .flex.items-center.justify-between.bg-zinc-50 input[type="checkbox"],
+:root[data-theme="dark"] .settings-sheet-panel .flex.items-center.justify-between.bg-white input[type="checkbox"] {
+  border: 1.5px solid color-mix(in oklab, var(--border) 44%, var(--bg)) !important;
+  background: color-mix(in oklab, var(--bg) 6%, var(--surface)) !important;
+}

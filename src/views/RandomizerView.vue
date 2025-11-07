@@ -31,11 +31,6 @@
           </div>
         </div>
 
-        <div class="slot-result" v-if="displayTitle">
-          <span class="slot-result-label">Gewählt:</span>
-          <span class="slot-result-value">{{ displayTitle }}</span>
-        </div>
-
         <!-- Helper row -->
         <div class="slot-controls">
           <label class="chip pref">
@@ -280,12 +275,20 @@ function cancel() {
   }
 }
 
-function finish() {
+async function finish() {
   const id = selectedDrillId.value
   if (!id) return
   const original = catalog.drills.find((x) => x.id === id)
   if (!original) return
+  // ensure UI reflects stopped state
   running.value = false
+
+  // small pause so the user can read the result before the modal closes
+  await new Promise((resolve) => setTimeout(resolve, 500))
+
+  // If the user cancelled during the pause, abort navigation
+  if (selectedDrillId.value !== id) return
+
   try {
     ; (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: original.id }
     const p = router.push({ name: 'DrillDetail', params: { id: original.id } })

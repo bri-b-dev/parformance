@@ -1,10 +1,17 @@
 <template>
   <div>
     <!-- Loading state -->
-    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite">
-      <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"
-        aria-hidden="true"></span>
-      <span class="text-sm text-gray-600">Lade Trainingsspiele…</span>
+    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite"
+      :style="{ color: 'var(--muted)' }">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="margin-right:8px">
+        <g transform="translate(12,12)">
+          <circle cx="0" cy="0" r="9" fill="none" stroke="var(--border)" stroke-width="2" stroke-opacity="0.9"></circle>
+          <path d="M9 0 A9 9 0 0 1 7.5 -6" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1s" repeatCount="indefinite" />
+          </path>
+        </g>
+      </svg>
+      <span class="text-sm" style="color:var(--muted)">Lade Trainingsspiele…</span>
     </output>
 
     <!-- Content/filters are hidden until loaded to avoid flashing -->
@@ -39,9 +46,18 @@
 
       <!-- Empty state -->
       <output v-if="filtered.length === 0"
-        class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50" aria-live="polite">
-        <h3 class="text-base font-semibold text-gray-800">Keine Drills gefunden</h3>
-        <p class="text-sm text-gray-600 mt-1">Passe die Filter an oder ändere die Suche.</p>
+        class="p-6 text-center rounded-md" aria-live="polite"
+        :style="{
+          display: 'block',
+          width: '100%',
+          maxWidth: '820px',
+          margin: '28px auto',
+          background: 'color-mix(in oklab, var(--surface) 92%, var(--bg) 8%)',
+          border: '1px solid var(--border)',
+          color: 'var(--muted)'
+        }">
+        <h3 class="text-base font-semibold" :style="{ color: 'var(--text)', margin: 0 }">Keine Drills gefunden</h3>
+        <p class="text-sm mt-1" style="margin:8px 0 0">Passe die Filter an oder ändere die Suche.</p>
       </output>
 
       <!-- List -->

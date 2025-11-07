@@ -1,7 +1,7 @@
 <template>
     <header
         class="sticky top-0 z-30 bg-app-bg/80 backdrop-blur supports-[backdrop-filter]:bg-app-bg/60 border-b border-zinc-200">
-        <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+        <div class="max-w-6xl mx-auto pt-4 px-4 h-18 flex items-center justify-between">
             <div class="flex items-center gap-3 select-none">
                 <div class="brand" aria-label="ParFormance">
                     <img src="/logo-header.svg" alt="ParFormance" class="logo" />
@@ -22,7 +22,6 @@
                 <button class="btn" type="button" aria-label="Einstellungen" @click="$emit('open-settings')">
                     ⚙️
                 </button>
-
             </div>
         </div>
     </header>

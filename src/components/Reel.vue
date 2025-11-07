@@ -135,7 +135,6 @@ watch(() => props.spinTrigger, () => { spin() })
     inset-inline: 8px;
     top: 50%;
     height: 0;
-    /* theme-aware primary marker */
     border-top: 2px solid color-mix(in oklab, var(--primary) 55%, transparent);
     box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 8%, transparent);
     transform: translateY(-50%);
@@ -149,8 +148,7 @@ watch(() => props.spinTrigger, () => { spin() })
 .reel-item {
     height: var(--row);
     line-height: var(--row);
-    /* responsive font-size so long drill titles fit */
-    font-size: clamp(0.78rem, 1.6vw, 1rem);
+    font-size: clamp(0.5rem, 0.8vw, 1rem);
     font-weight: 600;
     text-align: center;
     color: var(--text, #444C56);
@@ -161,14 +159,12 @@ watch(() => props.spinTrigger, () => { spin() })
     max-width: 100%;
 }
 
-/* sanfter Fade oben/unten */
 .reel-fade {
     position: absolute;
     left: 0;
     right: 0;
     height: 18px;
     pointer-events: none;
-    /* Fade from the card surface into transparency; adapts to dark/light via --surface */
     background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0));
 }
 

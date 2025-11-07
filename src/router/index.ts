@@ -11,7 +11,6 @@ const DrillDetailView = isBrowser ? (() => import('@/views/DrillDetailView.vue')
 // Stats view placeholder
 const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
 
-const ConstructionView = isBrowser ? (() => import('@/views/ConstructionView.vue')) : Stub
 const UserSettingsView = isBrowser ? (() => import('@/views/UserSettingsView.vue')) : Stub
 
 export const routes: RouteRecordRaw[] = [
@@ -33,11 +32,6 @@ export const routes: RouteRecordRaw[] = [
     name: 'History',
     path: '/history',
     component: StatsView,
-  },
-  {
-    name: 'Construction',
-    path: '/construction',
-    component: ConstructionView,
   },
   {
     name: 'Settings',

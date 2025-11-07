@@ -37,16 +37,6 @@
             <input type="checkbox" v-model="biasFavorites" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
             Favoriten bevorzugen
           </label>
-          <div class="actions">
-            <button ref="leverRef" class="lever btn-primary" type="button" :disabled="disabled || running"
-              @click="onLeverClick">
-              <span class="lever-knob" aria-hidden="true"></span>
-              <span class="lever-text">Start</span>
-            </button>
-
-            <button class="btn ghost" type="button" :disabled="!running" @click="cancel"
-              data-testid="shuffle-cancel">Abbrechen</button>
-          </div>
         </div>
       </div>
     </div>
@@ -58,7 +48,7 @@ import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Reel from '@/components/Reel.vue'
 
@@ -155,6 +145,9 @@ function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
 
 const leverRef = ref<HTMLButtonElement | null>(null)
 
+// Auto-start timer id (when modal opens)
+let autoStartTimer: ReturnType<typeof setTimeout> | null = null
+
 function onLeverClick() {
   const el = leverRef.value
   if (el) {
@@ -165,6 +158,29 @@ function onLeverClick() {
   }
   start()
 }
+
+// When the modal opens, auto-start after a short delay (unless user prefers reduced motion)
+// use immediate so it also triggers if the modal is already open when this code runs
+watch(isOpen, (open) => {
+  if (!open) {
+    if (autoStartTimer) { clearTimeout(autoStartTimer); autoStartTimer = null }
+    return
+  }
+  try {
+    if (prefersReducedMotion()) return
+  } catch { }
+  // delay slightly so the modal finishes rendering; use a slightly longer delay to ensure paint
+  const AUTO_START_DELAY = 500
+  requestAnimationFrame(() => {
+    autoStartTimer = globalThis.setTimeout(() => {
+    // if modal still open and not already running, trigger the lever
+    if (isOpen.value && !running.value && !disabled.value) onLeverClick()
+    autoStartTimer = null
+    }, AUTO_START_DELAY)
+  })
+}, { immediate: true })
+
+onUnmounted(() => { if (autoStartTimer) { clearTimeout(autoStartTimer); autoStartTimer = null } })
 
 const reelOrder = ['left', 'center', 'right'] as const
 type SlotKey = typeof reelOrder[number]
@@ -195,9 +211,9 @@ async function start() {
   displayTitle.value = null
   targetTitle.value = null
   selectedDrillId.value = null
-  reelOrder.forEach((slot) => {
+  for (const slot of reelOrder) {
     spinning[slot] = false
-  })
+  }
 
   const pool = derived.value
   if (!pool.length) {
@@ -231,10 +247,10 @@ async function start() {
   const waitForSpin = new Promise<void>((resolve) => {
     spinResolver = resolve
   })
-  reelOrder.forEach((slot) => {
+  for (const slot of reelOrder) {
     spinning[slot] = true
     spinTick[slot]++
-  })
+  }
 
   await waitForSpin
   spinResolver = null
@@ -265,9 +281,9 @@ function cancel() {
   targetTitle.value = null
   selectedDrillId.value = null
   displayTitle.value = null
-  reelOrder.forEach((slot) => {
+  for (const slot of reelOrder) {
     spinning[slot] = false
-  })
+  }
   if (spinResolver) {
     const resolver = spinResolver
     spinResolver = null

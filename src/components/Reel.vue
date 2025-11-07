@@ -110,12 +110,13 @@ watch(() => props.spinTrigger, () => { spin() })
     height: var(--row);
     overflow: hidden;
     border-radius: 14px;
-    background: linear-gradient(180deg, #ffffff, #f4f7f6);
-    border: 1px solid rgba(0, 0, 0, .06);
+    /* Use theme-aware surface/background variables for light/dark support */
+    background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 85%, var(--bg) 15%), var(--surface));
+    border: 1px solid var(--border);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, .85),
-        inset 0 -6px 14px rgba(0, 0, 0, .06),
-        0 10px 26px rgba(0, 0, 0, .08);
+        inset 0 1px 0 color-mix(in oklab, rgba(255,255,255,0.12) 35%, transparent),
+        inset 0 -6px 14px color-mix(in oklab, rgba(0,0,0,0.06) 20%, transparent),
+        0 10px 26px color-mix(in oklab, var(--bg) 6%, transparent);
 }
 
 /* Marker exakt in der Mitte (passt zu 48px) */
@@ -124,8 +125,9 @@ watch(() => props.spinTrigger, () => { spin() })
     inset-inline: 8px;
     top: 50%;
     height: 0;
-    border-top: 2px solid rgba(47, 122, 82, .55);
-    box-shadow: 0 0 0 1px rgba(47, 122, 82, .08);
+    /* theme-aware primary marker */
+    border-top: 2px solid color-mix(in oklab, var(--primary) 55%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 8%, transparent);
     transform: translateY(-50%);
     pointer-events: none;
 }
@@ -154,7 +156,8 @@ watch(() => props.spinTrigger, () => { spin() })
     right: 0;
     height: 18px;
     pointer-events: none;
-    background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, 0));
+    /* Fade from the card surface into transparency; adapts to dark/light via --surface */
+    background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0));
 }
 
 .reel-fade.top {
@@ -170,7 +173,7 @@ watch(() => props.spinTrigger, () => { spin() })
 .reel-shine {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, .45) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--surface) 70%, rgba(255,255,255,0.45)) 50%, transparent 100%);
     mix-blend-mode: screen;
     opacity: .0;
     animation: shine 2.6s linear infinite;

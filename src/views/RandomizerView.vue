@@ -386,14 +386,13 @@ function close() {
   align-items: center;
   padding: 18px;
   border-radius: 18px;
-  background:
-    radial-gradient(120% 140% at 50% 0%, rgba(255, 255, 255, 0.90), rgba(240, 244, 242, 0.80) 60%, rgba(230, 235, 233, 0.85)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(225, 230, 227, 0.65));
+  /* theme-aware frame background for light/dark */
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 88%, var(--bg) 12%), var(--surface));
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -2px 8px rgba(0, 0, 0, 0.08),
-    0 6px 22px rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+    inset 0 2px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent),
+    inset 0 -2px 8px color-mix(in oklab, rgba(0,0,0,0.06) 20%, transparent),
+    0 6px 22px color-mix(in oklab, var(--bg) 8%, transparent);
+  border: 1px solid var(--border);
 }
 
 .slot-result {
@@ -458,11 +457,11 @@ function close() {
   overflow: hidden;
   min-width: 240px;
   border-radius: 14px;
-  background: linear-gradient(180deg, #ffffff, #f4f7f6);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 85%, var(--bg) 15%), var(--surface));
+  border: 1px solid var(--border);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -2px 12px rgba(0, 0, 0, 0.06);
+    inset 0 1px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent),
+    inset 0 -2px 12px color-mix(in oklab, rgba(0,0,0,0.06) 20%, transparent);
 }
 
 .reel-track {
@@ -488,7 +487,7 @@ function close() {
   right: 0;
   height: 18px;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0));
+  background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0));
 }
 
 .reel-fade.top {
@@ -531,8 +530,8 @@ function close() {
 .btn {
   border-radius: 12px;
   padding: 10px 14px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: #fff;
+  border: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .btn:disabled {
@@ -541,7 +540,7 @@ function close() {
 }
 
 .btn.ghost {
-  background: #fff;
+  background: var(--surface);
 }
 
 /* Hebel-Button */
@@ -552,15 +551,15 @@ function close() {
   gap: 14px;
   padding: 12px 16px 12px 14px;
   border-radius: 999px;
-  box-shadow: 0 6px 16px rgba(47, 122, 82, 0.28), inset 0 1px 0 rgba(255, 255, 255, .2);
+  box-shadow: 0 6px 16px color-mix(in oklab, var(--primary) 28%, transparent), inset 0 1px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent);
 }
 
 .lever-knob {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1), 0 2px 6px rgba(0, 0, 0, .25);
+  background: var(--surface);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, rgba(0,0,0,0.06) 40%, transparent), 0 2px 6px color-mix(in oklab, rgba(0,0,0,0.25) 40%, transparent);
 }
 
 .lever-text {

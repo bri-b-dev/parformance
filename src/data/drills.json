@@ -611,9 +611,21 @@
       "type": "count",
       "unit": "Bälle in einer Reihe",
       "hcpTargets": {
-        "54-27": [4,5,6],
-        "26-12": [6,7,8],
-        "11-0": [8,9,10]
+        "54-27": [
+          4,
+          5,
+          6
+        ],
+        "26-12": [
+          6,
+          7,
+          8
+        ],
+        "11-0": [
+          8,
+          9,
+          10
+        ]
       }
     },
     "tags": [
@@ -1389,12 +1401,24 @@
       "type": "time",
       "unit": "Minuten bis 8 Treffer",
       "hcpTargets": {
-        "54-37": [15],
-        "36-27": [13],
-        "26-19": [12],
-        "18-12": [10],
-        "11-5": [8],
-        "4-0": [6]
+        "54-37": [
+          15
+        ],
+        "36-27": [
+          13
+        ],
+        "26-19": [
+          12
+        ],
+        "18-12": [
+          10
+        ],
+        "11-5": [
+          8
+        ],
+        "4-0": [
+          6
+        ]
       }
     },
     "tags": [
@@ -3703,6 +3727,736 @@
       "Führe den Drill über 18 Löcher aus, aber werte nur 9 davon als offizielle Zählung.",
       "Füge eine Putting-Regel hinzu: bei jedem 3-Putt wird der nächste Abschlag mit Eisen statt Driver gespielt.",
       "Spiele im Teamformat - beide Partner schlagen doppelt, und der jeweils schlechtere Ball pro Paar zählt."
+    ]
+  },
+  {
+    "id": "putting_ladder_distance_control",
+    "title": "Ladder Putting – Distanzkontrolle",
+    "category": "Putting",
+    "equipment": {
+      "balls": 5,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "3–5 Zielmarken bei 3 m, 4.5 m, 6 m, 9 m",
+        "Tees oder Marker",
+        "Ebene Puttfläche"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere 4–5 Distanzen in einer Linie (z. B. 3 m, 4.5 m, 6 m, 9 m). Definiere eine 'Leave-Zone' von maximal 45 cm hinter dem Loch.",
+      "diagram": "svg:drills/putting_ladder_distance_control",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 8,
+      "timerPreset": 480
+    },
+    "difficulty": {
+      "base": 2,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putt je einen Ball von jeder Distanz. Zähle Treffer, die fallen oder innerhalb der Leave-Zone enden.",
+      "test": "Spiele 10 Putts gemischt über alle Distanzen. Werten als Treffer: Loch oder ≤45 cm vorbei.",
+      "tooEasy": "Verlängere die weiteste Distanz auf 12 m oder reduziere die Leave-Zone auf 30 cm."
+    },
+    "metric": {
+      "type": "corridor_hits",
+      "unit": "Treffer (von 10)",
+      "hcpTargets": {
+        "54-45": [
+          5,
+          6,
+          7
+        ],
+        "50-20": [
+          7,
+          8,
+          9
+        ],
+        "25-0": [
+          9,
+          9.5,
+          10
+        ]
+      }
+    },
+    "tags": [
+      "Distanzkontrolle",
+      "Pace",
+      "Leave-Zone",
+      "Gamification",
+      "Putting"
+    ],
+    "zockerTip": "Beide spielen 10 Putts. Höhere Trefferzahl gewinnt die Runde.",
+    "variants": [
+      "Baue Gefälle ein (leichter Break).",
+      "Wechsle die Reihenfolge zufällig per App/Timer."
+    ]
+  },
+  {
+    "id": "putting_star_pressure_20",
+    "title": "Star Drill – Druck aus 4 Richtungen",
+    "category": "Putting",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "4–5 Markierungen im Kreis um das Loch (1.2–2.4 m)"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere 5 Positionen kreisförmig um das Loch in 1.2 m, 1.5 m, 1.8 m, 2.1 m, 2.4 m.",
+      "diagram": "svg:drills/putting_star_pressure_20",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 7,
+      "timerPreset": 420
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele je einen Putt von jeder Position, wiederhole den Kreis.",
+      "test": "20 Putts insgesamt, reihum um das Loch. Zähle gelochte Putts.",
+      "tooEasy": "Erhöhe die Distanzen auf 1.8–3.0 m oder spiele „Sudden Death“ bei Fehlschlag Neustart."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "geloche Putts (von 20)",
+      "hcpTargets": {
+        "54-45": [
+          10,
+          12,
+          13
+        ],
+        "50-20": [
+          14,
+          16,
+          17
+        ],
+        "25-0": [
+          17,
+          18,
+          20
+        ]
+      }
+    },
+    "tags": [
+      "Drucktraining",
+      "Kreismuster",
+      "Kurzputts",
+      "Routine",
+      "Putting"
+    ],
+    "zockerTip": "Beide spielen 20 Putts. Bei Gleichstand Stechen von 2.4 m.",
+    "variants": [
+      "Wechsel Rechts-/Linkshang.",
+      "Nur ein Ball, kein Probeputt."
+    ]
+  },
+  {
+    "id": "putting_pace_stop_zone",
+    "title": "Pace Stop-Zone – 30 cm hinter dem Loch",
+    "category": "Putting",
+    "equipment": {
+      "balls": 5,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "Band oder Tees zur 30-cm-Zone hinter dem Loch",
+        "3 Startdistanzen: 6 m, 9 m, 12 m"
+      ]
+    },
+    "setup": {
+      "schema": "Errichte hinter dem Loch eine 30-cm-Zone. Lege 3 Startdistanzen auf einer Geraden fest.",
+      "diagram": "svg:drills/putting_pace_stop_zone",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 6,
+      "timerPreset": 360
+    },
+    "difficulty": {
+      "base": 2,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putt je 5 Bälle pro Distanz. Treffer sind: gelocht oder Stop in der 0–30-cm-Zone hinter dem Loch.",
+      "test": "15 Putts (5 je Distanz). Zähle gültige Pace-Treffer.",
+      "tooEasy": "Reduziere die Zone auf 20 cm oder füge Seitengefälle hinzu."
+    },
+    "metric": {
+      "type": "corridor_hits",
+      "unit": "Pace-Treffer (von 15)",
+      "hcpTargets": {
+        "54-45": [
+          7,
+          8,
+          9
+        ],
+        "50-20": [
+          10,
+          11,
+          12
+        ],
+        "25-0": [
+          12,
+          13,
+          14
+        ]
+      }
+    },
+    "tags": [
+      "Pace",
+      "Lag Putting",
+      "Feinmotorik",
+      "Putting"
+    ],
+    "zockerTip": "Wer zuerst 10 gültige Pace-Treffer erreicht, gewinnt.",
+    "variants": [
+      "Distanzen würfeln.",
+      "Zeitdruck: 90 Sekunden pro 5 Bälle."
+    ]
+  },
+  {
+    "id": "chipping_landing_spot_5x10",
+    "title": "Chipping Landing-Spot – 5 Ziele à 10 Bälle",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "PW",
+        "GW",
+        "SW"
+      ],
+      "other": [
+        "5 Landepunkte markiert",
+        "Leave-Zone um Loch: 1 m"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere 5 unterschiedliche Landepunkte zwischen 2–6 m vor dem Loch. Definiere eine 1-m-Leave-Zone um das Loch.",
+      "diagram": "svg:drills/chipping_landing_spot_5x10",
+      "location": "Rund ums Grün"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Chippe je 10 Bälle, versuche den Landepunkt zu treffen und den Ball in der Leave-Zone zu beenden.",
+      "test": "50 Chips insgesamt. Zähle Bälle, die in der Leave-Zone enden.",
+      "tooEasy": "Verkleinere die Leave-Zone auf 75 cm oder verlagere Landepunkte weiter weg."
+    },
+    "metric": {
+      "type": "corridor_hits",
+      "unit": "Bälle in Leave-Zone (von 50)",
+      "hcpTargets": {
+        "54-45": [
+          20,
+          25,
+          30
+        ],
+        "50-20": [
+          30,
+          35,
+          40
+        ],
+        "25-0": [
+          40,
+          44,
+          48
+        ]
+      }
+    },
+    "tags": [
+      "Landing-Spot",
+      "Roll-out",
+      "Up-and-Down",
+      "Chipping"
+    ],
+    "zockerTip": "Pro Ziel gewinnt der Spieler mit mehr Zone-Treffern 1 Punkt.",
+    "variants": [
+      "Rough-Kante als Startlage.",
+      "Hanglage einbauen."
+    ]
+  },
+  {
+    "id": "chipping_up_and_down_9_balls",
+    "title": "Up-and-Down Challenge – 9 Bälle",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "Wedge nach Wahl",
+        "Putter"
+      ],
+      "other": [
+        "3 Startlagen: Fairway, Semi-Rough, Rough",
+        "3 Fahnenpositionen"
+      ]
+    },
+    "setup": {
+      "schema": "Baue 3 Lagen und 3 Ziele auf. Pro Ziel 1 Ball aus jeder Lage.",
+      "diagram": "svg:drills/chipping_up_and_down_9_balls",
+      "location": "Kurzspiel-Areal"
+    },
+    "duration": {
+      "hardStop": 12,
+      "timerPreset": 720
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele jeden Ball zu Ende. Zähle Up-and-Downs (Chip + 1 Putt).",
+      "test": "9 vollständige Versuche. Score als Schläge vs. Par (Par je Versuch = 2).",
+      "tooEasy": "Verkleinere die Putt-Gimme auf 60 cm oder erlaube keinen Probechip."
+    },
+    "metric": {
+      "type": "score_vs_par",
+      "unit": "Schläge vs. Par (negativ besser)",
+      "hcpTargets": {
+        "54-45": [
+          0,
+          1,
+          2
+        ],
+        "50-20": [
+          -1,
+          0,
+          1
+        ],
+        "25-0": [
+          -3,
+          -2,
+          -1
+        ]
+      },
+      "smallerIsBetter": true
+    },
+    "tags": [
+      "Up-and-Down",
+      "Scrambling",
+      "Realspiel",
+      "Chipping"
+    ],
+    "zockerTip": "Matchplay-Logik: Jeder Versuch ist ein Loch. Besserer Score gewinnt das Loch.",
+    "variants": [
+      "Pflicht: erster Putt muss aggressiv über Lochkante.",
+      "Random-Lage ziehen."
+    ]
+  },
+  {
+    "id": "pitching_9_box_distance_grid",
+    "title": "9-Box Pitch Grid – Carrykontrolle",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "GW",
+        "SW"
+      ],
+      "other": [
+        "3 Distanzen, 3 Linien pro Distanz (9 Felder)",
+        "Markierscheiben oder Tücher"
+      ]
+    },
+    "setup": {
+      "schema": "Errichte 3 Carry-Distanzen (z. B. 20/30/40 m) mit je 3 Zielkorridoren (kurz/ziel/lang).",
+      "diagram": "svg:drills/pitching_9_box_distance_grid",
+      "location": "Approach-Wiese"
+    },
+    "duration": {
+      "hardStop": 12,
+      "timerPreset": 720
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele je 1 Ball pro Feld, versuche den angesagten Korridor zu treffen.",
+      "test": "9 Bälle, 1 Punkt pro korrektem Korridor, 2 Punkte bei exaktem Mittel-Korridor.",
+      "tooEasy": "Verenge die Korridore (±2 m) oder erhöhe die Distanzen auf 25/35/45 m."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "Punkte (max. 18)",
+      "hcpTargets": {
+        "54-45": [
+          7,
+          9,
+          11
+        ],
+        "50-20": [
+          12,
+          14,
+          16
+        ],
+        "25-0": [
+          15,
+          16,
+          18
+        ]
+      }
+    },
+    "tags": [
+      "Carry-Kontrolle",
+      "Flight-Landezone",
+      "Pitching",
+      "Wedges"
+    ],
+    "zockerTip": "Abwechselndes Ansagen der Felder. Punkte zählen, höchster Sieg.",
+    "variants": [
+      "Trajectory-Mix: niedrig/mittel/hoch als Pflicht.",
+      "Spin-Challenge: nur 1–2 Bounces erlaubt."
+    ]
+  },
+  {
+    "id": "bunker_target_circle_12",
+    "title": "Bunker Target Circle – 12 Versuche",
+    "category": "Bunker",
+    "equipment": {
+      "balls": 12,
+      "clubs": [
+        "SW"
+      ],
+      "other": [
+        "Zielkreis 2 m um das Loch",
+        "Optional zweiter Innenkreis 1 m"
+      ]
+    },
+    "setup": {
+      "schema": "Wähle ein Grünbunker-Schlagziel. Markiere 2-m-Zielkreis, optional 1-m-Bonuskreis.",
+      "diagram": "svg:drills/bunker_target_circle_12",
+      "location": "Übungsbunker"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele 12 Bunkerschläge. 1 Punkt im 2-m-Kreis, 2 Punkte im 1-m-Kreis.",
+      "test": "Werte die 12 Schläge aus und summiere Punkte.",
+      "tooEasy": "Verkleinere Kreise auf 1.5 m/0.75 m oder spiele aus Fußspuren."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "Punkte (max. 24)",
+      "hcpTargets": {
+        "54-45": [
+          8,
+          10,
+          12
+        ],
+        "50-20": [
+          12,
+          14,
+          16
+        ],
+        "25-0": [
+          16,
+          18,
+          20
+        ]
+      }
+    },
+    "tags": [
+      "Bunker",
+      "Zielkreis",
+      "Längenkontrolle",
+      "Spin"
+    ],
+    "zockerTip": "Abwechselnd schlagen. Nach 12 Bällen gewinnt die höhere Punktzahl.",
+    "variants": [
+      "Nasse Sandlage.",
+      "Hohe Lippe: höhere Flugbahn erzwingen."
+    ]
+  },
+  {
+    "id": "lag_putting_5_min_sprint",
+    "title": "Lag Putting Sprint – 5 Minuten",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "Timer 5 Minuten",
+        "Zielzone: ≤60 cm Radius um das Loch"
+      ]
+    },
+    "setup": {
+      "schema": "Freie Distanzen 7–12 m. Zielzone 60 cm um das Loch. Wiederholter Rhythmus mit 3 Bällen.",
+      "diagram": "svg:drills/lag_putting_5_min_sprint",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "suggestedMin": 5,
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 2,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Starte den Timer. So viele gültige Lag-Treffer wie möglich. Nur Treffer zählen: Ball bleibt ≤60 cm vom Loch.",
+      "test": "Zähle gültige Treffer in 5 Minuten.",
+      "tooEasy": "Zone auf 45 cm verkleinern oder Distanzen ausschließlich ≥10 m."
+    },
+    "metric": {
+      "type": "count_in_time",
+      "unit": "Treffer in 5 min",
+      "hcpTargets": {
+        "54-45": [
+          12,
+          14,
+          16
+        ],
+        "50-20": [
+          17,
+          19,
+          21
+        ],
+        "25-0": [
+          22,
+          24,
+          26
+        ]
+      }
+    },
+    "tags": [
+      "Tempo",
+      "Rhythmus",
+      "Pace",
+      "Ausdauer",
+      "Putting"
+    ],
+    "zockerTip": "Gleichzeitig starten. Wer mehr Treffer in 5 min hat, gewinnt.",
+    "variants": [
+      "Metronom-Tempo 70–80 bpm.",
+      "Nur ein Blick aufs Loch erlaubt."
+    ]
+  },
+  {
+    "id": "short_game_par18",
+    "title": "Short-Game Par-18 – 9 Stationen",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "Wedges",
+        "Putter"
+      ],
+      "other": [
+        "9 Kurzspiel-Stationen um das Grün",
+        "Scorekarte"
+      ]
+    },
+    "setup": {
+      "schema": "Richte 9 unterschiedliche Kurzspiel-Lagen ein (Flach/Angehoben/Rough/Bunkerersatz).",
+      "diagram": "svg:drills/short_game_par18",
+      "location": "Kurzspiel-Areal"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Jede Station als Par-2 spielen. Chip/Pitch ins Ziel, dann fertigputten.",
+      "test": "Gesamtscore über 9 Stationen als Schläge vs. Par notieren.",
+      "tooEasy": "Gimme-Radius auf 50 cm reduzieren oder 2 schwierige Lagen hinzufügen."
+    },
+    "metric": {
+      "type": "score_vs_par",
+      "unit": "Gesamtscore vs. Par",
+      "hcpTargets": {
+        "54-45": [
+          2,
+          3,
+          4
+        ],
+        "50-20": [
+          0,
+          1,
+          2
+        ],
+        "25-0": [
+          -2,
+          -1,
+          0
+        ]
+      },
+      "smallerIsBetter": true
+    },
+    "tags": [
+      "Par-Spiel",
+      "Kursmanagement",
+      "Scoring",
+      "Kurzspiel"
+    ],
+    "zockerTip": "1v1 Matchplay über 9 'Löcher'. Gleichstand: Nearest-to-the-Pin Stechen.",
+    "variants": [
+      "Zwangsstrategie: nur Loft ≤50° an 3 Stationen.",
+      "Kein Probeschwung."
+    ]
+  },
+  {
+    "id": "wedge_ladder_50_70_90",
+    "title": "Wedge Ladder – 50/70/90 m",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "PW",
+        "GW",
+        "SW"
+      ],
+      "other": [
+        "3 Distanzen: 50 m, 70 m, 90 m",
+        "Zielgrün oder große Zielzone"
+      ]
+    },
+    "setup": {
+      "schema": "Baue 3 Distanzen mit Zielzonen (Radius 6 m). 3 Bälle je Distanz.",
+      "diagram": "svg:drills/wedge_ladder_50_70_90",
+      "location": "Range/Approach-Zone"
+    },
+    "duration": {
+      "hardStop": 12,
+      "timerPreset": 720
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "3 Bälle je Distanz. Punkte: in Zielzone 1, innerhalb 3 m 2, innerhalb 1.5 m 3.",
+      "test": "Summiere Punkte aller 9 Schläge.",
+      "tooEasy": "Verkleinere Zonen (4 m/2 m/1 m) oder füge Wind/Seitgefälle hinzu."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "Punkte (max. 27)",
+      "hcpTargets": {
+        "54-45": [
+          9,
+          11,
+          13
+        ],
+        "50-20": [
+          14,
+          16,
+          19
+        ],
+        "25-0": [
+          20,
+          22,
+          24
+        ]
+      }
+    },
+    "tags": [
+      "Wedge-Kontrolle",
+      "Scoring-Zonen",
+      "Pitching",
+      "Approach"
+    ],
+    "zockerTip": "Distanz wird abwechselnd vom Gegner gewählt.",
+    "variants": [
+      "Flight-Law: nur halber/¾-Schwung.",
+      "Nur ein Schläger für alle Distanzen."
+    ]
+  },
+  {
+    "id": "bunker_updown_6_ball_par12",
+    "title": "Bunker Up-and-Down – 6 Bälle Par-12",
+    "category": "Bunker",
+    "equipment": {
+      "balls": 6,
+      "clubs": [
+        "SW",
+        "Putter"
+      ],
+      "other": [
+        "6 Zielpositionen",
+        "Gimme-Kreis 1 m"
+      ]
+    },
+    "setup": {
+      "schema": "Platziere 6 Bälle in variierenden Bunkerlagen. Spiele jeden Ball zu Ende.",
+      "diagram": "svg:drills/bunker_updown_6_ball_par12",
+      "location": "Übungsbunker"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist Par-2 pro Ball: Sandschlag + 1 Putt. Zähle Gesamtschläge.",
+      "test": "Gesamtscore vs. Par über 6 Versuche.",
+      "tooEasy": "Gimme-Kreis auf 70 cm reduzieren oder Zusatzregel: kein Zweitputt aus >1.5 m."
+    },
+    "metric": {
+      "type": "score_vs_par",
+      "unit": "Gesamtscore vs. Par",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          0,
+          1,
+          2
+        ],
+        "25-0": [
+          -1,
+          0,
+          1
+        ]
+      },
+      "smallerIsBetter": true
+    },
+    "tags": [
+      "Bunker",
+      "Up-and-Down",
+      "Realismus",
+      "Putt-Druck"
+    ],
+    "zockerTip": "Lochwertung pro Ball. Besserer Score gewinnt das Loch.",
+    "variants": [
+      "Feste Fußspuren als Startlage.",
+      "Ball halb vergraben."
     ]
   }
 ]

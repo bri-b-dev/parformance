@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Long vs. Easy – Vollgas oder locker?">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Long vs. Easy - Vollgas oder locker?">
   <style>
     .panel { fill: var(--surface); }
     .ground { fill: color-mix(in oklab, var(--cat-platz) 10%, var(--surface)); }

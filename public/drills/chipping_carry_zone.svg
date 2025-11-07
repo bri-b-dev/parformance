@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Carry Zone – fünf Landezonen in 1-m-Abständen, Startpunkt 2 m davor">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Carry Zone - fünf Landezonen in 1-m-Abständen, Startpunkt 2 m davor">
   <style>
     .panel { fill: var(--surface); }
     .grass { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }

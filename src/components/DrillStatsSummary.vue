@@ -80,7 +80,7 @@ const effectiveTrend = computed(() => {
   if (t === 'down') return 'up'
   return t
 })
-const maLast5Label = computed(() => ma.value.maLast5 !== undefined && ma.value.maLast5 !== null ? ma.value.maLast5.toFixed(1) : '–')
+const maLast5Label = computed(() => ma.value.maLast5 !== undefined && ma.value.maLast5 !== null ? ma.value.maLast5.toFixed(1) : '-')
 
 const trendSymbol = computed(() => {
   switch (effectiveTrend.value) {

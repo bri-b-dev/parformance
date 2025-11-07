@@ -87,7 +87,7 @@
       <div v-else class="card empty-card empty-card--full" aria-live="polite">
         <div class="empty-illustration" aria-hidden="true">📊</div>
         <h3>Keine Sessions bisher</h3>
-        <p>Starte eine Trainingseinheit und speichere dein Ergebnis – dann füllen wir diese Übersicht automatisch.</p>
+        <p>Starte eine Trainingseinheit und speichere dein Ergebnis - dann füllen wir diese Übersicht automatisch.</p>
         <div class="empty-actions">
           <button type="button" class="btn btn-primary" @click="ui.setShuffle(true)">Zufalls-Drill starten</button>
           <router-link class="btn" :to="{ name: 'DrillsList' }">Alle Drills anzeigen</router-link>

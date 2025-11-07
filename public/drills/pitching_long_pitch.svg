@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Langer Pitch – 45 m und 60 m Entfernungen, Zielkreise auf dem Grün">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Langer Pitch - 45 m und 60 m Entfernungen, Zielkreise auf dem Grün">
   <style>
     .panel { fill: var(--surface); }
     .fairway { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }

@@ -2,7 +2,7 @@ import type { Drill } from '@/types'
 
 export interface HcpRow {
   key: string
-  label: string // formatted with en dash, e.g., "26–12"
+  label: string // formatted with en dash, e.g., "26-12"
   values: number[]
   highlighted: boolean
   hi: number
@@ -10,11 +10,11 @@ export interface HcpRow {
 }
 
 /** Parse a range key like "54-27" into numeric hi/lo bounds. 
- * Tolerates whitespace and supports either hyphen-minus '-' or en dash '–'.
+ * Tolerates whitespace and supports either hyphen-minus '-' or en dash '-'.
  */
 export function parseRangeKey(key: string): { hi: number; lo: number } | null {
   if (!key) return null
-  const normalized = String(key).trim().replace('–', '-')
+  const normalized = String(key).trim().replace('-', '-')
   const m = /^\s*(\d{1,2})\s*-\s*(\d{1,2})\s*$/.exec(normalized)
   if (!m) return null
   const a = Number(m[1])
@@ -45,9 +45,9 @@ export function findBucketKey(hcp: number, hcpTargets: Record<string, number[]>)
   return found?.key ?? null
 }
 
-/** Format a key like "26-12" as a label with en dash ("26–12"). */
+/** Format a key like "26-12" as a label with en dash ("26-12"). */
 export function formatRangeLabel(key: string): string {
-  return String(key).trim().replace('-', '–')
+  return String(key).trim().replace('-', '-')
 }
 
 /** Build display rows for a compact table. Sorted by hi desc, then lo desc. */

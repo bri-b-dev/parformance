@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Pace Putting – drei Distanzen und Korridor hinter dem Loch">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Pace Putting - drei Distanzen und Korridor hinter dem Loch">
   <style>
     .panel { fill: var(--surface); }
     .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }

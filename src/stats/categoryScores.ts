@@ -53,7 +53,7 @@ export function levelToPct(level: number): number {
 /**
  * Compute normalized average of last level ratings per category.
  * - For each drill, take the latest session's levelReached (missing → 0).
- * - Group drills by their category and average the normalized percentage (0–100).
+ * - Group drills by their category and average the normalized percentage (0-100).
  * - Categories with no drills with sessions are returned as 0.
  *
  * Returns a map: { [category]: percentage0to100 }

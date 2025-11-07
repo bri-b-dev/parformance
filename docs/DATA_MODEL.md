@@ -15,7 +15,7 @@ Location: src/types/index.ts
     - equipment { balls?, clubs?, other? }
     - setup { schema, diagram?, location? }
     - duration { suggestedMin?, hardStop?, timerPreset? }
-    - difficulty? { base: number (1–5), scale: '1-5' }
+    - difficulty? { base: number (1-5), scale: '1-5' }
     - instructions { training, test?, tooEasy? }
     - metric { type: MetricType, unit: string, hcpTargets: Record<string, number[]> }
     - tags?, zockerTip?, variants?

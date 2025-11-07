@@ -12,7 +12,7 @@
         <tr v-for="row in rows" :key="row.key" :class="row.highlighted ? 'bg-emerald-50' : ''">
           <th scope="row" class="text-left p-2">{{ row.label }}</th>
           <td v-for="(label, idx) in columnLabels" :key="`${row.key}-${idx}`" class="text-right p-2">
-            <span :class="cellClass(row, idx)">{{ row.values[idx] ?? '–' }}</span>
+            <span :class="cellClass(row, idx)">{{ row.values[idx] ?? '-' }}</span>
           </td>
         </tr>
       </tbody>

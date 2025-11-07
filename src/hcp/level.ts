@@ -4,7 +4,7 @@ import { findBucketKey } from '@/hcp/buckets'
 /**
  * Compute the level (0–3) reached for a given result value using HCP bucket thresholds.
  * - hcpTargets: Record<rangeKey, [L1, L2, L3]>
- * - hcp: user handicap used to pick the bucket (supports keys like "54-27" or "54–27")
+ * - hcp: user handicap used to pick the bucket (supports keys like "54-27" or "54-27")
  * - value: numeric result to compare
  *
  * Returns:

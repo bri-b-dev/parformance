@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="18-Meter Chip – Fairway und Rough, Zielkreis in 18 m Entfernung">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="18-Meter Chip - Fairway und Rough, Zielkreis in 18 m Entfernung">
   <style>
     .panel { fill: var(--surface); }
     .fairway { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }

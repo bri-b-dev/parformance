@@ -2,12 +2,12 @@
 
 | Element                 | Vorschlag                                                                                              | Bedeutung                                                                  |
 | ----------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| **Name**                | **ParFormance**                                                                                        | „Par“ + „Performance“ – Ziel ist, besser zu spielen, nicht perfekt zu sein |
+| **Name**                | **ParFormance**                                                                                        | „Par“ + „Performance“ - Ziel ist, besser zu spielen, nicht perfekt zu sein |
 | **Slogan**              | *„Train smart. Play par.“*                                                                             | kurz, rhythmisch, motivierend                                              |
 | **Alternative Slogans** | - *„From practice to Par.“*  <br> - *„Every swing counts.“*  <br> - *„Golf smarter, not harder.“*      |                                                                            |
 | **Logo-Idee**           | minimalistisches **P** mit integriertem Golfball / Schwungbogen → modern & klar                        |                                                                            |
 | **Tonfall**             | freundlich, sportlich, leicht augenzwinkernd (ähnlich wie „handycap“)                                  |                                                                            |
-| **App-Voice**           | positiv, aber nicht übermotiviert („Let’s roll some putts!“, „Nice session – one step closer to Par!“) |                                                                            |
+| **App-Voice**           | positiv, aber nicht übermotiviert („Let’s roll some putts!“, „Nice session - one step closer to Par!“) |                                                                            |
 
 ---
 
@@ -17,11 +17,11 @@
 
 | Farbe                 | Hex       | Bedeutung                                                |
 | --------------------- | --------- | -------------------------------------------------------- |
-| **Fairway Green**     | `#2F7A52` | zentrales Marken-Grün – naturverbunden, ruhig, sportlich |
+| **Fairway Green**     | `#2F7A52` | zentrales Marken-Grün - naturverbunden, ruhig, sportlich |
 | **Sand Bunker Beige** | `#E8DCC4` | weiche Akzentfarbe für Hintergründe & Karten             |
 | **Sky Blue**          | `#A7D8FF` | Frische und Leichtigkeit (Akzent für Buttons / Chips)    |
 | **Iron Grey**         | `#444C56` | Textfarbe für Kontrast und Eleganz                       |
-| **Pure White**        | `#FFFFFF` | Klarheit, Leichtigkeit – Haupt-Background                |
+| **Pure White**        | `#FFFFFF` | Klarheit, Leichtigkeit - Haupt-Background                |
 
 **Tipp für Theme:**
 Dark Mode → invertiert `Fairway Green` ↔ `Bunker Beige`, `Iron Grey` wird hellgrau.
@@ -30,7 +30,7 @@ Dark Mode → invertiert `Fairway Green` ↔ `Bunker Beige`, `Iron Grey` wird he
 
 ### ✨ Typografie
 
-* **Primary Font:** [Poppins](https://fonts.google.com/specimen/Poppins) – modern, freundlich, geometrisch
+* **Primary Font:** [Poppins](https://fonts.google.com/specimen/Poppins) - modern, freundlich, geometrisch
 * **Alternative (neutraler):** Inter
 * Headings: *SemiBold*, Buttons: *Uppercase*, Body: *Regular*
 
@@ -54,14 +54,14 @@ Dark Mode → invertiert `Fairway Green` ↔ `Bunker Beige`, `Iron Grey` wird he
 ## 🧠 **App-Identity / Story**
 
 > **ParFormance** ist dein smarter Trainingspartner für’s Golfspiel.
-> Statt „Drill um Drill“ einfach stumpf abzuarbeiten, geht’s um bewusste, spielnahe Übung – mit Spaß, Zufall und Feedback.
-> Jede Session bringt dich näher an dein Ziel: **Par – deine persönliche Performance.**
+> Statt „Drill um Drill“ einfach stumpf abzuarbeiten, geht’s um bewusste, spielnahe Übung - mit Spaß, Zufall und Feedback.
+> Jede Session bringt dich näher an dein Ziel: **Par - deine persönliche Performance.**
 
 💬 Kurztext für App Store:
 
 > *Train smart. Play par.*
 > Mit ParFormance machst du aus jeder Einheit ein Spiel: zufällige Drills, klare Ziele, messbare Fortschritte.
-> Von Putting über Chipping bis Driving – deine Routine, dein Rhythmus, dein Par.
+> Von Putting über Chipping bis Driving - deine Routine, dein Rhythmus, dein Par.
 
 ---
 

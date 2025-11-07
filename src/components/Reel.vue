@@ -77,7 +77,7 @@ async function spin() {
     const frame = (now: number) => {
         const t = Math.min(1, (now - start) / duration)
         const eased = easeOutCubic(t)
-        // zusätzliche “Inertia”: 2–4 volle Umdrehungen
+        // zusätzliche “Inertia”: 2-4 volle Umdrehungen
         const inertia = (rowH * items.length) * (2 + Math.floor(Math.random() * 3))
         const y = startY + eased * (targetY - startY - inertia)
         el.style.transform = `translateY(${y % -totalH}px)`

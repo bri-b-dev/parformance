@@ -36,6 +36,8 @@ const listRef = ref<HTMLUListElement | null>(null)
 
 // Einheitliche Höhe per CSS-Var (Default 48px)
 const rowH = 48
+// How many pixels should peek above/below the center row (partial visibility)
+const peekPx = 20
 const repetitions = 10
 const baseItems = computed(() => (props.items.length ? props.items : ['—']))
 const looped = computed(() => Array.from({ length: repetitions }).flatMap(() => baseItems.value))
@@ -56,7 +58,8 @@ async function spin() {
 
     // Reset
     el.style.transition = 'none'
-    el.style.transform = 'translateY(0px)'
+    // position list so the center item is aligned to the viewport center (peek above/below)
+    el.style.transform = `translateY(${peekPx}px)`
     await nextTick()
 
     const totalRows = looped.value.length
@@ -72,21 +75,24 @@ async function spin() {
     const duration = pickDuration()
 
     const start = performance.now()
-    const startY = 0
+    const startY = peekPx
 
     const frame = (now: number) => {
         const t = Math.min(1, (now - start) / duration)
         const eased = easeOutCubic(t)
         // zusätzliche “Inertia”: 2-4 volle Umdrehungen
         const inertia = (rowH * items.length) * (2 + Math.floor(Math.random() * 3))
-        const y = startY + eased * (targetY - startY - inertia)
+        // shift target so that the chosen item aligns to the center offset
+        const targetYAdj = targetY + peekPx
+        const y = startY + eased * (targetYAdj - startY - inertia)
         el.style.transform = `translateY(${y % -totalH}px)`
         if (t < 1) requestAnimationFrame(frame)
         else {
             const snapY = Math.round((y % -totalH) / rowH) * rowH
             const rawIndex = Math.abs(snapY / rowH) % (items.length || 1)
             const finalIndex = targetIdxInItems >= 0 ? targetIdxInItems : rawIndex
-            const normalizedY = -(finalIndex * rowH)
+            // ensure final placement keeps the chosen item centered (account for peek)
+            const normalizedY = -(finalIndex * rowH) + peekPx
             el.style.transform = `translateY(${normalizedY}px)`
             const value = (items[finalIndex] ?? '—')
             emit('stopped', value)
@@ -100,14 +106,18 @@ watch(() => props.spinTrigger, () => { spin() })
 
 <style scoped>
 .reel-label {
-    @apply text-xs font-semibold text-zinc-500 mb-2;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: .5rem;
 }
 
 /* Ein-Zeilen-Viewport (48px) + Rahmen/Bevel */
 .reel-viewport {
     --row: 48px;
+    --peek: 20px;
     position: relative;
-    height: var(--row);
+    height: calc(var(--row) + (var(--peek) * 2));
     overflow: hidden;
     border-radius: 14px;
     /* Use theme-aware surface/background variables for light/dark support */
@@ -139,14 +149,16 @@ watch(() => props.spinTrigger, () => { spin() })
 .reel-item {
     height: var(--row);
     line-height: var(--row);
-    font-size: 1.06rem;
+    /* responsive font-size so long drill titles fit */
+    font-size: clamp(0.78rem, 1.6vw, 1rem);
     font-weight: 600;
     text-align: center;
     color: var(--text, #444C56);
-    padding: 0 12px;
+    padding: 0 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 /* sanfter Fade oben/unten */

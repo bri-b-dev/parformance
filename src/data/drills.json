@@ -3686,7 +3686,7 @@
   },
   {
     "id": "putting_ladder_distance_control",
-    "title": "Ladder Putting - Distanzkontrolle",
+    "title": "Ladder Putting",
     "category": "Putting",
     "equipment": {
       "balls": 5,
@@ -3753,7 +3753,7 @@
   },
   {
     "id": "putting_star_pressure_20",
-    "title": "Star Drill - Druck aus 4 Richtungen",
+    "title": "Star Drill",
     "category": "Putting",
     "equipment": {
       "balls": 1,
@@ -3818,7 +3818,7 @@
   },
   {
     "id": "putting_pace_stop_zone",
-    "title": "Pace Stop-Zone - 30 cm hinter dem Loch",
+    "title": "Pace Stop-Zone",
     "category": "Putting",
     "equipment": {
       "balls": 5,
@@ -3883,7 +3883,7 @@
   },
   {
     "id": "chipping_landing_spot_5x10",
-    "title": "Chipping Landing-Spot - 5 Ziele à 10 Bälle",
+    "title": "Chipping Landing-Spot",
     "category": "Chipping",
     "equipment": {
       "balls": 10,
@@ -3951,7 +3951,7 @@
   },
   {
     "id": "chipping_up_and_down_9_balls",
-    "title": "Up-and-Down Challenge - 9 Bälle",
+    "title": "Up-and-Down Challenge",
     "category": "Chipping",
     "equipment": {
       "balls": 9,
@@ -4019,7 +4019,7 @@
   },
   {
     "id": "pitching_9_box_distance_grid",
-    "title": "9-Box Pitch Grid - Carrykontrolle",
+    "title": "9-Box Pitch Grid",
     "category": "Pitching",
     "equipment": {
       "balls": 9,
@@ -4086,7 +4086,7 @@
   },
   {
     "id": "bunker_target_circle_12",
-    "title": "Bunker Target Circle - 12 Versuche",
+    "title": "Bunker Target Circle",
     "category": "Bunker",
     "equipment": {
       "balls": 12,
@@ -4151,7 +4151,7 @@
   },
   {
     "id": "lag_putting_5_min_sprint",
-    "title": "Lag Putting Sprint - 5 Minuten",
+    "title": "Lag Putting Sprint",
     "category": "Putting",
     "equipment": {
       "balls": 3,
@@ -4218,7 +4218,7 @@
   },
   {
     "id": "short_game_par18",
-    "title": "Short-Game Par-18 - 9 Stationen",
+    "title": "Short-Game Par-18",
     "category": "Chipping",
     "equipment": {
       "balls": 9,
@@ -4286,7 +4286,7 @@
   },
   {
     "id": "wedge_ladder_50_70_90",
-    "title": "Wedge Ladder - 50/70/90 m",
+    "title": "Wedge Ladder",
     "category": "Pitching",
     "equipment": {
       "balls": 9,
@@ -4354,7 +4354,7 @@
   },
   {
     "id": "bunker_updown_6_ball_par12",
-    "title": "Bunker Up-and-Down - 6 Bälle Par-12",
+    "title": "Bunker Up-and-Down",
     "category": "Bunker",
     "equipment": {
       "balls": 6,

@@ -26,12 +26,12 @@
 
   <!-- Positionen -->
   <g class="positions">
-    <circle cx="330" cy="210" r="5" class="tee"/>
-    <circle cx="210" cy="210" r="5" class="tee"/>
+    <circle cx="440" cy="210" r="5" class="tee"/>
+    <circle cx="280" cy="210" r="5" class="tee"/>
     <circle cx="120" cy="210" r="5" class="tee"/>
-    <text x="120" y="190" class="label">1 (90 cm)</text>
-    <text x="210" y="190" class="label">2 (180 cm)</text>
-    <text x="330" y="190" class="label">3 (270 cm)</text>
+    <text x="440" y="190" class="label">1 (90 cm)</text>
+    <text x="280" y="190" class="label">2 (180 cm)</text>
+    <text x="120" y="190" class="label">3 (270 cm)</text>
   </g>
 
   <!-- Zielpfeil -->

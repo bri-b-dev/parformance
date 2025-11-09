@@ -46,8 +46,8 @@
     --cat-sweetspot: #d0dc8c;
     --cat-tempo: #dc8c8c;
     /* Danger (used for reset/danger zones) */
-    --danger: #dc2626; /* red-600 — stronger red */
-    --danger-600: #ef4444; /* red-500 — highlight */
+    --danger: #dc2626; /* red-600 - stronger red */
+    --danger-600: #ef4444; /* red-500 - highlight */
 }
 
 :root[data-theme="dark"] {

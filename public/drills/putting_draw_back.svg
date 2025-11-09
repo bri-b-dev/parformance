@@ -37,10 +37,10 @@
   <line x1="120" y1="210" x2="540" y2="210" class="arrow"/>
 
   <!-- Labels -->
-  <text x="160" y="190" class="label">1 m</text>
-  <text x="260" y="190" class="label">2 m</text>
-  <text x="360" y="190" class="label">4 m</text>
-  <text x="460" y="190" class="label">6 m</text>
+  <text x="160" y="190" class="label">6 m</text>
+  <text x="260" y="190" class="label">4 m</text>
+  <text x="360" y="190" class="label">2 m</text>
+  <text x="460" y="190" class="label">1 m</text>
 
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">

@@ -27,8 +27,8 @@
   <path d="M601,160 l24,8 l-24,8 z" class="flag"/>
 
   <!-- Distanzen -->
-  <text x="200" y="190" class="label">5 m</text>
-  <text x="400" y="190" class="label">10 m</text>
+  <text x="200" y="190" class="label">10 m</text>
+  <text x="400" y="190" class="label">5 m</text>
 
   <!-- Tees -->
   <circle cx="200" cy="210" r="4" class="tee"/>

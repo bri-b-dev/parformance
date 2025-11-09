@@ -15,7 +15,7 @@
   <path d="M180,340 Q300,220 510,150" class="path path-easy"/>
   <circle cx="180" cy="340" r="8" fill="var(--accent-sky)"/>
   <circle cx="510" cy="150" r="6" fill="var(--accent-sky)"/>
-  <text x="160" y="360" class="muted">80 %</text>
+  <text x="520" y="150" class="muted">80 %</text>
 
   <!-- Full Swing -->
   <path d="M180,340 Q340,200 550,120" class="path path-long"/>

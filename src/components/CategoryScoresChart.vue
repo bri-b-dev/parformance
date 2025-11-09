@@ -160,6 +160,6 @@ const srSummary = computed(() => {
   if (categories.value.length === 0) return 'Keine Kategorien vorhanden.'
   const parts = categories.value.map((c, i) => `${c}: ${values.value[i]} Prozent`)
   const weak = weakestIndex.value >= 0 ? categories.value[weakestIndex.value] : null
-  return `Fähigkeiten je Kategorie. ${parts.join(', ')}. Schwächste Kategorie: ${weak ?? '—'}.`
+  return `Fähigkeiten je Kategorie. ${parts.join(', ')}. Schwächste Kategorie: ${weak ?? '-'}.`
 })
 </script>

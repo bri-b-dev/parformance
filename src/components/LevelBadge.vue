@@ -4,7 +4,7 @@
       Level {{ level }}
     </template>
     <template v-else>
-      Level —
+      Level -
     </template>
   </span>
 </template>
@@ -56,7 +56,7 @@ const tooltip = computed(() => {
       return Number.isFinite(numeric) ? `L${idx + 1} ${numeric}` : null
     })
     .filter(Boolean) as string[]
-  return parts.length ? `HCP ${label}: ${parts.join(', ')}` : `HCP ${label}: —`
+  return parts.length ? `HCP ${label}: ${parts.join(', ')}` : `HCP ${label}: -`
 })
 
 const ariaLabel = computed(() => level.value ? `Level erreicht: ${level.value}` : 'Kein Level ermittelt')

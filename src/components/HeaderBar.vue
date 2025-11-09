@@ -7,7 +7,7 @@
                     <img src="/logo-header.svg" alt="ParFormance" class="logo" />
                     <div style="display:flex; flex-direction:column; min-width:0">
                         <span>ParFormance</span>
-                        <small class="tagline" style="display:block;">Train smarter — play better</small>
+                        <small class="tagline" style="display:block;">Train smarter - play better</small>
                     </div>
                 </div>
 

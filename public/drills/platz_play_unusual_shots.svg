@@ -18,9 +18,9 @@
 
   <!-- Ungewöhnliche Linien -->
   <path d="M180,340 Q280,260 520,160" class="alt"/>
+  <text x="340" y="160" class="muted">Hybrid</text>
   <path d="M180,340 Q400,180 520,100" class="alt"/>
-  <text x="260" y="300" class="muted">Eisen 7</text>
-  <text x="460" y="180" class="muted">Hybrid</text>
+  <text x="460" y="180" class="muted">Eisen 7</text>
 
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">

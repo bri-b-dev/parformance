@@ -39,7 +39,7 @@ const rowH = 48
 // How many pixels should peek above/below the center row (partial visibility)
 const peekPx = 20
 const repetitions = 10
-const baseItems = computed(() => (props.items.length ? props.items : ['—']))
+const baseItems = computed(() => (props.items.length ? props.items : ['-']))
 const looped = computed(() => Array.from({ length: repetitions }).flatMap(() => baseItems.value))
 
 function easeOutCubic(t: number) { return 1 - Math.pow(1 - t, 3) }
@@ -94,7 +94,7 @@ async function spin() {
             // ensure final placement keeps the chosen item centered (account for peek)
             const normalizedY = -(finalIndex * rowH) + peekPx
             el.style.transform = `translateY(${normalizedY}px)`
-            const value = (items[finalIndex] ?? '—')
+            const value = (items[finalIndex] ?? '-')
             emit('stopped', value)
         }
     }

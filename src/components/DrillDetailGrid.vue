@@ -25,8 +25,12 @@
             <template v-if="hasInstructions">
                 <div class="hr" style="margin:10px 0;"></div>
                 <div style="margin-top:10px;">
-                    <template v-if="drill.instructions.test">
+                    <template v-if="drill.instructions.training">
                         <strong class="muted">Ablauf</strong>
+                        <p class="muted">{{ drill.instructions.training }}</p>
+                    </template>
+                    <template v-if="drill.instructions.test">
+                        <strong class="muted">Ergebnis</strong>
                         <p class="muted">{{ drill.instructions.test }}</p>
                     </template>
                     <template v-if="drill.instructions.tooEasy">
@@ -62,11 +66,11 @@ const otherLabel = computed(() => {
 
 const hasInstructions = computed(() => {
     const ins = props.drill.instructions as any
-    return Boolean(ins && (ins.test || ins.tooEasy))
+    return Boolean(ins && (ins.test || ins.tooEasy || ins.training))
 })
 
-const locationLabel = computed(() => props.drill.setup?.location?.trim() || '—')
-const schemaLabel = computed(() => props.drill.setup?.schema?.trim() || '—')
+const locationLabel = computed(() => props.drill.setup?.location?.trim() || '-')
+const schemaLabel = computed(() => props.drill.setup?.schema?.trim() || '-')
 </script>
 
 <style scoped>

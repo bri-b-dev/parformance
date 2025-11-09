@@ -30,12 +30,12 @@
     },
     "instructions": {
       "training": "Versuche, so viele Putts wie möglich in die Comfort Zone zu legen oder zu lochen. Du beginnst bei 4 Metern und spielst die Bälle in aufsteigender Reihenfolge. Hast du den 12-Meter-Putt erfolgreich absolviert, startest du wieder bei 4 Metern. Misslingt ein Putt, ist die Serie beendet und du beginnst bei 4 Metern erneut.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie (gelocht oder in der Comfort Zone). Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
       "tooEasy": "Dann verkleinere doch die Comfort Zone oder such dir ein Loch mit Break!"
     },
     "metric": {
       "type": "streak",
-      "unit": "längste Serie (Putts in Folge in die Comfort Zone oder gelocht)",
+      "unit": "längste Serie",
       "hcpTargets": {
         "54-45": [
           3,
@@ -102,12 +102,12 @@
     },
     "instructions": {
       "training": "Beginne mit dem kürzesten Putt auf einer Seite. Nachdem du gelocht hast, spielst du den kürzesten Putt auf der anderen Seite und wechselst nach jedem gelochten Putt die Seite. Du setzt dies fort, solange du alle Bälle lochst. Verpasst du einen Putt, beginnst du von vorne.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie abwechselnd gelochter Putts von links und rechts. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
       "tooEasy": "Dann such dir ein Loch mit noch mehr Break oder erhöhe die Anzahl der Tees (3,5; 4; 4,5 und 5 Meter)."
     },
     "metric": {
       "type": "streak",
-      "unit": "längste Serie (abwechselnd gelochte Putts von links und rechts)",
+      "unit": "längste Serie",
       "hcpTargets": {
         "54-45": [
           1,
@@ -908,12 +908,12 @@
     },
     "instructions": {
       "training": "Ziel ist es, abwechselnd die jeweiligen Carry Zonen von kurz nach lang im Flug zu treffen. Wo der Ball letztendlich liegen bleibt, spielt keine Rolle. Die Wahl des Schlägers ist frei. Deine längste Serie zählt.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Treffern in Carry-Zonen von kurz nach lang. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
       "tooEasy": "Dann wechsle nach jedem Schlag den Schläger, mache die Carry Zone kleiner oder vergrößere den Abstand zum ersten Schläger."
     },
     "metric": {
       "type": "streak",
-      "unit": "längste Serie (Treffer in Carry-Zonen von kurz nach lang)",
+      "unit": "längste Serie",
       "hcpTargets": {
         "54-45": [
           2,
@@ -979,12 +979,12 @@
     },
     "instructions": {
       "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere beide Situationen abwechselnd.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für beide Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Treffern im Zielbereich bei 13,5 m und 27 m. Es gibt jeweils einen Test für beide Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
       "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Rough."
     },
     "metric": {
       "type": "streak",
-      "unit": "längste Serie (Treffer im Zielbereich bei 13,5 m und 27 m)",
+      "unit": "längste Serie",
       "hcpTargets": {
         "54-45": [
           1,
@@ -1050,12 +1050,12 @@
     },
     "instructions": {
       "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere beide Situationen abwechselnd.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für beide Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Treffern im Zielbereich bei 45 m und 60 m. Es gibt jeweils einen Test für beide Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
       "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Rough."
     },
     "metric": {
       "type": "streak",
-      "unit": "längste Serie (Treffer im Zielbereich bei 45 m und 60 m)",
+      "unit": "längste Serie",
       "hcpTargets": {
         "54-45": [
           1,
@@ -1122,12 +1122,12 @@
     },
     "instructions": {
       "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere alle Situationen abwechselnd.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für alle Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Treffern im Zielbereich aus 7, 13 und 20 m. Es gibt jeweils einen Test für alle Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
       "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Bunker (Ball eingebohren, wenig Sand, harter Sand)."
     },
     "metric": {
       "type": "streak",
-      "unit": "längste Serie (Treffer im Zielbereich aus 7, 13 und 20 m)",
+      "unit": "längste Serie",
       "hcpTargets": {
         "54-45": [
           1,
@@ -1637,12 +1637,12 @@
     },
     "instructions": {
       "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der dein Ball den Zielkorridor trifft und mindestens 80 % deiner maximalen Schlaglänge erreicht. Üblicherweise wird der Driver verwendet. Falls du noch keinen benutzt, nimm deinen üblichen Schläger für Abschläge.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Fairwaytreffern. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Fairwaytreffern mit ≥ 80 % Schlaglänge. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
       "tooEasy": "Dann versuche es mit einem schmaleren Korridor!"
     },
     "metric": {
       "type": "streak",
-      "unit": "längste Serie (Fairwaytreffer mit ≥ 80 % Schlaglänge)",
+      "unit": "längste Serie",
       "hcpTargets": {
         "54-45": [
           1,
@@ -1714,12 +1714,12 @@
     },
     "instructions": {
       "training": "Schlage aufsteigend mit deinen Schlägern vom Pitching Wedge bis zum Eisen 5 (alternativ auch Hybrid oder Fairwayholz). Wenn du den höchsten Schläger erreicht hast, fängst du wieder beim Pitching Wedge an. Ziel ist es, eine Höchstserie zu schaffen. Die Serie wird unterbrochen, wenn ein Schlag die maximale Abweichung überschreitet, und du musst wieder bei null beginnen.",
-      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Schlägen innerhalb zulässiger Abweichung. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
       "tooEasy": "Dann versuche es aus Hanglagen oder mit schlechteren Balllagen!"
     },
     "metric": {
       "type": "streak",
-      "unit": "längste Serie (Schläge innerhalb zulässiger Abweichung)",
+      "unit": "längste Serie",
       "hcpTargets": {
         "54-45": [
           1,

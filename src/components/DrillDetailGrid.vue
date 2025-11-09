@@ -85,4 +85,9 @@ const schemaLabel = computed(() => props.drill.setup?.schema?.trim() || '—')
     flex-wrap: wrap;
     gap: 6px;
 }
+
+/* Ensure muted labels/paras inside this detail grid render at a consistent size */
+.section .muted {
+    font-size: 14px;
+}
 </style>

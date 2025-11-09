@@ -27,9 +27,19 @@ async function load() {
     const res = await fetch(new URL(src.value, location.href).href, { cache: 'no-cache' })
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     const ct = res.headers.get('content-type') || ''
-    const text = await res.text()
+    let text = await res.text()
     // Sicherheit: only accept true SVG responses (Vite will return index.html on unknown paths)
     if (ct.includes('text/html') || !text.trim().startsWith('<svg')) throw new Error('Kein SVG (received HTML or invalid content)')
+
+    // Sanitize: some SVGs include global class rules like `.muted { ... }` which
+    // accidentally leak into the document and override app styles. Namespace those
+    // rules so they only apply inside the diagram container.
+    if (text.includes('.muted')) {
+      // handle both `.muted {` and `.muted{` variants
+      text = text.replaceAll('.muted {', '.schema-diagram .muted{')
+      text = text.replaceAll('.muted{', '.schema-diagram .muted{')
+    }
+
     svg.value = text
   } catch (e) {
     svg.value = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160">
@@ -62,12 +72,19 @@ watch(src, load);
 .schema-diagram :where(svg) {
   display: block;
   width: 100%;
-  max-width: 680px;
+  /* allow the SVG to fill the diagram container; the outer drill card already
+     constrains the overall max-width (720px). Prevent a separate 680px cap
+     that makes some diagrams appear narrower than the card. */
+  max-width: 100%;
   height: auto;
   border-radius: 14px;
   background: var(--surface);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
+}
+
+.schema-diagram {
+  width: 100%;
 }
 
 .schema-fallback {

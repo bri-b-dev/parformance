@@ -4086,7 +4086,7 @@
   },
   {
     "id": "bunker_target_circle_12",
-    "title": "Bunker Target Circle",
+    "title": "Target Circle",
     "category": "Bunker",
     "equipment": {
       "balls": 12,
@@ -4354,7 +4354,7 @@
   },
   {
     "id": "bunker_updown_6_ball_par12",
-    "title": "Bunker Up-and-Down",
+    "title": "Up-and-Down",
     "category": "Bunker",
     "equipment": {
       "balls": 6,

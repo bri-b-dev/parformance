@@ -74,9 +74,15 @@ const drill = computed(() => catalog.drills.find(d => d.id === id.value))
 }
 
 .drill-detail-view > :deep(*) {
-  width: 100%;
-  /* Keep a responsive max width: never exceed 720px but leave symmetric gutters on small screens */
-  max-width: min(720px, calc(100vw - 32px));
+  /* Make the wrapper's used width deterministic and include padding in the
+     box-sizing so measurements reflect the visible outer size. We compute
+     a responsive width and cap it with a max-width. Using an explicit
+     width + max-width (instead of min()) reduces ambiguity when measuring
+     via offsetWidth/clientWidth vs computed style. */
+  box-sizing: border-box;
+  /* Start from the viewport minus symmetric gutters (32px), but never exceed 720px */
+  width: calc(100vw - 32px);
+  max-width: 720px;
   margin: 0 auto;
   /* Symmetric internal gutter so content appears centered on narrow viewports */
   padding-inline: 16px;

@@ -22,14 +22,19 @@
             <strong class="muted">Schematische Darstellung</strong>
             <DrillSchema :diagram="drill.setup.diagram" />
 
-            <div class="hr" style="margin:10px 0;"></div>
-            <div style="margin-top:10px;">
-                <p v-if="drill.instructions.test" class="muted"><strong>Ablauf</strong>
-                    {{ drill.instructions.test }}</p>
-                <p v-if="drill.instructions.tooEasy" class="muted">
-                    <strong>Zu leicht?</strong> {{ drill.instructions.tooEasy }}
-                </p>
-            </div>
+            <template v-if="hasInstructions">
+                <div class="hr" style="margin:10px 0;"></div>
+                <div style="margin-top:10px;">
+                    <template v-if="drill.instructions.test">
+                        <strong class="muted">Ablauf</strong>
+                        <p class="muted">{{ drill.instructions.test }}</p>
+                    </template>
+                    <template v-if="drill.instructions.tooEasy">
+                        <strong class="muted">Zu leicht?</strong>
+                        <p class="muted">{{ drill.instructions.tooEasy }}</p>
+                    </template>
+                </div>
+            </template>
         </div>
     </fieldset>
 </template>
@@ -42,17 +47,22 @@ import { computed } from 'vue';
 const props = defineProps<{ drill: Drill }>()
 
 const clubsLabel = computed(() => {
-    const clubs = props.drill.equipment?.clubs
+    const clubs = props.drill.equipment?.clubs as any
     if (Array.isArray(clubs)) return clubs.join(', ')
     if (typeof clubs === 'string') return clubs.trim()
     return ''
 })
 
 const otherLabel = computed(() => {
-    const other = props.drill.equipment?.other
+    const other = props.drill.equipment?.other as any
     if (Array.isArray(other)) return other.join(', ')
     if (typeof other === 'string') return other.trim()
     return ''
+})
+
+const hasInstructions = computed(() => {
+    const ins = props.drill.instructions as any
+    return Boolean(ins && (ins.test || ins.tooEasy))
 })
 
 const locationLabel = computed(() => props.drill.setup?.location?.trim() || '—')

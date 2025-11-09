@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Bunker Target Circle – 12 Bälle aus dem Grünbunker, Zielkreis 2 m um das Loch und optionaler 1 m Bonuskreis">
+  <title>Bunker Target Circle – 12 Bälle, 2-m Zielkreis, 1-m Bonus</title>
+
+  <style>
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .4; fill: none; }
+
+    .bunker { fill: var(--accent-beige); stroke: var(--accent-iron); opacity: .8; }
+    .lip { stroke: var(--accent-iron); stroke-width: 2; fill: none; }
+    .green { fill: var(--accent-green); opacity: .15; stroke: var(--accent-green); stroke-opacity: .4; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.5; }
+    .flag { fill: var(--primary); }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.5; }
+
+    .target-2m { stroke: var(--primary); stroke-opacity: .5; stroke-dasharray: 8 8; stroke-width: 2; fill: none; }
+    .target-1m { stroke: var(--primary); stroke-width: 2.5; stroke-dasharray: 4 6; fill: none; }
+
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .trajectory { stroke: var(--accent-sky); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .85; }
+
+    .arrowhead { fill: var(--accent-sky); }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Orientierungslinien -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Grün -->
+  <ellipse class="green" cx="540" cy="200" rx="150" ry="110"/>
+
+  <!-- Loch + Fahne -->
+  <circle class="hole" cx="560" cy="190" r="10"/>
+  <path class="pin" d="M560 110v80"/>
+  <path class="flag" d="M560 110 l40 14 l-40 14 z"/>
+
+  <!-- Zielkreise -->
+  <circle class="target-2m" cx="560" cy="190" r="54"/>
+  <circle class="target-1m" cx="560" cy="190" r="28"/>
+  <text class="label" x="560" y="190" text-anchor="middle" dy="-62">2 m</text>
+  <text class="label" x="560" y="190" text-anchor="middle" dy="-34">1 m Bonus</text>
+
+  <!-- Bunker -->
+  <path class="bunker" d="M60,270
+     C60,200 130,150 210,150
+     C250,150 280,160 310,185
+     C330,200 340,230 340,260
+     C340,310 300,340 240,350
+     C180,360 120,340 90,320
+     C70,305 60,290 60,270 z"/>
+  <path class="lip" d="M90,220 C150,180 240,175 300,210"/>
+
+  <!-- 12 Bälle -->
+  <g>
+    <circle class="ball" cx="120" cy="260" r="7"/>
+    <circle class="ball" cx="145" cy="250" r="7"/>
+    <circle class="ball" cx="170" cy="255" r="7"/>
+    <circle class="ball" cx="195" cy="247" r="7"/>
+    <circle class="ball" cx="135" cy="280" r="7"/>
+    <circle class="ball" cx="162" cy="272" r="7"/>
+    <circle class="ball" cx="188" cy="286" r="7"/>
+    <circle class="ball" cx="214" cy="270" r="7"/>
+    <circle class="ball" cx="128" cy="305" r="7"/>
+    <circle class="ball" cx="156" cy="300" r="7"/>
+    <circle class="ball" cx="184" cy="312" r="7"/>
+    <circle class="ball" cx="212" cy="298" r="7"/>
+  </g>
+
+  <!-- Flugbahn -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrowhead" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+  <path class="trajectory" d="M170 255 C260 180, 420 160, 560 190" marker-end="url(#arrow)"/>
+</svg>

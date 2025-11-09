@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Pace Stop-Zone – Putte von 6 m, 9 m, 12 m. Treffer: gelocht oder Stop 0–30 cm hinter dem Loch.">
+  <title>Pace Stop-Zone – 6/9/12 m • 30-cm Band</title>
+
+  <style>
+    /* Theme-first styling (uses theme.css variables) */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .3; fill: none; }
+
+    .green  { fill: var(--accent-green); opacity: .18; stroke: var(--accent-green); stroke-opacity: .45; }
+    .fringe { fill: var(--accent-green); opacity: .12; stroke: var(--accent-green); stroke-opacity: .3; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.4; }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.2; }
+    .flag { fill: var(--primary); }
+
+    /* 30 cm stop band behind the hole (symbolic: 1 m ~ 26 px, so 0.3 m ~ 8 px) */
+    .stop30 { fill: none; stroke: var(--primary); stroke-dasharray: 6 8; opacity: .9; }
+    .stop30-fill { fill: var(--primary); opacity: .08; stroke: var(--primary); stroke-dasharray: 6 8; }
+
+    .marker-line { stroke: var(--border); stroke-dasharray: 3 6; }
+    .marker-dot  { fill: var(--surface); stroke: var(--accent-iron); }
+    .marker-label{ fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .putt { stroke: var(--primary); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .arrow { fill: var(--primary); }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+  </style>
+
+  <!-- Panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Putting Green -->
+  <ellipse class="green" cx="420" cy="210" rx="240" ry="150"/>
+  <path class="fringe" d="M180,210 q120,-90 240,0 q-120,90 -240,0 z"/>
+
+  <!-- Hole -->
+  <circle class="hole" cx="560" cy="210" r="8"/>
+  <path class="pin" d="M560 150v60"/>
+  <path class="flag" d="M560 150 l34 10 l-34 10 z"/>
+
+  <!-- 30-cm Stop-Zone behind the hole (rect band to the right) -->
+  <!-- symbolic depth = 8 px, height = 28 px -->
+  <rect class="stop30-fill" x="560" y="196" width="8" height="28" rx="4"/>
+  <rect class="stop30" x="560" y="196" width="8" height="28" rx="4"/>
+  <text class="label" x="564" y="190" text-anchor="middle">0–30 cm</text>
+
+  <!-- Baseline -->
+  <path class="marker-line" d="M160 210 H560"/>
+
+  <!-- Start markers at 6 m, 9 m, 12 m (based on mapping 1 m ≈ 26 px) -->
+  <g id="markers">
+    <g transform="translate(400 210)">
+      <circle class="marker-dot" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">6 m</text>
+    </g>
+    <g transform="translate(320 210)">
+      <circle class="marker-dot" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">9 m</text>
+    </g>
+    <g transform="translate(240 210)">
+      <circle class="marker-dot" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">12 m</text>
+    </g>
+  </g>
+
+  <!-- 5 balls near current distance (example at 9 m) -->
+  <g id="start-balls">
+    <circle class="ball" cx="320" cy="196" r="5"/>
+    <circle class="ball" cx="310" cy="206" r="5"/>
+    <circle class="ball" cx="325" cy="214" r="5"/>
+    <circle class="ball" cx="305" cy="192" r="5"/>
+    <circle class="ball" cx="315" cy="224" r="5"/>
+    <text class="label" x="320" y="242" text-anchor="middle">5 Bälle je Distanz</text>
+  </g>
+
+  <!-- Sample putt path finishing in the stop band -->
+  <defs>
+    <marker id="m-putt" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+  <path class="putt" d="M320 210 Q440 210, 560 210" marker-end="url(#m-putt)"/>
+</svg>

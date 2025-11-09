@@ -12,22 +12,25 @@ import { computed, onMounted, ref, watch } from "vue";
 const props = defineProps({ diagram: String });
 const svg = ref("");
 
-const src = computed(() =>
-  props.diagram?.startsWith("svg:")
-    ? `/${props.diagram.split(":")[1]}.svg` // <- kein /public hier!
-    : null
-);
+const src = computed(() => {
+  if (!props.diagram?.startsWith("svg:")) return null
+  const part = props.diagram.split(":")[1] || ''
+  // strip leading slashes and avoid double-adding .svg
+  const clean = part.replace(/^\/+/, '')
+  return `/${clean}${clean.toLowerCase().endsWith('.svg') ? '' : '.svg'}`
+})
 
 async function load() {
   svg.value = "";
   if (!src.value) return;
   try {
-    const res = await fetch(src.value, { cache: "force-cache" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    // Sicherheit: nur SVG zulassen
-    if (!text.trim().startsWith("<svg")) throw new Error("Kein SVG");
-    svg.value = text;
+    const res = await fetch(new URL(src.value, location.href).href, { cache: 'no-cache' })
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    const ct = res.headers.get('content-type') || ''
+    const text = await res.text()
+    // Sicherheit: only accept true SVG responses (Vite will return index.html on unknown paths)
+    if (ct.includes('text/html') || !text.trim().startsWith('<svg')) throw new Error('Kein SVG (received HTML or invalid content)')
+    svg.value = text
   } catch (e) {
     svg.value = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160">
       <style>

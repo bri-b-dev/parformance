@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import DrillDetail from '@/components/DrillDetail.vue'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 
 const catalog = useDrillCatalogStore()
@@ -38,6 +38,28 @@ onMounted(async () => {
   if (!catalog.loaded) await catalog.load()
 })
 
+// Ensure we scroll to top when this view is shown or when the drill id changes.
+// Some child components may steal focus later, so run after the next tick.
+onMounted(async () => {
+  await nextTick()
+  const mainEl = globalThis.document?.querySelector('main')
+  if (mainEl && typeof (mainEl as any).scrollTo === 'function') {
+    (mainEl as any).scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  } else if (globalThis.window !== undefined && typeof globalThis.window.scrollTo === 'function') {
+    globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }
+})
+
+watch(id, async () => {
+  await nextTick()
+  const mainEl2 = globalThis.document?.querySelector('main')
+  if (mainEl2 && typeof (mainEl2 as any).scrollTo === 'function') {
+    (mainEl2 as any).scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  } else if (globalThis.window !== undefined && typeof globalThis.window.scrollTo === 'function') {
+    globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }
+})
+
 const drill = computed(() => catalog.drills.find(d => d.id === id.value))
 </script>
 
@@ -45,7 +67,7 @@ const drill = computed(() => catalog.drills.find(d => d.id === id.value))
 .drill-detail-view {
   width: 100%;
   /* Let the outer app container handle horizontal padding; keep only vertical spacing here. */
-  padding: 12px 0 calc(110px + env(safe-area-inset-bottom, 0px));
+  padding: 12px 0 calc(24px + env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
   display: block;
   overflow-x: hidden;

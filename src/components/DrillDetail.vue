@@ -96,6 +96,15 @@ onMounted(async () => {
   if (!favorites.loaded) favorites.load()
   if (!sessions.loaded) await sessions.load()
   if (!settings.loaded) await settings.load()
+  // Ensure the view starts at the top when opening a drill detail.
+  // The app's main element is the scroll container, so scroll that if present.
+  await nextTick()
+  const mainEl = globalThis.document?.querySelector('main')
+  if (mainEl && typeof (mainEl as any).scrollTo === 'function') {
+    (mainEl as any).scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  } else if (globalThis.window !== undefined && typeof globalThis.window.scrollTo === 'function') {
+    globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }
 })
 
 const isFav = computed(() => favorites.isFavorite(props.drill.id))
@@ -175,7 +184,14 @@ function onElapsed(sec: number) {
   margin: 0 auto;
   box-sizing: border-box;
   overflow: hidden;
-  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  /* reduce bottom padding to avoid excessive whitespace while still honoring safe-area */
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  /* Make the detail view grow to fill available viewport so we don't
+     show a large empty area below the card when content is short. The
+     calculation subtracts approximate header + bottom chrome heights. */
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 144px);
 }
 
 /* Allow flex children to shrink on small viewports */

@@ -103,7 +103,7 @@ async function saveAndClose(values: FormModel) {
     if (typeof document !== 'undefined' && document.documentElement) {
       document.documentElement.setAttribute('data-theme', resolved)
     }
-    try { window.dispatchEvent(new CustomEvent('theme-preference-changed', { detail: pref })) } catch {}
+    try { window.dispatchEvent(new CustomEvent('theme-preference-changed', { detail: pref })) } catch { }
   } catch (e) {
     // ignore
   }
@@ -141,10 +141,6 @@ async function downloadJsonNative(filename: string, data: any) {
       directory: Directory.Cache,
     })
 
-  console.debug('Export: wrote file to cache, uri=', uri)
-  // Visible quick feedback for debugging on device
-  showAlert('Export vorbereitet — Datei in Cache geschrieben')
-
     // Share-Sheet öffnen. Neuere Share-Versionen können 'files'
     try {
       // Try files first (preferred on Android when supported)
@@ -158,7 +154,6 @@ async function downloadJsonNative(filename: string, data: any) {
       return
     } catch (errFiles) {
       console.debug('Share.files failed, falling back to url share', errFiles)
-      showAlert('Native Share(files) fehlgeschlagen, versuche Fallback')
     }
 
     // Fallback: try URL via convertFileSrc (works for webview preview / some share impls)
@@ -301,5 +296,19 @@ async function resetAll() {
 .sheet-enter-from,
 .sheet-leave-to {
   opacity: 0;
+}
+
+/* Ensure the right-side settings panel accounts for device safe-area (status bar)
+   so header controls like the "Schließen" button are not hidden on devices
+   where the native status bar overlays the WebView. We add the safe-area
+   inset to the existing top padding (1rem from the `p-4` Tailwind class).
+*/
+.settings-sheet-panel {
+  /* sensible default matching p-4 (1rem) */
+  padding-top: 1rem;
+  /* iOS older constant() syntax fallback */
+  padding-top: calc(1rem + constant(safe-area-inset-top));
+  /* modern env() usage; this will be used on supporting platforms */
+  padding-top: calc(1rem + env(safe-area-inset-top));
 }
 </style>

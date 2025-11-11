@@ -1,7 +1,7 @@
 <template>
     <header
         class="sticky top-0 z-30 bg-app-bg/80 backdrop-blur supports-[backdrop-filter]:bg-app-bg/60 border-b border-zinc-200">
-        <div class="max-w-6xl mx-auto pt-1 px-4 h-18 flex items-center justify-between">
+        <div class="max-w-6xl mx-auto pt-1 px-4 h-18 flex items-center justify-between header-inner">
             <div class="flex items-center gap-3 select-none">
                 <div class="brand" aria-label="ParFormance">
                     <img src="/logo-header.svg" alt="ParFormance" class="logo" />
@@ -51,5 +51,17 @@ defineEmits<{ (e: 'open-settings'): void }>()
 
 .i-lucide-settings::before {
     content: '⚙️';
+}
+</style>
+
+<style scoped>
+.header-inner {
+    /* Provide a safe-area top padding fallback for devices where the status
+         bar overlays the WebView. The plain 'padding-top' provides a sensible
+         default and is overridden by the env() value on supporting platforms. */
+    padding-top: 8px;
+    padding-top: env(safe-area-inset-top);
+    /* iOS older syntax */
+    padding-top: constant(safe-area-inset-top);
 }
 </style>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Around the World - acht Putts rund ums Loch">
+  <style>
+    .panel { fill: var(--surface); }
+    .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
+    .hole { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag { fill: var(--primary); }
+    .circle { stroke: var(--primary); stroke-dasharray: 6 6; fill: none; opacity: 0.9; }
+    .path { stroke: var(--accent-iron); stroke-width: 1; fill: none; opacity: 0.6; }
+    .tee { fill: var(--primary); }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Grün -->
+  <ellipse cx="360" cy="210" rx="230" ry="140" class="green"/>
+
+  <!-- Loch + Flag -->
+  <circle cx="360" cy="210" r="10" class="hole"/>
+  <rect x="358" y="150" width="3" height="60" fill="var(--accent-iron)"/>
+  <path d="M361,150 l30,10 l-30,10 z" class="flag"/>
+
+  <!-- Kreislinie -->
+  <circle cx="360" cy="210" r="90" class="circle"/>
+
+  <!-- 8 Tees (im Kreis) -->
+  <g class="tees">
+    <circle cx="360" cy="120" r="4" class="tee"/>
+    <circle cx="420" cy="130" r="4" class="tee"/>
+    <circle cx="460" cy="170" r="4" class="tee"/>
+    <circle cx="470" cy="230" r="4" class="tee"/>
+    <circle cx="440" cy="280" r="4" class="tee"/>
+    <circle cx="360" cy="300" r="4" class="tee"/>
+    <circle cx="280" cy="280" r="4" class="tee"/>
+    <circle cx="250" cy="230" r="4" class="tee"/>
+  </g>
+
+  <!-- Puttpfad (eine Runde um das Loch) -->
+  <path d="M250 230 Q360 210 470 230" class="path" stroke-dasharray="4 5"/>
+</svg>

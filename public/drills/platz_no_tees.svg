@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="No Tees - Erschwerte Bedingungen">
+  <style>
+    .panel { fill: var(--surface); }
+    .ground { fill: color-mix(in oklab, var(--cat-platz) 10%, var(--surface)); }
+    .tee { fill: none; stroke: var(--accent-iron); stroke-width: 2; stroke-dasharray: 4 4; }
+    .path { stroke: var(--primary); stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <rect width="720" height="420" rx="16" ry="16" class="panel"/>
+  <rect x="100" y="60" width="520" height="300" class="ground"/>
+
+  <!-- Abschlaglinie -->
+  <line x1="180" y1="340" x2="240" y2="340" class="tee"/>
+  <text x="210" y="355" text-anchor="middle" class="muted">kein Tee</text>
+
+  <!-- Ballflug -->
+  <path d="M200,340 Q340,220 540,140" class="path"/>
+  <circle cx="200" cy="340" r="8" fill="var(--accent-iron)"/>
+  <circle cx="540" cy="140" r="6" fill="var(--primary)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

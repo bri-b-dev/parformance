@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Short-Game Par-18 – 9 Stationen rund ums Grün. Jede Station Par-2: Chip/Pitch und Putt.">
+  <title>Short-Game Par-18 – 9 Stationen • Par-2</title>
+
+  <style>
+    /* Theme-first: uses variables from theme.css */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .3; fill: none; }
+
+    .green  { fill: var(--accent-green); opacity: .18; stroke: var(--accent-green); stroke-opacity: .5; }
+    .fringe { fill: var(--accent-green); opacity: .12; stroke: var(--accent-green); stroke-opacity: .35; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.4; }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.2; }
+    .flag { fill: var(--primary); }
+    .gimme { stroke: var(--primary); stroke-dasharray: 6 8; stroke-width: 2; fill: none; opacity: .85; }
+
+    .station { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.2; }
+    .station-label { fill: var(--muted); font: 11px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .badge { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+
+    .chip { stroke: var(--accent-sky); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .putt { stroke: var(--primary);  fill: none; stroke-width: 2; stroke-dasharray: 2 6; opacity: .9; }
+    .arrow-chip { fill: var(--accent-sky); }
+    .arrow-putt { fill: var(--primary); }
+
+    .rough-hatch { stroke: var(--accent-iron); opacity: .6; }
+    .elev { stroke: var(--accent-iron); }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+  </style>
+
+  <!-- Panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Green -->
+  <ellipse class="green" cx="450" cy="210" rx="210" ry="135"/>
+  <path class="fringe" d="M240,210 q120,-90 240,0 q-120,90 -240,0 z"/>
+
+  <!-- Hole + 1 m Gimme (symbolisch ~26 px) -->
+  <circle class="hole" cx="520" cy="205" r="8"/>
+  <path class="pin" d="M520 150v55"/>
+  <path class="flag" d="M520 150 l34 10 l-34 10 z"/>
+  <circle class="gimme" cx="520" cy="205" r="26"/>
+  <text class="label" x="520" y="205" text-anchor="middle" dy="-34">1 m</text>
+
+  <!-- 9 Stations around the green (flat / elevated / rough / bunker-substitute icons) -->
+  <!-- Precomputed positions around a circle centered at 450,210 with radius ~210 -->
+  <g id="stations">
+    <!-- 1: Flat -->
+    <g transform="translate(240 210)">
+      <circle class="station" r="7"/>
+      <text class="station-label" x="0" y="-12" text-anchor="middle">1</text>
+    </g>
+    <!-- 2: Elevated (uphill) -->
+    <g transform="translate(280 130)">
+      <circle class="station" r="7"/>
+      <path class="elev" d="M-8 10 h16" />
+      <path class="elev" d="M-6 8 l6 -6 l6 6" />
+      <text class="station-label" x="0" y="-12" text-anchor="middle">2</text>
+    </g>
+    <!-- 3: Rough -->
+    <g transform="translate(360 90)">
+      <rect class="station" x="-7" y="-7" width="14" height="14" rx="3"/>
+      <path class="rough-hatch" d="M-6 -6 L6 6 M-6 6 L6 -6"/>
+      <text class="station-label" x="0" y="-12" text-anchor="middle">3</text>
+    </g>
+    <!-- 4: Flat -->
+    <g transform="translate(450 75)">
+      <circle class="station" r="7"/>
+      <text class="station-label" x="0" y="-12" text-anchor="middle">4</text>
+    </g>
+    <!-- 5: Elevated -->
+    <g transform="translate(540 90)">
+      <circle class="station" r="7"/>
+      <path class="elev" d="M-8 10 h16" />
+      <path class="elev" d="M-6 8 l6 -6 l6 6" />
+      <text class="station-label" x="0" y="-12" text-anchor="middle">5</text>
+    </g>
+    <!-- 6: Rough -->
+    <g transform="translate(620 130)">
+      <rect class="station" x="-7" y="-7" width="14" height="14" rx="3"/>
+      <path class="rough-hatch" d="M-6 -6 L6 6 M-6 6 L6 -6"/>
+      <text class="station-label" x="0" y="-12" text-anchor="middle">6</text>
+    </g>
+    <!-- 7: Flat -->
+    <g transform="translate(660 210)">
+      <circle class="station" r="7"/>
+      <text class="station-label" x="0" y="-12" text-anchor="middle">7</text>
+    </g>
+    <!-- 8: Bunker substitute (oval) -->
+    <g transform="translate(600 290)">
+      <ellipse class="station" cx="0" cy="0" rx="10" ry="7"/>
+      <text class="station-label" x="0" y="-14" text-anchor="middle">8</text>
+    </g>
+    <!-- 9: Flat -->
+    <g transform="translate(320 310)">
+      <circle class="station" r="7"/>
+      <text class="station-label" x="0" y="-12" text-anchor="middle">9</text>
+    </g>
+  </g>
+
+  <!-- Sample sequences: Station 2 and 8 to the hole, then short putt -->
+  <defs>
+    <marker id="m-chip" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow-chip" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+    <marker id="m-putt" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow-putt" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+
+  <path class="chip" d="M280 130 C360 100, 440 140, 520 205" marker-end="url(#m-chip)"/>
+  <path class="putt" d="M500 205 Q510 205, 520 205" marker-end="url(#m-putt)"/>
+
+  <path class="chip" d="M600 290 C590 250, 560 230, 520 205" marker-end="url(#m-chip)"/>
+  <path class="putt" d="M540 205 Q530 205, 520 205" marker-end="url(#m-putt)"/>
+</svg>

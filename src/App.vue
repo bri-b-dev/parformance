@@ -1,26 +1,43 @@
 <template>
   <div class="app">
-    <header class="app-header">
-      <div class="bar container">
-        <div class="brand">
-          <img src="/logo-header.svg" alt="ParFormance" class="logo" />
-          <span>ParFormance</span>
-        </div>
-        <button class="btn" @click="toggle()" :aria-label="theme==='dark'?'Switch to light':'Switch to dark'">
-          <span v-if="theme==='dark'">🌙</span>
-          <span v-else>☀️</span>
-        </button>
+    <HeaderBar @shuffle="openShuffle" @open-settings="onOpenSettings" />
+
+    <main>
+      <div class="container">
+        <RouterView />
       </div>
-    </header>
-    <main class="container">
-      <RouterView/>
+      <!-- Render the shuffle overlay as a real modal when toggled via the UI store -->
+      <RandomizerView v-if="ui.shuffleOpen" />
     </main>
-    <BottomTabs/>
+
+    <SettingsSheet :open="settingsOpen" @close="settingsOpen = false" />
+    <ShuffleFab />
+    <BottomTabs />
+    <Toasts />
+    <ConfirmModal />
   </div>
 </template>
 <script setup lang="ts">
 import BottomTabs from '@/components/BottomTabs.vue';
-import {useTheme} from '@/composables/useTheme';
+import ShuffleFab from '@/components/ShuffleFab.vue';
+import { useSessionsStore } from '@/stores/sessions';
+import { useUiStore } from '@/stores/ui';
+import RandomizerView from '@/views/RandomizerView.vue';
+import { onMounted, ref } from 'vue';
+import HeaderBar from './components/HeaderBar.vue';
+import SettingsSheet from './components/SettingsSheet.vue'
+import Toasts from './components/Toasts.vue'
+import ConfirmModal from './components/ConfirmModal.vue'
 
-const {theme, toggle} = useTheme();
+const sessions = useSessionsStore()
+const ui = useUiStore()
+
+function openShuffle() { ui.setShuffle(true) }
+
+const settingsOpen = ref(false)
+function onOpenSettings() { settingsOpen.value = true }
+
+onMounted(async () => {
+  if (!sessions.loaded) await sessions.load()
+})
 </script>

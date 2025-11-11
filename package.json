@@ -1,6 +1,6 @@
 {
   "name": "parformance",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -10,16 +10,18 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "echo 'No tests configured yet' && exit 0",
     "lint": "echo 'No linter configured yet' && exit 0",
-    "validate:drills": "node ./scripts/validate-drills.mjs"
+    "validate:drills": "node ./scripts/validate-drills.mjs",
+    "a11y:axe": "node ./scripts/axe-check.mjs"
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^7.0.2",
     "@capacitor/android": "^7.4.3",
     "@capacitor/core": "^7.4.3",
-    "@capacitor/ios": "^7.4.3",
+    "@capacitor/filesystem": "^7.1.4",
     "@capacitor/preferences": "^7.0.2",
+    "@capacitor/share": "^7.0.2",
+    "@capacitor/status-bar": "^7.0.3",
     "@octokit/rest": "^22.0.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.22",
@@ -30,10 +32,15 @@
     "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.4.3",
     "@vitejs/plugin-vue": "^6.0.1",
+    "ajv": "^8.17.1",
     "autoprefixer": "^10.4.20",
+    "axe-core": "^4.9.1",
+    "eslint": "^9.39.0",
+    "eslint-plugin-vue": "^10.5.1",
+    "jsdom": "^25.0.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
-    "vite": "^7.1.7",
+    "vite": "^6.0.11",
     "vite-plugin-vue-devtools": "^8.0.2"
   }
 }

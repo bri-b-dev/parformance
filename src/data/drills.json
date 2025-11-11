@@ -1,0 +1,4422 @@
+[
+  {
+    "id": "putting_comfort_zone",
+    "title": "Comfort Zone",
+    "category": "Putting",
+    "equipment": {
+      "balls": 5,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "8 Tees für die Comfort Zone (Kreis, 90 cm)",
+        "5 Tees bei 4 m, 6 m, 8 m, 10 m und 12 m (jeweils mit einem Ball daneben)",
+        "Loch auf ebenem Grün",
+        "Maßband oder Putterlänge (~90 cm)"
+      ]
+    },
+    "setup": {
+      "schema": "Stecke acht Tees im Abstand von 90 cm (eine Putterlänge) im Kreis um ein Loch (Comfort Zone). Wähle eine ebene Stelle auf dem Grün. Stecke zusätzlich Tees im Abstand von 4, 6, 8, 10 und 12 Metern zum Loch und platziere jeweils einen Ball daneben.",
+      "diagram": "svg:drills/comfort_zone",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Versuche, so viele Putts wie möglich in die Comfort Zone zu legen oder zu lochen. Du beginnst bei 4 Metern und spielst die Bälle in aufsteigender Reihenfolge. Hast du den 12-Meter-Putt erfolgreich absolviert, startest du wieder bei 4 Metern. Misslingt ein Putt, ist die Serie beendet und du beginnst bei 4 Metern erneut.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie (gelocht oder in der Comfort Zone). Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann verkleinere doch die Comfort Zone oder such dir ein Loch mit Break!"
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie",
+      "hcpTargets": {
+        "54-45": [
+          3,
+          4,
+          5
+        ],
+        "50-20": [
+          7,
+          8,
+          9
+        ],
+        "25-0": [
+          10,
+          12,
+          15
+        ]
+      }
+    },
+    "tags": [
+      "4m",
+      "6m",
+      "8m",
+      "10m",
+      "12m",
+      "Konstanz",
+      "Speed Control",
+      "Streak"
+    ],
+    "zockerTip": "Markiere dir die Comfort Zone dezent (z. B. mit Tees flach gedrückt) und halte dein Pre-Shot-Ritual identisch — das stabilisiert Tempo und Richtung.",
+    "variants": [
+      "Comfort Zone kleiner machen (z. B. 70 cm).",
+      "Loch mit Break wählen und die Reihenfolge 4→12 m beibehalten.",
+      "Starte rückwärts (12 m → 4 m), wenn du die 4→12 m-Variante sicher beherrschst."
+    ],
+    "summary": "Lange Putts aus verschiedenen Distanzen in die Comfort Zone legen und konstante Längenkontrolle entwickeln."
+  },
+  {
+    "id": "putting_break_putts",
+    "title": "Break Putts",
+    "category": "Putting",
+    "equipment": {
+      "balls": 5,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "10 Tees (je 5 pro Seite des Lochs)",
+        "Loch mit deutlichem Break",
+        "Maßband oder Entfernungsmesser (1-3 Meter)"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Loch mit einem deutlichen Break und stecke jeweils fünf Tees auf beiden Seiten des Lochs, um einen Break nach rechts und links zu erzeugen. Der Abstand zu den Tees beträgt jeweils 1, 1,5, 2, 2,5 und 3 Meter.",
+      "diagram": "svg:drills/break_putts",
+      "location": "Grün"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Beginne mit dem kürzesten Putt auf einer Seite. Nachdem du gelocht hast, spielst du den kürzesten Putt auf der anderen Seite und wechselst nach jedem gelochten Putt die Seite. Du setzt dies fort, solange du alle Bälle lochst. Verpasst du einen Putt, beginnst du von vorne.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie abwechselnd gelochter Putts von links und rechts. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann such dir ein Loch mit noch mehr Break oder erhöhe die Anzahl der Tees (3,5; 4; 4,5 und 5 Meter)."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          3,
+          5
+        ],
+        "50-20": [
+          6,
+          7,
+          8
+        ],
+        "25-0": [
+          9,
+          10,
+          11
+        ]
+      }
+    },
+    "tags": [
+      "Linke Seite",
+      "Rechte Seite",
+      "Konstanz",
+      "Puttlinie",
+      "Streak"
+    ],
+    "zockerTip": "Achte auf den Break aus beiden Richtungen - du lernst, Breaks gespiegelt zu lesen und dein Gefühl für Hangputts zu verfeinern.",
+    "variants": [
+      "Vergrößere den Abstand der äußersten Tees auf 4 oder 5 Meter.",
+      "Baue den Drill auf einem stärkeren Gefälle auf.",
+      "Spiele zuerst alle Putts von einer Seite, dann von der anderen, um das Gefühl für unterschiedliche Breaks zu isolieren."
+    ],
+    "summary": "Beidseitig abwechselnd kurze Hangputts lochen und das Break sicher lesen."
+  },
+  {
+    "id": "putting_lag_putts_15m",
+    "title": "Lag Putts",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "1 Tee",
+        "Loch mit wenig Break",
+        "Maßband (15 m)"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Loch mit wenig Break und stecke ein Tee in 15 Metern Entfernung ins Grün.",
+      "diagram": "svg:drills/lag_putts_15m",
+      "location": "Grün"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist es, eine Höchstserie von Versuchen mit maximal 2 Putts zu erzielen. Sobald du zum ersten Mal 3 oder mehr Putts benötigst, ist die Serie beendet und du startest wieder bei null.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Versuche es mit einem Loch mit Break oder verlängere den Putt!"
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie (2-Putt oder besser)",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          3,
+          5
+        ],
+        "50-20": [
+          6,
+          7,
+          8
+        ],
+        "25-0": [
+          9,
+          10,
+          11
+        ]
+      }
+    },
+    "tags": [
+      "Lag Putting",
+      "Speed Control",
+      "Konstanz",
+      "2-Putt",
+      "Routine"
+    ],
+    "zockerTip": "Behandle jeden Lag Putt, als müsstest du ihn lochen. Dein Gehirn lernt Entfernungsgefühl besser, wenn du mit echter Zielintention puttest.",
+    "variants": [
+      "Putt auf 18 m oder 20 m verlängern.",
+      "Loch mit stärkerem Break wählen.",
+      "Nur einen Ball verwenden und die Serie über Distanzdisziplin trainieren."
+    ],
+    "summary": "Lange Putts aus 15 m kontrolliert spielen und eine Serie von 2-Putts oder besser halten."
+  },
+  {
+    "id": "putting_circle",
+    "title": "Circle Putting",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "8 Tees zum Abstecken eines Kreises",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Stecke 8 Tees im Radius einer Putterlänge kreisförmig um ein Loch, das einen leichten Break aufweist.",
+      "diagram": "svg:drills/putting_circle",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte nacheinander von acht verschiedenen Positionen um das Loch - wie die Stunden eines Uhrzeigers. Ziel ist es, möglichst viele Putts in Folge zu lochen. Misslingt dir ein Putt, gehst du zur nächsten Position und beginnst wieder von vorn.",
+      "test": "Beende die Übung erst, wenn du eine vorher festgelegte Anzahl an Treffern erreicht hast. Spiele sie mit leichtem Break für mehr Anspruch. Profis wie Phil Mickelson trainieren damit regelmäßig und haben das Ziel, 50 Putts in Serie zu lochen.",
+      "tooEasy": "Verkleinere den Kreisradius oder wähle ein Loch mit stärkerem Break."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "maximale Serie (gelochte Putts)",
+      "hcpTargets": {
+        "54-27": 6,
+        "26-12": 8,
+        "11-0": 10
+      }
+    },
+    "tags": [
+      "Konstanz",
+      "Zieltraining",
+      "Routine",
+      "Konzentration",
+      "Drill"
+    ],
+    "zockerTip": "Spiele den Drill zu zweit: Ihr puttet abwechselnd von gegenüberliegenden Seiten des Lochs. Wer verschießt, übergibt. Wer zuerst alle acht Positionen gelocht hat, gewinnt.",
+    "variants": [
+      "Erhöhe die Anzahl der Tees auf 10 oder 12 Positionen.",
+      "Baue zwei Löcher nebeneinander und wechsle nach jedem Kreis.",
+      "Nutze nur eine Kugel, um mehr Fokus pro Putt zu trainieren."
+    ],
+    "summary": "Acht Putts im Kreis rund ums Loch spielen und eine möglichst lange Treffer-Serie erzielen."
+  },
+  {
+    "id": "putting_under_pressure",
+    "title": "Under Pressure",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "3 Tees oder Markierungen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir einen relativ geraden Putt von etwa drei Metern Länge. Markiere drei Positionen entlang der Puttlinie im Abstand von 90 cm (Position 1), 180 cm (Position 2) und 270 cm (Position 3). Die Entfernungen entsprechen etwa ein bis drei Putterlängen.",
+      "diagram": "svg:drills/putting_under_pressure",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte nacheinander von den drei Positionen aus, beginnend bei der kürzesten. Sobald du einen Putt verfehlst, gehst du wieder zur ersten Position zurück. Die Übung ist erst dann beendet, wenn du von Position 3 aus die vorgegebene Anzahl an Putts in Serie gelocht hast.",
+      "test": "Spiele auf ein Loch mit etwas Break. Erhöhe die Anzahl der zu lochenden Putts, wenn du die Grundversion sicher beherrschst. Paul Azinger spielt diese Übung so lange, bis er von den drei Positionen 20, 10 und 3 Putts in Serie gelocht hat.",
+      "tooEasy": "Erhöhe die Distanz oder spiele mit stärkerem Break."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "maximale Serie gelochter Putts je Position",
+      "hcpTargets": {
+        "54-27": [
+          3,
+          1,
+          1
+        ],
+        "26-12": [
+          5,
+          3,
+          1
+        ],
+        "11-0": [
+          10,
+          4,
+          2
+        ]
+      }
+    },
+    "tags": [
+      "Druck",
+      "Mentales Training",
+      "Konzentration",
+      "Routine",
+      "Serienübung"
+    ],
+    "zockerTip": "Spiele zu zweit gegeneinander: Ihr puttet abwechselnd an verschiedenen Löchern auf die gleichen drei Distanzen. Wer zuerst die geforderte Serie vollständig gelocht hat, gewinnt.",
+    "variants": [
+      "Baue zusätzliche Distanzen (z. B. 4. oder 5. Position) ein.",
+      "Spiele mit nur einem Ball, um den Fokus zu erhöhen.",
+      "Wähle ein Loch mit starkem Break oder Neigung, um den Druck zu erhöhen."
+    ],
+    "summary": "Drei Putts aus zunehmender Distanz unter Druck lochen und mentale Stabilität festigen."
+  },
+  {
+    "id": "putting_shootout",
+    "title": "Shootout",
+    "category": "Putting",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "2 Tees zur Markierung der Positionen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Loch mit geradem Verlauf. Messe eine Entfernung von etwa eineinhalb Metern vor und hinter dem Loch ab und markiere diese Positionen jeweils mit einem Tee.",
+      "diagram": "svg:drills/putting_shootout",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte abwechselnd von den beiden Positionen aus - also einmal von vorne, dann von hinten zum Loch. Ziel ist es, möglichst viele Putts in Folge zu lochen. Wenn du einen Putt verfehlst, gehst du im Zählstand wieder einen Punkt zurück. Wenn du also beispielsweise fünf Putts gelocht hast, aber den sechsten verfehlst, fällst du auf vier Punkte zurück.",
+      "test": "Spiele auf ein Loch mit etwas Break, um die Schwierigkeit zu steigern.",
+      "tooEasy": "Erhöhe die Distanz zwischen den beiden Positionen oder spiele mit stärkerem Break."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "maximale Serie gelochter Putts",
+      "hcpTargets": {
+        "54-27": 4,
+        "26-12": 8,
+        "11-0": 14
+      }
+    },
+    "tags": [
+      "Druck",
+      "Serientraining",
+      "Konzentration",
+      "Matchplay"
+    ],
+    "zockerTip": "Spielt den Drill im Matchformat: Jeder gelochte Putt gibt einen Punkt. Wer einen Putt verschießt, verliert einen Punkt. Wenn beide die gleiche Serie schaffen, verdoppelt sich der nächste Punktwert - ähnlich wie bei einem Skins-Match. Wer holt zuerst 10 Punkte?",
+    "variants": [
+      "Spiele mit nur einem Ball und wechselnden Löchern.",
+      "Verkürze oder verlängere die Distanz (z. B. 1 m / 2 m).",
+      "Setze dir ein Limit, bei dem du nach jedem Fehlschlag eine Pause machst, bevor du weiterspielst."
+    ],
+    "summary": "Abwechselnd von zwei Positionen putten und eine möglichst lange Treffer-Serie ohne Fehler halten."
+  },
+  {
+    "id": "putting_around_the_world",
+    "title": "Around the World",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "8 Tees zum Markieren der Putt-Positionen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Loch mit etwas Break. Messe im Uhrzeigersinn eine Entfernung von 90 bis 120 cm um das Loch und markiere acht Positionen jeweils mit einem Tee.",
+      "diagram": "svg:drills/putting_around_the_world",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Versuche, in maximal zehn Minuten alle Putts in Folge zu lochen. Starte mit den kürzeren Putts und arbeite dich im Uhrzeigersinn weiter. Wenn du alle kurzen Putts in Serie gelocht hast, gehst du auf einen längeren Kreis über. Verfehlst du einen Putt, startest du wieder von vorne.",
+      "test": "Spiele auf ein Loch mit stärkerem Break, um den Schwierigkeitsgrad zu erhöhen. Stewart Cink hat diesen Drill schon im College-Team von Georgia Tech gelernt. Am Ende jeder Trainingseinheit mussten alle Spieler drei Putts in Serie aus jeder Position lochen, bevor sie nach Hause durften.",
+      "tooEasy": "Erhöhe die Distanz zwischen den Tees oder spiele mit stärkerem Break."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "maximale Serie gelochter Putts",
+      "hcpTargets": {
+        "54-27": 5,
+        "26-12": 7,
+        "11-0": 8
+      }
+    },
+    "tags": [
+      "Zieltraining",
+      "Breaklesen",
+      "Präzision",
+      "Serienübung",
+      "College Drill"
+    ],
+    "zockerTip": "Jede:r Spieler:in sucht sich ein Loch auf dem Putting-Green. Ihr spielt drei Runden à fünf Minuten. Das Team, das im Durchschnitt die meisten Putts in Folge gelocht hat, gewinnt. Wenn du deine eigene Bestmarke schlägst, bekommst du einen Bonuspunkt. So bleibst du konzentriert - auch unter Druck.",
+    "variants": [
+      "Vergrößere die Entfernung auf 1,5 Meter für mehr Druck.",
+      "Spiele mit nur einem Ball, um jeden Putt bewusst zu machen.",
+      "Füge zusätzliche Tees zwischen den bestehenden Positionen hinzu."
+    ],
+    "summary": "Acht Putts rund ums Loch lochen und die längste fehlerfreie Serie im Uhrzeigersinn aufbauen."
+  },
+  {
+    "id": "putting_hit_the_hall",
+    "title": "Hit the Hall",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "5 Tees oder Alignment-Sticks",
+        "Stoppuhr oder Timer",
+        "Maßband oder Schlägerlängen zur Abstandsmessung"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Loch mit geradem Verlauf (ca. 10 m Länge). Stecke fünf Tees mit jeweils 2 Metern Abstand in den Boden - von 2 m bis 10 m Distanz. Baue aus Tees oder Alignment Sticks einen Korridor von etwa 90 cm hinter dem Loch auf. Jeder Ball, der im Korridor liegen bleibt oder das Loch trifft, zählt als Punkt.",
+      "diagram": "svg:drills/putting_hit_the_hall",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte nacheinander von allen fünf Positionen aus. Jeder Ball, der im Loch oder im Korridor hinter dem Loch liegen bleibt, zählt als Punkt. Die Übung ist beendet, wenn du von der Substanzposition (2 m) oder weiter keinen Punkt mehr erzielen kannst. Ziel: So viele Punkte wie möglich innerhalb von 10 Minuten.",
+      "test": "Bringe ein Loch mit Break ins Spiel - besonders schwierig wird es bei Bergauf- oder Gefälleputts. Richte dich gezielt auf ein bestimmtes Ziel aus, z. B. den Buchstaben auf dem Ball oder einen Punkt am Lochrand.",
+      "tooEasy": "Verkleinere den Korridor hinter dem Loch oder verlängere die Distanzen auf 3 - 12 m."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "erreichte Punkte (Bälle im Loch oder im Korridor)",
+      "hcpTargets": {
+        "54-27": 24,
+        "26-12": 18,
+        "11-0": 15
+      }
+    },
+    "tags": [
+      "Speed Control",
+      "Zieltraining",
+      "Präzision"
+    ],
+    "zockerTip": "Spielt zu zweit: Abwechselnd wird von jeder Position geputtet. Schafft ein:e Spieler:in es, den Ball in den Korridor oder ins Loch zu bringen, darf sie/er in der nächsten Runde von der weiter entfernten Position spielen. Wer zuerst alle fünf Stationen erfolgreich absolviert, gewinnt.",
+    "variants": [
+      "Erhöhe die Anzahl der Stationen auf 6 oder 7 für feinere Distanzabstufungen.",
+      "Verwende unterschiedliche Balltypen (weich/hart), um das Gefühl für Rollverhalten zu trainieren.",
+      "Baue die Übung auf einem leicht ansteigenden oder abfallenden Grün auf."
+    ],
+    "summary": "Fünf Putts aus steigender Distanz spielen und Punkte für präzise Längenkontrolle im Zielkorridor sammeln."
+  },
+  {
+    "id": "putting_roll_control",
+    "title": "Roll Control",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "3 Tees zur Markierung der Distanzen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Ziel oder Loch in rund 10 Metern Entfernung, idealerweise mit wenig Break. Stecke zwei Tees in einer Linie in Richtung Ziel - eines bei 5 Metern, eines bei 10 Metern Entfernung vom Startpunkt.",
+      "diagram": "svg:drills/putting_roll_control",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte den ersten Ball auf etwa 5 Meter und verwende ihn als Referenz. Dann putte den zweiten Ball so, dass er leicht *weiter* rollt als der erste - aber nicht zu weit. Der dritte Ball soll wiederum ein Stück weiter rollen. Ziel: möglichst viele Bälle in einer Reihe platzieren, ohne dass einer kürzer als der vorherige oder zu weit weg liegt. Sobald ein Ball außerhalb der Reihe liegt, ist die Runde beendet.",
+      "test": "Führe maximal drei Durchgänge durch und notiere dein bestes Ergebnis. Spiele das Ganze auch einmal auf einem Grün mit leichtem Break - das erfordert noch feinere Dosierung.",
+      "tooEasy": "Verlängere die maximale Distanz auf 12 Meter oder reduziere den erlaubten Abstand zwischen den Bällen auf 20 cm."
+    },
+    "metric": {
+      "type": "count",
+      "unit": "Bälle in einer Reihe",
+      "hcpTargets": {
+        "54-27": [
+          4,
+          5,
+          6
+        ],
+        "26-12": [
+          6,
+          7,
+          8
+        ],
+        "11-0": [
+          8,
+          9,
+          10
+        ]
+      }
+    },
+    "tags": [
+      "Speed Control",
+      "Touch Training",
+      "Tempo",
+      "Gefühl"
+    ],
+    "zockerTip": "Spielt diesen Drill zu zweit oder zu dritt: Jede:r puttet reihum in dieselbe Linie. Der Ball, der zu weit rollt, eliminiert den/die Spieler:in aus der Runde. Wer zuletzt übrig bleibt, gewinnt. Alternativ zählt ihr die Gesamtanzahl der erfolgreich in Reihe liegenden Bälle über drei Runden.",
+    "variants": [
+      "Erweitere den Drill um eine Rückwärtsserie (immer kürzer werdende Putts).",
+      "Spiele ihn auf unterschiedlichem Untergrund (trocken/nass) für Gefühlstraining.",
+      "Verwende nur einen Ball und markiere die Position nach jedem Putt mit einem Tee."
+    ],
+    "summary": "Mehrere Bälle mit fein abgestufter Länge rollen lassen, um Gefühl und Tempo präzise zu kontrollieren."
+  },
+  {
+    "id": "putting_pace_putting",
+    "title": "Pace Putting",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "3 Tees zur Markierung der Distanzen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir ein Loch mit wenig oder keinem Break und stecke drei Tees entlang der Puttlinie - bei 3 m, 4,5 m und 7,5 m. Hinter dem Loch steckst du zwei zusätzliche Tees in 30 cm und 60 cm Entfernung, um die Zielfläche für Längenkontrolle zu markieren.",
+      "diagram": "svg:drills/putting_pace_putting",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte nacheinander von allen drei Positionen. Ziel ist es, die richtige Puttlänge zu treffen. Du bekommst 1 Punkt, wenn der Ball innerhalb des 60-cm-Korridors hinter dem Loch liegen bleibt. Trifft er innerhalb von 30 cm, gibt es 2 Punkte. Wenn der Ball im Loch ist, gibt es 3 Punkte. Jeder Ball, der vor oder außerhalb des Korridors liegen bleibt, kostet 1 Punkt. Spiele maximal drei Durchgänge und notiere dein bestes Ergebnis.",
+      "test": "Spiele auf ein Loch mit Break, um das Lesen der Geschwindigkeit zu trainieren. Achte darauf, eine feste Putt-Routine zu verwenden (z. B. zwei Probeschwünge, Blick zum Ziel, Putt).",
+      "tooEasy": "Verlängere die Distanzen auf 4,5 m / 6 m / 9 m oder verkleinere den Korridor hinter dem Loch auf 40 cm."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Punkte gesamt",
+      "hcpTargets": {
+        "54-27": 8,
+        "26-12": 12,
+        "11-0": 21
+      }
+    },
+    "tags": [
+      "Speed Control",
+      "Gefühlstraining",
+      "Routine",
+      "Drei-Putt-Vermeidung"
+    ],
+    "zockerTip": "Belegt Drei-Putts mit einer kleinen Strafe - etwa einer Zusatzübung oder einem Push-up. Belohnt dich selbst, wenn du keinen Drei-Putt in der Runde hast. So trainierst du automatisch mehr Fokus auf Distanzkontrolle.",
+    "variants": [
+      "Verwende vier oder fünf Tees für feinere Abstufungen der Distanz.",
+      "Markiere den Korridor hinter dem Loch mit einem Handtuch oder Schläger.",
+      "Zähle nur Putts, die über die Lochkante hinausrollen, als gültig."
+    ],
+    "summary": "Drei Putts aus verschiedenen Distanzen spielen und präzise Längenkontrolle durch Punktewertung trainieren."
+  },
+  {
+    "id": "putting_five_balls",
+    "title": "Five Balls",
+    "category": "Putting",
+    "equipment": {
+      "balls": 5,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "1 Tee oder Markierung für Startposition",
+        "1 Schläger zur Begrenzung hinter dem Loch",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir einen Putt mit etwa 7 Metern Länge und möglichst wenig Break. Lege ca. 50 cm hinter dem Loch einen Schläger auf das Grün - das ist deine hintere Begrenzung. Ziel ist es, die Putts so zu dosieren, dass sie im Loch oder innerhalb des Bereichs zwischen Loch und Schläger liegen bleiben.",
+      "diagram": "svg:drills/putting_five_balls",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putte in einer Serie jeweils fünf Bälle in Richtung Loch. Ein gelochter Ball zählt 2 Punkte, ein Ball, der im Korridor zwischen Loch und Schläger liegen bleibt, zählt 1 Punkt. Bälle, die zu kurz bleiben oder den Schläger berühren, geben keinen Punkt. Ziel ist es, in 15 Minuten so viele Serien wie möglich mit fünf Punkten abzuschließen.",
+      "test": "Spiele auch auf ein Loch mit Break. Schließe beim Putten die Augen, um dein Distanzgefühl zu schulen - so wie es Thomas Levet empfiehlt. Du wirst merken: Dein Gefühl für Länge wird präziser.",
+      "tooEasy": "Erhöhe die Distanz auf 9 Meter oder verkleinere den Abstand zwischen Loch und Schläger auf 30 cm."
+    },
+    "metric": {
+      "type": "count",
+      "unit": "erfolgreiche Serien (je 5 Punkte)",
+      "hcpTargets": {
+        "54-27": 1,
+        "26-12": 2,
+        "11-0": 3
+      }
+    },
+    "tags": [
+      "Speed Control",
+      "Gefühlstraining",
+      "Zielkonstanz"
+    ],
+    "zockerTip": "Spielt diesen Drill zu zweit: Abwechselnd wird von derselben Position geputtet. Wer zuerst fünf Punkte in einer Serie erreicht, gewinnt. Bei unterschiedlichen Handicaps startet der stärkere Spieler mit einem Punkt Rückstand.",
+    "variants": [
+      "Verkürze die Distanz auf 5 Meter für Anfänger:innen.",
+      "Lege den Schläger näher an das Loch (30 cm) für mehr Präzision.",
+      "Kombiniere mit einem Break-Putt, um Tempo und Linie gemeinsam zu trainieren."
+    ],
+    "summary": "Fünf Putts in Serie mit präziser Länge spielen und möglichst viele Punkte durch gutes Dosieren erzielen."
+  },
+  {
+    "id": "putting_draw_back",
+    "title": "Draw Back",
+    "category": "Putting",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "3-6 Tees oder kleine Marker für die Zielpositionen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Stecke drei bis sechs Tees oder kleine Marker auf dem Grün aus, jeweils in zunehmender Entfernung von 1 m bis 6 m zum Loch. Die Reihenfolge sollte so gewählt sein, dass du dich mit jedem Putt vom Loch entfernst.",
+      "diagram": "svg:drills/putting_draw_back",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Starte mit dem kürzesten Putt. Wenn du den Ball lochst, gehst du zur nächsten (weiter entfernten) Position. Bleibt der Ball innerhalb einer Schlägerlänge hinter dem Loch liegen, darfst du ebenfalls weitermachen. Verpasst du das Loch und der Ball rollt weiter als eine Schlägerlänge weg, musst du einen Putt zurückgehen. Ziel: So viele Putts wie möglich lochen, ohne zurückzufallen.",
+      "test": "Zähle, wie viele Putts du insgesamt benötigst, bis du alle Löcher mindestens einmal gelocht hast. Jeder Fehlputt, der zu weit rollt, kostet eine Schlägerlänge. Spiele die Übung über maximal 15 Minuten.",
+      "tooEasy": "Verkleinere den Toleranzbereich auf ½ Schlägerlänge oder verlängere die maximalen Distanzen auf 8 m."
+    },
+    "metric": {
+      "type": "count",
+      "unit": "benötigte Putts gesamt",
+      "smallerIsBetter": true,
+      "hcpTargets": {
+        "54-27": 27,
+        "26-12": 24,
+        "11-0": 20
+      }
+    },
+    "tags": [
+      "Speed Control",
+      "Pressure Drill",
+      "Konzentration",
+      "Feinmotorik"
+    ],
+    "zockerTip": "Spielt den Drill zu zweit im Matchplay-Format: Jeder Spieler startet an derselben Position. Wer weniger Putts braucht, um alle Löcher zu lochen, gewinnt die Runde.",
+    "variants": [
+      "Baue ein leichtes Break ein, um Richtungskontrolle zu trainieren.",
+      "Erweitere auf bis zu 10 m und nutze unterschiedliche Grünneigungen.",
+      "Spiele mit Handicap-Anpassung (besserer Spieler startet mit -1 Putt)."
+    ],
+    "summary": "Mit jedem gelochten Putt zur nächsten Distanz vorrücken und Präzision bei Länge und Richtung bewahren."
+  },
+  {
+    "id": "chipping_9m_chip",
+    "title": "9-Meter Chip",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 6,
+      "clubs": [
+        "Wedge",
+        "Chip-Schläger deiner Wahl"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (9 m Distanz)",
+        "zwei Übungsbereiche (Fairway und Rough)"
+      ]
+    },
+    "setup": {
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill-Levels ab: Newbie - 3 Putterlängen, Player - 2 Putterlängen, Pro - 1 Putterlänge. Suche dir sowohl eine Stelle vom Fairway als auch aus dem Rough (höheres Gras), jeweils ca. 9 Meter vom Loch entfernt.",
+      "diagram": "svg:drills/chipping_9m_chip",
+      "location": "Kurzspielbereich (Fairway und Rough)"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich zum Liegen kommt. Misslingt ein Versuch, startest du wieder bei null. Trainiere beide Balllagen (Fairway und Rough).",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für die Fairway- und die Rough-Lage. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann ändere nach jedem erfolgreichen Chip den Schläger!"
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie (Treffer im Zielkreis)",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          4,
+          5,
+          6
+        ],
+        "25-0": [
+          4,
+          6,
+          8
+        ]
+      }
+    },
+    "tags": [
+      "Fairway",
+      "Rough",
+      "Zielkontrolle",
+      "Distanzgefühl",
+      "Kurzspiel",
+      "Streak",
+      "Chipping"
+    ],
+    "zockerTip": "Achte auf deine Landepunkte - nicht auf das Loch. So trainierst du Gefühl für Tempo und Abrollverhalten aus verschiedenen Lagen.",
+    "variants": [
+      "Wechsle nach jedem Treffer den Schläger.",
+      "Erhöhe die Distanz auf 12 oder 15 Meter.",
+      "Lege die Zielkreise an leicht unterschiedliches Gefälle (bergauf / bergab)."
+    ],
+    "summary": "Chips aus Fairway und Rough präzise in den Zielkreis spielen und eine fehlerfreie Treffer-Serie aufbauen."
+  },
+  {
+    "id": "chipping_18m_chip",
+    "title": "18-Meter Chip",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 6,
+      "clubs": [
+        "Wedge",
+        "Chip-Schläger deiner Wahl"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (18 m Distanz)",
+        "zwei Übungsbereiche (Fairway und Rough)"
+      ]
+    },
+    "setup": {
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill-Levels ab: Newbie - 3 Putterlängen, Player - 2 Putterlängen, Pro - 1 Putterlänge. Suche dir sowohl eine Stelle vom Fairway als auch aus dem Rough (höheres Gras), jeweils ca. 18 Meter vom Loch entfernt.",
+      "diagram": "svg:drills/chipping_18m_chip",
+      "location": "Kurzspielbereich (Fairway und Rough)"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich zum Liegen kommt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere beide Balllagen (Fairway und Rough).",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie. Es gibt jeweils einen Test für die Fairway- und die Rough-Lage. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann ändere nach jedem erfolgreichen Chip den Schläger!"
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie (Treffer im Zielkreis)",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          4,
+          5,
+          6
+        ],
+        "25-0": [
+          4,
+          6,
+          8
+        ]
+      }
+    },
+    "tags": [
+      "Fairway",
+      "Rough",
+      "Zielkontrolle",
+      "Distanzgefühl",
+      "Kurzspiel",
+      "Streak",
+      "Chipping"
+    ],
+    "zockerTip": "Achte darauf, wie der Ball nach der Landung reagiert - so lernst du, Spin und Abrollverhalten auf verschiedenen Untergründen besser einzuschätzen.",
+    "variants": [
+      "Wechsle nach jedem Treffer den Schläger.",
+      "Erhöhe die Distanz auf 20 oder 25 Meter.",
+      "Lege die Zielkreise an leicht unterschiedliches Gefälle (bergauf / bergab)."
+    ],
+    "summary": "Chips aus 18 Metern gezielt ins Ziel spielen und konstante Längenkontrolle aus unterschiedlichen Lagen trainieren."
+  },
+  {
+    "id": "chipping_carry_zone",
+    "title": "Carry Zone",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 6,
+      "clubs": [
+        "Wedge",
+        "Chip-Schläger deiner Wahl"
+      ],
+      "other": [
+        "6 Schläger oder Markierungen für Landezonen",
+        "Maßband (Abstände 1 m zwischen Zonen, 2 m bis zur ersten Zone)",
+        "ebenes Grün oder Übungsfläche"
+      ]
+    },
+    "setup": {
+      "schema": "Lege sechs Schläger auf das Grün, sodass fünf Landezonen mit jeweils einem Meter Abstand entstehen. Der Abstand zwischen dem Chip-Punkt und dem ersten Schläger beträgt 2 Meter.",
+      "diagram": "svg:drills/chipping_carry_zone",
+      "location": "Kurzspielbereich (Grün oder Vorgrün)"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist es, abwechselnd die jeweiligen Carry Zonen von kurz nach lang im Flug zu treffen. Wo der Ball letztendlich liegen bleibt, spielt keine Rolle. Die Wahl des Schlägers ist frei. Deine längste Serie zählt.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Treffern in Carry-Zonen von kurz nach lang. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann wechsle nach jedem Schlag den Schläger, mache die Carry Zone kleiner oder vergrößere den Abstand zum ersten Schläger."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie",
+      "hcpTargets": {
+        "54-45": [
+          2,
+          3,
+          4
+        ],
+        "50-20": [
+          5,
+          7,
+          9
+        ],
+        "25-0": [
+          11,
+          13,
+          15
+        ]
+      }
+    },
+    "tags": [
+      "Carry Zone",
+      "Landepunkte",
+      "Ballflug",
+      "Distanzgefühl",
+      "Kurzspiel",
+      "Streak",
+      "Chipping"
+    ],
+    "zockerTip": "Fokussiere dich auf die Flugphase, nicht auf das Rollen. So schulst du dein Auge für Landepunkte und Schlägerwahl.",
+    "variants": [
+      "Verändere die Größe der Carry Zonen (kleiner oder größer).",
+      "Starte rückwärts (lange Zone zuerst).",
+      "Wechsle nach jedem erfolgreichen Schlag den Schläger."
+    ],
+    "summary": "Abwechselnd alle Landezonen von kurz bis lang im Flug treffen und präzise Kontrolle über Carry-Distanz entwickeln."
+  },
+  {
+    "id": "pitching_short_pitch",
+    "title": "Kurzer Pitch",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 6,
+      "clubs": [
+        "Wedge deiner Wahl (z. B. 52°, 56°, 58°)"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (13,5 m und 27 m Distanz)",
+        "optional: Bunker oder Rough als Hindernis"
+      ]
+    },
+    "setup": {
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill Levels ab: Newbie - gesamtes Grün (ca. 10 Meter Radius), Player - 6 Meter Radius, Pro - 3 Meter Radius. Suche dir eine Stelle aus 13,5 Metern mit maximal 2 Metern Platz zwischen Grüngrenze und Loch und eine zweite Stelle aus 27 Metern über ein Hindernis (Bunker, Rough).",
+      "diagram": "svg:drills/pitching_short_pitch",
+      "location": "Pitch-Area oder Übungsgrün (mit optionalem Hindernis)"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere beide Situationen abwechselnd.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Treffern im Zielbereich bei 13,5 m und 27 m. Es gibt jeweils einen Test für beide Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Rough."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          2,
+          4,
+          6
+        ],
+        "25-0": [
+          2,
+          4,
+          6
+        ]
+      }
+    },
+    "tags": [
+      "Kurzspiel",
+      "Zielbereich",
+      "Carry",
+      "Landepunkte",
+      "Distanzkontrolle",
+      "Streak",
+      "Pitching"
+    ],
+    "zockerTip": "Wechsle zwischen kurzen und längeren Pitches, um dein Gefühl für Schlaglänge und Spin zu verbessern.",
+    "variants": [
+      "Baue den Drill mit zusätzlichem Hindernis auf (z. B. Bunker, Baumkante).",
+      "Spiele auf unterschiedliche Zielkreise (z. B. 5 m, 7 m Radius).",
+      "Verwende verschiedene Wedges, um Spin- und Flugverhalten zu vergleichen."
+    ],
+    "summary": "Kurze Pitches über unterschiedliche Distanzen präzise in den Zielbereich spielen und eine fehlerfreie Serie halten."
+  },
+  {
+    "id": "pitching_long_pitch",
+    "title": "Langer Pitch",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 6,
+      "clubs": [
+        "Wedge deiner Wahl (z. B. 48°, 50°, 52°)"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (45 m und 60 m Distanz)",
+        "Übungsbereich oder Fairway mit freiem Anspiel auf Grün"
+      ]
+    },
+    "setup": {
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill Levels ab: Newbie - gesamtes Grün (ca. 10 Meter Radius), Player - 6 Meter Radius, Pro - 3 Meter Radius. Suche dir jeweils eine Stelle auf dem Fairway aus 45 und 60 Metern.",
+      "diagram": "svg:drills/pitching_long_pitch",
+      "location": "Pitch-Area oder Fairway mit Zielgrün"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere beide Situationen abwechselnd.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Treffern im Zielbereich bei 45 m und 60 m. Es gibt jeweils einen Test für beide Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Rough."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          1,
+          2,
+          3
+        ],
+        "25-0": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    "tags": [
+      "Langer Pitch",
+      "Fairway",
+      "Distanzkontrolle",
+      "Zielbereich",
+      "Carry",
+      "Streak",
+      "Pitching"
+    ],
+    "zockerTip": "Fokussiere dich auf deinen Rhythmus, nicht auf die Schlaghärte - gleichmäßiger Kontakt sorgt für reproduzierbare Distanzen.",
+    "variants": [
+      "Baue den Drill mit Hanglage auf (bergauf / bergab).",
+      "Spiele beide Distanzen mit unterschiedlichen Wedges.",
+      "Verändere den Zielradius oder wechsle zwischen verschiedenen Grünhöhen."
+    ],
+    "summary": "Lange Pitches aus 45 und 60 Metern konstant im Zielbereich landen und kontrollierte Schlaglängen entwickeln."
+  },
+  {
+    "id": "bunker_shots",
+    "title": "Bunkerschläge",
+    "category": "Bunker",
+    "equipment": {
+      "balls": 6,
+      "clubs": [
+        "Sand Wedge",
+        "Lob Wedge"
+      ],
+      "other": [
+        "8 Tees für Zielkreis",
+        "Maßband (7 m, 13 m und 20 m Distanzen)",
+        "Übungsbunker mit ebenem Sand"
+      ]
+    },
+    "setup": {
+      "schema": "Stecke einen Zielkreis mit Tees entsprechend deines Skill Levels ab: Newbie - gesamtes Grün (ca. 10 Meter Radius), Player - 6 Meter Radius, Pro - 3 Meter Radius. Suche dir jeweils eine ebene Stelle aus dem Bunker aus 7, 13 und 20 Metern.",
+      "diagram": "svg:drills/bunker_shots",
+      "location": "Übungsbunker oder Grünbunker mit Zielgrün"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der der Ball im Zielbereich liegen bleibt. Misslingt dir ein Versuch, startest du wieder bei null. Trainiere alle Situationen abwechselnd.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Treffern im Zielbereich aus 7, 13 und 20 m. Es gibt jeweils einen Test für alle Entfernungen. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann such dir auch Situationen aus Hanglagen, bzw. schwierigen Lagen im Bunker (Ball eingebohren, wenig Sand, harter Sand)."
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          1,
+          2,
+          3
+        ],
+        "25-0": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    "tags": [
+      "Sand Wedge",
+      "Kurzspiel",
+      "Zielkontrolle",
+      "Distanzgefühl",
+      "Hanglage",
+      "Streak",
+      "Pitching"
+    ],
+    "zockerTip": "Achte darauf, den Ball mit konstantem Eintreffwinkel zu schlagen - der Sand ist dein Freund, wenn du ihn triffst, nicht den Ball.",
+    "variants": [
+      "Baue die Distanzen auf 10, 15 und 25 m aus.",
+      "Spiele aus unterschiedlichen Bunkertiefen.",
+      "Trainiere wechselnde Sandsorten (trocken, feucht, kompakt)."
+    ],
+    "summary": "Bunkerschläge aus verschiedenen Distanzen präzise ins Ziel bringen und eine stabile, wiederholbare Technik entwickeln."
+  },
+  {
+    "id": "shortgame_up_and_down",
+    "title": "Up & Down",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Wedge",
+        "Putter"
+      ],
+      "other": [
+        "5 Tees zur Markierung der Chip-Positionen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir fünf Positionen rund um das Grün, die jeweils zwischen 7 und 15 Meter vom Loch entfernt sind, und markiere sie mit einem Tee. Von jeder dieser Positionen spielst du ein Up & Down - also Chip und Putt.",
+      "diagram": "svg:drills/shortgame_up_and_down",
+      "location": "Vorgrün / Chipping Green"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele einen Ball nacheinander von fünf verschiedenen Positionen. Droppe den Ball jeweils am Tee und chippe in Richtung Loch. Anschließend puttest du, bis der Ball im Loch ist. Zähle deine Schläge - Ziel ist, das Up & Down mit maximal zwei Schlägen pro Position zu schaffen.",
+      "test": "Spiele auf Löcher mit leichtem Break. Besonders schwierig sind Bergab-Lagen, da du hier die Geschwindigkeit feinfühlig kontrollieren musst. Achte auf die Wuchsrichtung des Grases: Spielst du gegen die Faserrichtung, braucht der Ball mehr Energie.",
+      "tooEasy": "Erhöhe die Distanzen auf bis zu 20 Meter oder spiele abwechselnd aus Rough und Fairway."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "benötigte Schläge (Summe aus 5 Stationen)",
+      "smallerIsBetter": true,
+      "hcpTargets": {
+        "54-27": 15,
+        "26-12": 12,
+        "11-0": 10
+      }
+    },
+    "tags": [
+      "Short Game",
+      "Up & Down",
+      "Scoring",
+      "Chip und Putt",
+      "Pitching",
+      "Kontrolle"
+    ],
+    "zockerTip": "Spielt zu zweit gegeneinander im Lochspiel-Format: Einer chippt, der andere puttet. Wer weniger Schläge benötigt, gewinnt die Bahn.",
+    "variants": [
+      "Erweitere auf sieben Positionen rund ums Grün.",
+      "Führe separate Serien für Fairway- und Rough-Lagen durch.",
+      "Baue kleine Hindernisse (z. B. eine Pitchmarke oder Mini-Bunker) ein."
+    ],
+    "summary": "Fünf Up-and-Down-Situationen rund ums Grün spielen und jedes Loch in höchstens zwei Schlägen beenden."
+  },
+  {
+    "id": "shortgame_beat_21",
+    "title": "Beat 21",
+    "subtitle": "Zähle deine Up & Downs - spiele gegen 21 Punkte",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Wedge (SW, GW, LW)",
+        "Putter"
+      ],
+      "other": [
+        "3-6 markierte Chip-Positionen (Tees oder Marker)",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Wähle mehrere Positionen rund ums Grün, von denen du auf verschiedene Löcher spielen kannst. Jede Position sollte etwa 6 bis 12 Meter vom Loch entfernt sein. Markiere sie bei Bedarf mit einem Tee. Spiele jeweils ein Up & Down pro Position.",
+      "diagram": "svg:drills/shortgame_beat_21",
+      "location": "Chipping Green"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Droppe den Ball an einer Startposition, chippe ihn möglichst nah an die Fahne und putte den Ball anschließend ins Loch. Addiere die Schläge fortlaufend zu deinem Score. Ziel ist es, für 21 gespielte Up & Downs möglichst wenige Schläge zu benötigen.",
+      "test": "Spiele aus variierenden Lagen: aus dichtem Rough, von kahlen Stellen oder aus Hanglagen. Variiere auch den Loft - je weiter der Ball rollen darf, desto flacher darf der Schläger gewählt werden.",
+      "tooEasy": "Verkürze das Ziel auf 18 Schläge für 21 Up & Downs oder spiele abwechselnd aus Bunker und Rough."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "benötigte Schläge für 21 Up & Downs",
+      "smallerIsBetter": true,
+      "hcpTargets": {
+        "54-36": 33,
+        "35-27": 30,
+        "26-19": 28,
+        "18-12": 26,
+        "11-5": 24,
+        "4-0": 21
+      }
+    },
+    "tags": [
+      "Short Game",
+      "Up & Down",
+      "Zielspiel",
+      "Punktesystem",
+      "Kontrolle",
+      "Variabilität",
+      "Chipping"
+    ],
+    "zockerTip": "Spielt das Format im Loch- oder Zählspielmodus gegeneinander. Nach jedem Loch wechselt die Startreihenfolge. Wer zuerst die Zielpunktzahl erreicht oder unterbietet, gewinnt.",
+    "variants": [
+      "Spiele auf 9 oder 15 Up & Downs für kürzere Trainingseinheiten.",
+      "Zähle eingechippte Bälle als 0 Punkte (Bonus).",
+      "Verwende schwierige Lagen: Hang, dichter Rough, nasses Gras."
+    ],
+    "summary": "21 Up-and-Downs aus variierenden Lagen spielen und mit möglichst wenigen Gesamtschlägen den Zielscore schlagen."
+  },
+  {
+    "id": "shortgame_towel_target",
+    "title": "Towel Target",
+    "subtitle": "Präzisionstraining für Landepunkt und Flugkontrolle",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 4,
+      "clubs": [
+        "Wedge (SW, GW, LW)"
+      ],
+      "other": [
+        "Handtuch (ca. 40×40 cm) oder Rechteck aus vier Tees",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Lege ein Handtuch (oder markiere mit vier Tees ein Rechteck 40×40 cm) als Zielzone auf das Grün. Platziere dich an Positionen in 2, 4, 5 und 6 m Entfernung. Spiele von jeder Position je einen Ball mit dem Ziel, ihn im Flug (Carry) auf dem Handtuch landen zu lassen.",
+      "diagram": "svg:drills/shortgame_towel_target",
+      "location": "Chipping Green"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Chippe von jeder markierten Position einen Ball und versuche, ihn im Flug auf dem Handtuch (oder in der markierten Zone) landen zu lassen. Gelingt dir aus allen vier Entfernungen ein Treffer, wiederhole die Serie mit neuen Abständen oder unterschiedlichen Schlägern.",
+      "test": "Messe, wie lange du für acht Treffer brauchst. Trage die Zeit in Minuten ein. Wenn du in 15 Minuten keine acht Treffer geschafft hast, notiere die Anzahl deiner Treffer.",
+      "tooEasy": "Lege das Handtuch kleiner (30×30 cm) oder chippe über eine kleine Erhöhung. Spiele mit konstantem Bounce, um Präzision zu steigern."
+    },
+    "metric": {
+      "type": "time",
+      "unit": "Minuten bis 8 Treffer",
+      "hcpTargets": {
+        "54-37": [
+          15
+        ],
+        "36-27": [
+          13
+        ],
+        "26-19": [
+          12
+        ],
+        "18-12": [
+          10
+        ],
+        "11-5": [
+          8
+        ],
+        "4-0": [
+          6
+        ]
+      }
+    },
+    "tags": [
+      "Short Game",
+      "Chipping",
+      "Präzision",
+      "Landepunkt",
+      "Kontrolle",
+      "Carry",
+      "Zieltraining"
+    ],
+    "zockerTip": "Spielt zu zweit gegeneinander. Ziel ist, zuerst das Handtuch zu treffen. Variiert Position und Schläger. Für jeden Treffer ein Punkt, für Ausrollen über das Handtuch null Punkte. Wer zuerst acht Punkte erreicht, gewinnt die Runde.",
+    "variants": [
+      "Erweitere den Drill zu einer 5×5-Matrix mit wechselnden Entfernungen.",
+      "Kombiniere mit ‘Worstball Chipping’ - nur Treffer mit beiden Bällen zählen.",
+      "Trainiere mit unterschiedlich hohen Handtüchern (dick, dünn) für realistischere Landezonen."
+    ],
+    "summary": "Vier Chips aus unterschiedlichen Distanzen im Flug präzise auf ein Handtuch oder eine markierte Zielzone landen lassen."
+  },
+  {
+    "id": "shortgame_hit_the_spot",
+    "title": "Hit the Spot",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 15,
+      "clubs": [
+        "Wedge (SW, GW, LW)"
+      ],
+      "other": [
+        "Alignment Stick oder Schläger",
+        "4-6 markierte Landepunkte (Tees oder Linien)",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Lege vor dich einen Schläger oder Alignment Stick in einer Linie parallel zum Ziel. Markiere im Abstand von 2, 4, 6, 8 und 10 Metern Landepunkte (z. B. mit Tees). Ziel ist, die Bälle nacheinander in der jeweiligen Landezone zu platzieren. Du kannst auch mit Kreide, Schnur oder Tüchern arbeiten, um die Zonen besser zu sehen.",
+      "diagram": "svg:drills/shortgame_hit_the_spot",
+      "location": "Chipping Green"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Chippe nacheinander jeweils einen Ball in jede Landezone. Beginne bei der kürzesten Distanz (2 m) und arbeite dich aufwärts bis zur längsten (10 m). Sobald du den weitesten Punkt erreicht hast, gehst du zurück zur ersten Zone. Insgesamt spielst du 15 Bälle - fünf Zyklen über alle Zonen. Zähle einen Punkt für jeden Ball, der in der Landezone landet.",
+      "test": "Miss, wie oft du in einer Serie von 15 Bällen den definierten Landepunkt triffst. Nutze denselben Schläger, um den Schlag zu standardisieren.",
+      "tooEasy": "Spiele aus wechselnden Lagen (Rough, Hang, Sand) oder verkleinere die Zonen. Alternativ: Chippe mit unterschiedlichen Schlägern und vergleiche Carry-Längen."
+    },
+    "metric": {
+      "type": "count",
+      "unit": "Treffer in Landezone (von 15)",
+      "hcpTargets": {
+        "54-36": 2,
+        "35-27": 4,
+        "26-19": 6,
+        "18-12": 9,
+        "11-5": 12,
+        "4-0": 15
+      }
+    },
+    "tags": [
+      "Short Game",
+      "Chipping",
+      "Landepunkt",
+      "Kontakt",
+      "Präzision",
+      "Kontrolle"
+    ],
+    "zockerTip": "Spielt zu zweit im Lochspielmodus. Jeder Spieler bestimmt vor dem Schlag eine Landezone als Ziel. Wer sie trifft, erhält einen Punkt. Wird sie verfehlt, entscheidet der Gegner, welche Zone als Nächstes gilt. Bonus: Doppelte Punkte, wenn der Ball nach dem Chip ausrollt und das Loch erreicht.",
+    "variants": [
+      "Spiele mit wechselnden Schlägern (Gap, Sand, Lob Wedge).",
+      "Führe einen 'Bounce Check' durch - prüfe, wie sich Loft und Eintreffwinkel verändern.",
+      "Kombiniere mit ‘Towel Target’ für Flug- und Rollkontrolle."
+    ],
+    "summary": "Mehrere Chips mit präzisem Landepunkt spielen und Kontrolle über Distanz, Kontakt und Ballflug verbessern."
+  },
+  {
+    "id": "bunker_hit_it_close",
+    "title": "Hit It Close",
+    "subtitle": "Bunkerschläge präzise an die Fahne spielen",
+    "category": "Bunker",
+    "equipment": {
+      "balls": 5,
+      "clubs": [
+        "Sand Wedge",
+        "Lob Wedge"
+      ],
+      "other": [
+        "Zielkreis (z. B. 3, 6 und 9 Meter vom Bunker)",
+        "Stoppuhr oder Timer",
+        "Tees oder Sticks zur Markierung"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir im Bunker eine ebene Stelle und richte dich auf eine Fahne in etwa 10 m Entfernung aus. Stecke um das Loch drei Zielzonen mit Radien von 3 m, 6 m und 9 m ab (z. B. mit Tees oder Seil). Lege fünf Bälle in den Bunker - du spielst sie nacheinander.",
+      "diagram": "svg:drills/bunker_hit_it_close",
+      "location": "Übungsbunker"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele nacheinander fünf Bälle aus dem Bunker zur Fahne. Ziel ist es, so viele Bälle wie möglich in den Zielkreis (3 / 6 / 9 m) zu bringen. Punktevergabe: 3 Punkte (innerhalb 3 m), 2 Punkte (innerhalb 6 m), 1 Punkt (innerhalb 9 m).",
+      "test": "Ermittle die Gesamtpunktzahl aus fünf Schlägen. Wenn du den Zielkreis regelmäßig triffst, spiele aus schwierigen Lagen (eingebohrter Ball, Hang, nasser Sand).",
+      "tooEasy": "Verkürze die Distanz auf 8 m oder verkleinere den Zielkreis. Alternativ: Zähle nur Treffer im 3 m-Kreis."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Punkte",
+      "hcpTargets": {
+        "54-36": 3,
+        "35-27": 4,
+        "26-19": 5,
+        "18-12": 7,
+        "11-5": 9,
+        "4-0": 12
+      }
+    },
+    "tags": [
+      "Short Game",
+      "Zielspiel",
+      "Distanzkontrolle",
+      "Präzision"
+    ],
+    "zockerTip": "Spielt zu zweit: Beide schlagen abwechselnd fünf Bälle aus dem Bunker. Punktevergabe nach Zielkreis. Der Spieler mit der höheren Punktzahl gewinnt die Runde.",
+    "variants": [
+      "Trainiere aus unterschiedlichen Lagen - eingebuddelt, Hang, nasser Sand.",
+      "Füge Bonuspunkte für 'up & down' hinzu, wenn du anschließend einlochst.",
+      "Nutze eine Distanz von 12 m für mehr Fluganteil (höherer Schwierigkeitsgrad)."
+    ],
+    "summary": "Fünf Bunkerschläge präzise an die Fahne spielen und durch Punktewertung die Nähe zum Ziel verbessern."
+  },
+  {
+    "id": "bunker_sandy_par",
+    "title": "Sandy Par",
+    "subtitle": "Up & Down aus dem Bunker trainieren",
+    "category": "Bunker",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Sand Wedge",
+        "Putter"
+      ],
+      "other": [
+        "5 Fahnen oder Zielbereiche",
+        "Tees zur Markierung der Bunker-Positionen",
+        "Stoppuhr oder Scorekarte"
+      ]
+    },
+    "setup": {
+      "schema": "Lege einen Ball in den Bunker. Wähle fünf unterschiedliche Löcher oder Zielbereiche auf dem Grün mit variierenden Entfernungen (zwischen 5 und 15 Metern). Markiere die Positionen im Bunker mit Tees oder Linien.",
+      "diagram": "svg:drills/bunker_sandy_par",
+      "location": "Übungsbunker"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele nacheinander fünf verschiedene Bunkerschläge auf die jeweiligen Zielbereiche. Nach jedem Schlag puttest du den Ball ein. Zähle dabei die Gesamtzahl der Schläge (Bunker + Putt). Ziel ist es, pro Loch mit maximal zwei Schlägen auszukommen (Up & Down).",
+      "test": "Addiere nach fünf Stationen die Gesamtzahl der Schläge. Wiederhole den Test in unterschiedlichen Lagen (flacher, steiler, harter Sand).",
+      "tooEasy": "Verkleinere die Zielkreise oder chippe auf Fahnen mit Hanglagen. Alternativ: zähle nur dann einen 'Sandy Par', wenn du den Putt direkt lochst."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Gesamtschläge (5 Bunkerschläge + Putts)",
+      "hcpTargets": {
+        "54-36": 20,
+        "35-27": 17,
+        "26-19": 15,
+        "18-12": 13,
+        "11-5": 12,
+        "4-0": 10
+      }
+    },
+    "tags": [
+      "Short Game",
+      "Up & Down",
+      "Scoring",
+      "Realistic Practice",
+      "Bunkerspiel"
+    ],
+    "zockerTip": "Spielt zu zweit oder in der Gruppe. Jeder Teilnehmer schlägt abwechselnd denselben Bunkerschlag. Der Punkt geht an den Spieler, der zuerst ein Up & Down schafft. Variante: Nur Bälle auf dem Grün zählen - wer zuerst fünf Up & Downs erzielt, gewinnt.",
+    "variants": [
+      "Führe den Drill mit nur einem Ball durch und spiele die Runde als Simulation eines Lochspiels.",
+      "Nutze markierte Linien im Bunker für unterschiedliche Schwierigkeitsgrade (tiefer, flach, Hang).",
+      "Zähle Bonuspunkte für erfolgreiche Up & Downs bei mehr als 10 m Entfernung."
+    ],
+    "summary": "Fünf Bunkerschläge mit anschließendem Putt spielen und gezielt Up-and-Downs zur Par-Rettung trainieren."
+  },
+  {
+    "id": "pitching_four_stations",
+    "title": "Four Stations",
+    "subtitle": "Zielspiel aus vier Entfernungen",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 4,
+      "clubs": [
+        "Pitching Wedge",
+        "Gap Wedge",
+        "Sand Wedge"
+      ],
+      "other": [
+        "4 Tees oder Marker für Stationen",
+        "Ziel-Fahne",
+        "Stoppuhr oder Scorekarte"
+      ]
+    },
+    "setup": {
+      "schema": "Baue vier Stationen rund um eine Fahne auf: 5 m, 10 m, 15 m und 20 m entfernt vom Ziel. Droppe an jeder Station einen Ball. Wähle jeweils den passenden Schläger entsprechend der Distanz und der Landezone.",
+      "diagram": "svg:drills/pitching_four_stations",
+      "location": "Pitching Green"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele jeweils vier Bälle von den Stationen nacheinander zur Fahne. Zähle Punkte: 3 Punkte, wenn der Ball im Radius von einer Schlägerlänge liegt, 2 Punkte innerhalb von 90 cm, 1 Punkt innerhalb von 1,5 m. Spiele die Übung drei Mal.",
+      "test": "Summiere die Punkte aus allen drei Durchgängen. Ein Score von 20+ Punkten entspricht einem stabilen Pitching-Niveau. Spiele danach mit variierenden Schlägern oder Landezonen.",
+      "tooEasy": "Füge Hanglagen oder Bunker zwischen die Stationen ein, oder verkleinere den Zielradius auf 60 cm."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Punkte",
+      "hcpTargets": {
+        "54-36": 6,
+        "35-27": 10,
+        "26-19": 14,
+        "18-12": 16,
+        "11-5": 21,
+        "4-0": 24
+      }
+    },
+    "tags": [
+      "Pitching",
+      "Short Game",
+      "Zielspiel",
+      "Kontrolle",
+      "Präzision"
+    ],
+    "zockerTip": "Spielt zu zweit im Lochspielmodus. Jeder Spieler bestimmt abwechselnd den Schläger, der an der nächsten Station verwendet werden muss. Wer zuerst alle vier Stationen mit Treffern abschließt, gewinnt die Runde.",
+    "variants": [
+      "Spiele rückwärts (20 → 15 → 10 → 5 m), um Distanzkontrolle und Übergänge zu trainieren.",
+      "Füge einen ‚Penalty Zone‘-Bereich hinzu - kein Punkt, wenn der Ball hinter dem Loch liegt.",
+      "Erweitere auf sechs Stationen (bis 30 m) für Advanced-Pitch-Training."
+    ],
+    "summary": "Vier Pitches aus unterschiedlichen Distanzen zur Fahne spielen und durch Punktewertung Präzision und Distanzgefühl trainieren."
+  },
+  {
+    "id": "range_drives",
+    "title": "Abschläge",
+    "category": "Driving Range",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "Driver oder üblicher Abschlagsschläger"
+      ],
+      "other": [
+        "Range mit ausreichender Länge",
+        "sichtbarer Zielkorridor (ca. 25 Meter Breite)",
+        "Entfernungsmesser oder Markierungen zur Längenkontrolle"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir eine Stelle auf der Range mit ausreichender Länge und einem sichtbaren Korridor von ca. 25 Metern Breite (das entspricht in etwa der durchschnittlichen Fairwaybreite).",
+      "diagram": "svg:drills/range_drives",
+      "location": "Driving Range oder Übungsfläche mit Korridormarkierungen"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist es, eine Höchstserie zu erreichen, bei der dein Ball den Zielkorridor trifft und mindestens 80 % deiner maximalen Schlaglänge erreicht. Üblicherweise wird der Driver verwendet. Falls du noch keinen benutzt, nimm deinen üblichen Schläger für Abschläge.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Fairwaytreffern mit ≥ 80 % Schlaglänge. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann versuche es mit einem schmaleren Korridor!"
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          4,
+          5,
+          6
+        ],
+        "25-0": [
+          8,
+          10,
+          14
+        ]
+      }
+    },
+    "tags": [
+      "Abschlag",
+      "Fairwaytreffer",
+      "Distanzkontrolle",
+      "Präzision",
+      "Korridor",
+      "Range",
+      "Streak"
+    ],
+    "zockerTip": "Visualisiere vor jedem Schlag den gesamten Ballflug - Richtung, Apex und Landepunkt. Dein Körper folgt dem, was dein Kopf sieht.",
+    "variants": [
+      "Verkleinere den Zielkorridor auf 20 oder 15 Meter.",
+      "Verwende verschiedene Schläger (Driver, Holz, Hybrid) abwechselnd.",
+      "Füge Windbedingungen oder Höhenunterschiede hinzu, um die Streuung zu trainieren."
+    ],
+    "summary": "Drives präzise in den Zielkorridor schlagen und eine fehlerfreie Serie mit konstanter Länge aufbauen."
+  },
+  {
+    "id": "range_irons",
+    "title": "Eisen",
+    "category": "Driving Range",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "Pitching Wedge",
+        "Eisen 9",
+        "Eisen 8",
+        "Eisen 7",
+        "Eisen 6",
+        "Eisen 5",
+        "Hybrid oder Fairwayholz (optional)"
+      ],
+      "other": [
+        "Range",
+        "Toursticks oder Schläger zur Ausrichtung",
+        "Zielbereich oder Markierung auf der Range"
+      ]
+    },
+    "setup": {
+      "schema": "Suche dir eine gute Stelle auf der Range und richte dich mit Hilfe eines Toursticks oder Schlägers auf ein beliebiges Ziel aus. Die maximale Abweichung von der üblichen Länge darf betragen: Newbie 20 %, Player 15 %, Pro 10 %.",
+      "diagram": "svg:drills/range_irons",
+      "location": "Driving Range oder Trainingsfläche mit Zielmarkierung"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Schlage aufsteigend mit deinen Schlägern vom Pitching Wedge bis zum Eisen 5 (alternativ auch Hybrid oder Fairwayholz). Wenn du den höchsten Schläger erreicht hast, fängst du wieder beim Pitching Wedge an. Ziel ist es, eine Höchstserie zu schaffen. Die Serie wird unterbrochen, wenn ein Schlag die maximale Abweichung überschreitet, und du musst wieder bei null beginnen.",
+      "test": "Bestimme innerhalb von fünf Minuten deine längste Serie von Schlägen innerhalb zulässiger Abweichung. Nach einem Fehlschlag startest du wieder bei null. Am Ende der Zeit darfst du die laufende Serie noch beenden.",
+      "tooEasy": "Dann versuche es aus Hanglagen oder mit schlechteren Balllagen!"
+    },
+    "metric": {
+      "type": "streak",
+      "unit": "längste Serie",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          2,
+          4,
+          6
+        ],
+        "25-0": [
+          4,
+          6,
+          9
+        ]
+      }
+    },
+    "tags": [
+      "Range",
+      "Eisen",
+      "Schlaglänge",
+      "Distanzkontrolle",
+      "Präzision",
+      "Consistency",
+      "Streak"
+    ],
+    "zockerTip": "Beurteile nicht nur den Ballflug - höre auf den Treffmoment. Solider Kontakt ist der Schlüssel zu reproduzierbarer Länge.",
+    "variants": [
+      "Baue den Drill rückwärts auf (Eisen 5 → PW).",
+      "Füge Zielvorgaben für Carry-Längen hinzu.",
+      "Trainiere die Serie bei Wind oder in Hanglage."
+    ],
+    "summary": "Schläge mit aufsteigenden Eisen innerhalb der zulässigen Längenabweichung treffen und eine durchgehende Serie halten."
+  },
+  {
+    "id": "pitching_attack_the_flag",
+    "title": "Attack the Flag",
+    "subtitle": "Zielspiel für Distanzen zwischen 20 und 40 Metern",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "Pitching Wedge",
+        "Gap Wedge",
+        "Sand Wedge"
+      ],
+      "other": [
+        "Tees oder Marker zur Distanzmessung (20, 30, 40 m)",
+        "Fahne oder Ziel auf dem Grün",
+        "Stoppuhr oder Scorekarte"
+      ]
+    },
+    "setup": {
+      "schema": "Messe drei Positionen ab, die 20 m, 30 m und 40 m von der Fahne entfernt sind. Markiere jede Position mit einem Tee. Spiele von jeder Distanz jeweils drei Bälle (insgesamt neun). Die Landezonen können auf Fairway, Rough oder semi Rough liegen.",
+      "diagram": "svg:drills/pitching_attack_the_flag",
+      "location": "Pitching Green"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele mit einem deiner Wedges insgesamt neun Bälle aus den drei verschiedenen Entfernungen (je drei Bälle pro Distanz). Ziel ist es, möglichst viele Bälle im Zielkreis um die Fahne zu platzieren. Jeder Treffer innerhalb des Handicap-Radius gibt einen Punkt.",
+      "test": "Zähle die Punkte aus allen neun Schlägen. Ein Treffer gilt, wenn der Ball innerhalb des HCP-spezifischen Radius liegt (siehe Tabelle unten). Wiederhole die Übung drei Mal und vergleiche die Durchschnittswerte.",
+      "tooEasy": "Reduziere den Radius um 1 m oder erhöhe die Distanz um jeweils 5 m. Alternativ: wechsle pro Schlag den Schläger (Pitching, Gap, Sand)."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Treffer (Punkte)",
+      "hcpTargets": {
+        "54-27": {
+          "radius": "≤ 8 m"
+        },
+        "26-19": {
+          "radius": "≤ 7 m"
+        },
+        "18-12": {
+          "radius": "≤ 5 m"
+        },
+        "11-5": {
+          "radius": "≤ 3 m"
+        },
+        "4-0": {
+          "radius": "≤ 2 m"
+        }
+      }
+    },
+    "tags": [
+      "Pitching",
+      "Short Game",
+      "Zielspiel",
+      "Distanzkontrolle",
+      "Präzision"
+    ],
+    "zockerTip": "Spielt zu zweit: Jeder wählt eine der drei Distanzen. Der Spieler, dessen Ball näher an der Fahne liegt, erhält einen Punkt. Bonus: Wer den Ball einchippt, bekommt zwei Punkte. Nach neun Schlägen gewinnt der Spieler mit den meisten Punkten.",
+    "variants": [
+      "Verwende abwechselnd hohe und flache Flugkurven.",
+      "Baue Hindernisse ein (z. B. Bunker, Rough oder erhöhte Fahne).",
+      "Messe die durchschnittliche Distanz zum Loch für objektives Feedback."
+    ],
+    "summary": "Neun Pitches aus 20, 30 und 40 Metern gezielt an die Fahne spielen und möglichst viele Treffer im Zielkreis erzielen."
+  },
+  {
+    "id": "pitching_mixed_clubs",
+    "title": "Mixed Clubs",
+    "subtitle": "Variiere Schläger und Distanzen für präzises Wedge-Play",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 25,
+      "clubs": [
+        "Pitching Wedge",
+        "Gap Wedge",
+        "Sand Wedge",
+        "Lob Wedge",
+        "Eisen 8-9"
+      ],
+      "other": [
+        "5 Tees oder Marker für Stationen (10, 15, 20, 25, 30 m)",
+        "Ziel-Fahne",
+        "Scorekarte oder Notizblatt"
+      ]
+    },
+    "setup": {
+      "schema": "Baue fünf Stationen in Entfernungen von 10 m, 15 m, 20 m, 25 m und 30 m zur Fahne auf. Spiele von jeder Station mit unterschiedlichen Schlägern, sodass du insgesamt 25 Bälle schlägst. Variiere Flughöhe und Landepunkte.",
+      "diagram": "svg:drills/pitching_mixed_clubs",
+      "location": "Pitching Green"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele von jeder der fünf Stationen fünf Bälle, wobei du jedes Mal den Schläger wechselst. Ziel ist es, möglichst viele Bälle im definierten Radius zur Fahne zu platzieren. Experimentiere mit unterschiedlichen Flugbahnen und Landepunkten.",
+      "test": "Zähle Punkte: Jeder Ball, der innerhalb deines Handicap-Radius liegt, gibt 1 Punkt. Maximal sind 20 Punkte möglich. Wiederhole den Test mit variierenden Landezonen oder Hanglagen.\n54-27: ≤ 8 m\n26-19: ≤ 6 m\n18-12: ≤ 4 m\n11-5: ≤ 3 m\n4-0: ≤ 1.5 m",
+      "tooEasy": "Verkleinere den Radius oder platziere Hindernisse (Bunker, Rough). Alternativ: spiele durch ein Alignment-Stick-Tor auf dem Weg zum Ziel."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Punkte",
+      "hcpTargets": {
+        "54-27": {
+          "radius": "≤ 8 m"
+        },
+        "26-19": {
+          "radius": "≤ 6 m"
+        },
+        "18-12": {
+          "radius": "≤ 4 m"
+        },
+        "11-5": {
+          "radius": "≤ 3 m"
+        },
+        "4-0": {
+          "radius": "≤ 1.5 m"
+        }
+      }
+    },
+    "tags": [
+      "Pitching",
+      "Distance Control",
+      "Trajectory",
+      "Shot Variation",
+      "Short Game",
+      "Adaptivität"
+    ],
+    "zockerTip": "Spielt zu zweit oder in der Gruppe als Punktspiel. Jeder wählt vor Beginn, mit welchem Schläger gespielt wird. Zwei Bälle pro Station zählen, der bessere zählt. Wer in Summe die meisten Treffer innerhalb des Radius erzielt, gewinnt.",
+    "variants": [
+      "Führe den Drill mit nur 3 Bällen pro Station durch und rotiere zufällig durch Schläger.",
+      "Spiele in entgegengesetzter Reihenfolge (30 → 10 m) für rückwärts ansteigende Präzision.",
+      "Baue ein Zielhindernis ein (z. B. eine kleine Zone hinter der Fahne, in der kein Punkt zählt)."
+    ],
+    "summary": "Fünf Distanzen mit wechselnden Schlägern spielen und durch Variation von Flughöhe und Landepunkt präzises Wedge-Play trainieren."
+  },
+  {
+    "id": "driving_nine_drives",
+    "title": "Nine Drives",
+    "subtitle": "Konstanz und Richtungskontrolle vom Tee",
+    "category": "Driving Range",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "Driver",
+        "Fairwayholz (3W)",
+        "Hybrid"
+      ],
+      "other": [
+        "Range-Abschlagmatte",
+        "Zielkorridor oder Fairway-Markierungen (~30 m breit)",
+        "Scorekarte oder Notizfeld"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere auf der Driving Range einen Zielkorridor von etwa 30 Metern Breite in 150 Metern Entfernung. Spiele insgesamt neun Drives und zähle, wie viele Bälle innerhalb des Korridors landen.",
+      "diagram": "svg:drills/driving_nine_drives",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele neun Drives, als würdest du neun verschiedene Löcher spielen. Führe vor jedem Drive deine vollständige Pre-Shot-Routine aus. Zähle jeden Ball, der im Korridor landet, als Treffer. Optional kannst du Draw, Fade oder gerade Flugbahnen gezielt anspielen.",
+      "test": "Werte nach neun Schlägen aus, wie viele Drives im Korridor gelandet sind. Wiederhole die Übung regelmäßig, um deine Fairway-Trefferquote zu verbessern.",
+      "tooEasy": "Verkleinere den Zielkorridor auf 20 m oder erhöhe die Zielentfernung auf 200 m. Spiele außerdem gezielt Draws oder Fades im Wechsel."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Treffer im Korridor",
+      "hcpTargets": {
+        "54-36": 3,
+        "35-27": 4,
+        "26-19": 5,
+        "18-12": 6,
+        "11-5": 7,
+        "4-0": 8
+      }
+    },
+    "tags": [
+      "Driving",
+      "Abschlag",
+      "Fairway-Trefferquote",
+      "Konstanz",
+      "Richtungskontrolle"
+    ],
+    "zockerTip": "Spielt zu zweit: Jeder kündigt vor dem Schlag an, ob der Ball Draw, Fade oder gerade fliegen soll. Treffer im Korridor bringen Punkte, Bonuspunkte für die korrekte Flugkurve. Wer zuerst 9 Punkte erreicht, gewinnt.",
+    "variants": [
+      "Führe den Drill mit 6 Bällen durch, aber spiele die Flugkurven in fester Reihenfolge: Draw, Fade, Gerade, Draw, Fade, Gerade.",
+      "Verwende eine GPS-App oder Range-Tracking-System zur Messung der Streuung.",
+      "Baue Hindernisse (z. B. imaginäre Bäume links/rechts) ein, um das Zielen zu verschärfen."
+    ],
+    "summary": "Neun Drives mit voller Routine schlagen und Konstanz sowie Richtungskontrolle im Zielkorridor verbessern."
+  },
+  {
+    "id": "driving_hit_three_greens",
+    "title": "Hit Three Greens",
+    "subtitle": "Zieltraining für verschiedene Distanzen mit Eisen oder Hybrid",
+    "category": "Driving Range",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "Eisen 6-9",
+        "Hybrid"
+      ],
+      "other": [
+        "Range mit mindestens drei Zielen (Kurz, Mittel, Lang)",
+        "Entfernungsmesser oder Rangefinder",
+        "Scorekarte oder Notizblatt"
+      ]
+    },
+    "setup": {
+      "schema": "Wähle auf der Range drei Ziele in unterschiedlichen Entfernungen, z. B. 70 m, 100 m und 130 m. Wenn keine Greens vorhanden sind, definiere Kreise oder Zielbereiche in diesen Distanzen. Spiele insgesamt neun Schläge (je drei pro Ziel) in rotierender Reihenfolge.",
+      "diagram": "svg:drills/driving_hit_three_greens",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele neun Bälle abwechselnd auf drei Ziele in unterschiedlichen Distanzen. Beginne mit dem kürzesten Ziel und arbeite dich zum weitesten vor. Führe für jeden Schlag deine volle Pre-Shot-Routine aus. Zähle Punkte je nach Zielentfernung: nah = 2 Punkte, mittel = 3 Punkte, weit = 4 Punkte.",
+      "test": "Zähle die Gesamtpunkte aus allen neun Schlägen. Treffer innerhalb des Zielradius zählen, Fehlschläge nicht. Wiederhole den Drill regelmäßig mit wechselnden Zielen oder unterschiedlichen Balllagen.",
+      "tooEasy": "Verkleinere die Zielradien oder spiele aus leichtem Rough. Füge zusätzlich Flugkurven (Draw/Fade) hinzu."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Trefferpunkte",
+      "hcpTargets": {
+        "54-27": 9,
+        "26-12": 14,
+        "11-0": 20
+      }
+    },
+    "tags": [
+      "Driving Range",
+      "Eisen-Training",
+      "Zielspiel",
+      "Distanzkontrolle",
+      "Trefferquote"
+    ],
+    "zockerTip": "Spielt diesen Drill gegeneinander im Team. Jeder Spieler wählt pro Runde ein Ziel. Durch die wechselnden Ziele steigt der Druck. Punktewertung: nah = 2, mittel = 3, weit = 4. Wer nach 9 Schlägen die meisten Punkte hat, gewinnt.",
+    "variants": [
+      "Spiele mit zufälliger Reihenfolge der Ziele (würfeln oder App-Zufall).",
+      "Verwende pro Ziel einen anderen Schläger.",
+      "Erhöhe den Schwierigkeitsgrad mit Rückenwind, Gegenwind oder wechselnden Lies."
+    ],
+    "summary": "Neun Bälle abwechselnd auf drei Zielentfernungen schlagen und Präzision sowie Distanzkontrolle trainieren."
+  },
+  {
+    "id": "driving_14_fairways",
+    "title": "14 Fairways",
+    "subtitle": "Rhythmus und Fairway-Trefferquote im Wechsel zwischen Eisen und Driver",
+    "category": "Driving Range",
+    "equipment": {
+      "balls": 28,
+      "clubs": [
+        "Driver",
+        "Eisen 7"
+      ],
+      "other": [
+        "Range mit markiertem Zielkorridor (~30 m breit)",
+        "Zielentfernung mindestens 150 m",
+        "Scorekarte oder Notizfeld"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere auf der Driving Range einen Korridor von etwa 30 Metern Breite in rund 200 Metern Entfernung. Spiele 14 Drives und 14 Schläge mit dem Eisen 7 abwechselnd. Ziel ist es, den Ball jeweils im Korridor zu landen. Zähle Treffer getrennt für Eisen und Driver.",
+      "diagram": "svg:drills/driving_14_fairways",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele abwechselnd einen Ball mit dem Eisen 7 und einen Ball mit dem Driver. Führe für jeden Schlag deine Pre-Shot-Routine aus. Zähle Treffer, wenn der Ball im Korridor landet (Mindestlänge 150 m). Achte beim Driver auf kontrollierten Rhythmus - spiele lieber bei 80 % Schwunggeschwindigkeit.",
+      "test": "Zähle, wie viele Bälle im Korridor landen. Bewerte deine Trefferquote separat für Eisen und Driver.",
+      "tooEasy": "Verkleinere den Korridor oder erhöhe die Zielentfernung. Spiele mit unterschiedlichen Flugkurven (Draw, Fade)."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Treffer im Korridor",
+      "hcpTargets": {
+        "54-27": 4,
+        "26-12": 7,
+        "11-0": 11
+      }
+    },
+    "tags": [
+      "Driving Range",
+      "Driver",
+      "Eisen 7",
+      "Fairway-Trefferquote",
+      "Rhythmus"
+    ],
+    "zockerTip": "Spielt gegeneinander: Vergleicht eure Trefferquote. Der Eisen-Treffer zählt 1 Punkt, der Drive 2 Punkte. Nach 14 Schlägen gewinnt der Spieler mit der höchsten Punktzahl. Bonuspunkt für 3 aufeinanderfolgende Treffer.",
+    "variants": [
+      "Spiele mit alternierenden Zielkorridoren links/rechts, um unterschiedliche Drives zu simulieren.",
+      "Nutze GPS oder Launch-Monitor, um Streuung und Carry-Distanzen zu analysieren.",
+      "Reduziere den Rhythmus beim Driver auf 80 % Schwungtempo für Konstanztraining."
+    ],
+    "summary": "Abwechselnd Drives und Eisen-7-Schläge im Zielkorridor platzieren und so Rhythmus und Fairwaytrefferquote verbessern."
+  },
+  {
+    "id": "driving_short_aims",
+    "title": "Short Aims",
+    "subtitle": "Kontrolliertes Längentraining mit kurzen und mittleren Eisen",
+    "category": "Driving Range",
+    "equipment": {
+      "balls": 20,
+      "clubs": [
+        "Eisen 8",
+        "Eisen 9",
+        "Pitching Wedge",
+        "Hybrid (optional)"
+      ],
+      "other": [
+        "Range mit klar erkennbaren Distanzen (z. B. 100 m, 125 m, 150 m)",
+        "Zielkreise (10 m Radius) oder Entfernungsmarkierungen",
+        "Stoppuhr oder Timer (15 Minuten)"
+      ]
+    },
+    "setup": {
+      "schema": "Wähle mehrere Ziele in 100 m, 125 m und 150 m Entfernung. Falls keine Zielkreise vorhanden sind, definiere Kreise mit etwa 10 m Radius. Ziel ist es, pro Distanz mindestens einen Treffer zu erzielen. Nach jedem Treffer wechselst du zur nächsten Station.",
+      "diagram": "svg:drills/driving_short_aims",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele mit verschiedenen Schlägern (Eisen 8, 9 oder PW) auf Ziele in 100 m, 125 m und 150 m Entfernung. Jeder Treffer zählt, wenn der Ball innerhalb eines 10 m-Radius um das Ziel landet. Nach einem Treffer wechselst du die Station. Ziel: so viele Treffer wie möglich in 15 Minuten.",
+      "test": "Zähle, wie viele Distanzen (Stationen) du innerhalb der 15 Minuten erfolgreich abgeschlossen hast (mindestens ein Treffer pro Station).",
+      "tooEasy": "Verkleinere die Zielradien oder erhöhe die Distanzen (z. B. 120-170 m). Spiele aus unterschiedlichen Lies oder mit Windvariationen."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Stationen getroffen",
+      "hcpTargets": {
+        "54-27": 2,
+        "26-12": 3,
+        "11-0": 4
+      }
+    },
+    "tags": [
+      "Driving Range",
+      "Eisen",
+      "Distanzkontrolle",
+      "Längentraining",
+      "Gapping"
+    ],
+    "zockerTip": "Spielt gegeneinander auf dieselben Distanzen. Wer zuerst alle Ziele trifft, gewinnt. Zusatzregel: Wer das kürzeste Ziel zuerst trifft, darf den Gegner für die nächste Station herausfordern. Variation: Spiele Par-3-Löcher mit dem Driver - wie nah kommst du ans Grün?",
+    "variants": [
+      "Verändere die Reihenfolge der Distanzen zufällig.",
+      "Spiele mit unterschiedlichen Balltypen, um Carry-Unterschiede zu testen.",
+      "Führe den Drill mit Launch-Monitor-Messung (Carry, Apex, Roll) durch."
+    ],
+    "summary": "Mit verschiedenen Eisen gezielt auf drei Distanzen schlagen und präzise Längenkontrolle über mehrere Ziele trainieren."
+  },
+  {
+    "id": "driving_fade_and_draw",
+    "title": "Fade & Draw",
+    "subtitle": "Kontrollierte Flugkurven mit Driver oder Fairwayholz",
+    "category": "Driving Range",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "Driver",
+        "Fairwayholz"
+      ],
+      "other": [
+        "Range mit markiertem Zielkorridor (ca. 30 m breit)",
+        "Alignment Stick oder Zielstab",
+        "Tee",
+        "Scorekarte oder Notizblatt"
+      ]
+    },
+    "setup": {
+      "schema": "Lege einen Alignment Stick etwa 10 Meter vor dir leicht außerhalb der Zielrichtung. Spiele jeweils einen Fade (Ballkurve von links nach rechts) und danach einen Draw (rechts nach links). Ziel ist, dass der Ball um den Alignment Stick herumfliegt und im Zielkorridor landet.",
+      "diagram": "svg:drills/driving_fade_and_draw",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 5,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Tee den Ball auf und spiele abwechselnd einen Fade und einen Draw. Führe vor jedem Schlag deine Pre-Shot-Routine aus. Achte darauf, dass der Ball mit der gewünschten Kurve in den Zielkorridor fliegt. Insgesamt spielst du 10 Bälle - 5 Fades und 5 Draws.",
+      "test": "Zähle, wie viele Bälle im Korridor landen. Ein Treffer zählt nur, wenn die Kurve klar erkennbar war und der Ball die Mitte des Zielkorridors erreicht.",
+      "tooEasy": "Baue zusätzliche Höhenvariationen ein (flach, mittel, hoch) oder nutze längere Hölzer. Trainiere den Drill bei Seitenwind."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "Treffer im Korridor",
+      "hcpTargets": {
+        "36-27": 2,
+        "26-12": 4,
+        "11-0": 7
+      }
+    },
+    "tags": [
+      "Driving Range",
+      "Driver",
+      "Fairwayholz",
+      "Ballflugkurven",
+      "Fade",
+      "Draw"
+    ],
+    "zockerTip": "Spielt diesen Drill im Lochspielmodus gegeneinander. Wer seine Kurve am besten trifft und im Zielkorridor landet, gewinnt das Loch. Verfehlt ein Spieler die Kurve, muss er beim nächsten Abschlag die Kurvenrichtung wechseln.",
+    "variants": [
+      "Baue einen Windfaktor ein (z. B. Fade gegen Wind, Draw mit Rückenwind).",
+      "Spiele mit verschiedenen Zielhöhen - flach für Kontrolle, hoch für Shape-Feeling.",
+      "Führe die Übung mit geschlossenen Augen im Finish aus, um Gefühl zu fördern (wie Rickie Fowler)."
+    ],
+    "summary": "Abwechselnd Fade und Draw schlagen, um Flugkurven gezielt zu steuern und Kontrolle über Richtung und Shape zu entwickeln."
+  },
+  {
+    "id": "sweetspot_hit_the_sweetspot_1",
+    "title": "Hit the Sweetspot I",
+    "subtitle": "Finde dein Treffmuster mit Impact Tape oder Spray",
+    "category": "Technik",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "Driver oder Holz"
+      ],
+      "other": [
+        "Impact Tape oder Impact Spray",
+        "Scorekarte oder Notizblatt"
+      ]
+    },
+    "setup": {
+      "schema": "Bringe Impact Tape oder ein Impact Spray auf dem Schlägerblatt an, sodass die Treffpunkte sichtbar werden. Schlage 10 Bälle mit deinem Driver oder Fairwayholz. Notiere nach jedem Schlag die Treffposition (innen, Mitte, außen, oben, unten) und den Ballflug.",
+      "diagram": "svg:drills/sweetspot_hit_the_sweetspot_1",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 16,
+      "timerPreset": 960
+    },
+    "difficulty": {
+      "base": 2,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Schlage 10 Bälle in normaler Routine. Suche dir dabei einen Zielkorridor auf der Range. Notiere nach jedem Schlag, wo der Ball auf dem Schlägerblatt getroffen wurde. Analysiere am Ende deine Tendenzen.",
+      "test": "Bestimme, wo sich deine durchschnittliche Treffpunktlage befindet (z. B. eher Spitze oder Hacke). Ergänze dazu Flugkurve (Draw/Fade) und Gefühl im Treffmoment.",
+      "tooEasy": "Verwende Schläger mit kleinerer Schlagfläche oder markiere die Sweetspot-Zone enger (z. B. 2 cm Durchmesser)."
+    },
+    "metric": {
+      "type": "qualitative",
+      "unit": "Treffpunkt-Analyse (Zentrierung)",
+      "evaluation": [
+        "zentriert → optimaler Energieübertrag",
+        "außen/spitze → Tendenz zu Slice",
+        "innen/hacke → Tendenz zu Hook",
+        "oben → hoher Launch",
+        "unten → flacher Launch"
+      ]
+    },
+    "tags": [
+      "Driver",
+      "Treffmoment",
+      "Ballstriking",
+      "Feedback",
+      "Technikanalyse"
+    ],
+    "tip": "Lege eine leere Ball-Schachtel hochkant rechts oder links neben den Ball. So bekommst du sofort Feedback über den Eintreffwinkel - und kannst erkennen, ob du zu weit von außen oder innen schwingst.",
+    "zockerTip": "Spiele zu zweit: Wer bei 10 Schlägen die meisten Treffer in der Sweetspot-Zone hat, gewinnt. Bei Gleichstand zählt der durchschnittliche Ballflug (Draw/Fade neutral).",
+    "variants": [
+      "Führe denselben Test mit Eisen 7 und Hybrid durch, um den Unterschied im Impact-Muster zu sehen.",
+      "Verwende ein Launch-Monitor-Tool oder Smartphone-App, um Treffpunkt und Ballgeschwindigkeit zu korrelieren."
+    ],
+    "summary": "Zehn Bälle schlagen, Treffpunkte auf dem Schlägerblatt analysieren und das persönliche Sweetspot-Muster erkennen."
+  },
+  {
+    "id": "sweetspot_hit_the_sweetspot_2",
+    "title": "Hit the Sweetspot II",
+    "subtitle": "Drill für präzise Ballkontakte mit Fokus auf Schwungrichtung",
+    "category": "Technik",
+    "equipment": {
+      "balls": 20,
+      "clubs": [
+        "Driver oder Eisen"
+      ],
+      "other": [
+        "Alignment Stick oder Eisen zum Ausrichten",
+        "Impact Tape (optional)"
+      ]
+    },
+    "setup": {
+      "schema": "Lege einen Alignment Stick oder ein Eisen parallel zur Ziellinie. Schlage 20 Bälle mit normaler Routine und vollem Fokus auf einen präzisen Balltreffer. Achte darauf, ob dein Schwung von außen oder innen über das Ziel führt. Ziel ist, eine stabile, wiederholbare Treffposition in der Schlägermitte zu erreichen.",
+      "diagram": "svg:drills/sweetspot_hit_the_sweetspot_2",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Tee den Ball auf, richte dich wie gewohnt aus und führe deine volle Routine aus. Beobachte, ob dein Schwung leicht von außen oder von innen kommt und wie der Ball startet. Fokussiere dich auf den Klang und das Gefühl im Treffmoment.",
+      "test": "Triff den Ball regelmäßig mittig auf der Schlagfläche. Analysiere, ob der Ball in der Zielrichtung startet und gerade fliegt.",
+      "tooEasy": "Verkleinere den Zielkorridor (z. B. Baum oder Fahne). Spiele mit bewusstem Draw/Fade-Wechsel, um die Kontrolle über den Schwungpfad zu trainieren."
+    },
+    "metric": {
+      "type": "qualitative",
+      "unit": "Trefferqualität",
+      "evaluation": [
+        "Ball mittig getroffen → neutraler Pfad, maximale Energieübertragung",
+        "Ball innen getroffen → tendenziell Draw",
+        "Ball außen getroffen → tendenziell Fade oder Slice",
+        "Gefühl (Schulnote 1-6) im Treffmoment dokumentieren"
+      ]
+    },
+    "tags": [
+      "Sweetspot",
+      "Treffmoment",
+      "Schwungrichtung",
+      "Driver",
+      "Techniktraining",
+      "Feedback"
+    ],
+    "tip": "Ein sauberer, zentrierter Treffer ist wichtiger als maximale Geschwindigkeit. Trainiere Klang und Feedback des Treffmoments, nicht die Distanz.",
+    "team": "Trainiere zu zweit: Einer schlägt, der andere beobachtet Treffpunkt und Schwungrichtung. Nutzt Videoaufnahmen für sofortiges Feedback.",
+    "variants": [
+      "Verwende Impact Tape, um nach jeder Serie visuell zu überprüfen, wo du den Ball triffst.",
+      "Schlage abwechselnd Draws und Fades, um die Kontrolle über den Eintreffwinkel zu schulen.",
+      "Kombiniere mit „Hit the Sweetspot I“ als Voranalyse-Drill."
+    ],
+    "summary": "Zwanzig Bälle mit Fokus auf zentrierten Treffmoment schlagen und eine wiederholbare, stabile Schwungrichtung entwickeln."
+  },
+  {
+    "id": "sweetspot_out_of_the_sweetspot",
+    "title": "Out of the Sweetspot",
+    "subtitle": "Drill zur bewussten Schulung des Treffgefühls bei Off-Center-Schlägen",
+    "category": "Technik",
+    "equipment": {
+      "balls": 18,
+      "clubs": [
+        "Driver oder Eisen"
+      ],
+      "other": [
+        "Tees",
+        "Impact Tape oder Impact Spray"
+      ]
+    },
+    "setup": {
+      "schema": "Bringe Impact Tape oder ein Impact Spray auf der Schlagfläche an. Schlage 18 Bälle, aufgeteilt in drei Serien à sechs Schläge. Versuche gezielt, den Ball einmal innen, einmal außen und einmal mittig (Sweetspot) zu treffen. Beobachte Ballflug, Klang und Gefühl im Treffmoment.",
+      "diagram": "svg:drills/sweetspot_out_of_the_sweetspot",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 18,
+      "timerPreset": 1080
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Führe deine normale Routine aus und variiere gezielt den Treffpunkt. Spiele je sechs Bälle innen, außen und mittig. Notiere bei jedem Schlag, wie sich der Ballflug und das Gefühl im Treffmoment verändern.",
+      "test": "Vergleiche deine Ergebnisse mit dem Drill ‚Hit the Sweetspot I‘. Ziel ist, das Gefühl für die Treffmitte zu verfeinern und Fehltreffer sofort zu erkennen.",
+      "tooEasy": "Verkleinere den Sweetspot-Bereich oder spiele mit einem Eisen 3 bzw. einem Blade-Schläger. So wird das Feedback deutlicher."
+    },
+    "metric": {
+      "type": "qualitative",
+      "unit": "Trefferqualität & Feedbackbewertung",
+      "evaluation": [
+        "Ball außen (toe) → tendenziell Fade/Slice, geringere Energieübertragung",
+        "Ball innen (heel) → tendenziell Hook, leicht unruhiger Klang",
+        "Ball mittig → neutraler Flug, klarer Klang, maximales Feedback",
+        "Gefühl im Treffmoment (Schulnote 1-6) dokumentieren"
+      ]
+    },
+    "tags": [
+      "Treffmoment",
+      "Ballstriking",
+      "Sweetspot",
+      "Gefühlstraining",
+      "Feedback"
+    ],
+    "tip": "Nutze den Drill nicht zur Korrektur, sondern zur bewussten Wahrnehmung. Nur wer weiß, wie sich Off-Center-Treffer anfühlen, kann echte Mitte spüren.",
+    "compare": "Vergleiche die Ergebnisse mit ‚Hit the Sweetspot I‘ - Ziel ist, die eigene Wahrnehmung zu schärfen und die Quote echter Sweetspot-Treffer zu steigern.",
+    "variants": [
+      "Verwende unterschiedliche Schläger (Driver, Eisen 7, Hybrid), um das Treff-Feedback zu vergleichen.",
+      "Spiele die gleiche Serie mit und ohne Tees, um den Einfluss der Balllage auf den Treffpunkt zu spüren."
+    ],
+    "summary": "Ziel ist ein gleichmäßiger Rhythmus im Schwung, um die Kontrolle und Wiederholbarkeit zu verbessern."
+  },
+  {
+    "id": "tempo_stay_in_the_rhythm",
+    "title": "Stay in the Rhythm",
+    "subtitle": "Trainiere ein gleichmäßiges 3:1-Tempo für präzise, wiederholbare Drives",
+    "category": "Technik",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "Driver oder Fairwayholz"
+      ],
+      "other": [
+        "Zielkorridor auf der Range",
+        "optional: Metronom oder Rhythmus-App"
+      ]
+    },
+    "setup": {
+      "schema": "Richte auf der Driving Range einen Zielkorridor ein. Die seitliche Begrenzung sollte etwa 30 Meter betragen. Verwende ein optisches Ziel (z. B. Fahne, Baumreihe) und markiere bei Bedarf die Ausrichtung mit einem Alignment Stick.",
+      "diagram": "svg:drills/tempo_stay_in_the_rhythm",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziele auf ein konstantes 3:1-Verhältnis von Rück- zu Abschwung. Führe die Ausholbewegung bewusst ruhig und kontrolliert aus. Beschleunige den Schläger erst ab der Mitte des Rückschwungs bis in den Treffmoment hinein. Halte den Finish stabil.",
+      "test": "Schlage 10 Drives und bewerte: Wie viele Schläge waren im Rhythmus (gleichmäßiger Ablauf, kein Hasten)? Wie viele landeten im Zielkorridor?",
+      "tooEasy": "Verkürze den Zielkorridor oder variiere dein Rhythmusverhältnis (z. B. 2:1 oder 4:1), um deine Anpassungsfähigkeit zu testen."
+    },
+    "metric": {
+      "type": "dual",
+      "unit": [
+        "Drives im Rhythmus",
+        "Drives im Zielkorridor"
+      ],
+      "evaluation": [
+        "Ruhiger 3:1-Rhythmus → optimale Balance zwischen Kontrolle & Power",
+        "Zu schneller Rückschwung → Timingverlust, Ballflug inkonsistent",
+        "Zu schneller Abschwung → Tendenz zu Slice oder Top"
+      ]
+    },
+    "tags": [
+      "Driver",
+      "Timing",
+      "Rhythmus",
+      "Tempo",
+      "Konstanz"
+    ],
+    "tip": "Ein gleichmäßiger Rhythmus ist das Fundament jedes guten Ballstrikers. Tempo kontrolliert Länge - nicht Kraft. Lass den Schläger arbeiten.",
+    "team": "Spiele zu zweit: Einer schlägt, der andere zählt laut 1-2-3 (Rückschwung) - 1 (Abschwung). Vergleicht anschließend, bei welchem Tempo ihr den besten Ballflug erzielt.",
+    "variants": [
+      "Nutze ein Metronom-App (z. B. 75-80 BPM) für konstante Schlagrhythmen.",
+      "Kombiniere mit „Hit the Sweetspot II“, um Rhythmus und Treffmoment zu verbinden.",
+      "Probiere Rhythmusverhältnisse 2:1 oder 4:1 aus und vergleiche Ballflüge."
+    ],
+    "summary": "Zehn Drives mit konstantem 3:1-Schwungrhythmus schlagen, um Timing, Balance und Treffstabilität zu verbessern."
+  },
+  {
+    "id": "tempo_find_your_tempo",
+    "title": "Find Your Tempo",
+    "subtitle": "Finde das Schwungtempo, mit dem du am konstantesten triffst",
+    "category": "Technik",
+    "equipment": {
+      "balls": 8,
+      "clubs": [
+        "Driver",
+        "Fairwayholz"
+      ],
+      "other": [
+        "Zielkorridor auf der Range",
+        "optional: Launch Monitor oder Smartphone-App zur Schlaggeschwindigkeit"
+      ]
+    },
+    "setup": {
+      "schema": "Schlage insgesamt acht Bälle - vier mit dem Driver und vier mit einem Fairwayholz. Richte dich auf einen klar definierten Zielkorridor von etwa 30 Metern Breite aus. Spiele nacheinander Bälle mit unterschiedlichen Schwungintensitäten: 30 %, 60 %, 90 % und 100 % deiner maximalen Kraft.",
+      "diagram": "svg:drills/tempo_find_your_tempo",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Beginne mit 30 % Schwungtempo - konzentriere dich auf Rhythmus, Treffmoment und Balance. Steigere dich dann auf 60 %, 90 % und schließlich 100 %. Finde heraus, bei welcher Geschwindigkeit du den Ball am präzisesten triffst und die konstanteste Flugbahn erzielst.",
+      "test": "Notiere, wie viele Bälle pro Tempoeinstellung im Zielkorridor landen. Wiederhole die Übung in einer zweiten Session und vergleiche die Ergebnisse.",
+      "tooEasy": "Verkleinere den Zielkorridor auf 20 Meter oder spiele jede Serie mit einem anderen Schläger (z. B. Eisen 5, Hybrid, Driver)."
+    },
+    "metric": {
+      "type": "series",
+      "unit": "Bälle im Zielkorridor",
+      "stages": [
+        "30%",
+        "60%",
+        "90%",
+        "100%"
+      ],
+      "evaluation": [
+        "Hohe Kontrolle bei 60-90 % → ideales persönliches Tempo",
+        "Trefferquote fällt bei 100 % → Hinweis auf Rhythmusverlust",
+        "Schwung bei 30 % zu langsam → Timing und Distanz leiden"
+      ]
+    },
+    "tags": [
+      "Tempo",
+      "Driver",
+      "Rhythmus",
+      "Timing",
+      "Konsistenz"
+    ],
+    "tip": "Viele Profis spielen Drives mit etwa 85-90 % Schwungtempo. Finde dein Tempo, bei dem Technik, Rhythmus und Ballflug harmonieren.",
+    "team": "Spielt zu zweit: Einer gibt das gewünschte Tempo vor (z. B. 60 %, 90 %), der andere führt den Schlag aus. Vergleicht anschließend die Ballflüge und Trefferquote.",
+    "variants": [
+      "Messe deine Club-Head-Speed mit einem Launch Monitor, um objektive Vergleichswerte zu erhalten.",
+      "Führe den Drill mit Eisen 7 statt Driver aus, um die Bewegung präziser zu spüren.",
+      "Kombiniere mit ‚Stay in the Rhythm‘, um Tempo und Timing zu verbinden."
+    ],
+    "summary": "Acht Bälle mit variierendem Schwungtempo schlagen, um das persönliche Idealtempo für konstante Ballkontakte zu finden."
+  },
+  {
+    "id": "tempo_swing_like_a_pro",
+    "title": "Swing like a Pro",
+    "subtitle": "Perfektioniere dein Finish - der sichtbare Beweis für Rhythmus und Balance",
+    "category": "Technik",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "Driver",
+        "Fairwayholz"
+      ],
+      "other": [
+        "Zielkorridor auf der Range (ca. 30 Meter breit)"
+      ]
+    },
+    "setup": {
+      "schema": "Richte dich auf der Driving Range aus und definiere einen etwa 30 Meter breiten Zielkorridor. Führe deine volle Pre-Shot-Routine durch. Der Fokus liegt diesmal auf der Körperhaltung und Balance im Finish.",
+      "diagram": "svg:drills/tempo_swing_like_a_pro",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Schlage zehn Drives und halte nach jedem Schlag bewusst dein Finish. Zähle innerlich bis drei, bevor du den Schläger absetzt. Achte darauf, ob du stabil stehst, die Körperrotation vollständig ist und dein Gewicht auf dem vorderen Bein ruht.",
+      "test": "Notiere, wie oft du dein Finish sauber halten konntest. Punkte zählen nur, wenn der Ball zusätzlich im Zielkorridor gelandet ist.",
+      "tooEasy": "Verkürze die Zeitvorgabe im Finish auf zwei Sekunden oder spiele mit verschiedenen Schlägern. Optional: Schließe bei den letzten Schlägen die Augen nach dem Impact, um die Balance zu prüfen."
+    },
+    "metric": {
+      "type": "dual",
+      "unit": [
+        "Saubere Finishes",
+        "Bälle im Zielkorridor"
+      ],
+      "evaluation": [
+        "Sauberes Finish = gute Balance & vollständiger Schwung",
+        "Kippende Haltung = zu viel Kraft oder Timingverlust",
+        "Finish länger halten → verbessert Bewegungsgefühl und Stabilität"
+      ]
+    },
+    "tags": [
+      "Tempo",
+      "Balance",
+      "Finish",
+      "Driver",
+      "Rhythmus"
+    ],
+    "tip": "Das Finish ist der Spiegel des Schwungs. Wenn du am Ende ruhig stehen kannst, war der Rest des Schwungs wahrscheinlich richtig.",
+    "team": "Spielt zu zweit: Einer schlägt, der andere bewertet Haltung und Balance im Finish. Gebt euch Feedback, ob der Spieler stabil stehen bleibt oder kippt.",
+    "variants": [
+      "Zähle laut bis drei im Finish, um die Haltephase bewusst zu verlängern.",
+      "Verwende Videoaufnahmen zur Kontrolle von Haltung und Gleichgewicht.",
+      "Kombiniere mit ‚Find Your Tempo‘: Zuerst Tempo finden, dann Finish stabilisieren."
+    ],
+    "summary": "Zehn Drives mit stabilem Finish schlagen und Balance, Rhythmus sowie Körperkontrolle im Abschluss gezielt trainieren."
+  },
+  {
+    "id": "tempo_improve_your_feeling",
+    "title": "Improve Your Feeling",
+    "subtitle": "Trainiere Ballgefühl und Kontrolle durch variable Schwunggeschwindigkeiten",
+    "category": "Technik",
+    "equipment": {
+      "balls": 15,
+      "clubs": [
+        "Driver"
+      ],
+      "other": [
+        "Zielkorridor auf der Range (ca. 30 Meter breit)",
+        "optional: Launch Monitor oder Radar zur Schwunggeschwindigkeit"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere auf der Range einen etwa 30 m breiten Zielkorridor zwischen zwei Punkten (z. B. Fahnen, Bäume oder Zielmarkierungen). Schlage 15 Bälle in drei Serien zu je fünf Schlägen mit variierender Schwunggeschwindigkeit: 30 %, 50 %, 70 %, 90 % und 100 %.",
+      "diagram": "svg:drills/tempo_improve_your_feeling",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Führe deine volle Pre-Shot-Routine aus, aber variiere gezielt das Schwungtempo. Beobachte, wie sich Balance, Treffmoment und Flugrichtung verändern. Bei jedem Schlag: Wenn der Ball im Zielkorridor landet UND sauber getroffen ist, zählt das als Punkt.",
+      "test": "Notiere, wie viele Punkte du pro Serie (5 Bälle) erreicht hast. Maximal 15 Punkte sind möglich.",
+      "tooEasy": "Verkleinere den Korridor oder spiele abwechselnd mit verschiedenen Schlägern (Driver, Holz 3, Hybrid). Versuche, jeden Schlag mit einem anderen Ziel oder einer neuen Routine zu kombinieren."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Punkte (max 15)",
+      "scale": {
+        "13-15": "Perfekte Kontrolle",
+        "9-12": "Stabil, mit leichter Tempoabweichung",
+        "6-8": "Inkonstant, Timing verbessern",
+        "0-5": "Überhastet oder zu kräftig - mehr Fokus auf Rhythmus"
+      },
+      "evaluation": [
+        "Höhere Punktzahlen zeigen konstantes Timing bei variabler Geschwindigkeit.",
+        "Viele Fehlschläge bei 90-100 % deuten auf zu viel Kraft statt Rhythmus hin.",
+        "Bessere Kontrolle bei 70-80 % → ideales persönliches Spieltempo."
+      ]
+    },
+    "tags": [
+      "Tempo",
+      "Driver",
+      "Ballkontrolle",
+      "Rhythmus",
+      "Timing"
+    ],
+    "tip": "Du musst nicht jeden Schlag mit 100 % spielen. Viele Profis treffen bei 80 - 90 % am besten - ruhig, rhythmisch und wiederholbar.",
+    "team": "Spielt zu zweit gegeneinander: Einer bestimmt zufällig ein Tempo (z. B. 70 % oder 90 %), der andere muss den Schlag entsprechend anpassen. Landet der Ball im Ziel, gibt es einen Punkt.",
+    "variants": [
+      "Ersetze Driver durch Eisen 7 oder Holz 3 für präzisere Tempokontrolle.",
+      "Führe die Übung mit geschlossenen Augen im Treffmoment aus, um Gefühl statt Kraft zu fördern.",
+      "Kombiniere mit ‚Find Your Tempo‘: Nutze dort gefundene Idealgeschwindigkeit als Referenz."
+    ],
+    "summary": "Fünfzehn Drives mit variierendem Schwungtempo schlagen, um Gefühl, Timing und Kontrolle über unterschiedliche Geschwindigkeiten zu verbessern."
+  },
+  {
+    "id": "shapen_safety_shot",
+    "title": "Safety Shot",
+    "subtitle": "Lerne deinen Sicherheitsschlag kennen und kontrolliere deine Tendenz",
+    "category": "Technik",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "Driver"
+      ],
+      "other": [
+        "Zielkorridor auf der Driving Range (ca. 30 Meter breit)",
+        "Tees zur Ausrichtung"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere auf der Range einen klaren Zielkorridor zwischen zwei Punkten (z. B. Fahnen, Bäume oder Zielmarkierungen). Simuliere eine Drucksituation — etwa ein enges Fairway. Spiele deine Schläge mit etwa 80 % Schwunggeschwindigkeit, um Gefühl und Kontrolle zu priorisieren.",
+      "diagram": "svg:drills/shapen_safety_shot",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 15,
+      "timerPreset": 900
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Finde deinen persönlichen Safety Shot. Spiele zehn Drives mit unterschiedlichen Tendenzen (Draw/Fade) und beobachte, welche Flugkurve dir unter Druck am meisten Vertrauen gibt. Nutze denselben Rhythmus und dieselbe Routine wie im Turnier.",
+      "test": "Definiere vorab deinen Zielkorridor. Wenn der Ball dort landet UND du das geplante Schlagmuster getroffen hast (z. B. leichter Fade), zählt der Schlag als erfolgreich.",
+      "tooEasy": "Spiele den Drill bei Wind oder mit verschiedenen Schlägern (z. B. 3-Holz, Hybrid). Oder simuliere auf der Range visuell ein Loch mit Baumreihen links und rechts."
+    },
+    "metric": {
+      "type": "record",
+      "fields": [
+        "Flugkurve (Draw/Fade)",
+        "Schwunggeschwindigkeit (%)",
+        "Ausrichtung (links/rechts/gerade)",
+        "Tee-Höhe (niedrig/mittel/hoch)"
+      ],
+      "evaluation": [
+        "Ein konstanter Sicherheitsschlag gibt Selbstvertrauen für enge Fairways.",
+        "Deine Tendenz zeigt, welche Schwungrichtung (innen-außen oder außen-innen) du natürlicherweise bevorzugst.",
+        "Je stabiler dein Safety Shot, desto besser kannst du Drucksituationen kontrollieren."
+      ]
+    },
+    "tags": [
+      "Driver",
+      "Shapen",
+      "Flugkurve",
+      "Drucksituationen",
+      "Konstanz"
+    ],
+    "tip": "Dein Safety Shot ist der Schlag, auf den du dich unter Druck verlassen kannst. Trainiere ihn regelmäßig und nutze ihn auf dem Platz, wenn du Sicherheit brauchst.",
+    "team": "Lass dir von deinem Trainingspartner ein schwieriges Szenario beschreiben (z. B. enger Drive). Wähle dann bewusst deinen Safety Shot und spiele ihn mit voller Routine. Diskutiert, ob der Ball die gedachte Fairwaylinie getroffen hat.",
+    "variants": [
+      "Führe die Übung mit unterschiedlichen Tee-Höhen aus, um zu sehen, wie sich die Flugkurve verändert.",
+      "Wähle einen anderen Schläger (z. B. 3-Holz oder Hybrid) für präzisere Kontrolle.",
+      "Kombiniere mit ‚Fade & Draw‘, um deinen Safety Shot gezielt zu verfeinern."
+    ],
+    "summary": "Mit ca. 80 % Tempo den persönlichen Safety-Shot (Draw oder Fade) stabil in den Zielkorridor schlagen."
+  },
+  {
+    "id": "shapen_shape_it",
+    "title": "Shape It",
+    "subtitle": "Lerne, den Ball bewusst zu formen - Draw, Fade, hoch oder flach",
+    "category": "Technik",
+    "equipment": {
+      "balls": 12,
+      "clubs": [
+        "Driver"
+      ],
+      "other": [
+        "Zielkorridor auf der Driving Range (ca. 30 m breit)",
+        "Tees zur Markierung",
+        "optional: Launch Monitor für Startwinkel & Spin"
+      ]
+    },
+    "setup": {
+      "schema": "Definiere auf der Range einen etwa 30 m breiten Zielkorridor zwischen zwei Punkten (z. B. Fahnen, Zielstangen, Bäume). Schlage jeweils drei Bälle mit einer definierten Flugtendenz - Fade (l-r) oder Draw (r-l) - und variiere zusätzlich die Flughöhe (flach / hoch).",
+      "diagram": "svg:drills/shapen_shape_it",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele zwölf Drives in Vierer-Serien: Flacher Fade, Hoher Fade, Flacher Draw, Hoher Draw. Jede Serie besteht aus drei Bällen. Der Ball zählt als Treffer, wenn er die geplante Kurve zeigt und im Zielkorridor landet.",
+      "test": "Zähle, wie viele deiner zwölf Schläge im Zielkorridor landen. Notiere zusätzlich, welche Flugtendenz dir am konstantesten gelingt - das ist dein ‚Go-To-Shot‘.",
+      "tooEasy": "Verkleinere den Zielkorridor oder spiele mit Holz 3 statt Driver. Erhöhe den Anspruch, indem du bei Wind oder mit wechselnden Zielen arbeitest."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Treffer im Zielkorridor (max 12)",
+      "scale": {
+        "9-12": "Sehr konstante Flugkurvenkontrolle",
+        "6-8": "Solide Tendenz mit leichten Streuungen",
+        "3-5": "Inkonstante Ausrichtung oder Tempo",
+        "0-2": "Flugbahn nicht kontrolliert - Fokus auf Setup"
+      },
+      "evaluation": [
+        "Jede klare Kurve (Draw/Fade) ist besser als ein zufälliger Ballflug.",
+        "Eine gleichbleibende Flughöhe zeigt gutes Timing und Loft-Gefühl.",
+        "Dein ‚Go-To-Shot‘ sollte bei 90 % der Schläge reproduzierbar sein."
+      ]
+    },
+    "tags": [
+      "Shapen",
+      "Flugkurve",
+      "Driver",
+      "Draw",
+      "Fade",
+      "Ballflugkontrolle"
+    ],
+    "tip": "Spiele aktiv mit Flugkurven - sie sind Ausdruck von Kontrolle, nicht von Risiko. Ein leichter Draw oder Fade ist oft stabiler als ein gerader Schlag.",
+    "team": "Spielt zu zweit in Dreier-Serien: Einer wählt die Flugkurve (z. B. ‚flacher Fade‘), der andere versucht sie zu schlagen. Wechselt nach jeder Serie. Wer trifft mehr Bälle im Korridor?",
+    "variants": [
+      "Kombiniere den Drill mit ‚Safety Shot‘, um zu erkennen, welche Kurve dein Sicherheits- und welche dein Angriffsschlag ist.",
+      "Führe den Drill mit Eisen 5 durch, um Flugbahnkontrolle auch bei flacheren Schlägen zu üben.",
+      "Markiere die Zielbereiche farblich (z. B. blaue Linie = Fade, rote = Draw) für visuelles Feedback."
+    ],
+    "summary": "Zwölf Drives als flacher/hoher Fade und Draw gezielt formen und im Zielkorridor landen."
+  },
+  {
+    "id": "simulation_imagination_on",
+    "title": "Imagination On",
+    "subtitle": "Spiele drei anspruchsvolle Löcher mental nach - wie auf dem Platz",
+    "category": "Simulation",
+    "equipment": {
+      "balls": 15,
+      "clubs": "komplettes Bag",
+      "other": [
+        "Driving Range mit freier Schlagrichtung",
+        "Scorekarte (optional)",
+        "Markierungen oder Ziele für Fairways & Grüns"
+      ]
+    },
+    "setup": {
+      "schema": "Wähle auf der Range drei Löcher deines Heimatplatzes, die du besonders anspruchsvoll findest. Spiele sie mental nach: Stelle dir das Layout, die Hindernisse und die Landezonen vor. Schlage jeden Ball so, als würdest du die Runde tatsächlich spielen - ohne Putts.",
+      "diagram": "svg:drills/simulation_imagination_on",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 30,
+      "timerPreset": 1800
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Simuliere nacheinander drei Löcher deines Platzes. Verwende dieselbe Routine, Schlägerwahl und mentale Vorbereitung wie im echten Spiel. Schlage Drives, Annäherungen und (optional) Chips oder Pitches. Stelle dir die Bahn vollständig vor - inklusive Wind, Gefälle und Hindernisse.",
+      "test": "Notiere Fairway- und Grün-Treffer (FIR, GIR). Wenn du das Putting- oder Chippinggrün nutzt, zähle Up & Down- und Putt-Statistiken dazu. Eine vollständige ‚mentale Runde‘ umfasst drei Löcher.",
+      "tooEasy": "Erweitere auf sechs Löcher oder spiele mit realistischem Course-Management: Lege bewusst vor, wenn das Risiko zu hoch ist."
+    },
+    "metric": {
+      "type": "scorecard",
+      "fields": [
+        "Fairway getroffen (FIR)",
+        "Grün getroffen (GIR)",
+        "Up & Down (C/P/B)",
+        "Putts"
+      ],
+      "evaluation": [
+        "Hoher FIR/GIR-Anteil zeigt gutes mentales Course-Management.",
+        "Viele Up & Downs belegen effektives Shortgame-Training.",
+        "Wenig Putts → stabile Konzentration bis zum Schluss."
+      ]
+    },
+    "tags": [
+      "Simulation",
+      "Course Management",
+      "Mentales Training",
+      "Routine",
+      "Strategie"
+    ],
+    "tip": "Je realistischer du die Runde visualisierst, desto stärker trainierst du dein Gehirn für echte Spielsituationen. Führe Pre-Shot-Routine und Visualisierung wie im Turnier aus.",
+    "team": "Mit Partner trainieren: Einer beschreibt die Bahn oder das Lochszenario, der andere spielt es nach. Wechselt nach jedem Loch. Bewertet danach gegenseitig die Umsetzung (Treffer, Entscheidung, Visualisierung).",
+    "variants": [
+      "Nutze eine reale Scorekarte deines Platzes und spiele alle Par-3-Löcher nacheinander.",
+      "Simuliere ein Turnier unter Druck: zähle Schläge und verhalte dich, als würdest du wirklich scoren.",
+      "Ergänze Wind- oder Wetterbedingungen zur mentalen Simulation."
+    ],
+    "summary": "Drei echte Löcher mental auf der Range nachspielen und Routine, Strategie sowie Konzentration wie im Turnier trainieren."
+  },
+  {
+    "id": "simulation_first_tee_shot",
+    "title": "First Tee-Shot",
+    "subtitle": "Simuliere den 1. Abschlag unter Turnierbedingungen",
+    "category": "Simulation",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Driver"
+      ],
+      "other": [
+        "Zielkorridor (ca. 30 m breit)",
+        "Driving Range oder Abschlagsfläche mit markierter Landezone"
+      ]
+    },
+    "setup": {
+      "schema": "Dieser Drill wird am Ende eines Trainings durchgeführt - nicht als Warm-up. Bereite dich so vor, als würdest du eine Turnierrunde beginnen. Visualisiere das 1. Loch deines Heimatplatzes und spiele genau diesen Schlag auf der Range nach.",
+      "diagram": "svg:drills/simulation_first_tee_shot",
+      "location": "Driving Range"
+    },
+    "duration": {
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 5,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Nimm dir Zeit für deine Pre-Shot-Routine. Stelle dir das erste Loch deines Heimatplatzes genau vor: Fairway, Hindernisse, Zuschauer. Führe nur einen Schlag aus - als wäre es der echte erste Drive eines Turniers. Kein Probeschwung danach, kein zweiter Versuch.",
+      "test": "Hast du das Fairway getroffen? Notiere das Datum und das Ergebnis (Ja/Nein). Wiederhole die Übung einmal pro Woche, um deine Nervenstärke zu verbessern.",
+      "tooEasy": "Erhöhe den Druck: Führe die Übung vor anderen Spielern durch, zähle laut deine Routine oder setze dir selbst eine mentale ‚Strafe‘ für ein verfehltes Fairway."
+    },
+    "metric": {
+      "type": "binary",
+      "fields": [
+        "Fairway getroffen (Ja/Nein)"
+      ],
+      "evaluation": [
+        "Ein einzelner Ball testet dein mentales Vertrauen besser als zehn perfekte Drives.",
+        "Mit wachsender Routine sinkt dein Puls vor dem Schlag und steigt dein Fokus.",
+        "Langfristig steigert die Übung deine Gelassenheit auf dem Platz erheblich."
+      ]
+    },
+    "tags": [
+      "Simulation",
+      "Mentaltraining",
+      "Pre-Shot-Routine",
+      "Turniervorbereitung",
+      "Selbstvertrauen"
+    ],
+    "tip": "Mache diese Übung regelmäßig am Ende deines Trainings. Ziel ist nicht der perfekte Schlag, sondern das ruhige Vertrauen, dass du auch unter Druck dein Setup und deine Routine beibehalten kannst.",
+    "team": "Mit mehreren Spielern wird der Drill noch realistischer: Jeder schlägt einen Ball nacheinander, während die anderen zuschauen. Der erhöhte Druck simuliert echte Turnierbedingungen. Am Ende zählen alle, wer das Fairway getroffen hat.",
+    "variants": [
+      "Spiele denselben Schlag mit unterschiedlichen Schlägern (z. B. 3-Holz, Hybrid), um deine bevorzugte Sicherheit vom Tee zu finden.",
+      "Simuliere andere Turniersituationen: z. B. den Abschlag an einem Par-3 mit Wasser.",
+      "Filme deinen Versuch, um deine Körpersprache und Routine zu analysieren."
+    ],
+    "summary": "Am Ende des Trainings einen einzigen Drive wie im Turnier spielen - voller Fokus, echte Routine, kein zweiter Versuch."
+  },
+  {
+    "id": "course_iron_play",
+    "title": "Iron Play",
+    "subtitle": "Spiele eine komplette Runde ausschließlich mit Eisen",
+    "category": "Platz",
+    "equipment": {
+      "clubs": [
+        "Eisen 3-9",
+        "Wedges",
+        "Putter"
+      ],
+      "other": [
+        "Scorekarte",
+        "Ballmarker",
+        "Rangefinder oder GPS (optional)"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele eine komplette 9- oder 18-Loch-Runde ausschließlich mit Eisen. Alle Hölzer, Driver oder Hybrids sind tabu. Wähle deine Eisen je nach Distanz und Spielstrategie.",
+      "diagram": "svg:drills/course_iron_play",
+      "location": "Platz"
+    },
+    "duration": {
+      "hardStop": 240,
+      "timerPreset": 14400
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Starte eine Runde Golf und spiele ausschließlich mit Eisen (z. B. 3 bis 9, Wedges und Putter). Du wirst auf kürzere Distanzen spielen, dafür aber präzisere Schläge und durchdachtere Strategien wählen. Führe deine Scorekarte wie gewohnt.",
+      "test": "Vergleiche dein Ergebnis mit einer Runde, in der du auch Hölzer verwendest. Ziel ist es, die Differenz so gering wie möglich zu halten. Notiere deinen Score relativ zu deiner Vorgabe (z. B. +6 über Par).",
+      "tooEasy": "Lege vor jedem Loch fest, welches Eisen du für den Abschlag verwenden musst, oder spiele mit nur 3 Eisen deiner Wahl."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Schläge über Par",
+      "smallerIsBetter": true,
+      "hcpTargets": {
+        "54-36": "+10",
+        "35-19": "+6",
+        "18-12": "+3",
+        "11-0": "+2"
+      }
+    },
+    "tags": [
+      "Platz",
+      "Eisen",
+      "Strategie",
+      "Course Management",
+      "Lochspiel",
+      "Driver-Verzicht"
+    ],
+    "zockerTip": "Spielt gegeneinander im Low-Club-Style: Wenn es zu einfach wird, bestimmt euer Mitspieler, welches Eisen ihr für das nächste Loch verwenden müsst. Beispiel: nur Eisen 7, Eisen 5, Wedge - freie Wahl verboten!",
+    "variants": [
+      "Spiele mit nur drei Eisen deiner Wahl über 9 Löcher.",
+      "Erlaube nur ein einziges Fairway-Trefferfenster pro Loch - für Präzisionsdruck.",
+      "Analysiere die Runde danach in Bezug auf Schlagverteilung und Bogey-Vermeidung."
+    ],
+    "summary": "Eine komplette Runde nur mit Eisen spielen, um Strategie, Präzision und Course Management zu schärfen."
+  },
+  {
+    "id": "course_on_track",
+    "title": "On Track",
+    "subtitle": "Zielspiel für präzises Course Management über 9 oder 18 Löcher",
+    "category": "Platz",
+    "equipment": {
+      "clubs": [
+        "Driver",
+        "Eisen",
+        "Wedges",
+        "Putter"
+      ],
+      "other": [
+        "Scorekarte",
+        "Stift oder App zur Schlagspeicherung"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele eine reguläre Runde (9 oder 18 Löcher) und notiere neben dem Score vier Sonderpunkte: (1) Fairway getroffen, (2) Green in Regulation (GIR), (3) Birdie (Netto), (4) 3-Putt oder mehr. Ziel ist es, den Score inklusive dieser Parameter zu optimieren.",
+      "diagram": "svg:drills/course_on_track",
+      "location": "Platz"
+    },
+    "duration": {
+      "hardStop": 180,
+      "timerPreset": 10800
+    },
+    "difficulty": {
+      "base": 5,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Trage auf deiner Scorekarte neben dem Ergebnis jedes Lochs vier Zusatzwerte ein: 1️⃣ Fairway getroffen, 2️⃣ Green in Regulation, 3️⃣ Birdie (Netto), 4️⃣ Drei-Putt oder mehr. Nach Abschluss zähle den Gesamtscore gemäß deiner Handicap-Vorgabe.",
+      "test": "Erreiche die Zielwerte gemäß deiner HCP-Kategorie. Beispiel: HCP 18-12 → Ziel 49 Schläge (über 9 Löcher) inklusive GIR- und Fairway-Bonus.",
+      "tooEasy": "Zähle nur Brutto-Birdies, keine Netto. Variiere zusätzlich den Schläger am Abschlag - nicht immer ist der Driver die beste Wahl."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Gesamtschläge (inkl. Sonderpunkte)",
+      "smallerIsBetter": true,
+      "hcpTargets": {
+        "36-27": 58,
+        "26-19": 53,
+        "18-12": 49,
+        "11-5": 46,
+        "4-0": 40
+      }
+    },
+    "tags": [
+      "Platz",
+      "Strategie",
+      "Fairway",
+      "GIR",
+      "Birdie",
+      "Scoring",
+      "Course Management"
+    ],
+    "zockerTip": "Spielt zu zweit oder in der Gruppe im Lochspielmodus. Für jeden Treffer auf Fairway oder GIR gibt es einen Punkt, für Drei-Putts wird einer abgezogen. Wer über 9 oder 18 Löcher den höchsten Netto-Score erzielt, gewinnt.",
+    "variants": [
+      "Spiele diesen Drill über 9 Löcher als Benchmark-Runde - wöchentlich wiederholen.",
+      "Nutze die GIR- und Fairway-Quote als KPI im Trainingstagebuch.",
+      "Verwende einen anderen Schläger als Driver, um taktischere Entscheidungen zu erzwingen."
+    ],
+    "summary": "Eine komplette Runde spielen und neben dem Score Fairway-, GIR-, Birdie- und Putt-Statistiken erfassen, um dein Course Management messbar zu verbessern."
+  },
+  {
+    "id": "platz_long_vs_easy",
+    "title": "Long vs. Easy",
+    "subtitle": "Finde deine optimale Schwungintensität - Vollgas oder locker?",
+    "category": "Platz",
+    "equipment": {
+      "clubs": "komplettes Bag",
+      "other": [
+        "Scorekarte",
+        "Bleistift",
+        "evtl. Launch Monitor oder Schlagweiten-Tracking"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele 18 Löcher oder eine verkürzte Runde (mind. 9 Löcher). Auf der Hälfte der Löcher spielst du mit 80 % Schwungintensität („locker“) und auf der anderen Hälfte mit 100 % („vollgas“). Wechsel zwischen den Modi ab oder lege pro Bahn fest, welche Intensität gilt.",
+      "diagram": "svg:drills/platz_long_vs_easy",
+      "location": "Golfplatz"
+    },
+    "duration": {
+      "hardStop": 180,
+      "timerPreset": 10800
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Vergleiche deine Ergebnisse und Spielqualität bei 80 % und 100 % Schwung. Notiere Score, Fairway-Treffer (FIR), Grün-Treffer (GIR) und Schlaggefühl. Ziel ist nicht maximale Distanz, sondern herauszufinden, wann du präziser und konstanter bist.",
+      "test": "Werte am Ende der Runde aus: Mit welcher Schwunggeschwindigkeit (80 % oder 100 %) hattest du mehr Fairway- und Grün-Treffer? Wie war dein Score und dein Schlaggefühl (+/-)?",
+      "tooEasy": "Kombiniere die Übung mit Wind- oder Hanglagen. Oder variiere Tempo pro Schlag: 70 %, 90 %, 100 % - um deine Kontrolle zu testen."
+    },
+    "metric": {
+      "type": "comparison",
+      "fields": [
+        "Score",
+        "FIR",
+        "GIR",
+        "Schlaggefühl (+/-)"
+      ],
+      "evaluation": [
+        "80 %-Schwünge fördern Konstanz und Präzision.",
+        "100 % zeigen, ob du deinen Körper unter Druck kontrollieren kannst.",
+        "Der Vergleich liefert wertvolle Rückschlüsse für deine Turnierstrategie."
+      ]
+    },
+    "tags": [
+      "Platz",
+      "Strategie",
+      "Schwungkontrolle",
+      "Scoring",
+      "Mentaltraining"
+    ],
+    "tip": "Viele Spieler erzielen mit 80 % Schwung nicht nur mehr Fairway-Treffer, sondern auch längere Gesamtdistanzen durch bessere Kontaktqualität. Vertraue deinem Rhythmus statt der Kraft.",
+    "team": "Spielt im Lochspielmodus gegeneinander: Jeder Spieler entscheidet pro Bahn, ob er ‚Long‘ (100 %) oder ‚Easy‘ (80 %) spielt. Am Ende gewinnt, wer bei seiner gewählten Taktik die bessere Score-Statistik erreicht.",
+    "variants": [
+      "Ergänze eine dritte Kategorie (z. B. 90 %) für noch feinere Abstimmung.",
+      "Verwende ein Launch-Monitor-Gerät zur objektiven Messung von Ballgeschwindigkeit und Carry.",
+      "Wende die Erkenntnisse gezielt bei schwierigen Löchern an: Wähle bewusst den ‚Easy‘-Schwung, wenn Präzision wichtiger ist als Länge."
+    ],
+    "summary": "Spiele eine Runde mit abwechselnd 80 % und 100 % Schwung, um herauszufinden, wann du präziser, konstanter und mental stabiler spielst."
+  },
+  {
+    "id": "platz_stats",
+    "title": "Stats",
+    "subtitle": "Lerne, dein Spiel durch sinnvolle Statistiken zu verstehen",
+    "category": "Platz",
+    "equipment": {
+      "clubs": "komplettes Bag",
+      "other": [
+        "Scorekarte",
+        "Bleistift oder App zur Datenerfassung"
+      ]
+    },
+    "setup": {
+      "schema": "Bereite eine Scorekarte für deine Runde vor und erweitere sie um statistische Felder. Ziel ist nicht nur das Zählen der Schläge, sondern das bewusste Erfassen deiner Spieltendenzen.",
+      "diagram": "svg:drills/platz_stats",
+      "location": "Golfplatz"
+    },
+    "duration": {
+      "hardStop": 180,
+      "timerPreset": 10800
+    },
+    "difficulty": {
+      "base": 2,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Führe während der Runde neben dem Score zusätzliche Werte auf deiner Karte: FIR (Fairway getroffen), GIR (Grün in Regulation), Putts (Anzahl der Putts) sowie Up & Down bzw. C/P/B (Chip, Pitch, Bunker). Notiere nach jedem Loch ehrlich das Ergebnis.",
+      "test": "Trage nach der Runde alle Werte in eine Tabelle oder App ein. Analysiere, wo deine Stärken und Schwächen liegen: z. B. wie oft du nach einem getroffenen Fairway auch das Grün triffst.",
+      "tooEasy": "Ergänze zusätzliche Werte wie ‚Miss left/right‘, ‚3-Putts‘ oder ‚Sand Saves‘, um dein Spiel detaillierter auszuwerten."
+    },
+    "metric": {
+      "type": "scorecard",
+      "fields": [
+        "Score",
+        "FIR",
+        "GIR",
+        "Putts",
+        "C/P/B"
+      ],
+      "evaluation": [
+        "Hohe GIR-Werte zeigen solides Ballstriking.",
+        "Viele Fairway-Treffer (FIR) verbessern die Chance auf GIR.",
+        "Weniger Putts bedeuten in der Regel mehr Kontrolle auf dem Grün."
+      ]
+    },
+    "tags": [
+      "Platz",
+      "Statistik",
+      "Selbstanalyse",
+      "Performance Tracking",
+      "Score Management"
+    ],
+    "tip": "Die objektive Erfassung deines Spiels ist der Schlüssel zur Verbesserung. Erst wer seine Schwächen erkennt, kann gezielt trainieren.",
+    "team": "Ergänze das Spiel um kleine Wettbewerbe: Wer hat am Ende die meisten Fairways getroffen? Wer die wenigsten Putts? Auch Spieler mit unterschiedlichem Handicap können durch angepasste Zielvorgaben (z. B. +3 GIR für HCP >20) fair gegeneinander antreten.",
+    "variants": [
+      "Nutze digitale Tools oder Apps, um Trends über mehrere Runden zu erkennen.",
+      "Erstelle eine persönliche Heatmap: Wo verlierst du am meisten Schläge?",
+      "Kombiniere mit dem Drill ‚On Track‘, um reale Statistiken mit Trainingsergebnissen zu vergleichen."
+    ],
+    "summary": "Erfasse während deiner Runde zusätzliche Statistiken wie Fairways, Greens, Putts und Up & Downs, um dein Spiel objektiv zu analysieren und gezielt zu verbessern."
+  },
+  {
+    "id": "platz_get_your_points",
+    "title": "Get Your Points",
+    "subtitle": "Mit Fokus am Abschlag - trainiere Konstanz und Drive-Präzision",
+    "category": "Platz",
+    "equipment": {
+      "clubs": [
+        "Driver",
+        "Fairwayholz"
+      ],
+      "other": [
+        "Scorekarte",
+        "Bleistift",
+        "Golfplatz oder Driving Range mit Fairway-Markierungen"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele eine volle Runde oder ein Trainingsspiel mit Fokus auf deine Abschläge. Notiere für jeden Drive Punkte entsprechend der Schlagqualität und Lage. Par-3-Bahnen werden nicht gewertet.",
+      "diagram": "svg:drills/platz_get_your_points",
+      "location": "Golfplatz"
+    },
+    "duration": {
+      "hardStop": 120,
+      "timerPreset": 7200
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele eine Runde und vergebe Punkte nach folgendem System: 4 Punkte für Fairway getroffen, 3 Punkte für Semi-Rough, 2 Punkte für Rough, 1 Punkt für Bunker, 0 Punkte für Out of Bounds oder Wasser. Erfasse 14 Drives (Par 4 und 5). Ziel: Möglichst konstant Drives ins Fairway oder Semi-Rough platzieren.",
+      "test": "Zähle nach der Runde deine Gesamtpunkte. 42-56 Punkte = ausgezeichnet, 21-41 = solide, 0-20 = Trainingsbedarf. Analysiere Fehlrichtungen und Wiederholungen: Gehen deine Drives häufig nach links oder rechts?",
+      "tooEasy": "Verfeinere die Bewertung: z. B. 5 Punkte für Mitte Fairway, 3 für Randbereich, 1 für Semi-Rough. Oder definiere Fairwaybreite enger (20 m statt 30 m)."
+    },
+    "metric": {
+      "type": "points",
+      "fields": [
+        "Fairwaytreffer",
+        "Semi-Rough",
+        "Rough",
+        "Out/Wasser"
+      ],
+      "evaluation": [
+        "Hohe Punktzahlen zeigen präzises und kontrolliertes Driving.",
+        "Die Übung schärft das Bewusstsein für Risiko und Zielrichtung vom Tee.",
+        "Durch wiederholte Messung erkennst du Fortschritte in Konsistenz und Selbstvertrauen."
+      ]
+    },
+    "tags": [
+      "Platz",
+      "Driving",
+      "Konsistenz",
+      "Punktewertung",
+      "Scoring"
+    ],
+    "tip": "Diese Übung hilft dir, Verantwortung für deinen Abschlag zu übernehmen. Konzentriere dich auf Zielvisualisierung, Routine und das Vertrauen in deinen Ballflug.",
+    "team": "Spiele die Übung mit einem Partner im Matchplay-Modus. Vergleicht eure Punkte pro Loch. Eine Variante: Jeder darf einmal pro Runde den Drive des anderen als Teamwertung übernehmen.",
+    "variants": [
+      "Ergänze Bonuspunkte für Drives, die besonders nah an der Idealposition liegen.",
+      "Nutze GPS-Tracking oder Shot-Apps zur objektiven Auswertung.",
+      "Kombiniere mit dem Drill „Safety Shot“, um gezielte Risikokontrolle zu trainieren."
+    ],
+    "summary": "Über 14 Abschläge Punkte für Fairway/Semi/Rough/Bunker/Out sammeln und so die Drive-Konstanz messbar steigern."
+  },
+  {
+    "id": "platz_no_tees",
+    "title": "No Tees",
+    "subtitle": "Erschwerte Bedingungen - Kontrolle statt Komfort",
+    "category": "Platz",
+    "equipment": {
+      "clubs": [
+        "Driver",
+        "Fairwayholz",
+        "Eisen"
+      ],
+      "other": [
+        "Scorekarte",
+        "Bleistift"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele 9 Löcher, aber schlage alle Drives ohne Tee vom Boden. Auf Par-3-Bahnen kannst du ebenfalls versuchen, den Ball flach mit dem Driver oder Holz zu spielen. Ziel ist, den Ball sauber zu treffen und auf dem Fairway zu platzieren.",
+      "diagram": "svg:drills/platz_no_tees",
+      "location": "Golfplatz oder Abschlagsmatte (ohne Tee)"
+    },
+    "duration": {
+      "hardStop": 90,
+      "timerPreset": 5400
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Schlage deine Drives direkt vom Boden, ohne den Ball aufzuteen. Notiere, wie viele Abschläge gut getroffen wurden und auf dem Fairway landeten. Auf Par-3-Bahnen zählen auch Bälle, die das Grün erreichen oder kurz davor liegen. Ziel ist saubere Treffqualität unter erschwerten Bedingungen.",
+      "test": "Werte nach 9 Löchern deine Ergebnisse aus: Wie viele Abschläge (von 9) waren gut getroffen und im Zielbereich? 7-9 = ausgezeichnet, 4-6 = solide, 1-3 = Trainingsbedarf.",
+      "tooEasy": "Kombiniere den Drill mit Wind oder Sidehill-Lagen. Oder wechsle den Schläger: z. B. 3-Holz oder Driving-Iron für flache, präzise Schläge."
+    },
+    "metric": {
+      "type": "count",
+      "fields": [
+        "Trefferzahl",
+        "Fairway getroffen",
+        "Bunker/Abweichung"
+      ],
+      "evaluation": [
+        "Treffer ohne Tee verbessern Bodenkontakt und Ballposition.",
+        "Die Übung stärkt das Vertrauen in deine Schwungkontrolle.",
+        "Ideal zur Vorbereitung auf reale Drucksituationen bei schlechtem Lie."
+      ]
+    },
+    "tags": [
+      "Platz",
+      "Ballkontakt",
+      "Drucktraining",
+      "Schlagkontrolle",
+      "Driver"
+    ],
+    "tip": "Ein flacher, kontrollierter Schlag vom Boden zeigt wahre Präzision. Konzentriere dich auf ruhigen Rhythmus und sauberen Eintreffwinkel.",
+    "team": "Spiele im Lochspielmodus gegeneinander. Beide Spieler schlagen ohne Tee - jeder gute Treffer zählt als Punkt. Nur wenn ein Spieler deutlich schwächer ist, darf dieser einmal pro Bahn aufteen.",
+    "variants": [
+      "Verwende den Drill mit Fairwayholz oder Hybrid, um alternative Abschläge zu trainieren.",
+      "Kombiniere mit ‚Long vs. Easy‘, um Schwungkontrolle mit Treffqualität zu koppeln.",
+      "Simuliere schwierige Lies: leicht bergauf, bergab oder aus dünnem Gras."
+    ],
+    "summary": "Spiele 9 Löcher ohne Tee und trainiere sauberen Ballkontakt, flache Flugbahn und präzise Kontrolle direkt vom Boden."
+  },
+  {
+    "id": "platz_make_it_rough",
+    "title": "Make It Rough",
+    "subtitle": "Fairway ist Pflicht - trainiere Abschläge unter Druck",
+    "category": "Platz",
+    "equipment": {
+      "clubs": [
+        "Driver",
+        "Fairwayholz",
+        "Hybrid"
+      ],
+      "other": [
+        "Scorekarte",
+        "Bleistift"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele 9 Löcher und werte nur deine Drives aus. Jeder Ball, der das Fairway verfehlt, zählt als Strafschlag. Bälle im Rough oder Aus werden bestraft, dürfen aber weitergespielt werden. Ziel: unter Druck das Fairway treffen.",
+      "diagram": "svg:drills/platz_make_it_rough",
+      "location": "Golfplatz oder Range mit klaren Fairwaygrenzen"
+    },
+    "duration": {
+      "hardStop": 90,
+      "timerPreset": 5400
+    },
+    "difficulty": {
+      "base": 5,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele neun Löcher mit Scorewertung. Jeder Drive, der das Fairway verfehlt, bringt eine Strafschlag. Das Ziel ist, bei erhöhtem Druck möglichst viele Fairways zu treffen. Wähle bei engen Bahnen lieber den Schläger, mit dem du sicher im Spiel bleiben.",
+      "test": "Notiere Score und FIR (Fairway in Regulation). Beobachte, wie stark der mentale Druck deinen Schwung beeinflusst. Schaffst du es, dich auf Routine und Rhythmus zu verlassen?",
+      "tooEasy": "Reduziere die Fairwaybreite oder bestrafe auch Drives im Semi-Rough. Alternativ: +2 Strafschläge für Aus- oder Wasserbälle."
+    },
+    "metric": {
+      "type": "score",
+      "fields": [
+        "Score",
+        "FIR",
+        "Strafschläge"
+      ],
+      "evaluation": [
+        "Treffer unter Druck sind entscheidend für konstantes Scoring.",
+        "Die Übung simuliert Turniersituationen realistisch.",
+        "Wer trotz Strafdruck gelassen bleibt, verbessert sein Course Management deutlich."
+      ]
+    },
+    "tags": [
+      "Platz",
+      "Drucktraining",
+      "Fairwaytreffer",
+      "Driver",
+      "Course Management"
+    ],
+    "tip": "Konzentriere dich auf deine Routine - nicht auf das Ergebnis. Der Druck ist gewollt: Er zeigt, ob du deinem Schwung auch in Stresssituationen vertraust.",
+    "team": "Spiele im Lochspielmodus: Nur Drives auf dem Fairway sind straffrei. Jeder Fehlschlag außerhalb kostet einen Punkt. Bei engen Bahnen entscheidet kluges Risiko-Management.",
+    "variants": [
+      "Kombiniere mit ‚Safety Shot‘ für bewusste Risikoabwägung.",
+      "Spiele den Drill mit unterschiedlichen Schlägern pro Loch (Driver, 3-Holz, Hybrid).",
+      "Erhöhe den Druck: nur 1 Versuch pro Bahn, keine Mulligans."
+    ],
+    "summary": "Neun Löcher spielen, jeder Drive neben dem Fairway gibt einen Strafschlag - Fairwaytreffer unter Druck erzwingen."
+  },
+  {
+    "id": "platz_play_unusual_shots",
+    "title": "Play Unusual Shots",
+    "subtitle": "Schläger vor dem Abschlag festlegen - Strategie & Improvisation",
+    "category": "Platz",
+    "equipment": {
+      "clubs": [
+        "komplettes Bag"
+      ],
+      "other": [
+        "Scorekarte",
+        "Bleistift"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele 9 Löcher, aber nicht mit deiner Standardstrategie. Vor jedem Loch wird der Schläger für den Abschlag festgelegt - z. B. Eisen 7 auf einem Par 4. Auf Par 3-Löchern kann sogar mit dem Driver eröffnet werden. Ziel ist, aus ungewohnten Situationen den besten Score zu machen.",
+      "diagram": "svg:drills/platz_play_unusual_shots",
+      "location": "Golfplatz"
+    },
+    "duration": {
+      "hardStop": 120,
+      "timerPreset": 7200
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele die Runde mit festgelegtem Abschlagsschläger pro Loch. Notiere Score, FIR (Fairway-Treffer) und GIR (Grün-Treffer). Ziel ist es, trotz ungewohnter Schlägerwahl das beste Ergebnis zu erzielen und neue Lösungen zu entdecken.",
+      "test": "Wie gut war dein Score, obwohl du nicht deinen gewohnten Gameplan gespielt hast? Welche Alternativstrategien haben funktioniert?",
+      "tooEasy": "Lass den Mitspieler den Abschlagsschläger für dich wählen - zufällig oder absichtlich herausfordernd."
+    },
+    "metric": {
+      "type": "score",
+      "fields": [
+        "Score",
+        "FIR",
+        "GIR"
+      ],
+      "evaluation": [
+        "Fördert Kreativität und Improvisationsfähigkeit auf dem Platz.",
+        "Stärkt das Vertrauen in alternative Schlägerwahl und kreative Lösungsansätze.",
+        "Hilft, den eigenen Gameplan zu reflektieren und zu variieren."
+      ]
+    },
+    "tags": [
+      "Platz",
+      "Strategie",
+      "Course Management",
+      "Kreativität",
+      "Improvisation"
+    ],
+    "tip": "Verlasse bewusst deine Komfortzone - wer im Training improvisiert, bleibt im Turnier ruhiger und flexibler. Manchmal ist der beste Schlag nicht der stärkste, sondern der klügste.",
+    "team": "Spiele im Matchplay: Ein Spieler bestimmt für den anderen den Abschlagsschläger. Das sorgt für Spaß und taktische Herausforderungen - besonders, wenn der Mitspieler dich kennt.",
+    "variants": [
+      "Verwende Würfel oder Karten zur zufälligen Schlägerauswahl.",
+      "Füge Handicap-Ausgleich hinzu (z. B. längere Spieler starten mit kürzeren Eisen).",
+      "Kombiniere mit ‚Make It Rough‘: Wer das Fairway verfehlt, bekommt beim nächsten Loch einen zufällig gewählten Schläger."
+    ],
+    "summary": "Neun Löcher mit vorab festgelegtem Abschlagsschläger spielen und aus ungewohnten Setups das bestmögliche Ergebnis herausholen."
+  },
+  {
+    "id": "shortgame_worstball_chipping",
+    "title": "Worstball Chipping",
+    "subtitle": "Trainiere unter Druck - der schlechtere Versuch zählt",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 2,
+      "clubs": [
+        "Wedge (SW, GW, LW)",
+        "Putter"
+      ],
+      "other": [
+        "3-6 markierte Chip-Positionen (Tees oder Marker)",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Lege mehrere Positionen rund ums Grün fest, mindestens 6 bis 12 Meter vom Loch entfernt. Markiere die Startpositionen mit Tees. Von jeder Position spielst du zwei Bälle - beide werden einzeln bewertet.",
+      "diagram": "svg:drills/shortgame_worstball_chipping",
+      "location": "Chipping Green"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 5,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Droppe an jeder Position zwei Bälle und chippe sie beide möglichst nah an die Fahne. Spiele anschließend nur den schlechteren Ball zu Ende (Worstball-Prinzip). Zähle die Gesamtzahl der Schläge und notiere sie als Ergebnis. Ziel: So wenige Schläge wie möglich - trotz des Nachdrucks, den schlechteren Ball fertigzuspielen.",
+      "test": "Bringe schwierige Lagen ins Spiel: z. B. Hanglagen, dichter oder unebener Untergrund. Fokussiere dich auf den Landepunkt und trainiere deine Präzision bei wechselnden Ballpositionen.",
+      "tooEasy": "Erhöhe die Anzahl der Positionen oder spiele beide Bälle aus unterschiedlichen Lagen (Rough und Fairway)."
+    },
+    "metric": {
+      "type": "sum",
+      "unit": "benötigte Schläge gesamt",
+      "smallerIsBetter": true,
+      "hcpTargets": {
+        "54-36": 33,
+        "35-27": 30,
+        "26-19": 27,
+        "18-12": 25,
+        "11-5": 22,
+        "4-0": 19
+      }
+    },
+    "tags": [
+      "Short Game",
+      "Chipping",
+      "Mental Game",
+      "Präzision",
+      "Drucktraining",
+      "Worstball",
+      "Up & Down"
+    ],
+    "zockerTip": "Spielt zu zweit im Lochspielmodus: Jeder chippt zwei Bälle, aber es zählt immer der schlechtere. Danach wird der schlechtere Ball eingelocht. Wer weniger Schläge für seinen Worstball braucht, gewinnt das Loch.",
+    "variants": [
+      "Nutze Bälle mit unterschiedlichen Spin-Eigenschaften, um Kontrolle zu schulen.",
+      "Führe Bonuspunkte ein, wenn beide Chips innerhalb von 1 m liegen.",
+      "Kombiniere mit ‘Beat 21’ für realistische Scoring-Bedingungen."
+    ],
+    "summary": "Chippe von mehreren Positionen zwei Bälle und spiele immer den schlechteren weiter - Präzision und Nervenstärke sind gefragt."
+  },
+  {
+    "id": "shortgame_up_and_down_series",
+    "title": "Up & Down Series",
+    "subtitle": "Fortgeschrittenes Short-Game-Training",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Wedge (SW, GW, LW)",
+        "Putter"
+      ],
+      "other": [
+        "5-7 Tees zur Markierung der Chip-Positionen",
+        "Stoppuhr oder Timer"
+      ]
+    },
+    "setup": {
+      "schema": "Wähle mehrere Schläger für das Chippen (z. B. SW und PW). Suche dir ein Ziel in 7-10 m Entfernung vom Grünrand. Variiere Chip-Distanz und Schwierigkeitsgrad - etwa aus Rough, Hanglagen oder über kleine Hindernisse. Lege mehrere Positionen rund ums Grün fest und spiele sie nacheinander als Parcours.",
+      "diagram": "svg:drills/shortgame_up_and_down_series",
+      "location": "Chipping Green"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 5,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Droppe den Ball an der ersten Position und spiele ihn ins Loch. Gelingt dir das Up & Down mit maximal zwei Schlägen (Chip + Putt), darfst du zur nächsten Position wechseln. Misslingt der Versuch, beginnst du wieder an Position 1. Ziel: So viele Up & Downs wie möglich hintereinander zu schaffen.",
+      "test": "Trainiere aus unterschiedlichen Lagen - z. B. aus dichtem Rough, aus Hanglagen oder über Bunker. Achte besonders auf dein Ballgefühl und deine Technik: Das Gewicht sollte beim Chip leicht auf dem linken Fuß liegen.",
+      "tooEasy": "Verändere die Lagen, verkürze den Zielradius oder spiele mit nur einem Schläger (z. B. nur 56° Wedge)."
+    },
+    "metric": {
+      "type": "count",
+      "unit": "konsekutive erfolgreiche Up & Downs",
+      "hcpTargets": {
+        "54-36": 2,
+        "35-27": 3,
+        "26-19": 4,
+        "18-12": 5,
+        "11-5": 7,
+        "4-0": 9
+      }
+    },
+    "tags": [
+      "Short Game",
+      "Up & Down",
+      "Konzentration",
+      "Rough",
+      "Hanglage",
+      "Variabilität",
+      "Scoring"
+    ],
+    "zockerTip": "Spielt zu zweit gegeneinander im Lochspielmodus. Beide starten mit einem Ball an derselben Position. Wer zuerst eine festgelegte Serie (z. B. 5 erfolgreiche Up & Downs) erreicht, gewinnt. Eingechippte Bälle zählen doppelt!",
+    "variants": [
+      "Spiele von allen Seiten des Grüns mit unterschiedlicher Distanz.",
+      "Führe für jede Station eine Zeitbegrenzung (z. B. 30 Sekunden) ein.",
+      "Kombiniere mit Bunker- oder Rough-Schlägen im Wechsel."
+    ],
+    "summary": "Mehrere Chip-Positionen als Parcours spielen - jedes erfolgreiche Up & Down in zwei Schlägen bringt dich zur nächsten Station."
+  },
+  {
+    "id": "course_spot_on_targets",
+    "title": "Spot-on Targets",
+    "subtitle": "Strategisches Kurzspiel mit Zielbewertung pro Loch",
+    "category": "Platz",
+    "equipment": {
+      "clubs": [
+        "Wedges",
+        "Eisen",
+        "Putter"
+      ],
+      "other": [
+        "Scorekarte",
+        "Stift",
+        "evtl. GPS oder Laser-Entfernungsmesser"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele eine normale 9-Loch-Runde. Notiere auf der Scorekarte zusätzlich zur Schlagzahl, wie du dich dem Grün näherst (z. B. Chip, Pitch, Bunker). Vergib pro Loch Punkte, wenn du das Grün triffst oder Up & Down schaffst. Verlierst du das Grün, spielst du ein zusätzliches Loch zur Kompensation.",
+      "diagram": "svg:drills/course_spot_on_targets",
+      "location": "Platz"
+    },
+    "duration": {
+      "hardStop": 150,
+      "timerPreset": 9000
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele eine Runde und zähle, wie viele Löcher du mit möglichst wenigen Schlägen beendest. Ziel: Jedes Loch so effizient wie möglich abschließen - das bedeutet, Annäherung aufs Grün + maximal zwei Putts. Wenn du das Grün verfehlst, musst du einen Up & Down schaffen.",
+      "test": "Vergleiche deinen Score mit der Tabelle. Addiere die vorgegebene Anzahl Schläge zu deiner Spielvorgabe. Beispiel: Bei Vorgabe 9 lautet das Ziel, die Runde mit maximal 12 über Par (9+3) abzuschließen.",
+      "tooEasy": "Bestimme vorab, in welchem Bereich des Grüns du den Ball platzieren willst (z. B. vorderes Drittel). Vergib Punkte nur, wenn du diese Zone triffst."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Schläge über Par",
+      "hcpTargets": {
+        "18-12": "+5",
+        "11-5": "+3",
+        "4-0": "+2"
+      }
+    },
+    "tags": [
+      "Platz",
+      "Kurzspiel",
+      "Strategie",
+      "Up & Down",
+      "Punktespiel"
+    ],
+    "zockerTip": "Spielt zu zweit im Zählspiel-Format. Bewertet Annäherungen und Putts separat: 1 Punkt für Grün-Treffer, 1 Punkt für Up & Down, 1 Punkt für One-Putt. Am Ende gewinnt, wer pro Loch die höhere Quote erzielt - je konstanter dein Kurzspiel, desto besser dein Score.",
+    "variants": [
+      "Definiere pro Runde wechselnde Zielzonen (vorne, Mitte, hinten).",
+      "Spiele den Drill als Scramble mit Teampartner und addiere nur gemeinsame Up & Downs.",
+      "Nutze ihn als Wochenbenchmark, um Fortschritt im Kurzspiel zu messen."
+    ],
+    "summary": "Neun-Loch-Runde mit Fokus auf Annäherungen und Putts - Grün treffen oder Up & Down schaffen, um das Loch effizient zu beenden."
+  },
+  {
+    "id": "course_scoring_clubs",
+    "title": "Scoring Clubs",
+    "subtitle": "Trainiere präzise Annäherungen mit kurzen Eisen und Wedges",
+    "category": "Platz",
+    "equipment": {
+      "balls": 2,
+      "clubs": [
+        "Wedge",
+        "Eisen 8-PW"
+      ],
+      "other": [
+        "Scorekarte",
+        "Entfernungsmesser oder GPS",
+        "Rangebälle oder Trainingsbälle"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele auf dem Platz oder einer Kurzspielbahn sieben Löcher, vorzugsweise ohne Par-3-Bahnen. Nutze für alle Annäherungen nur deine Scoring-Schläger (Wedges, Eisen bis max. 8). Jeder Ball innerhalb von 100 m Entfernung zählt für die Wertung.",
+      "diagram": "svg:drills/course_scoring_clubs",
+      "location": "Platz"
+    },
+    "duration": {
+      "hardStop": 90,
+      "timerPreset": 5400
+    },
+    "difficulty": {
+      "base": 5,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele sieben Bahnen mit Fokus auf präzise Annäherungen. Der erste Schlag sollte zwischen 100 m und 35 m zum Grün liegen. Spiele danach den Ball auf das Grün und zähle deine Schläge bis zum Einlochen. Addiere die Ergebnisse aller sieben Löcher.",
+      "test": "Addiere deine Gesamtschläge für sieben Löcher. Vergleiche das Ergebnis mit den HCP-Zielwerten. Beispiel: HCP 11-5 → Ziel = 43 Schläge.",
+      "tooEasy": "Beziehe Par-3-Löcher ein und werte diese ebenfalls. Liegst du oft nah an der Fahne, verkleinere das Zielradius auf < 5 m."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Gesamtschläge (7 Löcher)",
+      "hcpTargets": {
+        "18-12": 48,
+        "11-5": 43,
+        "4-0": 38
+      }
+    },
+    "tags": [
+      "Platz",
+      "Wedge",
+      "Annäherung",
+      "Kurzspiel",
+      "Scoring"
+    ],
+    "zockerTip": "Spielt diesen Drill im direkten Vergleich: Wer nach sieben Löchern näher am Zielwert liegt, gewinnt. Bei Gleichstand zählt der bessere Durchschnitt der Up & Downs. Alternativ kann die Differenz zum Zielwert als Handicap-Faktor gewertet werden.",
+    "variants": [
+      "Führe die Übung mit nur einem Ball aus, um Fokus auf Course-Management zu legen.",
+      "Ersetze jedes Eisen über der 8 durch ein Wedge deiner Wahl, um Distanzgefühl zu schärfen.",
+      "Simuliere Turnierdruck: 30 Schläge maximal, sonst gilt der Drill als nicht bestanden."
+    ],
+    "summary": "Sieben Löcher mit kurzen Eisen und Wedges spielen - präzise Annäherungen zählen, Ziel sind möglichst wenige Gesamtschläge."
+  },
+  {
+    "id": "course_worst_ball",
+    "title": "Worst Ball",
+    "subtitle": "Mentales Präzisionsspiel unter Druck",
+    "category": "Platz",
+    "equipment": {
+      "balls": 2,
+      "clubs": [
+        "komplettes Bag"
+      ],
+      "other": [
+        "Scorekarte",
+        "Stift oder App zur Schlagnotiz"
+      ]
+    },
+    "setup": {
+      "schema": "Spiele eine 9-Loch-Runde. Schlage jeden Schlag zweimal und wähle jeweils den schlechteren Ball für den nächsten Schlag. Beide Bälle werden von derselben Position gespielt. Führe diese Regel für alle Schläge, inklusive Putts, fort.",
+      "diagram": "svg:drills/course_worst_ball",
+      "location": "Platz"
+    },
+    "duration": {
+      "hardStop": 180,
+      "timerPreset": 10800
+    },
+    "difficulty": {
+      "base": 5,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele eine Runde, bei der du nach jedem Schlag beide Bälle bewertest und immer den schlechteren Ball weiterspielst. So trainierst du Konstanz und mentale Kontrolle, da kein schlechter Schlag „vergessen“ werden kann.",
+      "test": "Zähle deinen Score über 9 Löcher und addiere die angegebenen Zielwerte zu deiner Spielvorgabe. Beispiel: HCP 11-5 → Ziel +9, HCP 4-0 → Ziel +5.",
+      "tooEasy": "Zähle beide Bälle komplett aus - nicht nur den schlechteren - und bilde den Durchschnitt der beiden Scores."
+    },
+    "metric": {
+      "type": "score",
+      "unit": "Gesamtschläge (Worst Ball)",
+      "hcpTargets": {
+        "11-5": "+9",
+        "4-0": "+5"
+      }
+    },
+    "tags": [
+      "Platz",
+      "Strategie",
+      "Mentales Spiel",
+      "Konzentration",
+      "Fehlerkontrolle"
+    ],
+    "zockerTip": "Spiele „Worst Ball“ zu zweit. Dein Gegner bestimmt jeweils, welcher Ball als der schlechtere gilt. Variation: Der Gegner darf vor jedem Schlag ansagen, welchen Ball du spielen musst - das trainiert Fokus und Anpassungsfähigkeit.",
+    "variants": [
+      "Führe den Drill über 18 Löcher aus, aber werte nur 9 davon als offizielle Zählung.",
+      "Füge eine Putting-Regel hinzu: bei jedem 3-Putt wird der nächste Abschlag mit Eisen statt Driver gespielt.",
+      "Spiele im Teamformat - beide Partner schlagen doppelt, und der jeweils schlechtere Ball pro Paar zählt."
+    ],
+    "summary": "Neun-Loch-Runde, bei der immer der schlechtere Ball weitergespielt wird - trainiert Konstanz, Fokus und mentale Stärke unter Druck."
+  },
+  {
+    "id": "putting_ladder_distance_control",
+    "title": "Ladder Putting",
+    "category": "Putting",
+    "equipment": {
+      "balls": 5,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "3-5 Zielmarken bei 3 m, 4.5 m, 6 m, 9 m",
+        "Tees oder Marker",
+        "Ebene Puttfläche"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere 4-5 Distanzen in einer Linie (z. B. 3 m, 4.5 m, 6 m, 9 m). Definiere eine 'Leave-Zone' von maximal 45 cm hinter dem Loch.",
+      "diagram": "svg:drills/putting_ladder_distance_control",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 8,
+      "timerPreset": 480
+    },
+    "difficulty": {
+      "base": 2,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putt je einen Ball von jeder Distanz. Zähle Treffer, die fallen oder innerhalb der Leave-Zone enden.",
+      "test": "Spiele 10 Putts gemischt über alle Distanzen. Werten als Treffer: Loch oder ≤45 cm vorbei.",
+      "tooEasy": "Verlängere die weiteste Distanz auf 12 m oder reduziere die Leave-Zone auf 30 cm."
+    },
+    "metric": {
+      "type": "corridor_hits",
+      "unit": "Treffer (von 10)",
+      "hcpTargets": {
+        "54-45": [
+          5,
+          6,
+          7
+        ],
+        "50-20": [
+          7,
+          8,
+          9
+        ],
+        "25-0": [
+          9,
+          9.5,
+          10
+        ]
+      }
+    },
+    "tags": [
+      "Speed Control",
+      "Pace",
+      "Leave-Zone",
+      "Gamification"
+    ],
+    "zockerTip": "Beide spielen 10 Putts. Höhere Trefferzahl gewinnt die Runde.",
+    "variants": [
+      "Baue Gefälle ein (leichter Break).",
+      "Wechsle die Reihenfolge zufällig per App/Timer."
+    ],
+    "summary": "Putte von mehreren Distanzen und zähle nur Treffer, die fallen oder innerhalb von 45 cm hinter dem Loch liegen."
+  },
+  {
+    "id": "putting_star_pressure_20",
+    "title": "Star Drill",
+    "category": "Putting",
+    "equipment": {
+      "balls": 1,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "4-5 Markierungen im Kreis um das Loch (1.2-2.4 m)"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere 5 Positionen kreisförmig um das Loch in 1.2 m, 1.5 m, 1.8 m, 2.1 m, 2.4 m.",
+      "diagram": "svg:drills/putting_star_pressure_20",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 7,
+      "timerPreset": 420
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele je einen Putt von jeder Position, wiederhole den Kreis.",
+      "test": "20 Putts insgesamt, reihum um das Loch. Zähle gelochte Putts.",
+      "tooEasy": "Erhöhe die Distanzen auf 1.8-3.0 m oder spiele „Sudden Death“ bei Fehlschlag Neustart."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "geloche Putts (von 20)",
+      "hcpTargets": {
+        "54-45": [
+          10,
+          12,
+          13
+        ],
+        "50-20": [
+          14,
+          16,
+          17
+        ],
+        "25-0": [
+          17,
+          18,
+          20
+        ]
+      }
+    },
+    "tags": [
+      "Drucktraining",
+      "Kreismuster",
+      "Kurzputts",
+      "Routine"
+    ],
+    "zockerTip": "Beide spielen 20 Putts. Bei Gleichstand Stechen von 2.4 m.",
+    "variants": [
+      "Wechsel Rechts-/Linkshang.",
+      "Nur ein Ball, kein Probeputt."
+    ],
+    "summary": "Putte reihum aus fünf Richtungen rund ums Loch und zähle, wie viele von 20 Putts fallen."
+  },
+  {
+    "id": "putting_pace_stop_zone",
+    "title": "Pace Stop-Zone",
+    "category": "Putting",
+    "equipment": {
+      "balls": 5,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "Band oder Tees zur 30-cm-Zone hinter dem Loch",
+        "3 Startdistanzen: 6 m, 9 m, 12 m"
+      ]
+    },
+    "setup": {
+      "schema": "Errichte hinter dem Loch eine 30-cm-Zone. Lege 3 Startdistanzen auf einer Geraden fest.",
+      "diagram": "svg:drills/putting_pace_stop_zone",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "hardStop": 6,
+      "timerPreset": 360
+    },
+    "difficulty": {
+      "base": 2,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Putt je 5 Bälle pro Distanz. Treffer sind: gelocht oder Stop in der 0-30-cm-Zone hinter dem Loch.",
+      "test": "15 Putts (5 je Distanz). Zähle gültige Pace-Treffer.",
+      "tooEasy": "Reduziere die Zone auf 20 cm oder füge Seitengefälle hinzu."
+    },
+    "metric": {
+      "type": "corridor_hits",
+      "unit": "Pace-Treffer (von 15)",
+      "hcpTargets": {
+        "54-45": [
+          7,
+          8,
+          9
+        ],
+        "50-20": [
+          10,
+          11,
+          12
+        ],
+        "25-0": [
+          12,
+          13,
+          14
+        ]
+      }
+    },
+    "tags": [
+      "Pace",
+      "Lag Putting",
+      "Feinmotorik"
+    ],
+    "zockerTip": "Wer zuerst 10 gültige Pace-Treffer erreicht, gewinnt.",
+    "variants": [
+      "Distanzen würfeln.",
+      "Zeitdruck: 90 Sekunden pro 5 Bälle."
+    ],
+    "summary": "Putte von drei Distanzen und zähle nur Bälle, die fallen oder in der 30-cm-Zone hinter dem Loch stoppen."
+  },
+  {
+    "id": "chipping_landing_spot_5x10",
+    "title": "Chipping Landing-Spot",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 10,
+      "clubs": [
+        "PW",
+        "GW",
+        "SW"
+      ],
+      "other": [
+        "5 Landepunkte markiert",
+        "Leave-Zone um Loch: 1 m"
+      ]
+    },
+    "setup": {
+      "schema": "Markiere 5 unterschiedliche Landepunkte zwischen 2-6 m vor dem Loch. Definiere eine 1-m-Leave-Zone um das Loch.",
+      "diagram": "svg:drills/chipping_landing_spot_5x10",
+      "location": "Rund ums Grün"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Chippe je 10 Bälle, versuche den Landepunkt zu treffen und den Ball in der Leave-Zone zu beenden.",
+      "test": "50 Chips insgesamt. Zähle Bälle, die in der Leave-Zone enden.",
+      "tooEasy": "Verkleinere die Leave-Zone auf 75 cm oder verlagere Landepunkte weiter weg."
+    },
+    "metric": {
+      "type": "corridor_hits",
+      "unit": "Bälle in Leave-Zone (von 50)",
+      "hcpTargets": {
+        "54-45": [
+          20,
+          25,
+          30
+        ],
+        "50-20": [
+          30,
+          35,
+          40
+        ],
+        "25-0": [
+          40,
+          44,
+          48
+        ]
+      }
+    },
+    "tags": [
+      "Landing-Spot",
+      "Roll-out",
+      "Up-and-Down",
+      "Chipping"
+    ],
+    "zockerTip": "Pro Ziel gewinnt der Spieler mit mehr Zone-Treffern 1 Punkt.",
+    "variants": [
+      "Rough-Kante als Startlage.",
+      "Hanglage einbauen."
+    ],
+    "summary": "Chippe auf fünf markierte Landepunkte und zähle nur Bälle, die in der 1-m-Zone um das Loch liegen bleiben."
+  },
+  {
+    "id": "chipping_up_and_down_9_balls",
+    "title": "Up-and-Down Challenge",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "Wedge nach Wahl",
+        "Putter"
+      ],
+      "other": [
+        "3 Startlagen: Fairway, Semi-Rough, Rough",
+        "3 Fahnenpositionen"
+      ]
+    },
+    "setup": {
+      "schema": "Baue 3 Lagen und 3 Ziele auf. Pro Ziel 1 Ball aus jeder Lage.",
+      "diagram": "svg:drills/chipping_up_and_down_9_balls",
+      "location": "Kurzspiel-Areal"
+    },
+    "duration": {
+      "hardStop": 12,
+      "timerPreset": 720
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele jeden Ball zu Ende. Zähle Up-and-Downs (Chip + 1 Putt).",
+      "test": "9 vollständige Versuche. Score als Schläge vs. Par (Par je Versuch = 2).",
+      "tooEasy": "Verkleinere die Putt-Gimme auf 60 cm oder erlaube keinen Probechip."
+    },
+    "metric": {
+      "type": "score_vs_par",
+      "unit": "Schläge vs. Par (negativ besser)",
+      "hcpTargets": {
+        "54-45": [
+          0,
+          1,
+          2
+        ],
+        "50-20": [
+          -1,
+          0,
+          1
+        ],
+        "25-0": [
+          -3,
+          -2,
+          -1
+        ]
+      },
+      "smallerIsBetter": true
+    },
+    "tags": [
+      "Up-and-Down",
+      "Scrambling",
+      "Realspiel",
+      "Chipping"
+    ],
+    "zockerTip": "Matchplay-Logik: Jeder Versuch ist ein Loch. Besserer Score gewinnt das Loch.",
+    "variants": [
+      "Pflicht: erster Putt muss aggressiv über Lochkante.",
+      "Random-Lage ziehen."
+    ],
+    "summary": "Neun Chips aus drei Lagen auf drei Ziele - spiele jeden Ball zu Ende und zähle erfolgreiche Up-and-Downs."
+  },
+  {
+    "id": "pitching_9_box_distance_grid",
+    "title": "9-Box Pitch Grid",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "GW",
+        "SW"
+      ],
+      "other": [
+        "3 Distanzen, 3 Linien pro Distanz (9 Felder)",
+        "Markierscheiben oder Tücher"
+      ]
+    },
+    "setup": {
+      "schema": "Errichte 3 Carry-Distanzen (z. B. 20/30/40 m) mit je 3 Zielkorridoren (kurz/ziel/lang).",
+      "diagram": "svg:drills/pitching_9_box_distance_grid",
+      "location": "Approach-Wiese"
+    },
+    "duration": {
+      "hardStop": 12,
+      "timerPreset": 720
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele je 1 Ball pro Feld, versuche den angesagten Korridor zu treffen.",
+      "test": "9 Bälle, 1 Punkt pro korrektem Korridor, 2 Punkte bei exaktem Mittel-Korridor.",
+      "tooEasy": "Verenge die Korridore (±2 m) oder erhöhe die Distanzen auf 25/35/45 m."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "Punkte (max. 18)",
+      "hcpTargets": {
+        "54-45": [
+          7,
+          9,
+          11
+        ],
+        "50-20": [
+          12,
+          14,
+          16
+        ],
+        "25-0": [
+          15,
+          16,
+          18
+        ]
+      }
+    },
+    "tags": [
+      "Carry-Kontrolle",
+      "Flight-Landezone",
+      "Pitching",
+      "Wedges"
+    ],
+    "zockerTip": "Abwechselndes Ansagen der Felder. Punkte zählen, höchster Sieg.",
+    "variants": [
+      "Trajectory-Mix: niedrig/mittel/hoch als Pflicht.",
+      "Spin-Challenge: nur 1-2 Bounces erlaubt."
+    ],
+    "summary": "Neun Pitches auf ein 3×3-Zielraster - triff die angesagten Korridore für präzise Carry-Kontrolle."
+  },
+  {
+    "id": "bunker_target_circle_12",
+    "title": "Target Circle",
+    "category": "Bunker",
+    "equipment": {
+      "balls": 12,
+      "clubs": [
+        "SW"
+      ],
+      "other": [
+        "Zielkreis 2 m um das Loch",
+        "Optional zweiter Innenkreis 1 m"
+      ]
+    },
+    "setup": {
+      "schema": "Wähle ein Grünbunker-Schlagziel. Markiere 2-m-Zielkreis, optional 1-m-Bonuskreis.",
+      "diagram": "svg:drills/bunker_target_circle_12",
+      "location": "Übungsbunker"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Spiele 12 Bunkerschläge. 1 Punkt im 2-m-Kreis, 2 Punkte im 1-m-Kreis.",
+      "test": "Werte die 12 Schläge aus und summiere Punkte.",
+      "tooEasy": "Verkleinere Kreise auf 1.5 m/0.75 m oder spiele aus Fußspuren."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "Punkte (max. 24)",
+      "hcpTargets": {
+        "54-45": [
+          8,
+          10,
+          12
+        ],
+        "50-20": [
+          12,
+          14,
+          16
+        ],
+        "25-0": [
+          16,
+          18,
+          20
+        ]
+      }
+    },
+    "tags": [
+      "Zielkreis",
+      "Längenkontrolle",
+      "Spin"
+    ],
+    "zockerTip": "Abwechselnd schlagen. Nach 12 Bällen gewinnt die höhere Punktzahl.",
+    "variants": [
+      "Nasse Sandlage.",
+      "Hohe Lippe: höhere Flugbahn erzwingen."
+    ],
+    "summary": "Zwölf Bunkerschläge ins Ziel - Punkte für Treffer im 2-m- oder Bonuskreis um die Fahne."
+  },
+  {
+    "id": "lag_putting_5_min_sprint",
+    "title": "Lag Putting Sprint",
+    "category": "Putting",
+    "equipment": {
+      "balls": 3,
+      "clubs": [
+        "Putter"
+      ],
+      "other": [
+        "Timer 5 Minuten",
+        "Zielzone: ≤60 cm Radius um das Loch"
+      ]
+    },
+    "setup": {
+      "schema": "Freie Distanzen 7-12 m. Zielzone 60 cm um das Loch. Wiederholter Rhythmus mit 3 Bällen.",
+      "diagram": "svg:drills/lag_putting_5_min_sprint",
+      "location": "Putting Green"
+    },
+    "duration": {
+      "suggestedMin": 5,
+      "hardStop": 5,
+      "timerPreset": 300
+    },
+    "difficulty": {
+      "base": 2,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Starte den Timer. So viele gültige Lag-Treffer wie möglich. Nur Treffer zählen: Ball bleibt ≤60 cm vom Loch.",
+      "test": "Zähle gültige Treffer in 5 Minuten.",
+      "tooEasy": "Zone auf 45 cm verkleinern oder Distanzen ausschließlich ≥10 m."
+    },
+    "metric": {
+      "type": "count_in_time",
+      "unit": "Treffer in 5 min",
+      "hcpTargets": {
+        "54-45": [
+          12,
+          14,
+          16
+        ],
+        "50-20": [
+          17,
+          19,
+          21
+        ],
+        "25-0": [
+          22,
+          24,
+          26
+        ]
+      }
+    },
+    "tags": [
+      "Tempo",
+      "Rhythmus",
+      "Pace",
+      "Ausdauer"
+    ],
+    "zockerTip": "Gleichzeitig starten. Wer mehr Treffer in 5 min hat, gewinnt.",
+    "variants": [
+      "Metronom-Tempo 70-80 bpm.",
+      "Nur ein Blick aufs Loch erlaubt."
+    ],
+    "summary": "Drei Bälle, fünf Minuten - zähle alle Putts, die innerhalb von 60 cm am Loch liegen bleiben."
+  },
+  {
+    "id": "short_game_par18",
+    "title": "Short-Game Par-18",
+    "category": "Chipping",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "Wedges",
+        "Putter"
+      ],
+      "other": [
+        "9 Kurzspiel-Stationen um das Grün",
+        "Scorekarte"
+      ]
+    },
+    "setup": {
+      "schema": "Richte 9 unterschiedliche Kurzspiel-Lagen ein (Flach/Angehoben/Rough/Bunkerersatz).",
+      "diagram": "svg:drills/short_game_par18",
+      "location": "Kurzspiel-Areal"
+    },
+    "duration": {
+      "hardStop": 20,
+      "timerPreset": 1200
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Jede Station als Par-2 spielen. Chip/Pitch ins Ziel, dann fertigputten.",
+      "test": "Gesamtscore über 9 Stationen als Schläge vs. Par notieren.",
+      "tooEasy": "Gimme-Radius auf 50 cm reduzieren oder 2 schwierige Lagen hinzufügen."
+    },
+    "metric": {
+      "type": "score_vs_par",
+      "unit": "Gesamtscore vs. Par",
+      "hcpTargets": {
+        "54-45": [
+          2,
+          3,
+          4
+        ],
+        "50-20": [
+          0,
+          1,
+          2
+        ],
+        "25-0": [
+          -2,
+          -1,
+          0
+        ]
+      },
+      "smallerIsBetter": true
+    },
+    "tags": [
+      "Par-Spiel",
+      "Kursmanagement",
+      "Scoring",
+      "Kurzspiel"
+    ],
+    "zockerTip": "1v1 Matchplay über 9 'Löcher'. Gleichstand: Nearest-to-the-Pin Stechen.",
+    "variants": [
+      "Zwangsstrategie: nur Loft ≤50° an 3 Stationen.",
+      "Kein Probeschwung."
+    ],
+    "summary": "Neun Kurzspiel-Stationen als Par-2 spielen - Chip oder Pitch aufs Grün, dann einlochen und den Gesamtscore gegen Par werten."
+  },
+  {
+    "id": "wedge_ladder_50_70_90",
+    "title": "Wedge Ladder",
+    "category": "Pitching",
+    "equipment": {
+      "balls": 9,
+      "clubs": [
+        "PW",
+        "GW",
+        "SW"
+      ],
+      "other": [
+        "3 Distanzen: 50 m, 70 m, 90 m",
+        "Zielgrün oder große Zielzone"
+      ]
+    },
+    "setup": {
+      "schema": "Baue 3 Distanzen mit Zielzonen (Radius 6 m). 3 Bälle je Distanz.",
+      "diagram": "svg:drills/wedge_ladder_50_70_90",
+      "location": "Range/Approach-Zone"
+    },
+    "duration": {
+      "hardStop": 12,
+      "timerPreset": 720
+    },
+    "difficulty": {
+      "base": 3,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "3 Bälle je Distanz. Punkte: in Zielzone 1, innerhalb 3 m 2, innerhalb 1.5 m 3.",
+      "test": "Summiere Punkte aller 9 Schläge.",
+      "tooEasy": "Verkleinere Zonen (4 m/2 m/1 m) oder füge Wind/Seitgefälle hinzu."
+    },
+    "metric": {
+      "type": "points_total",
+      "unit": "Punkte (max. 27)",
+      "hcpTargets": {
+        "54-45": [
+          9,
+          11,
+          13
+        ],
+        "50-20": [
+          14,
+          16,
+          19
+        ],
+        "25-0": [
+          20,
+          22,
+          24
+        ]
+      }
+    },
+    "tags": [
+      "Wedge-Kontrolle",
+      "Scoring-Zonen",
+      "Pitching",
+      "Approach"
+    ],
+    "zockerTip": "Distanz wird abwechselnd vom Gegner gewählt.",
+    "variants": [
+      "Flight-Law: nur halber/¾-Schwung.",
+      "Nur ein Schläger für alle Distanzen."
+    ],
+    "summary": "Neun Wedge-Schläge aus 50, 70 und 90 Metern - Punkte für Treffer in die jeweiligen Zielzonen sammeln."
+  },
+  {
+    "id": "bunker_updown_6_ball_par12",
+    "title": "Up-and-Down",
+    "category": "Bunker",
+    "equipment": {
+      "balls": 6,
+      "clubs": [
+        "SW",
+        "Putter"
+      ],
+      "other": [
+        "6 Zielpositionen",
+        "Gimme-Kreis 1 m"
+      ]
+    },
+    "setup": {
+      "schema": "Platziere 6 Bälle in variierenden Bunkerlagen. Spiele jeden Ball zu Ende.",
+      "diagram": "svg:drills/bunker_updown_6_ball_par12",
+      "location": "Übungsbunker"
+    },
+    "duration": {
+      "hardStop": 10,
+      "timerPreset": 600
+    },
+    "difficulty": {
+      "base": 4,
+      "scale": "1-5"
+    },
+    "instructions": {
+      "training": "Ziel ist Par-2 pro Ball: Sandschlag + 1 Putt. Zähle Gesamtschläge.",
+      "test": "Gesamtscore vs. Par über 6 Versuche.",
+      "tooEasy": "Gimme-Kreis auf 70 cm reduzieren oder Zusatzregel: kein Zweitputt aus >1.5 m."
+    },
+    "metric": {
+      "type": "score_vs_par",
+      "unit": "Gesamtscore vs. Par",
+      "hcpTargets": {
+        "54-45": [
+          1,
+          2,
+          3
+        ],
+        "50-20": [
+          0,
+          1,
+          2
+        ],
+        "25-0": [
+          -1,
+          0,
+          1
+        ]
+      },
+      "smallerIsBetter": true
+    },
+    "tags": [
+      "Up-and-Down",
+      "Realismus",
+      "Putt-Druck"
+    ],
+    "zockerTip": "Lochwertung pro Ball. Besserer Score gewinnt das Loch.",
+    "variants": [
+      "Feste Fußspuren als Startlage.",
+      "Ball halb vergraben."
+    ],
+    "summary": "Sechs Bunkerschläge als Par-2 spielen - Sandschlag und Putt zählen, Gesamtscore gegen Par werten."
+  }
+]

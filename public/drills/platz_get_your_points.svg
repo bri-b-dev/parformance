@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Get Your Points - Mit Fokus am Abschlag">
+  <style>
+    .panel { fill: var(--surface); }
+    .ground { fill: color-mix(in oklab, var(--cat-platz) 10%, var(--surface)); }
+    .fairway { fill: color-mix(in oklab, var(--cat-platz) 25%, #fff); stroke: var(--accent-iron); stroke-width: 1; }
+    .path { stroke-width: 3; fill: none; marker-end: url(#arrow); opacity: 0.9; }
+    .target { fill: var(--primary); opacity: 0.85; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <rect width="720" height="420" rx="16" ry="16" class="panel"/>
+  <rect x="100" y="60" width="520" height="300" class="ground"/>
+
+  <!-- Fairway -->
+  <path d="M180,340 Q300,200 540,120" class="fairway"/>
+
+  <!-- Ballflug -->
+  <path d="M180,340 Q310,220 520,130" stroke="var(--primary)" class="path"/>
+  <circle cx="180" cy="340" r="8" fill="var(--accent-iron)"/>
+  <circle cx="520" cy="130" r="6" class="target"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

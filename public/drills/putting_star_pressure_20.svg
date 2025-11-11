@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Star Drill – 5 Positionen rund ums Loch bei 1.2 m, 1.5 m, 1.8 m, 2.1 m, 2.4 m. 20 Putts reihum zählen.">
+  <title>Star Drill – 20 Putts, 5 Positionen (1.2–2.4 m)</title>
+
+  <style>
+    /* Theme-first: uses variables from theme.css */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .3; fill: none; }
+
+    .green  { fill: var(--accent-green); opacity: .18; stroke: var(--accent-green); stroke-opacity: .45; }
+    .fringe { fill: var(--accent-green); opacity: .12; stroke: var(--accent-green); stroke-opacity: .3; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.4; }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.2; }
+    .flag { fill: var(--primary); }
+
+    .ring { stroke: var(--border); stroke-dasharray: 4 8; fill: none; opacity: .8; }
+    .ring-label { fill: var(--muted); font: 11px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+
+    .marker { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.2; }
+    .marker-label { fill: var(--muted); font: 11px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+
+    .putt { stroke: var(--primary); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .arrow { fill: var(--primary); }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+  </style>
+
+  <!-- Panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Putting Green -->
+  <ellipse class="green" cx="420" cy="210" rx="240" ry="150"/>
+  <path class="fringe" d="M180,210 q120,-90 240,0 q-120,90 -240,0 z"/>
+
+  <!-- Hole -->
+  <circle class="hole" cx="500" cy="210" r="8"/>
+  <path class="pin" d="M500 150v60"/>
+  <path class="flag" d="M500 150 l34 10 l-34 10 z"/>
+
+  <!-- Rings: 1.2/1.5/1.8/2.1/2.4 m (1 m ≈ 26 px) -->
+  <g id="rings">
+    <circle class="ring" cx="500" cy="210" r="31"/>
+    <circle class="ring" cx="500" cy="210" r="39"/>
+    <circle class="ring" cx="500" cy="210" r="47"/>
+    <circle class="ring" cx="500" cy="210" r="55"/>
+    <circle class="ring" cx="500" cy="210" r="62"/>
+    <text class="ring-label" x="500" y="210" text-anchor="middle" dy="-66">2.4 m</text>
+    <text class="ring-label" x="500" y="210" text-anchor="middle" dy="-59">2.1 m</text>
+    <text class="ring-label" x="500" y="210" text-anchor="middle" dy="-51">1.8 m</text>
+    <text class="ring-label" x="500" y="210" text-anchor="middle" dy="-43">1.5 m</text>
+    <text class="ring-label" x="500" y="210" text-anchor="middle" dy="-35">1.2 m</text>
+  </g>
+
+  <!-- 5 Positionen: je eine pro Distanz, rund ums Loch verteilt -->
+  <!-- Precomputed coords (center 500,210): 
+       1.2 m @ 90°  -> (500,179)
+       1.5 m @ 18°  -> (537,198)
+       1.8 m @ 306° -> (527,248)
+       2.1 m @ 234° -> (468,255)
+       2.4 m @ 162° -> (441,227) -->
+  <g id="positions">
+    <g transform="translate(500 179)">
+      <circle class="marker" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">1.2 m</text>
+    </g>
+    <g transform="translate(537 198)">
+      <circle class="marker" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">1.5 m</text>
+    </g>
+    <g transform="translate(527 248)">
+      <circle class="marker" r="6"/>
+      <text class="marker-label" x="0" y="22" text-anchor="middle">1.8 m</text>
+    </g>
+    <g transform="translate(468 255)">
+      <circle class="marker" r="6"/>
+      <text class="marker-label" x="0" y="22" text-anchor="middle">2.1 m</text>
+    </g>
+    <g transform="translate(441 227)">
+      <circle class="marker" r="6"/>
+      <text class="marker-label" x="0" y="22" text-anchor="middle">2.4 m</text>
+    </g>
+  </g>
+
+  <!-- Beispiel-Putt -->
+  <defs>
+    <marker id="m-putt" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+  <path class="putt" d="M468 255 Q485 230, 500 210" marker-end="url(#m-putt)"/>
+</svg>

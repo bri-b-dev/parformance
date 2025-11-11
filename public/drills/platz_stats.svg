@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Stats - Statistiken richtig führen">
+  <style>
+    .panel { fill: var(--surface); }
+    .ground { fill: color-mix(in oklab, var(--cat-platz) 10%, var(--surface)); }
+    .grid { stroke: var(--accent-iron); stroke-width: 1; fill: none; opacity: 0.6; }
+    .line { stroke: var(--primary); stroke-width: 2; fill: none; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <rect width="720" height="420" rx="16" ry="16" class="panel"/>
+  <rect x="100" y="60" width="520" height="260" class="ground"/>
+
+  <!-- Grid -->
+  <g transform="translate(120,80)">
+    <rect width="480" height="220" class="grid"/>
+    <path d="M120,0 V220 M240,0 V220 M360,0 V220 M0,55 H480 M0,110 H480 M0,165 H480" class="grid"/>
+    <polyline points="0,200 120,140 240,90 360,110 480,70" class="line"/>
+  </g>
+</svg>
+

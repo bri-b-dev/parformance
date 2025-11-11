@@ -28,4 +28,5 @@ coverage
 *.sw?
 
 *.tsbuildinfo
-/setup-android-release.sh
+.output.txt
+test/.env

@@ -5,47 +5,74 @@ A modern, mobile‑first application built with Vue 3, Vite, and Capacitor for t
 <!-- Badges -->
 <p align="left">
   <img alt="Node" src="https://img.shields.io/badge/node-%E2%89%A520.19%20|%20%E2%89%A522.12-3C873A?logo=node.js&logoColor=white" />
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white" />
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3-42B883?logo=vuedotjs&logoColor=white" />
   <img alt="Capacitor" src="https://img.shields.io/badge/Capacitor-7-119EFF?logo=capacitor&logoColor=white" />
   <img alt="Platforms" src="https://img.shields.io/badge/Platforms-Web%20|%20Android%20|%20iOS-0A0A0A" />
   <a href="https://github.com/bri-b-dev/parformance/actions/workflows/release.yaml">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/parformance/actions/release.yaml?branch=main&label=release%20CI&logo=github" />
   </a>
+  <a href="https://github.com/bri-b-dev/parformance/actions/workflows/test.yml">
+    <img alt="Tests CI" src="https://img.shields.io/github/actions/workflow/status/bri-b-dev/parformance/test.yml?branch=main&label=tests%20CI&logo=github" />
+  </a>
 </p>
 
 ## Table of contents
-* [Table of contents](#table-of-contents)
-* [About](#about)
-* [Features](#features)
-* [Tech stack](#tech-stack)
-* [Prerequisites](#prerequisites)
-* [Getting started](#getting-started)
-* [Scripts](#scripts)
-* [Configuration](#configuration)
-* [Development](#development)
-* [Building for production](#building-for-production)
-* [Running on mobile (Capacitor)](#running-on-mobile-capacitor)
-* [Project structure](#project-structure)
-* [Troubleshooting](#troubleshooting)
-* [Contributing](#contributing)
-* [License](#license)
+- [ParFormance](#parformance)
+  - [Table of contents](#table-of-contents)
+  - [About](#about)
+  - [Features](#features)
+  - [UX Philosophy](#ux-philosophy)
+  - [Tech stack](#tech-stack)
+  - [Prerequisites](#prerequisites)
+  - [Getting started](#getting-started)
+  - [Scripts](#scripts)
+  - [Configuration](#configuration)
+  - [Development](#development)
+  - [Building for production](#building-for-production)
+  - [Running on mobile (Capacitor)](#running-on-mobile-capacitor)
+  - [Docker usage](#docker-usage)
+  - [Project structure](#project-structure)
+  - [Troubleshooting](#troubleshooting)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Storybook](#storybook)
 
 ## About
-ParFormance is a cross‑platform app built with Vue 3 and Capacitor. It targets the web, Android, and iOS from a single codebase. Use this repository as a starting point for rapid development with modern tooling.
+**ParFormance** is a modern golf training companion designed to make practice measurable, motivating, and fun.  
+It combines structured drills, lightweight analytics, and an intuitive UX that helps players track their progress over time — all within a single cross-platform app.
+
+Built with **Vue 3**, **Tailwind**, and **Capacitor**, ParFormance runs seamlessly on web, Android, and iOS.
 
 ## Features
-- Vue 3 application scaffolded with Vite for fast DX
-- Capacitor 7 for native Android and iOS integration
-- Pinia for state management and Vue Router for navigation
-- Ready‑to‑use scripts for development, build, and preview
-- Dockerfile for static hosting with NGINX
+- **Drill Catalog** — categorized by *Putting, Chipping, Pitching, Range, Course, Tempo, and more*  
+- **Smart Shuffle (🎰 Slot Machine)** — randomized drill selection with animated reels  
+- **Drill Details** — clear setup, step-by-step flow, and measurable targets  
+- **Favorites & History** — quick access to starred drills and past sessions  
+- **Progress Analytics** — radar charts, micro-trends, and personal-best badges  
+- **User Settings** — HCP, language, units, themes, and data export/import  
+- **Offline Mode** — data stored locally via LocalStorage or IndexedDB  
+- **Responsive Design** — optimized for mobile and tablet  
+- **Soft Animations** — Framer Motion effects for clean, lightweight transitions  
+
+## UX Philosophy
+> “As little text as necessary, as much clarity as possible.”
+
+Every drill answers three questions:
+1. What do I need?  
+2. How does it work?  
+3. How do I see that I’m improving?
+
+The app’s flow follows a simple loop:  
+**Shuffle → Drill → Session → Result → History → Progress**
 
 ## Tech stack
-- Vue 3
-- Vite 7
+- Vue 3 (Composition API)
+- Vite 6
+- Tailwind CSS
 - Capacitor 7 (Android and iOS)
-- Pinia, Vue Router
+- Pinia for state management
+- Framer Motion for animations
 
 ## Prerequisites
 - Node.js: >= 20.19 or >= 22.12 (as defined in package.json engines)
@@ -125,10 +152,10 @@ You can also run directly from the IDE and manage signing, emulators, and device
 
 ## Docker usage
 Build a production image:
-- docker build -t handycap:latest .
+- docker build -t parformance:latest .
 
 Run the container (serves dist/ via NGINX):
-- docker run --rm -p 8080:80 handycap:latest
+- docker run --rm -p 8080:80 parformance:latest
 
 Then open http://localhost:8080
 
@@ -158,6 +185,11 @@ Then open http://localhost:8080
 ## Contributing
 Issues and pull requests are welcome. Please open an issue to discuss changes before submitting a PR.
 
+- Contribution guide: see [CONTRIBUTING.md](./CONTRIBUTING.md)
+- Data model overview: see [docs/DATA_MODEL.md](./docs/DATA_MODEL.md)
+- App workflows (List, Detail, Shuffle, Start→Save→History, Stats): see [docs/WORKFLOWS.md](./docs/WORKFLOWS.md)
+- How to add a drill: covered in [CONTRIBUTING.md#how-to-add-a-drill-content-contribution](./CONTRIBUTING.md#how-to-add-a-drill-content-contribution)
+
 ## License
 This project is licensed under the Apache License, Version 2.0.
 
@@ -165,3 +197,8 @@ This project is licensed under the Apache License, Version 2.0.
 - You may also obtain a copy at: http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.
+
+## Storybook
+- Run component workshop: npm run storybook (opens at http://localhost:6006)
+- Build static Storybook: npm run build-storybook (outputs to storybook-static/)
+- CI: Storybook build runs on push/PR via .github/workflows/storybook.yml

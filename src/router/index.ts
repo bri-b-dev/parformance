@@ -1,21 +1,69 @@
-import {createRouter, createWebHistory} from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import DrillsView from '@/views/DrillsView.vue';
-import EditDrillView from '@/views/EditDrillView.vue';
-import RandomizerView from '@/views/RandomizerView.vue';
-import SplashView from '@/views/SplashView.vue';
+import { createRouter, createWebHistory, createMemoryHistory, type Router, type RouterHistory, type RouteLocationRaw, type RouteLocationNormalizedLoaded, type RouteRecordRaw } from 'vue-router'
 
+// Views/Components used by the routes (lazy in browser; stubbed in tests/SSR to avoid SFC parsing)
+const isBrowser = globalThis !== undefined && (globalThis.window as any)?.document !== undefined
+const Stub = { render() { return null } }
 
-const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {path: '/', name: 'home', component: HomeView},
-        {path: '/drills', name: 'drills', component: DrillsView},
-        {path: '/drills/:id', name: 'edit-drill', component: EditDrillView, props: true},
-        {path: '/random', name: 'random', component: RandomizerView},
-        { path: '/splash', name: 'splash', component: SplashView }
-    ]
-});
+const DrillList = isBrowser ? (() => import('@/components/DrillList.vue')) : Stub
 
+// Detail view: shows a drill based on :id
+const DrillDetailView = isBrowser ? (() => import('@/views/DrillDetailView.vue')) : Stub
+// Stats view placeholder
+const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
 
-export default router;
+export const routes: RouteRecordRaw[] = [
+  { path: '/', redirect: { name: 'DrillsList' } },
+  {
+    name: 'DrillsList',
+    path: '/drills',
+    component: DrillList,
+  },
+  {
+    name: 'DrillDetail',
+    path: '/drill/:id',
+    // Support alias '/drills/:id' to match user expectation and existing list URL patterns
+    alias: '/drills/:id',
+    component: DrillDetailView,
+    props: true,
+  },
+  {
+    name: 'History',
+    path: '/history',
+    component: StatsView,
+  },
+]
+
+export function makeRouter(history?: RouterHistory): Router {
+  const h = history ?? createWebHistory()
+  return createRouter({
+    history: h,
+    routes,
+    scrollBehavior() {
+      // Only return a scroll position when the global scroll API exists.
+      // In some test environments (jsdom) window.scrollTo may be missing or not implemented.
+      if (globalThis.window !== undefined && typeof (globalThis.window as any).scrollTo === 'function') {
+        return { top: 0 }
+      }
+      // avoid invoking scroll behavior that would call window.scrollTo in environments without it
+      return undefined
+    },
+  })
+}
+
+// Helper to preserve current filters (query params) when navigating
+export function withPreservedQuery(to: RouteLocationRaw, from: RouteLocationNormalizedLoaded): RouteLocationRaw {
+  // Normalize to object form and merge query from current route
+  if (typeof to === 'string') return { path: to, query: { ...from.query } }
+  if ('query' in to) {
+    return { ...to, query: { ...(to as any).query, ...from.query } }
+  }
+  // name/path based locations without query
+  return { ...(to as any), query: { ...from.query } }
+}
+
+// Default router for the application. Use memory history when no window exists (tests/SSR)
+const defaultHistory = globalThis?.document
+  ? createWebHistory()
+  : createMemoryHistory()
+const router = makeRouter(defaultHistory)
+export default router

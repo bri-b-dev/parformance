@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Lag Putts - 15 Meter Entfernung, Ziel Loch mit wenig Break">
+  <style>
+    .panel { fill: var(--surface); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: 0.35; }
+    .ring  { stroke: color-mix(in oklab, var(--accent-iron) 70%, #fff); }
+    .hole  { fill: var(--surface); stroke: var(--accent-iron); }
+    .flag  { fill: var(--primary); }
+    .ball  { fill: var(--surface); stroke: var(--accent-iron); }
+    .line  { stroke: var(--accent-iron); }
+    .label { fill: var(--primary); font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrundplatte -->
+  <rect x="0" y="0" width="720" height="420" class="panel" rx="16" ry="16"/>
+
+  <!-- Orientierungskreis -->
+  <circle cx="160" cy="210" r="120" class="guide" fill="none"/>
+
+  <!-- Loch + Fahne -->
+  <circle cx="138" cy="310" r="12" class="hole" stroke-width="2"/>
+  <rect x="136" y="250" width="3" height="58" class="line"/>
+  <path d="M139,250 l36,12 l-36,12 z" class="flag"/>
+
+  <!-- Zielbereich (orientierend, gestrichelter Kreis um das Loch für Lag-Zone) -->
+  <circle cx="190" cy="210" r="180" class="ring" fill="none" stroke-width="2" stroke-dasharray="8 8"/>
+
+  <!-- Puttlinie -->
+  <line x1="136" y1="310" x2="220" y2="40" class="line" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
+  <line x1="136" y1="310" x2="320" y2="90" class="line" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
+
+  <!-- Ballposition 15 m entfernt -->
+  <circle cx="222" cy="35" r="5" class="ball" stroke-width="2"/>
+  <circle cx="322" cy="85" r="5" class="ball" stroke-width="2"/>
+  <text x="220" y="130" class="label">15 m</text>
+
+</svg>

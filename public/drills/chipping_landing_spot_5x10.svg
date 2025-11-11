@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Chipping Landing-Spot – 5 Ziele, 10 Bälle pro Ziel. Landepunkte 2–6 m vor dem Loch. Leave-Zone 1 m.">
+  <title>Chipping Landing-Spot – 5×10, Leave-Zone 1 m</title>
+
+  <style>
+    /* Theme tokens expected from host page (theme.css) */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .35; fill: none; }
+
+    .fringe { fill: var(--accent-green); opacity: .12; stroke: var(--accent-green); stroke-opacity: .35; }
+    .green  { fill: var(--accent-green); opacity: .18; stroke: var(--accent-green); stroke-opacity: .5; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.5; }
+    .flag { fill: var(--primary); }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.4; }
+
+    .leave { stroke: var(--primary); stroke-dasharray: 6 8; stroke-width: 2; fill: none; opacity: .85; }
+    .spot { fill: none; stroke: var(--primary); stroke-width: 2; }
+    .spot-x { stroke: var(--primary); stroke-width: 2; }
+    .spot-guide { stroke: var(--border); stroke-dasharray: 3 6; opacity: .7; }
+
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .chip   { stroke: var(--accent-sky); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .roll   { stroke: var(--primary); fill: none; stroke-width: 2; stroke-dasharray: 2 6; opacity: .9; }
+    .arrow  { fill: var(--accent-sky); }
+    .arrow-roll { fill: var(--primary); }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+  </style>
+
+  <!-- Panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Green (rechts), Fringe (links davon) -->
+  <ellipse class="green"  cx="520" cy="210" rx="170" ry="120"/>
+  <path class="fringe" d="M330,140 q140,70 0,140 q-90,0 -140,-70 q50,-70 140,-70 z"/>
+
+  <!-- Hole, pin, leave zone -->
+  <circle class="hole" cx="575" cy="205" r="9"/>
+  <path class="pin"  d="M575 132v73"/>
+  <path class="flag" d="M575 132 l36 12 l-36 12 z"/>
+  <!-- Leave-Zone 1 m (symbolisch ~26px) -->
+  <circle class="leave" cx="575" cy="205" r="26"/>
+  <text class="label" x="575" y="205" text-anchor="middle" dy="-34">1 m Leave</text>
+
+  <!-- Five landing spots between 2–6 m before the hole -->
+  <!-- Spots are placed along an arc in front of the hole -->
+  <g id="spots">
+    <!-- each spot has a subtle guide circle and an X marker -->
+    <g transform="translate(505 205)">
+      <circle class="spot-guide" r="8" fill="none"/>
+      <path class="spot-x" d="M-7 -7 L7 7 M7 -7 L-7 7"/>
+    </g>
+    <g transform="translate(495 175)">
+      <circle class="spot-guide" r="8" fill="none"/>
+      <path class="spot-x" d="M-7 -7 L7 7 M7 -7 L-7 7"/>
+    </g>
+    <g transform="translate(485 235)">
+      <circle class="spot-guide" r="8" fill="none"/>
+      <path class="spot-x" d="M-7 -7 L7 7 M7 -7 L-7 7"/>
+    </g>
+    <g transform="translate(455 195)">
+      <circle class="spot-guide" r="8" fill="none"/>
+      <path class="spot-x" d="M-7 -7 L7 7 M7 -7 L-7 7"/>
+    </g>
+    <g transform="translate(445 225)">
+      <circle class="spot-guide" r="8" fill="none"/>
+      <path class="spot-x" d="M-7 -7 L7 7 M7 -7 L-7 7"/>
+    </g>
+  </g>
+
+  <!-- Startbereich links, 10 Bälle exemplarisch -->
+  <g id="start-balls">
+    <circle class="ball" cx="120" cy="245" r="6"/>
+    <circle class="ball" cx="135" cy="250" r="6"/>
+    <circle class="ball" cx="150" cy="242" r="6"/>
+    <circle class="ball" cx="165" cy="248" r="6"/>
+    <circle class="ball" cx="180" cy="244" r="6"/>
+    <circle class="ball" cx="128" cy="263" r="6"/>
+    <circle class="ball" cx="143" cy="267" r="6"/>
+    <circle class="ball" cx="158" cy="262" r="6"/>
+    <circle class="ball" cx="173" cy="270" r="6"/>
+    <circle class="ball" cx="188" cy="262" r="6"/>
+  </g>
+
+  <!-- Sample chip and rollout from one ball to a landing spot then to hole -->
+  <defs>
+    <marker id="m-chip" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+    <marker id="m-roll" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow-roll" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+  <!-- air to spot -->
+  <path class="chip" d="M150 242 C270 140, 380 150, 495 175" marker-end="url(#m-chip)"/>
+  <!-- rollout to hole -->
+  <path class="roll" d="M495 175 Q535 190, 575 205" marker-end="url(#m-roll)"/>
+</svg>

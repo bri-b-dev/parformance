@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Wedge Ladder – 3 Distanzen (50/70/90 m), je 3 Bälle. Zielzonen: 6 m (1 Punkt), 3 m (2), 1.5 m (3).">
+  <title>Wedge Ladder – 50 / 70 / 90 m • Zielzonen 6 m / 3 m / 1.5 m</title>
+
+  <style>
+    /* Theme-first: relies on theme.css variables only */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .3; fill: none; }
+
+    .range  { fill: var(--accent-green); opacity: .10; stroke: var(--accent-green); stroke-opacity: .35; }
+    .green  { fill: var(--accent-green); opacity: .18; stroke: var(--accent-green); stroke-opacity: .5; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.4; }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.2; }
+    .flag { fill: var(--primary); }
+
+    /* Scoring rings (symbolic radii for readability) */
+    .zone-6m  { stroke: var(--primary); fill: none; stroke-dasharray: 6 8; opacity: .7; }
+    .zone-3m  { stroke: var(--primary); fill: none; stroke-dasharray: 4 6; opacity: .9; }
+    .zone-1m5 { stroke: var(--primary); fill: none; stroke-width: 2; opacity: 1; }
+    .zone-label { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .tee-line { stroke: var(--border); stroke-dasharray: 4 6; }
+
+    .dist-ray { stroke: var(--border); stroke-dasharray: 3 6; opacity: .7; }
+    .wedge-shot { stroke: var(--accent-sky); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .95; }
+    .arrow { fill: var(--accent-sky); }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+  </style>
+
+  <!-- Panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Range field -->
+  <rect class="range" x="280" y="60" width="400" height="300" rx="16"/>
+
+  <!-- Three targets (top=90 m, middle=70 m, bottom=50 m) -->
+  <g id="targets">
+    <!-- 90 m -->
+    <g transform="translate(560 110)">
+      <!-- symbolic ring radii: 6 m ≈ 36 px, 3 m ≈ 18 px, 1.5 m ≈ 9 px -->
+      <circle class="zone-6m"  r="36"/>
+      <circle class="zone-3m"  r="18"/>
+      <circle class="zone-1m5" r="9"/>
+      <circle class="hole" r="7"/>
+      <path class="pin" d="M0 -44v44"/>
+      <path class="flag" d="M0 -44 l32 10 l-32 10 z"/>
+      <text class="label" x="-64" y="0" text-anchor="end">90 m</text>
+      <g class="zone-label">
+        <text x="44" y="-40">6 m = 1</text>
+        <text x="44" y="-24">3 m = 2</text>
+        <text x="44" y="-8">1.5 m = 3</text>
+      </g>
+    </g>
+
+    <!-- 70 m -->
+    <g transform="translate(520 210)">
+      <circle class="zone-6m"  r="36"/>
+      <circle class="zone-3m"  r="18"/>
+      <circle class="zone-1m5" r="9"/>
+      <circle class="hole" r="7"/>
+      <path class="pin" d="M0 -44v44"/>
+      <path class="flag" d="M0 -44 l32 10 l-32 10 z"/>
+      <text class="label" x="-64" y="0" text-anchor="end">70 m</text>
+    </g>
+
+    <!-- 50 m -->
+    <g transform="translate(460 300)">
+      <circle class="zone-6m"  r="36"/>
+      <circle class="zone-3m"  r="18"/>
+      <circle class="zone-1m5" r="9"/>
+      <circle class="hole" r="7"/>
+      <path class="pin" d="M0 -44v44"/>
+      <path class="flag" d="M0 -44 l32 10 l-32 10 z"/>
+      <text class="label" x="-64" y="0" text-anchor="end">50 m</text>
+    </g>
+  </g>
+
+  <!-- Tee box left with 9 balls -->
+  <g id="tee">
+    <path class="tee-line" d="M100 320 H240"/>
+    <!-- Nine balls grouped in 3s -->
+    <g>
+      <circle class="ball" cx="130" cy="320" r="6"/>
+      <circle class="ball" cx="150" cy="320" r="6"/>
+      <circle class="ball" cx="170" cy="320" r="6"/>
+      <text class="label" x="150" y="344" text-anchor="middle">3 × 50 m</text>
+    </g>
+    <g>
+      <circle class="ball" cx="190" cy="320" r="6"/>
+      <circle class="ball" cx="210" cy="320" r="6"/>
+      <circle class="ball" cx="230" cy="320" r="6"/>
+      <text class="label" x="210" y="344" text-anchor="middle">3 × 70 m</text>
+    </g>
+    <text class="label" x="170" y="300" text-anchor="middle">Start • 9 Bälle</text>
+  </g>
+
+  <!-- Distance rays -->
+  <g class="dist-ray">
+    <path d="M170 320 C280 300, 360 300, 460 300"/>
+    <path d="M210 320 C320 270, 420 240, 520 210"/>
+    <path d="M150 320 C300 250, 440 170, 560 110"/>
+  </g>
+
+  <!-- Sample wedge trajectories (one per distance) -->
+  <defs>
+    <marker id="m-arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+  <path class="wedge-shot" d="M170 320 C300 310, 380 305, 460 300" marker-end="url(#m-arrow)"/>
+  <path class="wedge-shot" d="M210 320 C340 280, 440 245, 520 210" marker-end="url(#m-arrow)"/>
+  <path class="wedge-shot" d="M150 320 C320 240, 460 160, 560 110" marker-end="url(#m-arrow)"/>
+</svg>

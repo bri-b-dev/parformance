@@ -22,6 +22,9 @@ import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
 import type { Session } from '@/types'
 import { onMounted, ref, watch } from 'vue'
+import { Capacitor } from '@capacitor/core'
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem'
+import { Share } from '@capacitor/share'
 
 const props = defineProps<{ open: boolean }>()
 const emit = defineEmits<(e: 'close') => void>()
@@ -107,7 +110,8 @@ async function saveAndClose(values: FormModel) {
   emit('close')
 }
 
-function downloadJson(filename: string, data: any) {
+// Alter Web-Download als Fallback beibehalten
+function downloadJsonWeb(filename: string, data: any) {
   if (typeof document === 'undefined') return
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
@@ -116,6 +120,69 @@ function downloadJson(filename: string, data: any) {
   a.download = filename
   a.click()
   URL.revokeObjectURL(url)
+}
+
+// Neu: Native Variante für APK
+async function downloadJsonNative(filename: string, data: any) {
+  const json = JSON.stringify(data, null, 2)
+
+  // In Cache schreiben, keine Extra-Berechtigungen nötig
+  try {
+    await Filesystem.writeFile({
+      path: filename,
+      data: json,
+      directory: Directory.Cache,
+      encoding: Encoding.UTF8,
+    })
+
+    // Native URI für die Datei besorgen
+    const { uri } = await Filesystem.getUri({
+      path: filename,
+      directory: Directory.Cache,
+    })
+
+  console.debug('Export: wrote file to cache, uri=', uri)
+  // Visible quick feedback for debugging on device
+  showAlert('Export vorbereitet — Datei in Cache geschrieben')
+
+    // Share-Sheet öffnen. Neuere Share-Versionen können 'files'
+    try {
+      // Try files first (preferred on Android when supported)
+      await Share.share({
+        title: 'Datenexport',
+        text: 'ParFormance-Exportdatei',
+        files: [uri], // bevorzugt, wenn unterstützt
+        dialogTitle: 'Export teilen oder speichern',
+      })
+      showAlert('Export gestartet (native Share)')
+      return
+    } catch (errFiles) {
+      console.debug('Share.files failed, falling back to url share', errFiles)
+      showAlert('Native Share(files) fehlgeschlagen, versuche Fallback')
+    }
+
+    // Fallback: try URL via convertFileSrc (works for webview preview / some share impls)
+    try {
+      const url = Capacitor.convertFileSrc(uri)
+      console.debug('Export: converted file src to url=', url)
+      showAlert('Export: versuche URL-Fallback')
+      await Share.share({
+        title: 'Datenexport',
+        text: 'ParFormance-Exportdatei',
+        url,
+        dialogTitle: 'Export teilen oder speichern',
+      })
+      showAlert('Export gestartet (URL-Fallback)')
+      return
+    } catch (errUrl) {
+      console.error('Share.url fallback failed', errUrl)
+      throw errUrl
+    }
+  } catch (err) {
+    console.error('downloadJsonNative failed', err)
+    showAlert('Export fehlgeschlagen — siehe Logcat (adb) oder chrome://inspect: ' + err.message)
+    throw err
+  }
 }
 
 function showAlert(message: string) {
@@ -138,6 +205,7 @@ function showConfirm(message: string): Promise<boolean> {
 
 async function exportData() {
   await ensureStoresLoaded()
+
   const payload = {
     exportedAt: new Date().toISOString(),
     version: 1,
@@ -155,7 +223,29 @@ async function exportData() {
     favorites: JSON.parse(JSON.stringify(favoritesStore.favorites ?? [])),
     sessions: JSON.parse(JSON.stringify(sessionsStore.sessions ?? [])),
   }
-  downloadJson('parformance-export.json', payload)
+
+  const fileName = `parformance-export-${new Date().toISOString().replace(/[:.]/g, '-')}.json`
+
+  // Web: alter Weg
+  if (!Capacitor.isNativePlatform()) {
+    downloadJsonWeb(fileName, payload)
+    return
+  }
+
+  // Native (Android/iOS): Datei schreiben und teilen
+  try {
+    await downloadJsonNative(fileName, payload)
+  } catch (err) {
+    // If native export fails, attempt a web fallback so user can still get data
+    console.error('Native export failed, trying web fallback', err)
+    try {
+      downloadJsonWeb(fileName, payload)
+      showAlert('Export als Web-Download gestartet (Fallback).')
+    } catch (webErr) {
+      console.error('Web fallback export also failed', webErr)
+      showAlert('Export fehlgeschlagen. Bitte prüfen Sie die App-Berechtigungen.')
+    }
+  }
 }
 
 async function importData(data: any) {

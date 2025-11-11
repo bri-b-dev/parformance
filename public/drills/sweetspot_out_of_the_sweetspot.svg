@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Out of the Sweetspot - Treffgefühl für verschiedene Schlagflächenbereiche">
+  <style>
+    .panel { fill: var(--surface); }
+    .face { fill: color-mix(in oklab, var(--cat-sweetspot) 10%, var(--surface)); stroke: var(--accent-iron); stroke-width: 2; }
+    .sweet { fill: var(--primary); opacity: 0.8; }
+    .heel, .toe { fill: var(--accent-green); opacity: 0.6; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Schlägerfläche -->
+  <ellipse cx="360" cy="210" rx="180" ry="90" class="face"/>
+
+  <!-- Sweetspot -->
+  <circle cx="360" cy="210" r="35" class="sweet"/>
+
+  <!-- Heel / Toe -->
+  <circle cx="280" cy="210" r="25" class="heel"/>
+  <circle cx="440" cy="210" r="25" class="toe"/>
+
+  <!-- Labels -->
+  <text x="280" y="195" text-anchor="middle" class="muted">Heel</text>
+  <text x="360" y="195" text-anchor="middle" class="muted">Sweet</text>
+  <text x="440" y="195" text-anchor="middle" class="muted">Toe</text>
+
+</svg>
+

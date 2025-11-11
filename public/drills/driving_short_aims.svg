@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Short Aims - Distanz- und Zieltraining mit kurzen Eisen">
+  <style>
+    .panel { fill: var(--surface); }
+    .fairway { fill: color-mix(in oklab, var(--cat-range) 10%, var(--surface)); }
+    .target { fill: none; stroke: var(--primary); stroke-width: 2; opacity: 0.7; }
+    .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); opacity: 0.9; }
+    .ball { fill: var(--primary); opacity: 0.9; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Zielkreise -->
+  <circle cx="520" cy="100" r="30" class="target"/>
+  <circle cx="460" cy="170" r="40" class="target"/>
+  <circle cx="400" cy="240" r="50" class="target"/>
+
+  <!-- Abschlagsbereich -->
+  <circle cx="260" cy="370" r="6" class="ball"/>
+
+  <!-- Flugbahnen -->
+  <line x1="260" y1="370" x2="400" y2="240" class="arrow"/>
+  <line x1="260" y1="370" x2="460" y2="170" class="arrow"/>
+  <line x1="260" y1="370" x2="520" y2="100" class="arrow"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

@@ -2,9 +2,9 @@ import type { Drill } from '@/types'
 import { findBucketKey } from '@/hcp/buckets'
 
 /**
- * Compute the level (0–3) reached for a given result value using HCP bucket thresholds.
+ * Compute the level (0-3) reached for a given result value using HCP bucket thresholds.
  * - hcpTargets: Record<rangeKey, [L1, L2, L3]>
- * - hcp: user handicap used to pick the bucket (supports keys like "54-27" or "54–27")
+ * - hcp: user handicap used to pick the bucket (supports keys like "54-27" or "54-27")
  * - value: numeric result to compare
  *
  * Returns:
@@ -17,17 +17,35 @@ export function computeLevelReached(
   hcp: number | null | undefined,
   hcpTargets: Record<string, number[]>,
   value: number | null | undefined,
+  smallerIsBetter?: boolean,
 ): 0 | 1 | 2 | 3 {
   if (typeof value !== 'number' || !isFinite(value)) return 0
   const key = (typeof hcp === 'number') ? findBucketKey(hcp, hcpTargets || {}) : null
-  const thresholds = key ? (hcpTargets?.[key] ?? []) : []
+  const rawThresholds = key != null ? (hcpTargets?.[key]) : undefined
+  const array = Array.isArray(rawThresholds)
+    ? rawThresholds
+    : (rawThresholds == null ? [] : [rawThresholds])
 
-  // Normalize to three numbers (can be undefined); ignore non-finite entries
-  const L1 = (typeof thresholds[0] === 'number' && isFinite(thresholds[0])) ? thresholds[0] : Infinity
-  const L2 = (typeof thresholds[1] === 'number' && isFinite(thresholds[1])) ? thresholds[1] : Infinity
-  const L3 = (typeof thresholds[2] === 'number' && isFinite(thresholds[2])) ? thresholds[2] : Infinity
+  // Normalize to ascending numeric thresholds (fill missing with Infinity)
+  const thresholds = array
+    .slice(0, 3)
+    .map(v => Number(v))
+    .filter(v => Number.isFinite(v))
+    .sort((a, b) => a - b)
 
-  // Compare against ascending thresholds; if a threshold is Infinity (missing), it will not be reached
+  while (thresholds.length < 3) thresholds.push(Infinity)
+
+  const [L1, L2, L3] = thresholds
+
+  // If smallerIsBetter is true, lower metric values correspond to higher levels
+  if (smallerIsBetter) {
+    if (value <= L1) return 3
+    if (value <= L2) return 2
+    if (value <= L3) return 1
+    return 0
+  }
+
+  // Default: greater is better
   if (value >= L3) return 3
   if (value >= L2) return 2
   if (value >= L1) return 1
@@ -36,7 +54,8 @@ export function computeLevelReached(
 
 /** Convenience wrapper using a Drill object */
 export function computeLevelForDrill(drill: Drill, hcp: number | null | undefined, value: number | null | undefined): 0 | 1 | 2 | 3 {
-  return computeLevelReached(hcp, drill.metric?.hcpTargets || {}, value)
+  const smaller = !!drill?.metric?.smallerIsBetter
+  return computeLevelReached(hcp, drill.metric?.hcpTargets || {}, value, smaller)
 }
 
 export default { computeLevelReached, computeLevelForDrill }

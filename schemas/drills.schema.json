@@ -86,7 +86,8 @@
         "hcpTargets": {
           "type": "object",
           "additionalProperties": { "$ref": "#/definitions/NumberArray" }
-        }
+        },
+        "smallerIsBetter": { "type": "boolean", "description": "When true, lower metric values are better (e.g. 'fewer strokes' drills). Defaults to false." }
       },
       "required": ["type", "unit", "hcpTargets"],
       "additionalProperties": false
@@ -97,7 +98,6 @@
         "id": { "$ref": "#/definitions/NonEmptyString" },
         "title": { "$ref": "#/definitions/NonEmptyString" },
         "category": { "$ref": "#/definitions/NonEmptyString" },
-        "source": { "$ref": "#/definitions/NonEmptyString" },
         "equipment": { "$ref": "#/definitions/Equipment" },
         "setup": { "$ref": "#/definitions/Setup" },
         "duration": { "$ref": "#/definitions/Duration" },
@@ -108,6 +108,7 @@
         "zockerTip": { "$ref": "#/definitions/NonEmptyString" },
         "variants": { "$ref": "#/definitions/StringArray" }
       },
+      "summary": { "$ref": "#/definitions/NonEmptyString" },
       "required": [
         "id",
         "title",

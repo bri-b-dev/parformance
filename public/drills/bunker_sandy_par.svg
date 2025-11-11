@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Sandy Par - Up & Down aus dem Bunker">
+  <style>
+    .panel { fill: var(--surface); }
+    .bunker { fill: color-mix(in oklab, var(--cat-bunker) 12%, var(--surface)); }
+    .green { fill: color-mix(in oklab, var(--accent-green) 18%, var(--surface)); }
+    .flag { fill: var(--primary); }
+    .hole { fill: var(--surface); stroke: var(--accent-iron); }
+    .arrow { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); opacity: 0.9; }
+    .ball { fill: var(--primary); }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Bunker -->
+  <path d="M100,300 Q220,260 380,300 Q460,340 600,380 Q400,400 150,390 Z" class="bunker"/>
+
+  <!-- Grün -->
+  <ellipse cx="480" cy="160" rx="180" ry="100" class="green"/>
+
+  <!-- Ziel-Flaggen -->
+  <circle cx="440" cy="160" r="6" class="hole"/>
+  <rect x="439" y="100" width="2" height="60" fill="var(--accent-iron)"/>
+  <path d="M441,100 l16,6 l-16,6 z" class="flag"/>
+
+  <circle cx="520" cy="140" r="6" class="hole"/>
+  <rect x="519" y="80" width="2" height="60" fill="var(--accent-iron)"/>
+  <path d="M521,80 l16,6 l-16,6 z" class="flag"/>
+
+  <circle cx="480" cy="200" r="6" class="hole"/>
+  <rect x="479" y="140" width="2" height="60" fill="var(--accent-iron)"/>
+  <path d="M481,140 l16,6 l-16,6 z" class="flag"/>
+
+  <!-- Ball im Bunker -->
+  <circle cx="200" cy="320" r="5" class="ball"/>
+
+  <!-- Pfeile (Bunker → Grün) -->
+  <line x1="200" y1="320" x2="440" y2="160" class="arrow"/>
+  <line x1="200" y1="320" x2="520" y2="140" class="arrow"/>
+  <line x1="200" y1="320" x2="480" y2="200" class="arrow"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)" />
+    </marker>
+  </defs>
+</svg>
+

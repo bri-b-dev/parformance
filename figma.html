@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ParFormance - Wireframe</title>
+  <style>
+    /* ParFormance Designsystem (aus deinem Basis-Theme) */
+    :root {
+      --primary: #2F7A52; --primary-ink: #FFFFFF; --accent-green: #2F7A52; --accent-beige: #E8DCC4; --accent-sky: #A7D8FF; --accent-iron: #444C56;
+      --bg: #F7F9F8; --surface: #FFFFFF; --text: #444C56; --muted: #6B7280; --border: #E7ECEA; --shadow: 0 2px 10px rgba(0,0,0,.06); --ring: rgba(47,122,82,.28);
+      --cat-putting: #A7D8FF; --cat-chipping: #B6E5C0; --cat-driving: #FFD37A; --cat-irons: #EABFFF; --cat-bunker: #F7C7A3;
+      --container-max: 920px; --container-pad: 16px;
+    }
+    :root[data-theme="dark"] {
+      --primary: #4FBF86; --primary-ink: #0B140F; --accent-green: #4FBF86; --accent-beige: #8B816E; --accent-sky: #6CB8FF; --accent-iron: #C9D1D9;
+      --bg: #0F1412; --surface: #141A16; --text: #E8F1EB; --muted: #B1C0B7; --border: #243229; --shadow: 0 2px 12px rgba(0,0,0,.35); --ring: rgba(79,191,134,.35);
+      --cat-putting: #549BD6; --cat-chipping: #6FCB97; --cat-driving: #E7B860; --cat-irons: #C99AEF; --cat-bunker: #DCAF8C;
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Header / App-Bar */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: saturate(1.2) blur(8px);
+      background: color-mix(in oklab, var(--bg) 86%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    header .bar { max-width: var(--container-max); margin: 0 auto; padding: 10px var(--container-pad);
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 56px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: 'Poppins', ui-sans-serif, system-ui; color: var(--accent-green); font-weight: 700; }
+    .brand .logo { width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--accent-sky) 60%, var(--primary))); }
+
+    main { max-width: var(--container-max); margin: 0 auto; padding: 16px; padding-bottom: 88px; }
+
+    /* Cards */
+    .drill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); padding: 14px; margin: 12px 0; }
+    .drill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .category { font-size: 12px; text-transform: uppercase; color: var(--muted); }
+    .muted { color: var(--muted); }
+
+    /* Chips */
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+    .chip { background: color-mix(in oklab, var(--bg) 70%, var(--surface)); border: 1px solid var(--border); padding: 4px 8px; border-radius: 999px; font-size: 12px; color: var(--muted); }
+    .chip--chipping { background: color-mix(in oklab, var(--cat-chipping) 18%, var(--surface)); border-color: color-mix(in oklab, var(--cat-chipping) 45%, var(--border)); }
+
+    /* Progress */
+    .progress { background: color-mix(in oklab, var(--bg) 60%, var(--surface)); border-radius: 12px; height: 8px; overflow: hidden; margin: 8px 0; }
+    .progress-bar { background: var(--accent-green); width: 60%; height: 100%; }
+
+    /* Shuffle FAB */
+    .shuffle-btn { position: fixed; bottom: 92px; right: 20px; background: var(--primary); color: var(--primary-ink); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 1px solid color-mix(in oklab, var(--primary) 40%, var(--border)); }
+
+    /* Bottom Tabs */
+    .bottom-tabs { position: fixed; bottom: 0; left: 0; width: 100%; border-top: 1px solid var(--border); background: color-mix(in oklab, var(--bg) 86%, transparent); box-shadow: 0 -1px 4px rgba(0,0,0,0.06); }
+    .bottom-tabs nav { max-width: var(--container-max); margin: 0 auto; padding: 6px var(--container-pad); min-height: 56px; display: flex; align-items: center; justify-content: space-around; }
+    .tab { display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; color: var(--muted); font-size: 12px; padding: 6px 10px; border-radius: 10px; transition: background-color .12s ease, color .12s ease; }
+    .tab.active { color: var(--primary); background: color-mix(in oklab, var(--primary) 10%, transparent); }
+
+    /* Overlay (Shuffle) */
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); justify-content: center; align-items: center; color: white; font-size: 1.4rem; }
+    .overlay.active { display: flex; }
+
+    /* Slot-Machine */
+    .slot-machine { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 16px; width: min(720px, 94vw); }
+    .slot-head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 8px; }
+    .reels { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 10px; margin: 8px 0 12px; }
+    .reel { background: color-mix(in oklab, var(--bg) 70%, var(--surface)); border: 1px solid var(--border); border-radius: 12px; padding: 8px; overflow: hidden; height: 160px; position: relative; }
+    .reel-window { position:absolute; inset: 8px; overflow:hidden; border-radius: 8px; }
+    .reel-list { display:flex; flex-direction: column; gap: 8px; padding: 6px; }
+    .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; text-align: center; }
+    .reel.spinning .reel-list { animation: scroll 1.2s cubic-bezier(.2,.8,.2,1) infinite; }
+    @keyframes scroll { 0% { transform: translateY(0); } 100% { transform: translateY(-60%); } }
+
+    .slot-actions { display:flex; justify-content: flex-end; gap: 8px; }
+    .slot-result { text-align:center; margin: 6px 0 0; font-weight: 600; }
+
+    /* Detail Screen */
+    .detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 16px; margin: 16px 0; }
+    .detail-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 800px){ .detail-grid { grid-template-columns: 1.1fr 1fr; } }
+    .section { background: color-mix(in oklab, var(--bg) 75%, var(--surface)); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+    .section h3 { margin: 0 0 8px; font-size: 0.95rem; color: var(--accent-iron); }
+    .equipment-icons span { background: color-mix(in oklab, var(--bg) 70%, var(--surface)); border: 1px solid var(--border); border-radius: 10px; padding: 4px 8px; margin-right: 6px; font-size: 0.85rem; }
+
+    /* Timer */
+    .timer {
+      display: flex; align-items: center; gap: 10px; justify-content: space-between;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px;
+    }
+    .timer-display { font-variant-numeric: tabular-nums; font-size: 1.4rem; }
+    .timer-bar { position: relative; height: 8px; background: color-mix(in oklab, var(--bg) 60%, var(--surface)); border-radius: 8px; overflow: hidden; }
+    .timer-bar > div { height: 100%; background: var(--primary); width: 100%; transition: width 1s linear; }
+
+    /* HCP Table */
+    .hcp-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .hcp-table th, .hcp-table td { border: 1px solid var(--border); padding: 8px; text-align: center; }
+    .hcp-table th { background: color-mix(in oklab, var(--bg) 70%, var(--surface)); color: var(--muted); font-weight: 600; }
+    .hcp-active { background: color-mix(in oklab, var(--accent-green) 12%, var(--surface)); }
+
+    /* Zocker Accordion */
+    details.zocker { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 10px 12px; }
+    details.zocker summary { cursor: pointer; list-style: none; font-weight: 600; color: var(--accent-iron); }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div class="brand" aria-label="ParFormance">
+        <!-- Inline SVG Icon -->
+        <svg width="28" height="28" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ParFormance app icon" class="logo" style="border-radius:8px;">
+          <defs>
+            <linearGradient id="plate" x1="96" y1="64" x2="416" y2="448" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F7F9F8"/>
+              <stop offset="1" stop-color="#E8DCC4"/>
+            </linearGradient>
+            <linearGradient id="pg" x1="128" y1="120" x2="384" y2="392" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#2F7A52"/>
+              <stop offset="1" stop-color="#4FBF86"/>
+            </linearGradient>
+          </defs>
+          <rect x="32" y="32" width="448" height="448" rx="104" fill="url(#plate)"/>
+          <path d="M112 352c24-88 120-176 240-188" stroke="#A7D8FF" stroke-width="18" stroke-linecap="round"/>
+          <circle cx="360" cy="132" r="20" fill="#A7D8FF"/>
+          <path d="M182 116h70c62 0 102 34 102 82s-40 82-102 82h-26v116h-44V116zm44 36v76h28c38 0 58-18 58-38s-20-38-58-38h-28z" fill="url(#pg)"/>
+        </svg>
+        <span>ParFormance</span>
+      </div>
+      <div class="row" style="gap:8px; align-items:center;">
+        <button id="themeToggle" class="btn" aria-pressed="false" aria-label="Dark Mode umschalten">🌙</button>
+        <button class="tab" aria-label="Einstellungen">⚙️</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="drill-card">
+      <div class="drill-header">
+        <div>
+          <strong>360° Putting</strong>
+          <div class="category">Putting</div>
+        </div>
+        <div>⭐</div>
+      </div>
+      <p>8 Tees im Kreis, Putts in Serie - maximale Konstanz trainieren.</p>
+      <div class="progress"><div class="progress-bar"></div></div>
+    </div>
+
+    <div class="drill-card">
+      <div class="drill-header">
+        <div>
+          <strong>Carry Zone</strong>
+          <div class="category">Chipping</div>
+        </div>
+        <div>⭐</div>
+      </div>
+      <p class="muted">Landepunkte kontrollieren - 6 Zonen, 2m-Abstände.</p>
+      <div class="chips">
+        <span class="chip chip--chipping">Chipping</span>
+        <span class="chip">Serie</span>
+        <span class="chip">5 Min</span>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:80%"></div></div>
+    </div>
+    <div class="detail-card" data-drill-id="put_360" aria-labelledby="drillTitle">
+      <div class="drill-header" style="margin-bottom:8px;">
+        <div>
+          <h2 id="drillTitle" style="margin:0;">360° Putting</h2>
+          <div class="category">Putting</div>
+        </div>
+        <button class="btn" aria-pressed="false" aria-label="Als Favorit markieren">⭐</button>
+      </div>
+
+      <div class="detail-grid" role="group" aria-label="Drill Details">
+        <div class="section">
+          <h3>Was du brauchst</h3>
+          <div class="equipment-icons" aria-label="Equipment">
+            <span>🏐 Bälle × 3</span>
+            <span>⛳ Putter</span>
+            <span>📍 8 Tees</span>
+          </div>
+          <div class="hr" style="margin:10px 0;"></div>
+          <h3>Aufbau</h3>
+          <p class="muted">8 Tees im 90‑cm‑Radius kreisförmig um ein Loch (leichter Break möglich).</p>
+          <div class="hr" style="margin:10px 0;"></div>
+          <h3>Ablauf</h3>
+          <p>Putte im Uhrzeigersinn jede Position. Verpasst du einen, startest du am letzten Starttee neu.</p>
+        </div>
+
+        <div class="section">
+          <h3>Timer & Messwert</h3>
+          <div class="timer" aria-live="polite">
+            <div>
+              <div class="label">Preset</div>
+              <select id="preset" class="input" style="width:auto;">
+                <option value="300">5:00</option>
+                <option value="600">10:00</option>
+                <option value="180">3:00</option>
+              </select>
+            </div>
+            <div class="timer-display" id="timerDisplay">05:00</div>
+            <div style="display:flex; gap:6px;">
+              <button id="startTimer" class="btn-primary btn">Start</button>
+              <button id="stopTimer" class="btn">Stop</button>
+              <button id="resetTimer" class="btn">Reset</button>
+            </div>
+          </div>
+          <div class="timer-bar" style="margin:10px 0;">
+            <div id="timerBar"></div>
+          </div>
+
+          <div class="field">
+            <label for="result" class="label">Ergebnis (Putts in Serie)</label>
+            <input id="result" class="input" type="number" inputmode="numeric" placeholder="z. B. 12" />
+          </div>
+
+          <h3>HCP-Ziele</h3>
+          <table class="hcp-table" aria-label="Zielwerte je Handicap">
+            <thead>
+              <tr><th>HCP</th><th>Level 1</th><th>Level 2</th><th>Level 3</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>54-27</td><td>2</td><td>4</td><td>6</td></tr>
+              <tr class="hcp-active"><td>26-12</td><td>8</td><td>10</td><td>12</td></tr>
+              <tr><td>11-0</td><td>15</td><td>17</td><td>20</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <details class="zocker" style="margin-top:12px;">
+        <summary>🃏 Zocker-Modus (optional)</summary>
+        <div class="muted" style="margin-top:8px;">
+          Kopf‑an‑Kopf: Wer knackt zuerst Level 3? Bei Miss -1, bei Serie +2. Handicap‑Offset: +1 für HCP>30.
+        </div>
+      </details>
+
+      <div class="row" style="justify-content:flex-end; margin-top:12px;">
+        <button class="btn">Abbrechen</button>
+        <button class="btn-primary">Ergebnis speichern</button>
+      </div>
+    </div>
+    <!-- Historie (Wireframe) -->
+    <div class="drill-card" aria-labelledby="histTitle">
+      <h2 id="histTitle" style="margin:0 0 6px;">Historie</h2>
+      <div class="muted" style="margin-bottom:8px;">Letzte Sessions (Beispiel)</div>
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <div><strong>360° Putting</strong><div class="muted">12 ⟶ 14 (PB) • 5:00</div></div>
+        <div style="width:120px; height:28px; background: color-mix(in oklab, var(--bg) 65%, var(--surface)); border:1px solid var(--border); border-radius:6px;">&nbsp;</div>
+      </div>
+      <div class="hr"></div>
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <div><strong>Carry Zone</strong><div class="muted">9 Zonen Serie • 5:00</div></div>
+        <div style="width:120px; height:28px; background: color-mix(in oklab, var(--bg) 65%, var(--surface)); border:1px solid var(--border); border-radius:6px;">&nbsp;</div>
+      </div>
+    </div>
+
+    <!-- Baustellen (Wireframe) -->
+    <div class="drill-card" aria-labelledby="bauTitle">
+      <h2 id="bauTitle" style="margin:0 0 6px;">Baustellen</h2>
+      <div class="row" style="align-items:flex-start;">
+        <div style="flex:1; min-width:240px;">
+          <div class="muted">Radar (Platzhalter)</div>
+          <div style="height:180px; border:1px dashed var(--border); border-radius:12px; background: color-mix(in oklab, var(--bg) 65%, var(--surface));"></div>
+        </div>
+        <div style="flex:1; min-width:240px;">
+          <div class="muted">Größte Hebel</div>
+          <ol style="margin:6px 0 0 16px;">
+            <li>Lag Putts - unter Zielwert</li>
+            <li>14 Fairways - Trefferquote niedrig</li>
+            <li>Bunkerschläge - Serie instabil</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- Zusätzliche Historie mit Sparklines -->
+    <div class="drill-card" aria-labelledby="hist2Title">
+      <h2 id="hist2Title" style="margin:0 0 6px;">Historie (weitere Beispiele)</h2>
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <div><strong>360° Putting</strong><div class="muted">11 ⟶ 13 • 5:00</div></div>
+        <canvas id="spark1" style="width:120px; height:28px; display:block;"></canvas>
+      </div>
+      <div class="hr"></div>
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <div><strong>Carry Zone</strong><div class="muted">8 Zonen Serie • 5:00</div></div>
+        <canvas id="spark2" style="width:120px; height:28px; display:block;"></canvas>
+      </div>
+    </div>
+
+    <!-- Zweite Detail-Karte: Carry Zone -->
+    <div class="detail-card" data-drill-id="chip_carry_zone" aria-labelledby="czTitle">
+      <div class="drill-header" style="margin-bottom:8px;">
+        <div>
+          <h2 id="czTitle" style="margin:0;">Carry Zone</h2>
+          <div class="category">Chipping Green</div>
+        </div>
+        <button class="btn" aria-pressed="false" aria-label="Als Favorit markieren">⭐</button>
+      </div>
+
+      <div class="detail-grid" role="group" aria-label="Drill Details">
+        <div class="section">
+          <h3>Was du brauchst</h3>
+          <div class="equipment-icons" aria-label="Equipment">
+            <span>🏐 Bälle × 6</span>
+            <span>⛳ Wedge</span>
+            <span>📍 6 Marker</span>
+          </div>
+          <div class="hr" style="margin:10px 0;"></div>
+          <h3>Aufbau</h3>
+          <p class="muted">6 Landebänder im 1‑m‑Abstand, Start 2 m, von kurz → lang.</p>
+          <div class="hr" style="margin:10px 0;"></div>
+          <h3>Ablauf</h3>
+          <p>Abwechselnd in die nächste Zone. Miss = Serie 0. Längste fehlerfreie Serie zählt.</p>
+        </div>
+
+        <div class="section">
+          <h3>Timer & Messwert</h3>
+          <div class="timer" id="czTimer">
+            <div>
+              <div class="label">Preset</div>
+              <select class="input" id="czPreset" style="width:auto;">
+                <option value="300">5:00</option>
+                <option value="600">10:00</option>
+                <option value="180">3:00</option>
+              </select>
+            </div>
+            <div class="timer-display" id="czDisplay">05:00</div>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-primary btn" id="czStart">Start</button>
+              <button class="btn" id="czStop">Stop</button>
+              <button class="btn" id="czReset">Reset</button>
+            </div>
+          </div>
+          <div class="timer-bar" style="margin:10px 0;">
+            <div id="czBar"></div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="czResult">Ergebnis (Zonen in Serie)</label>
+            <input class="input" id="czResult" type="number" inputmode="numeric" placeholder="z. B. 9" />
+          </div>
+
+          <h3>HCP-Ziele</h3>
+          <table class="hcp-table" id="czHcp">
+            <thead>
+              <tr><th>HCP</th><th>Level 1</th><th>Level 2</th><th>Level 3</th></tr>
+            </thead>
+            <tbody>
+              <tr data-range="54-27"><td>54-27</td><td>2</td><td>3</td><td>4</td></tr>
+              <tr data-range="26-12"><td>26-12</td><td>5</td><td>7</td><td>9</td></tr>
+              <tr data-range="11-0"><td>11-0</td><td>11</td><td>13</td><td>15</td></tr>
+            </tbody>
+          </table>
+          <div class="muted" id="czLevelNote" style="margin-top:6px;"></div>
+        </div>
+      </div>
+
+      <details class="zocker" style="margin-top:12px;">
+        <summary>🃏 Zocker-Modus (optional)</summary>
+        <div class="muted" style="margin-top:8px;">Wechsle nach jedem Treffer den Schläger. 3 Leben. Miss = -1.</div>
+      </details>
+
+      <div class="row" style="justify-content:flex-end; margin-top:12px;">
+        <button class="btn">Abbrechen</button>
+        <button class="btn-primary">Ergebnis speichern</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="shuffle-btn">🎰</div>
+
+  <div class="bottom-tabs">
+    <nav>
+      <a class="tab active" href="#">🏠<br>Drills</a>
+      <a class="tab" href="#">⭐<br>Favoriten</a>
+      <a class="tab" href="#">📈<br>Historie</a>
+      <a class="tab" href="#">⚡<br>Baustellen</a>
+      <a class="tab" href="#">⋯<br>Mehr</a>
+    </nav>
+  </div>
+    <div class="tab">⭐<br>Favoriten</div>
+    <div class="tab">📈<br>Historie</div>
+    <div class="tab">⚡<br>Baustellen</div>
+    <div class="tab">⋯<br>Mehr</div>
+  </div>
+
+  <div class="overlay" id="shuffleOverlay" role="dialog" aria-labelledby="shuffleTitle" aria-modal="true">
+    <div class="slot-machine">
+      <div class="slot-head">
+        <h3 id="shuffleTitle" style="margin:0;">🎰 Zufalls-Drill</h3>
+        <button id="closeShuffle" class="btn" aria-label="Overlay schließen">✖</button>
+      </div>
+      <div class="reels">
+        <div class="reel" data-reel="cat"><div class="reel-window"><div class="reel-list"></div></div></div>
+        <div class="reel" data-reel="drill"><div class="reel-window"><div class="reel-list"></div></div></div>
+        <div class="reel" data-reel="metric"><div class="reel-window"><div class="reel-list"></div></div></div>
+      </div>
+      <div class="slot-actions">
+        <button id="spinBtn" class="btn-primary btn">Spin</button>
+        <button id="acceptBtn" class="btn" disabled>Öffnen</button>
+      </div>
+      <div class="slot-result" id="slotResult"></div>
+    </div>
+  </div>
+        <div class="slot">360° Putting</div>
+        <div class="slot">Serie</div>
+      </div>
+      <p>🎯 Dein Drill: 360° Putting</p>
+    </div>
+  </div>
+
+  <script>
+    // Load drills.json → build indices for Shuffle & Detail
+  let DRILLS = [];
+  async function loadDrills(){
+    try {
+      const res = await fetch('drills.json', {cache:'no-store'});
+      if(!res.ok) throw new Error('no drills.json available');
+      DRILLS = await res.json();
+    } catch(e){
+      // Fallback small sample (schema-identisch)
+      DRILLS = [
+        { id:'put_360', title:'360° Putting', category:'Putting', metric:{type:'streak', unit:'Putts in Serie', hcpTargets:{'54-27':[2,4,6],'26-12':[8,10,12],'11-0':[15,17,20]}}, duration:{timerPreset:300}, equipment:{balls:3, clubs:['Putter'], other:['8 Tees']}, setup:{schema:'8 Tees im 90‑cm‑Kreis', location:'Putting Green'}, instructions:{training:'Im Uhrzeigersinn, Miss = Neustart.'} },
+        { id:'chip_carry_zone', title:'Carry Zone', category:'Chipping Green', metric:{type:'streak', unit:'Zonen in Serie', hcpTargets:{'54-27':[2,3,4],'26-12':[5,7,9],'11-0':[11,13,15]}}, duration:{timerPreset:300}, equipment:{balls:6, clubs:['Wedge'], other:['6 Marker']}, setup:{schema:'6 Landebänder à 1m', location:'Chipping'}, instructions:{training:'Kurz→lang, längste Serie zählt.'} },
+        { id:'range_14_fairways', title:'14 Fairways', category:'Driving Range', metric:{type:'corridor_hits', unit:'Treffer', hcpTargets:{'54-27':[4,7,11],'26-12':[7,9,11],'11-0':[11,13,14]}}, duration:{timerPreset:480}, equipment:{balls:28, clubs:['Driver','Eisen 7']}, setup:{schema:'Korridor >30m', location:'Range'}, instructions:{training:'14 Driver + 14 Eisen, nur Treffer zählen.'} }
+      ];
+    }
+  }
+
+  function groupByCategory(drills){
+    const map = new Map();
+    drills.forEach(d=>{ const c = d.category || 'Sonstiges'; if(!map.has(c)) map.set(c, []); map.get(c).push(d); });
+    return map;
+  }
+
+  // Shuffle overlay elements
+  const fab = document.querySelector('.shuffle-btn');
+  const overlay = document.getElementById('shuffleOverlay');
+  const closeShuffle = document.getElementById('closeShuffle');
+  const spinBtn = document.getElementById('spinBtn');
+  const acceptBtn = document.getElementById('acceptBtn');
+  const resultEl = document.getElementById('slotResult');
+  let selectedDrillId = null;
+
+  function fillReel(reelEl, items){
+    const list = reelEl.querySelector('.reel-list');
+    list.innerHTML = '';
+    const extended = [...items, ...items, ...items];
+    extended.forEach(txt=>{ const d = document.createElement('div'); d.className='tile'; d.textContent = txt; list.appendChild(d); });
+  }
+  function spinReel(reelEl, duration=1200){
+    reelEl.classList.add('spinning');
+    return new Promise(resolve=> setTimeout(()=>{ reelEl.classList.remove('spinning'); resolve(); }, duration));
+  }
+
+  fab?.addEventListener('click', async ()=>{
+    await loadDrills();
+    overlay.classList.add('active');
+    const grouped = groupByCategory(DRILLS);
+    const cats = [...grouped.keys()];
+    const catReel = overlay.querySelector('[data-reel="cat"]');
+    const drillReel = overlay.querySelector('[data-reel="drill"]');
+    const metricReel = overlay.querySelector('[data-reel="metric"]');
+    fillReel(catReel, cats);
+    const firstCat = cats[0];
+    fillReel(drillReel, (grouped.get(firstCat)||[]).map(d=>d.title));
+    const metricNames = ['Serie','Treffer','Punkte','Stationen','Score'];
+    fillReel(metricReel, metricNames);
+    resultEl.textContent = '';
+    acceptBtn.disabled = true;
+    selectedDrillId = null;
+  });
+  closeShuffle?.addEventListener('click', ()=> overlay.classList.remove('active'));
+
+  spinBtn?.addEventListener('click', async ()=>{
+    const grouped = groupByCategory(DRILLS);
+    const cats = [...grouped.keys()];
+    const catReel = overlay.querySelector('[data-reel="cat"]');
+    const drillReel = overlay.querySelector('[data-reel="drill"]');
+    const metricReel = overlay.querySelector('[data-reel="metric"]');
+
+    // choose randoms
+    const cat = cats[Math.floor(Math.random()*cats.length)];
+    const drills = grouped.get(cat) || [];
+    const drill = drills[Math.floor(Math.random()*drills.length)];
+    const metricMap = { streak:'Serie', corridor_hits:'Treffer', points_total:'Punkte', count_in_time:'Stationen', score_vs_par:'Score' };
+    const metric = metricMap[drill?.metric?.type] || 'Serie';
+
+    // update lists to selected sets
+    fillReel(catReel, [cat, ...cats.filter(c=>c!==cat)]);
+    fillReel(drillReel, [drill.title, ...drills.filter(d=>d.id!==drill.id).map(d=>d.title)]);
+    fillReel(metricReel, [metric,'Punkte','Treffer','Serie']);
+
+    // sequential spin/stop
+    await spinReel(catReel, 900);
+    await spinReel(drillReel, 1100);
+    await spinReel(metricReel, 800);
+
+    resultEl.textContent = `🎯 ${drill.title} (${cat}) - Messwert: ${metric}`;
+    acceptBtn.disabled = false;
+    selectedDrillId = drill.id;
+  });
+
+  acceptBtn?.addEventListener('click', ()=>{
+    overlay.classList.remove('active');
+    if(!selectedDrillId) return;
+    // naive anchor navigation: scroll to matching detail card if present
+    const target = document.querySelector(`[data-drill-id="${selectedDrillId}"]`);
+    if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); target.classList.add('pulse'); setTimeout(()=>target.classList.remove('pulse'), 1200); }
+  });
+
+  // Simple sparklines in Historie placeholders
+  function drawSparkline(id, values=[8,10,9,11,12,14]){
+    const c = document.getElementById(id); if(!c) return; const ctx = c.getContext('2d');
+    const w = c.width = c.clientWidth; const h = c.height = c.clientHeight;
+    const min = Math.min(...values), max = Math.max(...values);
+    const pad = 4; const dx = (w-2*pad)/(values.length-1);
+    ctx.clearRect(0,0,w,h); ctx.lineWidth = 2; ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+    ctx.beginPath(); values.forEach((v,i)=>{ const x = pad + i*dx; const y = h - pad - ((v-min)/(max-min||1))*(h-2*pad); i?ctx.lineTo(x,y):ctx.moveTo(x,y); }); ctx.stroke();
+  }
+  window.addEventListener('load', ()=>{ drawSparkline('spark1'); drawSparkline('spark2',[6,7,8,7,9,9]); });
+    alert('Drill öffnen (Navigation in der App)');
+  });
+  </script>
+  <script>
+    // Timer Carry Zone
+    (function(){
+      const preset = document.getElementById('czPreset');
+      const display = document.getElementById('czDisplay');
+      const bar = document.getElementById('czBar');
+      const startBtn = document.getElementById('czStart');
+      const stopBtn = document.getElementById('czStop');
+      const resetBtn = document.getElementById('czReset');
+      let total = parseInt(preset?.value||'300',10); let remaining = total; let t;
+      function fmt(s){ const m = String(Math.floor(s/60)).padStart(2,'0'); const sec = String(s%60).padStart(2,'0'); return `${m}:${sec}`; }
+      function render(){ display.textContent = fmt(remaining); bar.style.width = `${(remaining/total)*100}%`; }
+      render();
+      preset?.addEventListener('change', e=>{ total = remaining = parseInt(e.target.value,10); render(); });
+      startBtn?.addEventListener('click', ()=>{ if(t) return; t = setInterval(()=>{ remaining=Math.max(0,remaining-1); render(); if(remaining===0){ clearInterval(t); t=null; alert('Zeit abgelaufen!'); } }, 1000); });
+      stopBtn?.addEventListener('click', ()=>{ if(t){ clearInterval(t); t=null; } });
+      resetBtn?.addEventListener('click', ()=>{ remaining=total; render(); });
+    })();
+
+    // HCP-Highlight & Level Note (Carry Zone)
+    (function(){
+      const userHcp = 18; // TODO: aus Settings laden
+      const range = userHcp >= 27 ? '54-27' : (userHcp >= 12 ? '26-12' : '11-0');
+      const table = document.getElementById('czHcp');
+      table?.querySelectorAll('tbody tr').forEach(tr=> tr.classList.toggle('hcp-active', tr.getAttribute('data-range')===range));
+      const row = table?.querySelector(`tbody tr[data-range="${range}"]`);
+      const note = document.getElementById('czLevelNote');
+      const input = document.getElementById('czResult');
+      function computeLevel(v){
+        if(!row) return 0; const td = row.querySelectorAll('td');
+        const l1 = parseFloat(td[1].textContent)||0, l2 = parseFloat(td[2].textContent)||0, l3 = parseFloat(td[3].textContent)||0;
+        return v>=l3?3 : v>=l2?2 : v>=l1?1 : 0;
+      }
+      input?.addEventListener('input', ()=>{
+        const v = parseFloat(input.value||'0'); const lvl = computeLevel(v);
+        note.textContent = lvl ? `Erreichtes Level: ${lvl}` : 'Noch kein Level erreicht';
+      });
+    })();
+
+    // Sparklines zeichnen
+    (function(){
+      function drawSparkline(canvas, values){
+        if(!canvas) return; const ctx = canvas.getContext('2d');
+        const w = canvas.width = canvas.clientWidth; const h = canvas.height = canvas.clientHeight;
+        const min = Math.min(...values), max = Math.max(...values); const pad = 4; const dx = (w-2*pad)/(values.length-1);
+        ctx.clearRect(0,0,w,h); ctx.lineWidth = 2; ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+        ctx.beginPath(); values.forEach((v,i)=>{ const x = pad + i*dx; const y = h - pad - ((v-min)/(max-min||1))*(h-2*pad); i?ctx.lineTo(x,y):ctx.moveTo(x,y); }); ctx.stroke();
+      }
+      window.addEventListener('load', ()=>{ 
+        drawSparkline(document.getElementById('spark1'), [8,10,9,11,12,14]);
+        drawSparkline(document.getElementById('spark2'), [6,7,8,7,9,9]);
+      });
+    })();
+  </script>
+</body>
+</html>

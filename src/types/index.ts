@@ -13,7 +13,6 @@ export interface Drill {
   id: string;
   title: string;
   category: string;
-  source?: string;
 
   equipment: {
     balls?: number;
@@ -48,11 +47,15 @@ export interface Drill {
     type: MetricType;
     unit: string;
     hcpTargets: Record<string, number[]>;
+    /** If true, smaller metric values are better (e.g. fewer strokes). Defaults to false. */
+    smallerIsBetter?: boolean;
   };
 
   tags?: string[];
   zockerTip?: string;
   variants?: string[];
+  /** Short human-readable summary to display on cards and lists. Optional. */
+  summary?: string;
 }
 
 export interface Session {

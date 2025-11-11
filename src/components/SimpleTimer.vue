@@ -1,12 +1,12 @@
 <template>
-  <div class="card" style="max-width:360px;">
+  <div class="card timer-card">
     <div class="row" style="align-items:center; justify-content:space-between;">
       <div class="chip" :aria-label="`Voreinstellung ${presetLabel}`" v-if="presetSeconds && presetSeconds > 0">
         🎯 {{ presetLabel }}
       </div>
-      <div class="chip" :aria-label="ariaLabel" role="status" aria-live="polite">
+      <output class="chip" :aria-label="ariaLabel" aria-live="polite">
         ⏱️ {{ formatted }}
-      </div>
+      </output>
     </div>
 
     <div class="row" style="margin-top:8px;">
@@ -19,11 +19,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch, onMounted } from 'vue'
-import { useTimer } from '@/composables/useTimer'
+import { useTimer } from '@/composables/useTimer';
+import { computed, onMounted, watch } from 'vue';
 
 const props = defineProps<{ presetSeconds?: number; autoStart?: boolean }>()
-const emit = defineEmits<{ (e: 'elapsed', seconds: number): void }>()
+const emit = defineEmits<(e: 'elapsed', seconds: number) => void>()
 
 const { elapsed, running, start, pause, reset } = useTimer({ presetSeconds: props.presetSeconds })
 
@@ -64,3 +64,15 @@ const presetLabel = computed(() => {
 
 const ariaLabel = computed(() => `Verstrichene Zeit ${formatted.value}`)
 </script>
+
+<style scoped>
+.timer-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.timer-card .row {
+  flex-wrap: wrap;
+}
+</style>

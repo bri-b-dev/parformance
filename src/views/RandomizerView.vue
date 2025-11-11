@@ -1,325 +1,618 @@
 <template>
-  <section class="p-4 container">
-    <div class="card" role="dialog" aria-modal="true" aria-labelledby="shuffle-title">
-      <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
-        <h2 id="shuffle-title" style="margin:0; font-weight:700;">Zufallsauswahl</h2>
-        <button class="btn" type="button" @click="close" aria-label="Schließen">✕</button>
+  <!-- Overlay backdrop -->
+  <div v-if="isOpen" class="overlay" @click.self="close" role="dialog" aria-modal="true"
+    aria-labelledby="shuffle-title">
+    <div class="card overlay-panel slot-panel" role="document">
+      <header class="slot-header">
+        <h2 id="shuffle-title">Zufallsauswahl</h2>
+        <!-- X entfernt -->
       </header>
 
       <!-- Loading / Error -->
-      <div v-if="!catalog.loaded" class="p-4 flex items-center text-sm text-gray-600" role="status" aria-live="polite">
-        <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
+      <output v-if="!catalog.loaded" class="loading" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
         Lädt…
-      </div>
-      <div v-else-if="catalog.error" class="p-4 text-sm text-red-700" role="status" aria-live="polite">
+      </output>
+      <output v-else-if="catalog.error" class="error" aria-live="polite">
         {{ catalog.error }}
-      </div>
+      </output>
 
       <!-- Content -->
-      <div v-else>
-        <div class="row" style="align-items:center; justify-content:center; margin:10px 0; gap:10px;">
-          <!-- Reel: Category -->
-          <div class="card" style="min-width:220px; text-align:center;">
-            <div class="label">Kategorie</div>
-            <div class="reel-viewport" :aria-live="spinning.category ? 'off' : 'polite'" role="status">
-              <div class="reel-track" :style="catTransformStyle">
-                <div v-for="c in catItems" :key="`cat-${c}`" class="reel-item">{{ c }}</div>
-              </div>
-            </div>
-          </div>
-          <!-- Reel: Drill -->
-          <div class="card" style="min-width:260px; text-align:center;">
-            <div class="label">Drill</div>
-            <div class="reel-viewport" :aria-live="spinning.drill ? 'off' : 'polite'" role="status">
-              <div class="reel-track" :style="drillTransformStyle">
-                <div v-for="t in drillItems" :key="`dr-${t}`" class="reel-item">{{ t }}</div>
-              </div>
-            </div>
-          </div>
-          <!-- Reel: Target type (optional) -->
-          <div class="card" style="min-width:200px; text-align:center;">
-            <div class="label">Zieltyp</div>
-            <div class="reel-viewport" :aria-live="spinning.target ? 'off' : 'polite'" role="status">
-              <div class="reel-track" :style="targetTransformStyle">
-                <div v-for="t in targetItems" :key="`tg-${t}`" class="reel-item">{{ t }}</div>
-              </div>
+      <div v-else class="slot-body">
+        <!-- Slot frame -->
+        <div class="slot-frame">
+          <!-- Center marker line -->
+          <div class="slot-marker" aria-hidden="true"></div>
+          <div class="grid grid-cols-3 gap-3">
+            <div v-for="slot in reelOrder" :key="slot" class="min-w-0">
+              <Reel :items="nameItems" label="Drill" :spinTrigger="spinTick[slot]" :duration="D_NAME"
+                :targetValue="targetTitle || undefined" @stopped="(v) => onReelStopped(slot, v)" />
             </div>
           </div>
         </div>
 
-        <div class="row" style="justify-content:center; margin-top:10px; align-items:center; gap:16px;">
-          <label class="chip" style="display:inline-flex; align-items:center; gap:6px; cursor:pointer;">
+        <!-- Helper row -->
+        <div class="slot-controls">
+          <label class="chip pref">
             <input type="checkbox" v-model="biasFavorites" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
             Favoriten bevorzugen
           </label>
-          <button class="btn btn-primary" type="button" :disabled="disabled || running" @click="start" data-testid="shuffle-start">Start</button>
-          <button class="btn" type="button" :disabled="!running" @click="cancel" data-testid="shuffle-cancel">Abbrechen</button>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
-import type { Drill } from '@/types'
-import { pickWeighted } from '@/utils/weighted'
+import { useSettingsStore } from '@/stores/settings'
+import { useUiStore } from '@/stores/ui'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import Reel from '@/components/Reel.vue'
 
-// Configurable durations per reel (ms)
-const props = defineProps<{ durationCatMs?: number; durationDrillMs?: number; durationTargetMs?: number }>()
-const D_CAT = computed(() => props.durationCatMs ?? 600)
-const D_DRILL = computed(() => props.durationDrillMs ?? 700)
-const D_TARGET = computed(() => props.durationTargetMs ?? 500)
+const props = defineProps<{ durationNameMs?: number }>()
+const D_NAME = computed(() => props.durationNameMs ?? 650)
 
-// Reduced motion
 function prefersReducedMotion(): boolean {
-  try {
-    return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  } catch { return false }
+  try { return !!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches } catch { return false }
 }
 
-// Store & router
 const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()
+const settings = useSettingsStore()
 const router = useRouter()
 const route = useRoute()
+const ui = useUiStore()
+const isOpen = computed(() => !!(ui.shuffleOpen || route.name === 'ShuffleOverlay'))
 
 onMounted(async () => {
   if (!catalog.loaded) await catalog.load()
   if (!favorites.loaded) await favorites.load()
-  // Default bias on when favorites filter is active in the URL query
+  if (!settings.loaded) await settings.load()
   const q = route?.query || {}
-  const favOn = ['1','true','yes'].includes(String((q as any).fav ?? (q as any).onlyFavorites ?? '').toLowerCase())
+  const favOn = ['1', 'true', 'yes'].includes(String((q as any).fav ?? (q as any).onlyFavorites ?? '').toLowerCase())
   if (favOn && hasAnyFavorites.value) biasFavorites.value = true
+  else biasFavorites.value = settings.shuffleFavorites ?? false
+  biasSyncReady = true
 })
 
 const disabled = computed(() => (catalog.drills.length === 0))
-
-// Favorites / bias toggle
 const hasAnyFavorites = computed(() => (favorites.list?.length ?? 0) > 0)
-const biasFavorites = ref<boolean>(false)
+const biasFavorites = ref<boolean>(settings.shuffleFavorites ?? false)
+let biasSyncReady = settings.loaded
+const isFavorite = (id: string) => favorites.list?.includes?.(id) ?? false
 
-// Data sources
-const categories = computed(() => {
-  const set = new Set<string>()
-  for (const d of catalog.drills) set.add(d.category)
-  return Array.from(set).sort((a,b) => a.localeCompare(b))
+interface DerivedDrill {
+  id: string
+  title: string
+  favorite: boolean
+}
+
+const derived = computed<DerivedDrill[]>(() => {
+  return catalog.drills
+    .map((d: any) => ({
+      id: d.id,
+      title: String(d?.title ?? '').trim(),
+      favorite: isFavorite(d.id),
+    }))
+    .filter((d) => !!d.title)
 })
 
-function drillsFor(cat: string): Drill[] {
-  return catalog.drills.filter(d => d.category === cat)
-}
-
-function isFavorite(drillId: string): boolean {
-  return favorites.list?.includes?.(drillId) ?? false
-}
-
-function weightedTitles(drills: Drill[]): string[] {
-  if (!biasFavorites.value || !hasAnyFavorites.value) return drills.map(d => d.title)
-  // Duplicate favorite titles to bias selection probability
-  const out: string[] = []
-  for (const d of drills) {
-    const weight = isFavorite(d.id) ? 3 : 1 // 3x weight for favorites
-    for (let i = 0; i < weight; i++) out.push(d.title)
+const nameItems = computed<string[]>(() => {
+  const s = new Set<string>()
+  for (const d of derived.value) {
+    if (d.title) s.add(d.title)
   }
-  return out.length ? out : drills.map(d => d.title)
+  return Array.from(s).sort((a, b) => a.localeCompare(b, 'de'))
+})
+
+function rnd(): number {
+  if (globalThis.crypto?.getRandomValues) {
+    const a = new Uint32Array(1)
+    globalThis.crypto.getRandomValues(a)
+    return (a[0] / 0xFFFFFFFF)
+  }
+  return Math.random()
 }
 
+function sampleWeighted<T>(items: T[], weights: number[]): T {
+  const total = weights.reduce((a, b) => a + b, 0)
+  let r = rnd() * total
+  for (let i = 0; i < items.length; i++) {
+    r -= weights[i]
+    if (r <= 0) return items[i]
+  }
+  return items[items.length - 1]
+}
 
-// Reel visual state
-const itemHeight = 28 // px
-const catOffset = ref(0)
-const drillOffset = ref(0)
-const targetOffset = ref(0)
+const lastPick = new Map<string, string>()
 
-const catItems = computed(() => (categories.value.length ? categories.value : ['—']))
-const drillItems = computed(() => {
-  const cat = display.category || categories.value[0]
-  const list = drillsFor(cat)
-  const titles = weightedTitles(list)
-  return titles.length ? titles : ['—']
-})
-const targetItems = computed(() => {
-  const d = selectedDrill.value
-  return d?.metric?.type ? [String(d.metric.type)] : ['—']
-})
+function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
+  if (pool.length === 0) return ''
+  const favFactor = pool.length <= 3 ? 2 : 3
+  const weights = pool.map((d) => (biasFavorites.value && d.favorite ? favFactor : 1))
+  let chosen = sampleWeighted(pool, weights)
+  const last = lastPick.get('drill')
+  if (last && pool.length > 1 && chosen.id === last) {
+    const alt = pool.find((p) => p.id !== last) ?? chosen
+    chosen = alt
+  }
+  lastPick.set('drill', chosen.id)
+  return chosen.id
+}
 
-const catTransformStyle = computed(() => ({ transform: `translateY(${-catOffset.value}px)` }))
-const drillTransformStyle = computed(() => ({ transform: `translateY(${-drillOffset.value}px)` }))
-const targetTransformStyle = computed(() => ({ transform: `translateY(${-targetOffset.value}px)` }))
+const leverRef = ref<HTMLButtonElement | null>(null)
 
-// Display state (selected labels)
-const display = reactive<{ category: string | null; drill: string | null; target: string | null }>({
-  category: null,
-  drill: null,
-  target: null,
-})
+// Auto-start timer id (when modal opens)
+let autoStartTimer: ReturnType<typeof setTimeout> | null = null
 
-const selectedDrill = ref<Drill | null>(null)
+function onLeverClick() {
+  const el = leverRef.value
+  if (el) {
+    el.classList.remove('wobble')
+    void el.offsetWidth
+    el.classList.add('wobble')
+    el.addEventListener('animationend', () => el.classList.remove('wobble'), { once: true })
+  }
+  start()
+}
+
+// When the modal opens, auto-start after a short delay (unless user prefers reduced motion)
+// use immediate so it also triggers if the modal is already open when this code runs
+watch(isOpen, (open) => {
+  if (!open) {
+    if (autoStartTimer) { clearTimeout(autoStartTimer); autoStartTimer = null }
+    return
+  }
+  try {
+    if (prefersReducedMotion()) return
+  } catch { }
+  // delay slightly so the modal finishes rendering; use a slightly longer delay to ensure paint
+  const AUTO_START_DELAY = 500
+  requestAnimationFrame(() => {
+    autoStartTimer = globalThis.setTimeout(() => {
+    // if modal still open and not already running, trigger the lever
+    if (isOpen.value && !running.value && !disabled.value) onLeverClick()
+    autoStartTimer = null
+    }, AUTO_START_DELAY)
+  })
+}, { immediate: true })
+
+onUnmounted(() => { if (autoStartTimer) { clearTimeout(autoStartTimer); autoStartTimer = null } })
+
+const reelOrder = ['left', 'center', 'right'] as const
+type SlotKey = typeof reelOrder[number]
+
+const spinTick = reactive<Record<SlotKey, number>>({ left: 0, center: 0, right: 0 })
+const spinning = reactive<Record<SlotKey, boolean>>({ left: false, center: false, right: false })
+const targetTitle = ref<string | null>(null)
+const displayTitle = ref<string | null>(null)
 const running = ref(false)
+const selectedDrillId = ref<string | null>(null)
 
-const spinning = reactive({ category: false, drill: false, target: false })
-let timers: any[] = []
-let rafIds: any[] = []
+watch(() => settings.shuffleFavorites, (value) => {
+  if (!settings.loaded) return
+  if (!running.value) biasFavorites.value = !!value
+})
 
-function clearTimers() {
-  for (const t of timers) clearTimeout(t)
-  for (const r of rafIds) cancelAnimationFrame(r)
-  timers = []
-  rafIds = []
-}
+watch(biasFavorites, async (value) => {
+  if (!settings.loaded || !biasSyncReady) return
+  if (settings.shuffleFavorites === value) return
+  await settings.update({ shuffleFavorites: value })
+})
 
-function spin(items: string[], offsetRef: { value: number }, durationMs: number, onTick?: (index: number) => void): { stop: () => void } | null {
-  if (!items.length || durationMs <= 0) return null
-  const total = items.length * itemHeight
-  let startTs: number | null = null
-  let stopped = false
-  const speed = Math.max(100, total * 2) // px/s baseline
-
-  const tick = (ts: number) => {
-    if (stopped) return
-    if (startTs == null) startTs = ts
-    const elapsed = ts - startTs
-    const dist = Math.min(elapsed / 1000 * speed, 1e9)
-    offsetRef.value = dist % total
-    const idx = Math.floor((offsetRef.value + (itemHeight/2)) / itemHeight) % items.length
-    onTick && onTick(idx)
-    rafIds.push(requestAnimationFrame(tick))
-  }
-  rafIds.push(requestAnimationFrame(tick))
-  return { stop: () => { stopped = true } }
-}
+let spinResolver: (() => void) | null = null
 
 async function start() {
   if (disabled.value || running.value) return
   running.value = true
-  // Reset
-  selectedDrill.value = null
-  display.category = null
-  display.drill = null
-  display.target = null
-  spinning.category = spinning.drill = spinning.target = false
-  catOffset.value = drillOffset.value = targetOffset.value = 0
-  clearTimers()
-
-  const reduce = prefersReducedMotion()
-
-  // 1) Category reel
-  const cats = categories.value
-  if (reduce) {
-    display.category = cats[0] || null
-  } else {
-    spinning.category = true
-    const ctl = spin(cats, catOffset, D_CAT.value, (i) => (display.category = cats[i]))
-    // stop after duration
-    timers.push(setTimeout(() => {
-      spinning.category = false
-      ctl?.stop()
-      // Snap to nearest index
-      const idx = Math.floor((catOffset.value + (itemHeight/2)) / itemHeight) % (cats.length || 1)
-      display.category = cats[idx] || null
-      nextStage()
-    }, D_CAT.value))
-  }
-  if (reduce) nextStage()
-
-  function nextStage() {
-    const chosenCat = display.category || cats[0]
-    const list = drillsFor(chosenCat)
-    const drillTitles = list.map(d => d.title)
-
-    if (reduce) {
-      const weighted = weightedTitles(list)
-      const title = pickWeighted(weighted) || weighted[0] || null
-      display.drill = title
-      selectedDrill.value = list.find(x => x.title === title) || list[0] || null
-      afterDrill()
-      return
-    }
-
-    spinning.drill = true
-    const weighted = weightedTitles(list)
-    const ctl = spin(weighted, drillOffset, D_DRILL.value, (i) => (display.drill = weighted[i]))
-    timers.push(setTimeout(() => {
-      spinning.drill = false
-      ctl?.stop()
-      const idx = Math.floor((drillOffset.value + (itemHeight/2)) / itemHeight) % (weighted.length || 1)
-      const title = weighted[idx] || weighted[0]
-      display.drill = title
-      selectedDrill.value = list.find(x => x.title === title) || list[0] || null
-      afterDrill()
-    }, D_DRILL.value))
+  displayTitle.value = null
+  targetTitle.value = null
+  selectedDrillId.value = null
+  for (const slot of reelOrder) {
+    spinning[slot] = false
   }
 
-  function afterDrill() {
-    const d = selectedDrill.value || drillsFor(display.category || cats[0])[0] || null
-    if (!selectedDrill.value && d) selectedDrill.value = d
-    const tgt = d?.metric?.type ? [String(d.metric.type)] : []
+  const pool = derived.value
+  if (!pool.length) {
+    running.value = false
+    return
+  }
 
-    if (tgt.length === 0) {
-      // finish soon
-      timers.push(setTimeout(() => finish(), reduce ? 0 : 200))
-      return
-    }
+  const chosenId = chooseDrillId(pool.map((p) => ({ id: p.id, favorite: p.favorite })))
+  if (!chosenId) {
+    running.value = false
+    return
+  }
 
-    if (reduce) {
-      display.target = tgt[0]
-      finish()
-      return
-    }
+  const original = catalog.drills.find((x) => x.id === chosenId)
+  const chosenTitle = (original?.title ?? pool.find((p) => p.id === chosenId)?.title ?? '').trim()
+  if (!chosenTitle) {
+    running.value = false
+    return
+  }
 
-    spinning.target = true
-    const ctl = spin(tgt, targetOffset, D_TARGET.value, (i) => (display.target = tgt[i]))
-    timers.push(setTimeout(() => {
-      spinning.target = false
-      ctl?.stop()
-      const idx = Math.floor((targetOffset.value + (itemHeight/2)) / itemHeight) % (tgt.length || 1)
-      display.target = tgt[idx]
-      finish()
-    }, D_TARGET.value))
+  selectedDrillId.value = chosenId
+  targetTitle.value = chosenTitle
+
+  if (prefersReducedMotion()) {
+    displayTitle.value = chosenTitle
+    running.value = false
+    finish()
+    return
+  }
+
+  const waitForSpin = new Promise<void>((resolve) => {
+    spinResolver = resolve
+  })
+  for (const slot of reelOrder) {
+    spinning[slot] = true
+    spinTick[slot]++
+  }
+
+  await waitForSpin
+  spinResolver = null
+
+  if (!selectedDrillId.value || !targetTitle.value) {
+    running.value = false
+    return
+  }
+
+  displayTitle.value = targetTitle.value
+  running.value = false
+  finish()
+}
+
+function onReelStopped(slot: SlotKey, _value: string) {
+  spinning[slot] = false
+  if (!spinResolver) return
+  if (!spinning.left && !spinning.center && !spinning.right) {
+    const resolver = spinResolver
+    spinResolver = null
+    resolver()
   }
 }
 
 function cancel() {
+  if (!running.value) return
   running.value = false
-  clearTimers()
-  spinning.category = spinning.drill = spinning.target = false
+  targetTitle.value = null
+  selectedDrillId.value = null
+  displayTitle.value = null
+  for (const slot of reelOrder) {
+    spinning[slot] = false
+  }
+  if (spinResolver) {
+    const resolver = spinResolver
+    spinResolver = null
+    resolver()
+  }
 }
 
-function finish() {
+async function finish() {
+  const id = selectedDrillId.value
+  if (!id) return
+  const original = catalog.drills.find((x) => x.id === id)
+  if (!original) return
+  // ensure UI reflects stopped state
   running.value = false
-  const d = selectedDrill.value
-  if (d && d.id) {
-    // Navigate to drill detail. Also set a test-visible global when running under Vitest
-    try {
-      // Set a test-observable immediately so tests can detect the intended navigation
-      try { (window as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
-      const p = router.push({ name: 'DrillDetail', params: { id: d.id } })
-      // Also update after the push resolves in case router timing is used by tests
-      p.then(() => {
-        try { (window as any).__lastPushedRoute = { name: 'DrillDetail', id: d.id } } catch {}
-      }).catch(() => {})
-    } catch (e) {
-      // ignore
-    }
+
+  // small pause so the user can read the result before the modal closes
+  await new Promise((resolve) => setTimeout(resolve, 500))
+
+  // If the user cancelled during the pause, abort navigation
+  if (selectedDrillId.value !== id) return
+
+  try {
+    ; (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: original.id }
+    const p = router.push({ name: 'DrillDetail', params: { id: original.id } })
+    p.finally(() => {
+      try { ui.setShuffle(false) } catch { }
+    })
+  } catch (e) {
+    console.error('Failed to navigate to drill detail:', e)
   }
 }
 
 function close() {
+  if (ui.shuffleOpen) {
+    ui.setShuffle(false)
+    return
+  }
   router.back()
 }
-
-onBeforeUnmount(() => clearTimers())
 </script>
 
 <style scoped>
-.reel-viewport { height: 28px; overflow: hidden; position: relative; }
-.reel-track { will-change: transform; transition: none; }
-.reel-item { height: 28px; line-height: 28px; font-size: 1rem; }
+/* Overlay/backdrop */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1100;
+  padding: 20px;
+}
+
+.overlay-panel {
+  width: min(980px, 96vw);
+  max-height: 92vh;
+  overflow: auto;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+/* Slot look & feel */
+.slot-panel {
+  background: var(--surface, #fff);
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.22);
+}
+
+.slot-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.slot-header h2 {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: .2px;
+}
+
+/* Loading + error */
+.loading,
+.error {
+  padding: 16px;
+  font-size: .95rem;
+  color: var(--text, #444C56);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  border-top-color: #2F7A52;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* SLOT FRAME */
+.slot-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.slot-frame {
+  position: relative;
+  align-items: center;
+  padding: 18px;
+  border-radius: 18px;
+  /* theme-aware frame background for light/dark */
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 88%, var(--bg) 12%), var(--surface));
+  box-shadow:
+    inset 0 2px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent),
+    inset 0 -2px 8px color-mix(in oklab, rgba(0,0,0,0.06) 20%, transparent),
+    0 6px 22px color-mix(in oklab, var(--bg) 8%, transparent);
+  border: 1px solid var(--border);
+}
+
+.slot-result {
+  margin: 10px 0 4px;
+  text-align: center;
+  color: var(--text, #444C56);
+}
+
+.slot-result-label {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: .75rem;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.slot-result-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.slot-marker {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 50%;
+  height: 0;
+  border-top: 2px solid rgba(47, 122, 82, 0.55);
+  box-shadow: 0 0 0 1px rgba(47, 122, 82, 0.08);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.reel-divider {
+  width: 10px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.02));
+  border-radius: 6px;
+  box-shadow: inset -1px 0 rgba(255, 255, 255, 0.7), inset 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* REEL */
+.reel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.reel-label {
+  font-size: .8rem;
+  color: #6b7280;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+.reel-viewport {
+  position: relative;
+  height: 48px;
+  /* Sichtfenster = itemHeight */
+  overflow: hidden;
+  min-width: 240px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 85%, var(--bg) 15%), var(--surface));
+  border: 1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent),
+    inset 0 -2px 12px color-mix(in oklab, rgba(0,0,0,0.06) 20%, transparent);
+}
+
+.reel-track {
+  will-change: transform;
+  transition: none;
+}
+
+.reel-item {
+  height: 48px;
+  line-height: 48px;
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--text, #444C56);
+  text-align: center;
+  white-space: nowrap;
+  padding: 0 12px;
+}
+
+/* Fade masks oben/unten */
+.reel-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0));
+}
+
+.reel-fade.top {
+  top: 0;
+}
+
+.reel-fade.bottom {
+  bottom: 0;
+  transform: rotate(180deg);
+}
+
+/* CONTROLS */
+.slot-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 4px 2px;
+}
+
+.pref {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .9rem;
+  color: #46505b;
+}
+
+.pref input {
+  transform: translateY(1px);
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.btn.ghost {
+  background: var(--surface);
+}
+
+/* Hebel-Button */
+.lever {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px 12px 14px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px color-mix(in oklab, var(--primary) 28%, transparent), inset 0 1px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent);
+}
+
+.lever-knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, rgba(0,0,0,0.06) 40%, transparent), 0 2px 6px color-mix(in oklab, rgba(0,0,0,0.25) 40%, transparent);
+}
+
+.lever-text {
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+/* sanftes Wippen: kurz runterdrücken, minimal overshoot, settle */
+.lever.wobble {
+  animation: lever-wobble 320ms cubic-bezier(.2, .8, .3, 1) both;
+}
+
+@keyframes lever-wobble {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  28% {
+    transform: translateY(3px) scale(.985);
+  }
+
+  58% {
+    transform: translateY(-1px) scale(1.008);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Accessibility: reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .reel-track { transition: none; }
+  .reel-track {
+    transition: none;
+  }
 }
 </style>

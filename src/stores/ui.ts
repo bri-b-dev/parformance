@@ -4,6 +4,8 @@ export const useUiStore = defineStore('ui', {
   state: () => ({
     // transient per-drill UI flags (not persisted)
     gamblerCollapsed: {} as Record<string, boolean>,
+    // whether the shuffle overlay/modal is open (transient)
+    shuffleOpen: false as boolean,
   }),
   getters: {
     isGamblerCollapsed: (state) => (drillId: string) => {
@@ -14,6 +16,10 @@ export const useUiStore = defineStore('ui', {
   actions: {
     setGamblerCollapsed(drillId: string, collapsed: boolean) {
       this.gamblerCollapsed = { ...(this.gamblerCollapsed || {}), [drillId]: collapsed }
+    }
+    ,
+    setShuffle(open: boolean) {
+      this.shuffleOpen = !!open
     }
   }
 })

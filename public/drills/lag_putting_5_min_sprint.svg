@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Lag Putting Sprint – 3 Bälle, 5 Minuten. Distanzen 7–12 m, Zielzone ≤60 cm um das Loch.">
+  <title>Lag Putting Sprint – 5 Minuten, Zielzone 60 cm</title>
+
+  <style>
+    /* Theme-first: relies on theme.css variables */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .3; fill: none; }
+
+    .green  { fill: var(--accent-green); opacity: .18; stroke: var(--accent-green); stroke-opacity: .5; }
+    .fringe { fill: var(--accent-green); opacity: .12; stroke: var(--accent-green); stroke-opacity: .35; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.4; }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.2; }
+    .flag { fill: var(--primary); }
+
+    .zone60 { stroke: var(--primary); stroke-dasharray: 6 8; stroke-width: 2; fill: none; opacity: .9; }
+
+    .tee { fill: var(--surface); stroke: var(--accent-iron); }
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .putt  { stroke: var(--primary); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .arrow { fill: var(--primary); }
+
+    .dist { stroke: var(--border); stroke-dasharray: 3 6; opacity: .7; }
+    .tick { stroke: var(--border); opacity: .7; }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+
+    .timer { fill: var(--surface); stroke: var(--accent-iron); }
+  </style>
+
+  <!-- Panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Putting Green (zentral leicht rechts) -->
+  <ellipse class="green" cx="420" cy="210" rx="220" ry="140"/>
+  <path class="fringe" d="M180,210 q120,-90 240,0 q-120,90 -240,0 z"/>
+
+  <!-- Hole + 60 cm Zone -->
+  <circle class="hole" cx="500" cy="210" r="8"/>
+  <path class="pin" d="M500 150v60"/>
+  <path class="flag" d="M500 150 l34 10 l-34 10 z"/>
+  <!-- 60 cm zone (symbolisch ~16px radius; consistent with previous 1 m ~26px) -->
+  <circle class="zone60" cx="500" cy="210" r="16"/>
+  <text class="label" x="500" y="210" text-anchor="middle" dy="-24">≤ 60 cm</text>
+
+  <!-- Distance arc references (7 m, 9 m, 12 m symbolic) -->
+  <path class="dist" d="M230 160 A270 190 0 0 1 230 260"/>
+  <path class="dist" d="M200 140 A300 210 0 0 1 200 280"/>
+  <path class="dist" d="M165 120 A335 230 0 0 1 165 300"/>
+  <text class="label" x="230" y="155">7 m</text>
+  <text class="label" x="200" y="135">9 m</text>
+  <text class="label" x="165" y="115">12 m</text>
+
+  <!-- Three start balls along varying distances -->
+  <g id="starts">
+    <!-- Start A (ca. 9 m) -->
+    <circle class="ball" cx="210" cy="210" r="6"/>
+    <!-- Start B (ca. 7 m) -->
+    <circle class="ball" cx="260" cy="175" r="6"/>
+    <!-- Start C (ca. 12 m) -->
+    <circle class="ball" cx="180" cy="270" r="6"/>
+  </g>
+
+  <!-- Sample putt paths to the hole -->
+  <defs>
+    <marker id="m-putt" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+  <path class="putt" d="M210 210 Q360 210, 500 210" marker-end="url(#m-putt)"/>
+  <path class="putt" d="M260 175 Q400 190, 500 210" marker-end="url(#m-putt)"/>
+  <path class="putt" d="M180 270 Q360 250, 500 210" marker-end="url(#m-putt)"/>
+
+  <!-- Tiny tees near start balls (optional visual) -->
+  <g class="tick">
+    <path d="M210 216 v8"/>
+    <path d="M260 181 v8"/>
+    <path d="M180 276 v8"/>
+  </g>
+
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Ladder Putting – Distanzen 3 m, 4.5 m, 6 m, 9 m in einer Linie. Treffer zählen: gelocht oder ≤45 cm hinter dem Loch (Leave-Zone).">
+  <title>Ladder Putting – Distance Control mit Leave-Zone 45 cm</title>
+
+  <style>
+    /* Theme-first: uses variables from theme.css */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .3; fill: none; }
+
+    .green  { fill: var(--accent-green); opacity: .18; stroke: var(--accent-green); stroke-opacity: .45; }
+    .fringe { fill: var(--accent-green); opacity: .12; stroke: var(--accent-green); stroke-opacity: .3; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.4; }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.2; }
+    .flag { fill: var(--primary); }
+
+    .leave45 { stroke: var(--primary); stroke-dasharray: 6 8; stroke-width: 2; fill: none; opacity: .9; }
+    .leave-box { fill: none; stroke: var(--primary); stroke-dasharray: 6 8; opacity: .6; }
+
+    .marker-line { stroke: var(--border); stroke-dasharray: 3 6; }
+    .marker-dot  { fill: var(--surface); stroke: var(--accent-iron); }
+    .marker-label{ fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .putt { stroke: var(--primary); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .arrow { fill: var(--primary); }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+  </style>
+
+  <!-- Panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Putting Green Ellipse -->
+  <ellipse class="green" cx="420" cy="210" rx="240" ry="150"/>
+  <path class="fringe" d="M180,210 q120,-90 240,0 q-120,90 -240,0 z"/>
+
+  <!-- Hole and Leave-Zone (≤45 cm) -->
+  <circle class="hole" cx="560" cy="210" r="8"/>
+  <path class="pin" d="M560 150v60"/>
+  <path class="flag" d="M560 150 l34 10 l-34 10 z"/>
+  <!-- 45 cm circle (symbolisch ~12px, im Verhältnis zu 1 m ~26px aus deinen anderen SVGs) -->
+  <circle class="leave45" cx="560" cy="210" r="12"/>
+  <text class="label" x="560" y="210" text-anchor="middle" dy="-20">≤ 45 cm</text>
+
+  <!-- Ladder markers along a straight line to the hole -->
+  <!-- Baseline from start direction to hole -->
+  <path class="marker-line" d="M160 210 H560"/>
+
+  <!-- Dots at 3 m, 4.5 m, 6 m, 9 m (symbolisch skaliert) -->
+  <!-- Mapping: 3 m ~ 80 px; 4.5 m ~ 120 px; 6 m ~ 160 px; 9 m ~ 240 px -->
+  <g id="markers">
+    <g transform="translate(480 210)">
+      <circle class="marker-dot" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">3 m</text>
+    </g>
+    <g transform="translate(440 210)">
+      <circle class="marker-dot" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">4.5 m</text>
+    </g>
+    <g transform="translate(400 210)">
+      <circle class="marker-dot" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">6 m</text>
+    </g>
+    <g transform="translate(320 210)">
+      <circle class="marker-dot" r="6"/>
+      <text class="marker-label" x="0" y="-12" text-anchor="middle">9 m</text>
+    </g>
+  </g>
+
+  <!-- Optional 5. Marke (12 m) falls genutzt -->
+  <g transform="translate(240 210)">
+    <circle class="marker-dot" r="6"/>
+    <text class="marker-label" x="0" y="-12" text-anchor="middle">12 m</text>
+  </g>
+
+  <!-- Startbereich mit 5 Bällen -->
+  <g id="start">
+    <circle class="ball" cx="180" cy="196" r="5"/>
+    <circle class="ball" cx="170" cy="206" r="5"/>
+    <circle class="ball" cx="185" cy="214" r="5"/>
+    <circle class="ball" cx="165" cy="192" r="5"/>
+    <circle class="ball" cx="175" cy="224" r="5"/>
+    <text class="label" x="170" y="244" text-anchor="middle">Start • 5 Bälle</text>
+  </g>
+
+  <!-- Sample putt from 6 m marker -->
+  <defs>
+    <marker id="m-putt" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+  <path class="putt" d="M400 210 Q480 210, 560 210" marker-end="url(#m-putt)"/>
+</svg>

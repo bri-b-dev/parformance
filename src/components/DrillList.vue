@@ -1,14 +1,22 @@
 <template>
   <div>
     <!-- Loading state -->
-    <div v-if="!catalog.loaded" class="p-4 flex items-center justify-center" role="status" aria-live="polite">
-      <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
-      <span class="text-sm text-gray-600">Lade Trainingsspiele…</span>
-    </div>
+    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite"
+      :style="{ color: 'var(--muted)' }">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="margin-right:8px">
+        <g transform="translate(12,12)">
+          <circle cx="0" cy="0" r="9" fill="none" stroke="var(--border)" stroke-width="2" stroke-opacity="0.9"></circle>
+          <path d="M9 0 A9 9 0 0 1 7.5 -6" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1s" repeatCount="indefinite" />
+          </path>
+        </g>
+      </svg>
+      <span class="text-sm" style="color:var(--muted)">Lade Trainingsspiele…</span>
+    </output>
 
     <!-- Content/filters are hidden until loaded to avoid flashing -->
     <template v-else>
-      <div class="row" role="region" aria-labelledby="filter-heading">
+      <section class="row" aria-labelledby="filter-heading">
         <h2 id="filter-heading" class="sr-only">Filter</h2>
 
         <div class="field" style="min-width:180px;">
@@ -30,42 +38,42 @@
             Nur Favoriten
           </label>
         </div>
-      </div>
+      </section>
 
       <div class="row">
-        <button class="btn" type="button" @click="resetFilters" aria-label="Filter zurücksetzen">Filter löschen</button>
+        <button class="btn" type="button" @click="resetFilters">Filter löschen</button>
       </div>
 
       <!-- Empty state -->
-      <div v-if="filtered.length === 0" class="p-6 text-center border border-dashed rounded-md border-gray-200 bg-gray-50" role="status" aria-live="polite">
-        <h3 class="text-base font-semibold text-gray-800">Keine Drills gefunden</h3>
-        <p class="text-sm text-gray-600 mt-1">Passe die Filter an oder ändere die Suche.</p>
-      </div>
+      <output v-if="filtered.length === 0"
+        class="p-6 text-center rounded-md" aria-live="polite"
+        :style="{
+          display: 'block',
+          width: '100%',
+          maxWidth: '820px',
+          margin: '28px auto',
+          background: 'color-mix(in oklab, var(--surface) 92%, var(--bg) 8%)',
+          border: '1px solid var(--border)',
+          color: 'var(--muted)'
+        }">
+        <h3 class="text-base font-semibold" :style="{ color: 'var(--text)', margin: 0 }">Keine Drills gefunden</h3>
+        <p class="text-sm mt-1" style="margin:8px 0 0">Passe die Filter an oder ändere die Suche.</p>
+      </output>
 
       <!-- List -->
       <div v-else class="row">
-        <article class="card" v-for="d in filtered" :key="d.id" style="flex:1 1 280px;">
-          <header style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-            <RouterLink :to="`/drill/${d.id}`" style="font-weight:700; text-decoration:none; color:inherit">
-              {{ d.title }}
-            </RouterLink>
-            <small class="chip" aria-label="Kategorie">{{ d.category }}</small>
-          </header>
-          <p v-if="d.instructions?.training" style="margin:.5rem 0 0">{{ d.instructions.training }}</p>
-          <div v-if="d.tags?.length" class="chips" style="margin-top:8px;">
-            <span class="chip" v-for="t in d.tags" :key="t">{{ t }}</span>
-          </div>
-        </article>
+        <DrillCard v-for="d in filtered" :key="d.id" :drill="d" />
       </div>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import DrillCard from '@/components/DrillCard.vue'
+import { filterDrills } from '@/filters/drills'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
-import { filterDrills } from '@/filters/drills'
+import { computed, onMounted, ref } from 'vue'
 
 const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()

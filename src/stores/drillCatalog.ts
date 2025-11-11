@@ -31,7 +31,7 @@ export const useDrillCatalogStore = defineStore('drillCatalog', {
         const message = 'Konnte Drills nicht laden. Bitte später erneut versuchen.'
         this.error = e?.message || message
         // Friendly toast event for the UI (browser only)
-        if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+        if (typeof globalThis !== 'undefined' && typeof globalThis.dispatchEvent === 'function') {
           let evt: any
           try {
             // @ts-ignore CustomEvent may be missing in some environments
@@ -39,7 +39,7 @@ export const useDrillCatalogStore = defineStore('drillCatalog', {
           } catch {
             evt = { type: 'toast', detail: { type: 'error', message } }
           }
-          window.dispatchEvent(evt as any)
+          globalThis.dispatchEvent(evt)
         }
       } finally {
         this.loaded = true

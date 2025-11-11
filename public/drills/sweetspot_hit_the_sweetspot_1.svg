@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Hit the Sweetspot I - Treffmomentanalyse mit Impact Tape">
+  <style>
+    .panel { fill: var(--surface); }
+    .driver { fill: color-mix(in oklab, var(--cat-sweetspot) 15%, var(--surface)); stroke: var(--accent-iron); stroke-width: 2; }
+    .sweetspot { fill: var(--primary); opacity: 0.7; }
+    .muted { fill: color-mix(in oklab, var(--accent-iron) 60%, #fff); font: 500 12px/1 ui-sans-serif, system-ui; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Schlägerkopf -->
+  <ellipse cx="360" cy="210" rx="160" ry="80" class="driver"/>
+  <circle cx="360" cy="210" r="35" class="sweetspot"/>
+</svg>
+

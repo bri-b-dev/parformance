@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Iron Play - Runde ausschließlich mit Eisen">
+  <style>
+    /* Theme variables from host page (no hardcoded colors) */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .label { fill: var(--muted); font: 14px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .note  { fill: var(--muted); font: 11.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+
+    .tag  { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+
+    .badge { fill: var(--surface); stroke: var(--border); }
+    .club  { stroke: var(--accent-iron); fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .head  { fill: var(--accent-iron); opacity: .85; }
+    .face  { stroke: var(--surface); stroke-width: 2; opacity: .75; }
+
+    .prohibit-ring { stroke: var(--primary); stroke-width: 12; fill: none; opacity: .9; }
+    .prohibit-slash{ stroke: var(--primary); stroke-width: 14; stroke-linecap: round; }
+
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .25; fill: none; }
+  </style>
+
+  <!-- Panel -->
+  <rect x="0" y="0" width="720" height="420" rx="16" ry="16" class="panel"/>
+
+  <!-- Subtle vertical guides for alignment -->
+  <g class="guide">
+    <path d="M160 12v296M320 12v296"/>
+  </g>
+
+  <!-- Badge circle -->
+  <g transform="translate(360 210)">
+    <circle class="badge" cx="0" cy="0" r="110"/>
+
+    <!-- Driver silhouette (shaft + head) -->
+    <!-- <path class="club" d="M-70,-70 C-30,-40, 20,-10, 70,20"/> -->
+    <path class="club" d="M55,-80 L60,30"/>
+    <path class="head" d="M62,28 c 22,10 26,34 10,48 c -18,16 -58,18 -78,3 c -8,-6 -8,-18 2,-24 c 18,-12 42,-20 66,-27 z"/>
+    <path class="face" d="M28,72 h36"/>
+    <path class="face" d="M26,66 h38"/>
+    <path class="face" d="M24,60 h36"/>
+    <path class="face" d="M22,54 h34"/>
+
+    <!-- Prohibition ring and slash -->
+    <circle class="prohibit-ring" cx="0" cy="0" r="108"/>
+    <path class="prohibit-slash" d="M-86,-86 L86,86"/>
+  </g>
+</svg>
+

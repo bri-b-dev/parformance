@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Up-and-Down Challenge – 9 Bälle: 3 Lagen (Fairway, Semi-Rough, Rough) auf 3 Fahnenpositionen. Par je Versuch = 2 (Chip + 1 Putt).">
+  <title>Chipping Up-and-Down Challenge – 9 Bälle</title>
+
+  <style>
+    /* Theme-first styling: uses CSS variables from theme.css */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .35; fill: none; }
+
+    .green  { fill: var(--accent-green); opacity: .18; stroke: var(--accent-green); stroke-opacity: .5; }
+    .fringe { fill: var(--accent-green); opacity: .12; stroke: var(--accent-green); stroke-opacity: .35; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.4; }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.25; }
+    .flag { fill: var(--primary); }
+
+    .gimme { stroke: var(--primary); stroke-dasharray: 6 8; stroke-width: 2; fill: none; opacity: .85; }
+
+    .zone { fill: var(--surface); stroke: var(--border); }
+    .zone--fairway { fill: var(--surface); }
+    .zone--semi    { fill: var(--surface); stroke-dasharray: 4 6; }
+    .zone--rough   { fill: var(--surface); stroke-dasharray: 2 4; }
+
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .chip   { stroke: var(--accent-sky); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .putt   { stroke: var(--primary);  fill: none; stroke-width: 2; stroke-dasharray: 2 6; opacity: .9; }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+
+    .arrow-chip { fill: var(--accent-sky); }
+    .arrow-putt { fill: var(--primary); }
+  </style>
+
+  <!-- Background panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Green to the right -->
+  <ellipse class="green" cx="520" cy="210" rx="170" ry="120"/>
+
+  <!-- Three hole positions with 1 m gimme circles -->
+  <g id="targets">
+    <g transform="translate(560 165)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -56v56"/>
+      <path class="flag" d="M0 -56 l34 10 l-34 10 z"/>
+    </g>
+    <g transform="translate(500 210)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -56v56"/>
+      <path class="flag" d="M0 -56 l34 10 l-34 10 z"/>
+    </g>
+    <g transform="translate(590 255)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -56v56"/>
+      <path class="flag" d="M0 -56 l34 10 l-34 10 z"/>
+    </g>
+  </g>
+
+  <!-- Start zones on the left: Fairway, Semi-Rough, Rough -->
+  <g id="zones">
+    <rect class="zone zone--fairway" x="70" y="120" width="140" height="60" rx="10"/>
+    <rect class="zone zone--semi"    x="70" y="200" width="140" height="60" rx="10"/>
+    <rect class="zone zone--rough"   x="70" y="280" width="140" height="60" rx="10"/>
+    <text class="label" x="140" y="150" text-anchor="middle">Fairway</text>
+    <text class="label" x="140" y="230" text-anchor="middle">Semi-Rough</text>
+    <text class="label" x="140" y="310" text-anchor="middle">Rough</text>
+  </g>
+
+  <!-- 9 balls: 3 per zone -->
+  <g id="balls">
+    <!-- Fairway row -->
+    <circle class="ball" cx="100" cy="145" r="6"/>
+    <circle class="ball" cx="140" cy="145" r="6"/>
+    <circle class="ball" cx="180" cy="145" r="6"/>
+    <!-- Semi row -->
+    <circle class="ball" cx="100" cy="225" r="6"/>
+    <circle class="ball" cx="140" cy="225" r="6"/>
+    <circle class="ball" cx="180" cy="225" r="6"/>
+    <!-- Rough row -->
+    <circle class="ball" cx="100" cy="305" r="6"/>
+    <circle class="ball" cx="140" cy="305" r="6"/>
+    <circle class="ball" cx="180" cy="305" r="6"/>
+  </g>
+
+  <!-- Sample sequences: one from each zone to distinct targets, then putts -->
+  <defs>
+    <marker id="m-chip" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow-chip" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+    <marker id="m-putt" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow-putt" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+
+  <!-- Fairway -> top-left target -->
+  <path class="chip" d="M140 145 C260 90, 380 120, 560 165" marker-end="url(#m-chip)"/>
+  <path class="putt" d="M540 160 Q550 162, 560 165" marker-end="url(#m-putt)"/>
+
+  <!-- Semi -> center target -->
+  <path class="chip" d="M140 225 C260 180, 380 200, 500 210" marker-end="url(#m-chip)"/>
+  <path class="putt" d="M470 210 Q485 210, 500 210" marker-end="url(#m-putt)"/>
+
+  <!-- Rough -> bottom-right target -->
+  <path class="chip" d="M140 305 C270 270, 400 260, 590 255" marker-end="url(#m-chip)"/>
+  <path class="putt" d="M560 255 Q575 255, 590 255" marker-end="url(#m-putt)"/>
+</svg>

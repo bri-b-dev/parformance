@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="9-Box Pitch Grid – 3 Distanzen (z. B. 20/30/40 m) × 3 Korridore (kurz/ziel/lang). 9 Bälle, je 1 pro Feld.">
+  <title>9-Box Pitch Grid – 3×3 Carry-Korridor</title>
+
+  <style>
+    /* Theme-first: uses CSS variables from theme.css */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .3; fill: none; }
+
+    .field { fill: var(--accent-green); opacity: .12; stroke: var(--accent-green); stroke-opacity: .35; }
+
+    .grid-rect { fill: var(--surface); stroke: var(--border); rx: 10; }
+    .grid-rect--mid { stroke: var(--primary); stroke-width: 2; }
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .tee-line { stroke: var(--border); stroke-dasharray: 4 6; }
+
+    .dist { stroke: var(--border); stroke-dasharray: 3 6; opacity: .7; }
+    .pitch { stroke: var(--accent-sky); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .arrow { fill: var(--accent-sky); }
+  </style>
+
+  <!-- Panel -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Guides -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Field area (landing zone canvas to the right) -->
+  <rect class="field" x="340" y="80" width="340" height="260" rx="16"/>
+
+  <!-- Distance labels (rows are distances along x) -->
+  <text class="label" x="400" y="96">~20 m</text>
+  <text class="label" x="520" y="96">~30 m</text>
+  <text class="label" x="640" y="96">~40 m</text>
+
+  <!-- Column labels (vertical: short/target/long) -->
+  <text class="label" x="350" y="150">kurz</text>
+  <text class="label" x="350" y="210">ziel</text>
+  <text class="label" x="350" y="270">lang</text>
+
+  <!-- 3x3 Grid -->
+  <!-- Column positions for distances -->
+  <!-- x positions represent carry distance bands; y positions represent short/target/long corridors -->
+  <g id="grid">
+    <!-- short row (top) -->
+    <rect class="grid-rect" x="390" y="130" width="90" height="40"/>
+    <rect class="grid-rect grid-rect--mid" x="510" y="130" width="90" height="40"/>
+    <rect class="grid-rect" x="630" y="130" width="90" height="40"/>
+    <!-- target row (middle) -->
+    <rect class="grid-rect" x="390" y="190" width="90" height="40"/>
+    <rect class="grid-rect grid-rect--mid" x="510" y="190" width="90" height="40"/>
+    <rect class="grid-rect" x="630" y="190" width="90" height="40"/>
+    <!-- long row (bottom) -->
+    <rect class="grid-rect" x="390" y="250" width="90" height="40"/>
+    <rect class="grid-rect grid-rect--mid" x="510" y="250" width="90" height="40"/>
+    <rect class="grid-rect" x="630" y="250" width="90" height="40"/>
+  </g>
+
+  <!-- Start tee area with 9 balls -->
+  <g id="start">
+    <path class="tee-line" d="M120 300 H260"/>
+    <circle class="ball" cx="140" cy="300" r="6"/>
+    <circle class="ball" cx="160" cy="300" r="6"/>
+    <circle class="ball" cx="180" cy="300" r="6"/>
+    <circle class="ball" cx="200" cy="300" r="6"/>
+    <circle class="ball" cx="220" cy="300" r="6"/>
+    <circle class="ball" cx="240" cy="300" r="6"/>
+    <circle class="ball" cx="150" cy="320" r="6"/>
+    <circle class="ball" cx="190" cy="320" r="6"/>
+    <circle class="ball" cx="230" cy="320" r="6"/>
+    <text class="label" x="190" y="342" text-anchor="middle">Start • 9 Bälle</text>
+  </g>
+
+  <!-- Distance guide rays from tee toward each distance band center -->
+  <g class="dist">
+    <path d="M190 300 C300 260, 350 240, 435 210"/>
+    <path d="M190 300 C330 270, 400 240, 555 210"/>
+    <path d="M190 300 C360 280, 450 250, 675 210"/>
+  </g>
+
+  <!-- Sample pitch to mid distance / target corridor -->
+  <defs>
+    <marker id="m-arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrow" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+  <path class="pitch" d="M190 320 C320 220, 420 190, 555 210" marker-end="url(#m-arrow)"/>
+</svg>

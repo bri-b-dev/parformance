@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img"
+  aria-label="Bunker Up-and-Down – 6 Bälle, Par-12: Sandschlag + 1 Putt. Sechs Zielpositionen mit 1-m Gimme-Kreis.">
+  <title>Bunker Up-and-Down – 6 Bälle, Par-12</title>
+
+  <style>
+    /* Theme-driven styling (expects theme.css variables on host page) */
+    .panel { fill: var(--surface); stroke: var(--border); }
+    .guide { stroke: var(--border); stroke-dasharray: 6 10; opacity: .35; fill: none; }
+
+    .bunker { fill: var(--accent-beige); stroke: var(--accent-iron); opacity: .85; }
+    .lip { stroke: var(--accent-iron); stroke-width: 2; fill: none; }
+    .green { fill: var(--accent-green); opacity: .15; stroke: var(--accent-green); stroke-opacity: .45; }
+
+    .hole { fill: var(--surface); stroke: var(--accent-iron); stroke-width: 1.25; }
+    .flag { fill: var(--primary); }
+    .pin  { stroke: var(--accent-iron); stroke-width: 1.25; }
+
+    .gimme { stroke: var(--primary); stroke-opacity: .6; stroke-dasharray: 6 8; fill: none; }
+    .target { stroke: var(--primary); stroke-width: 1.25; fill: none; opacity: .7; }
+
+    .ball { fill: var(--surface); stroke: var(--accent-iron); }
+    .trajectory { stroke: var(--accent-sky); fill: none; stroke-width: 2; stroke-dasharray: 4 6; opacity: .9; }
+    .puttline { stroke: var(--primary); fill: none; stroke-width: 2; stroke-dasharray: 2 6; opacity: .9; }
+
+    .arrowhead { fill: var(--accent-sky); }
+    .arrowhead-putt { fill: var(--primary); }
+
+    .label { fill: var(--muted); font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .note  { fill: var(--muted); font: 10.5px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .tag   { fill: var(--accent-beige); stroke: var(--border); fill-opacity: .7; }
+  </style>
+
+  <!-- Hintergrund -->
+  <rect class="panel" x="0.5" y="0.5" width="719" height="419" rx="12"/>
+
+  <!-- Orientierung -->
+  <g class="guide">
+    <path d="M240 12v396M480 12v396M12 210h696"/>
+  </g>
+
+  <!-- Grün rechts -->
+  <ellipse class="green" cx="520" cy="210" rx="170" ry="120"/>
+
+  <!-- 6 Zielpositionen mit 1-m Gimme-Kreis (symbolisch) -->
+  <!-- Anordnung: 3 oben, 3 unten -->
+  <g id="targets">
+    <!-- oben -->
+    <g transform="translate(470 145)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -58v58"/>
+      <path class="flag" d="M0 -58 l32 10 l-32 10 z"/>
+      <text class="label" x="0" y="42" text-anchor="middle">1 m</text>
+    </g>
+    <g transform="translate(540 135)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -58v58"/>
+      <path class="flag" d="M0 -58 l32 10 l-32 10 z"/>
+      <text class="label" x="0" y="42" text-anchor="middle">1 m</text>
+    </g>
+    <g transform="translate(600 165)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -58v58"/>
+      <path class="flag" d="M0 -58 l32 10 l-32 10 z"/>
+      <text class="label" x="0" y="42" text-anchor="middle">1 m</text>
+    </g>
+    <!-- unten -->
+    <g transform="translate(455 255)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -58v58"/>
+      <path class="flag" d="M0 -58 l32 10 l-32 10 z"/>
+      <text class="label" x="0" y="42" text-anchor="middle">1 m</text>
+    </g>
+    <g transform="translate(530 275)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -58v58"/>
+      <path class="flag" d="M0 -58 l32 10 l-32 10 z"/>
+      <text class="label" x="0" y="42" text-anchor="middle">1 m</text>
+    </g>
+    <g transform="translate(605 245)">
+      <circle class="gimme" r="26"/>
+      <circle class="hole" r="8"/>
+      <path class="pin" d="M0 -58v58"/>
+      <path class="flag" d="M0 -58 l32 10 l-32 10 z"/>
+      <text class="label" x="0" y="42" text-anchor="middle">1 m</text>
+    </g>
+  </g>
+
+  <!-- Bunker links -->
+  <path class="bunker" d="M60,280
+     C60,210 120,160 200,160
+     C240,160 275,170 305,195
+     C330,215 340,245 340,275
+     C340,315 305,345 245,355
+     C185,365 120,345 90,325
+     C70,310 60,295 60,280 z"/>
+  <path class="lip" d="M95,230 C155,190 245,185 305,220"/>
+
+  <!-- 6 Startbälle im Bunker -->
+  <g id="start-balls">
+    <circle class="ball" cx="125" cy="275" r="7"/>
+    <circle class="ball" cx="150" cy="268" r="7"/>
+    <circle class="ball" cx="175" cy="280" r="7"/>
+    <circle class="ball" cx="200" cy="270" r="7"/>
+    <circle class="ball" cx="145" cy="295" r="7"/>
+    <circle class="ball" cx="185" cy="300" r="7"/>
+  </g>
+
+  <!-- Sample-Sequenz für EIN Ball: Sandflug + Putt -->
+  <defs>
+    <marker id="arrow-sand" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrowhead" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+    <marker id="arrow-putt" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path class="arrowhead-putt" d="M0,0 L10,4 L0,8 z"/>
+    </marker>
+  </defs>
+
+  <!-- Beispiel: von Ball bei (150,268) auf Ziel bei (540,135); dann Putt in das Loch -->
+  <path class="trajectory" d="M150 268 C240 200, 390 170, 540 145" marker-end="url(#arrow-sand)"/>
+  <path class="puttline" d="M512 142 Q525 140, 540 135" marker-end="url(#arrow-putt)"/>
+</svg>

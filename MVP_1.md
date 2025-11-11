@@ -110,7 +110,7 @@ Short & expandable. A drill is a “template” + HCP-dependent measurement logi
 
 # 3) Gamification (easy, MVP-compatible)
 
-* **Level badges per drill** (1–3) according to `hcpTargets`.
+* **Level badges per drill** (1-3) according to `hcpTargets`.
 * **Streaks**: “5 days of training in a row.”
 * **“PB!”** toast for personal best.
 * (Later) **Mini-quests**: “3 putting drills in 20 min.”
@@ -123,7 +123,7 @@ Short & expandable. A drill is a “template” + HCP-dependent measurement logi
 * Structure: `drills.json` (read-only), `sessions[]`, `favorites[]`, `settings{hcp,handedness,…}`.
 * **HCP logic**: User enters HCP → UI highlights the appropriate target column.
 
-# 5) Types (TS interfaces – short)
+# 5) Types (TS interfaces - short)
 
 ```ts
 type MetricType = “streak”|“count_in_time”|“points_total”|“stations_cleared”|‘corridor_hits’|“score_vs_par”;
@@ -166,7 +166,7 @@ interface Session {
 
 # 8) Two sample drills (different measurement types)
 
-### a) Range – “14 Fairways” (corridor hits)
+### a) Range - “14 Fairways” (corridor hits)
 
 ```json
 {
@@ -189,7 +189,7 @@ interface Session {
 }
 ```
 
-### b) Chipping – „Carry Zone“ (stations cleared / streak)
+### b) Chipping - „Carry Zone“ (stations cleared / streak)
 
 ```json
 {
@@ -215,15 +215,15 @@ interface Session {
 
 # 9) Identify areas for improvement (measurable success)
 
-* Per category **Skill score** (0–100) = normalized average of your last level ratings.
+* Per category **Skill score** (0-100) = normalized average of your last level ratings.
 * **Radar/bar view**: Putting | Chipping | Pitch/pitching | Bunker | Range | Course.
 * List of “**Biggest levers**” = drills with
 
 * frequently below level target **and**
-* high correlation to course stats (FIR/GIR/putts) – (later, when course drills are logged).
+* high correlation to course stats (FIR/GIR/putts) - (later, when course drills are logged).
 
 # 10) Next steps
 
-1. I'll add **10–12 core drills** (1–2 per category) to JSON right away so you can test the flow.
+1. I'll add **10-12 core drills** (1-2 per category) to JSON right away so you can test the flow.
 2. Vue components: `DrillList.vue`, `DrillDetail.vue`, `SessionForm.vue`, `StatsView.vue`, `ShuffleOverlay.vue`.
 3. Easy slot machine: CSS transform + `requestAnimationFrame`, sequential stop (category → drill → target type).

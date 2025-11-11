@@ -34,6 +34,11 @@ export const useFavoritesStore = defineStore('favorites', {
         await this.persist()
       }
     },
+    async setAll(list: string[]) {
+      const unique = Array.from(new Set((list ?? []).map(id => String(id).trim()).filter(Boolean)))
+      this.favorites = unique
+      await this.persist()
+    },
     async toggle(drillId: string) {
       if (this.favorites.includes(drillId)) {
         await this.remove(drillId)

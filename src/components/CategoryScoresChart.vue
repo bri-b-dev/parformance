@@ -6,28 +6,30 @@
     </header>
 
     <!-- SR-only textual summary for accessibility -->
-    <p class="sr-only" role="status" aria-live="polite">
+    <output class="sr-only" aria-live="polite">
       {{ srSummary }}
-    </p>
+    </output>
 
     <!-- Bars (mobile) -->
     <div v-if="actualMode === 'bar'" class="row" style="flex-direction:column; gap:8px;">
       <div v-for="row in rows" :key="row.category" class="w-full">
-        <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; font-size:12px; margin-bottom:4px;">
           <span>{{ row.category }}</span>
           <span>{{ row.value }}%</span>
         </div>
         <div class="w-full" style="height:10px; background: var(--border); border-radius: 999px; overflow:hidden;">
-          <div :data-testid="`bar-${row.category}`"
-               :class="['h-full']"
-               :style="barStyle(row)"></div>
+          <div :data-testid="`bar-${row.category}`" :class="['h-full']" :style="barStyle(row)"></div>
         </div>
       </div>
     </div>
 
     <!-- Radar (desktop) -->
     <div v-else class="w-full" style="display:flex; align-items:center; justify-content:center;">
-      <svg :width="svgSize" :height="svgSize" :viewBox="`0 0 ${svgSize} ${svgSize}`" role="img" aria-label="Radar Chart">
+      <svg :width="svgSize" :height="svgSize" :viewBox="`0 0 ${svgSize} ${svgSize}`" aria-labelledby="radar-title"
+        aria-describedby="radar-desc">
+        <title id="radar-title">Radar Chart</title>
+        <desc id="radar-desc">{{ srSummary }}</desc>
         <!-- grid circles -->
         <g :transform="`translate(${center}, ${center})`" stroke="var(--border)" fill="none">
           <circle v-for="r in [0.25, 0.5, 0.75, 1]" :key="r" :r="r * radius" />
@@ -40,7 +42,8 @@
         <g :transform="`translate(${center}, ${center})`">
           <polygon :points="polygonPoints" :fill="polyFill" :stroke="polyStroke" stroke-width="2" />
           <!-- weakest point marker -->
-          <circle v-if="weakestIndex >= 0" :cx="valuePoint(weakestIndex).x" :cy="valuePoint(weakestIndex).y" r="4" fill="#ef4444" />
+          <circle v-if="weakestIndex >= 0" :cx="valuePoint(weakestIndex).x" :cy="valuePoint(weakestIndex).y" r="4"
+            fill="#ef4444" />
         </g>
         <!-- labels around -->
         <g font-size="11" fill="currentColor">
@@ -56,21 +59,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue';
 
-const props = defineProps<{ 
+const props = defineProps<{
   scores: Record<string, number>,
   title?: string,
   /** 'auto' picks based on viewport; tests/stories can force 'bar' or 'radar' */
   mode?: 'auto' | 'bar' | 'radar',
 }>()
 
-const internalMode = ref<'bar'|'radar'>('bar')
+const internalMode = ref<'bar' | 'radar'>('bar')
 
 onMounted(() => {
   if (props.mode === 'auto' || props.mode == null) {
     try {
-      const w = typeof window !== 'undefined' ? window.innerWidth : 0
+      const w = globalThis.window === undefined ? 0 : globalThis.window.innerWidth
       internalMode.value = w >= 800 ? 'radar' : 'bar'
     } catch { internalMode.value = 'bar' }
   }
@@ -97,11 +100,14 @@ function clampPct(v: any): number {
 
 const weakestIndex = computed(() => {
   let idx = -1; let min = Infinity
-  values.value.forEach((v, i) => { if (v < min) { min = v; idx = i } })
+  for (let i = 0; i < values.value.length; i++) {
+    const v = values.value[i]
+    if (v < min) { min = v; idx = i }
+  }
   return idx
 })
 
-function barStyle(row: {category: string, value: number}) {
+function barStyle(row: { category: string, value: number }) {
   const isWeak = categories.value.indexOf(row.category) === weakestIndex.value
   const color = isWeak ? '#ef4444' /* red-500 */ : '#2F7A52' /* primary */
   return {
@@ -123,7 +129,8 @@ function angleFor(i: number) {
 
 function axisPoint(i: number) {
   const a = angleFor(i)
-  return { x: center + Math.cos(a) * radius, y: center + Math.sin(a) * radius }
+  // return coordinates relative to the group origin (the group is already translated to center)
+  return { x: Math.cos(a) * radius, y: Math.sin(a) * radius }
 }
 
 function valuePoint(i: number) {
@@ -141,7 +148,8 @@ function labelPoint(i: number) {
 const polygonPoints = computed(() => {
   return categories.value.map((_c, i) => {
     const p = valuePoint(i)
-    return `${center + p.x},${center + p.y}`
+    // polygon is rendered inside a group translated to the center, so use relative coords
+    return `${p.x},${p.y}`
   }).join(' ')
 })
 
@@ -152,6 +160,6 @@ const srSummary = computed(() => {
   if (categories.value.length === 0) return 'Keine Kategorien vorhanden.'
   const parts = categories.value.map((c, i) => `${c}: ${values.value[i]} Prozent`)
   const weak = weakestIndex.value >= 0 ? categories.value[weakestIndex.value] : null
-  return `Fähigkeiten je Kategorie. ${parts.join(', ')}. Schwächste Kategorie: ${weak ?? '—'}.`
+  return `Fähigkeiten je Kategorie. ${parts.join(', ')}. Schwächste Kategorie: ${weak ?? '-'}.`
 })
 </script>

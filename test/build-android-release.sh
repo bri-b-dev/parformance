@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-#############################################
-# ParFormance – Android Release Build Script (test/)
-# Runs from test/; builds from project root
-#############################################
+##########################################################
+#   ParFormance – Android Release Build Script (test/)
+#   Runs from test/; builds from project root
+##########################################################
 
 # ==== Directories relative to this script ====
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -42,7 +42,8 @@ while [[ $# -gt 0 ]]; do
     --env) ENV_FILE="$2"; shift 2 ;;
     --dest) CLI_DEST="$2"; shift 2 ;;
     --no-clean) CLEAN=false; shift ;;
-    --no-sync) SYNC=false; shift ;;    --aab) BUILD_AAB=true; shift ;;
+    --no-sync) SYNC=false; shift ;;
+    --aab) BUILD_AAB=true; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "[ERR] Unknown option: $1" >&2; usage; exit 1 ;;
   esac
@@ -71,17 +72,13 @@ fi
 
 req() { [[ -n "${!1:-}" ]] || { echo "[ERR] Missing required env: $1" >&2; exit 2; }; }
 need() { command -v "$1" >/dev/null 2>&1 || { echo "[ERR] Required tool missing: $1" >&2; exit 3; }; }
-log()  { printf "[1;34m[INFO][0m %s
-" "$*"; }
-warn() { printf "[1;33m[WARN][0m %s
-" "$*"; }
+log()  { printf "\033[1;34m[INFO]\033[0m %s\n" "$*"; }
+warn() { printf "\033[1;33m[WARN]\033[0m %s\n" "$*"; }
 
 eq() {
-  printf "%-28s %s
-" "$1" "$2"
+  printf "%-28s %s\n" "$1" "$2"
 }
 
-# Required envs
 req JAVA_HOME
 req ANDROID_KEYSTORE_PATH
 req ANDROID_KEYSTORE_PASSWORD
@@ -168,7 +165,7 @@ if [[ -n "${DEST:-}" ]]; then
   fi
 else
   warn "No DEST provided and DEST_DEFAULT unset. Skipping artifact copy."
-  log  "APK at: $ANDROID_DIR/$APK_PATH"
+  log "APK at: $ANDROID_DIR/$APK_PATH"
   if $BUILD_AAB && [[ -f "$ANDROID_DIR/$AAB_PATH" ]]; then
     log "AAB at: $ANDROID_DIR/$AAB_PATH"
   fi

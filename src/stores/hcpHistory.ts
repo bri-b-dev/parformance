@@ -56,5 +56,3 @@ export const useHcpHistoryStore = defineStore('hcpHistory', {
     }
   }
 })
-
-export default useHcpHistoryStore

@@ -15,7 +15,7 @@ export const useUiStore = defineStore('ui', {
   },
   actions: {
     setGamblerCollapsed(drillId: string, collapsed: boolean) {
-      this.gamblerCollapsed = { ...(this.gamblerCollapsed || {}), [drillId]: collapsed }
+      this.gamblerCollapsed = { ...this.gamblerCollapsed, [drillId]: collapsed }
     }
     ,
     setShuffle(open: boolean) {

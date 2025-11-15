@@ -109,15 +109,6 @@ export const useSettingsStore = defineStore('settings', {
         notifications: this.notifications,
       })
     },
-    async setHcp(hcp: number | null) {
-      this.hcp = hcp
-      this.emitHcpChanged(hcp)
-      await this.persist()
-    },
-    async setHandedness(value: Handedness) {
-      this.handedness = value
-      await this.persist()
-    },
     async update(partial: Partial<Omit<SettingsState, 'loaded'>>) {
       const prevHcp = this.hcp
       if ('hcp' in partial) this.hcp = partial.hcp ?? null

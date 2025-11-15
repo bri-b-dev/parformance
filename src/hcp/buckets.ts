@@ -9,7 +9,7 @@ export interface HcpRow {
   lo: number
 }
 
-/** Parse a range key like "54-27" into numeric hi/lo bounds. 
+/** Parse a range key like "54-27" into numeric hi/lo bounds.
  * Tolerates whitespace and supports either hyphen-minus '-' or en dash '-'.
  */
 export function parseRangeKey(key: string): { hi: number; lo: number } | null {
@@ -86,5 +86,3 @@ export function buildHcpRows(
 export function buildRowsForDrill(drill: Drill, currentHcp: number | null | undefined): HcpRow[] {
   return buildHcpRows(drill.metric.hcpTargets || {}, currentHcp)
 }
-
-export default { parseRangeKey, findBucketKey, formatRangeLabel, buildHcpRows, buildRowsForDrill }

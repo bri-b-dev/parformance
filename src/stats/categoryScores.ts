@@ -86,5 +86,3 @@ export function computeCategoryScores(sessions: Session[], drills: Drill[], mode
   }
   return out
 }
-
-export default { buildDrillCategoryMap, latestLevelByDrill, levelToPct, computeCategoryScores }

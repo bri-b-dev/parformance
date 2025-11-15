@@ -1,9 +1,4 @@
-import type { MetricType, Drill } from '@/types'
-
-export interface ValidationResult {
-  valid: boolean
-  message: string | null
-}
+import type {MetricType, Drill} from '@/types'
 
 /**
  * Validate a numeric input for a given metric type and unit label.
@@ -20,12 +15,10 @@ export function validateMetricValue(type: MetricType, unit: string, value: unkno
 
   // Integer check (all metrics use integers in MVP)
   if (!Number.isInteger(num)) {
-    switch (type) {
-      case 'score_vs_par':
-        return `${unit} muss eine ganze Zahl sein (z. B. -3, 0, 2)`
-      default:
-        return `${unit} muss eine ganze Zahl sein`
+    if (type === 'score_vs_par') {
+      return `${unit} muss eine ganze Zahl sein (z. B. -3, 0, 2)`
     }
+    return `${unit} muss eine ganze Zahl sein`
   }
 
   // Range checks per type
@@ -52,5 +45,3 @@ export function validateMetricValue(type: MetricType, unit: string, value: unkno
 export function validateDrillResult(drill: Drill, value: unknown): string | null {
   return validateMetricValue(drill.metric.type, drill.metric.unit, value)
 }
-
-export default { validateMetricValue, validateDrillResult }

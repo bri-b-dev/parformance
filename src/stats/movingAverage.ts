@@ -52,5 +52,3 @@ export function getMovingAverageTrend(values: number[]): MovingAverageTrend {
 
   return { maLast5, maPrev5, trend }
 }
-
-export default { getMovingAverageTrend } 

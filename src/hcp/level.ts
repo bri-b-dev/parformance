@@ -57,5 +57,3 @@ export function computeLevelForDrill(drill: Drill, hcp: number | null | undefine
   const smaller = !!drill?.metric?.smallerIsBetter
   return computeLevelReached(hcp, drill.metric?.hcpTargets || {}, value, smaller)
 }
-
-export default { computeLevelReached, computeLevelForDrill }

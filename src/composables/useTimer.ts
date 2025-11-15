@@ -57,5 +57,3 @@ export function useTimer(options: UseTimerOptions = {}): UseTimer {
 
   return { elapsed, running, start, pause, reset }
 }
-
-export default useTimer

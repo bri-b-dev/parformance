@@ -30,7 +30,7 @@ const props = defineProps<{
     duration?: number | { min: number; max: number }
     targetValue?: string
 }>()
-const emit = defineEmits<{ (e: 'stopped', value: string): void }>()
+const emit = defineEmits<(e: 'stopped', value: string) => void>()
 
 const listRef = ref<HTMLUListElement | null>(null)
 

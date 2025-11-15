@@ -45,7 +45,8 @@
       </div>
 
       <!-- Empty state -->
-      <output v-if="filtered.length === 0"
+      <div v-if="filtered.length === 0">
+      <output
         class="p-6 text-center rounded-md" aria-live="polite"
         :style="{
           display: 'block',
@@ -55,10 +56,11 @@
           background: 'color-mix(in oklab, var(--surface) 92%, var(--bg) 8%)',
           border: '1px solid var(--border)',
           color: 'var(--muted)'
-        }">
+        }"/>
         <h3 class="text-base font-semibold" :style="{ color: 'var(--text)', margin: 0 }">Keine Drills gefunden</h3>
         <p class="text-sm mt-1" style="margin:8px 0 0">Passe die Filter an oder ändere die Suche.</p>
-      </output>
+
+      </div>
 
       <!-- List -->
       <div v-else class="row">

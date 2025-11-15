@@ -52,5 +52,3 @@ export function computeStreaks(sessions: SimpleSession[], asOf?: string): { curr
 
   return { current, best }
 }
-
-export default { computeStreaks }

@@ -20,5 +20,3 @@ export const useStreaksStore = defineStore('streaks', {
     }
   },
 })
-
-export default { useStreaksStore }

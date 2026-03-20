@@ -65,7 +65,6 @@ const favorites = useFavoritesStore()
 const settings = useSettingsStore()
 const router = useRouter()
 const route = useRoute()
-import { withPreservedQuery } from '@/router'
 const ui = useUiStore()
 const isOpen = computed(() => !!(ui.shuffleOpen || route.name === 'ShuffleOverlay'))
 
@@ -133,7 +132,8 @@ const lastPick = new Map<string, string>()
 
 function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
   if (pool.length === 0) return ''
-  const favFactor = pool.length <= 3 ? 2 : 3
+  // Significantly increased bias: favorites are 10x more likely to be picked when enabled
+  const favFactor = pool.length <= 3 ? 3 : 10
   const weights = pool.map((d) => (biasFavorites.value && d.favorite ? favFactor : 1))
   let chosen = sampleWeighted(pool, weights)
   const last = lastPick.get('drill')

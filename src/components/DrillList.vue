@@ -27,6 +27,14 @@
           </select>
         </div>
 
+        <div class="field" style="min-width:180px;">
+          <label class="label" for="filter-tag">Tag</label>
+          <select id="filter-tag" v-model="filterTag" class="input">
+            <option value="">Alle</option>
+            <option v-for="t in tags" :key="t" :value="t">{{ t }}</option>
+          </select>
+        </div>
+
         <div class="field" style="min-width:220px; flex:1;">
           <label class="label" for="filter-query">Suche</label>
           <input id="filter-query" class="input" type="search" v-model.trim="filterQuery" placeholder="Titel suchen…" />
@@ -75,14 +83,20 @@ import DrillCard from '@/components/DrillCard.vue'
 import { filterDrills } from '@/filters/drills'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useUiStore } from '@/stores/ui'
 import { computed, onMounted, ref } from 'vue'
 
 const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()
+const ui = useUiStore()
 
 // Filters
 const filterCategory = ref<string>('')
 const filterQuery = ref<string>('')
+const filterTag = computed({
+  get: () => ui.activeTag,
+  set: (val) => ui.setActiveTag(val)
+})
 const onlyFavorites = ref<boolean>(false)
 
 onMounted(async () => {
@@ -95,18 +109,28 @@ const categories = computed(() => {
   return Array.from(set).sort((a, b) => a.localeCompare(b))
 })
 
+const tags = computed(() => {
+  const set = new Set<string>()
+  for (const d of catalog.drills) {
+    if (d.tags) d.tags.forEach((t: string) => set.add(t))
+  }
+  return Array.from(set).sort((a, b) => a.localeCompare(b))
+})
+
 const filtered = computed(() => {
   return filterDrills(catalog.drills, {
     category: filterCategory.value || undefined,
     query: filterQuery.value || undefined,
     onlyFavorites: onlyFavorites.value,
     favorites: favorites.list,
+    tag: filterTag.value || undefined,
   })
 })
 
 function resetFilters() {
   filterCategory.value = ''
   filterQuery.value = ''
+  filterTag.value = ''
   onlyFavorites.value = false
 }
 </script>

@@ -17,26 +17,23 @@ A modern, mobile‑first application built with Vue 3, Vite, and Capacitor for t
   </a>
 </p>
 
-## Table of contents
-- [ParFormance](#parformance)
-  - [Table of contents](#table-of-contents)
-  - [About](#about)
-  - [Features](#features)
-  - [UX Philosophy](#ux-philosophy)
-  - [Tech stack](#tech-stack)
-  - [Prerequisites](#prerequisites)
-  - [Getting started](#getting-started)
-  - [Scripts](#scripts)
-  - [Configuration](#configuration)
-  - [Development](#development)
-  - [Building for production](#building-for-production)
-  - [Running on mobile (Capacitor)](#running-on-mobile-capacitor)
-  - [Docker usage](#docker-usage)
-  - [Project structure](#project-structure)
-  - [Troubleshooting](#troubleshooting)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Storybook](#storybook)
+- [About](#about)
+- [Features](#features)
+- [UX Philosophy](#ux-philosophy)
+- [Tech stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Getting started](#getting-started)
+- [Scripts](#scripts)
+- [Configuration](#configuration)
+- [Development](#development)
+- [Building for production](#building-for-production)
+- [Running on mobile (Capacitor)](#running-on-mobile-capacitor)
+- [Docker usage](#docker-usage)
+- [Project structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Storybook](#storybook)
 
 ## About
 **ParFormance** is a modern golf training companion designed to make practice measurable, motivating, and fun.  

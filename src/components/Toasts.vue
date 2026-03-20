@@ -53,7 +53,4 @@ onBeforeUnmount(() => {
   font-weight: 600;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
-.toast.success { background: #16a34a }
-.toast.error { background: #dc2626 }
-.toast.info { background: #2563eb }
 </style>

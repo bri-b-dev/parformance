@@ -88,9 +88,8 @@ const categories = computed(() => Object.keys(props.scores || {}))
 const values = computed(() => categories.value.map(c => clampPct(props.scores[c])))
 
 const rows = computed(() => {
-  const out = categories.value.map((c, i) => ({ category: c, value: values.value[i] }))
   // highlight weakest by ordering? keep original; styling uses index
-  return out
+  return categories.value.map((c, i) => ({ category: c, value: values.value[i] }))
 })
 
 function clampPct(v: any): number {

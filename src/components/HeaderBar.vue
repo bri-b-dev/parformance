@@ -39,7 +39,7 @@ const toggle = async () => {
     await settingsStore.update({ theme: next })
 }
 
-defineEmits<{ (e: 'open-settings'): void }>()
+defineEmits<(e: 'open-settings') => void>()
 
 </script>
 
@@ -51,5 +51,7 @@ defineEmits<{ (e: 'open-settings'): void }>()
 
 .i-lucide-settings::before {
     content: '⚙️';
+.header-inner {
+    padding-top: 8px;
 }
 </style>

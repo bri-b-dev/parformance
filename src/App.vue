@@ -45,3 +45,18 @@ onMounted(async () => {
   if (!sessions.loaded) await sessions.load()
 })
 </script>
+
+<style>
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.25s ease-out;
+}
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(10px);
+}
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+</style>

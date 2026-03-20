@@ -4,7 +4,12 @@
     aria-labelledby="shuffle-title">
     <div class="card overlay-panel slot-panel" role="document">
       <header class="slot-header">
-        <h2 id="shuffle-title">Zufallsauswahl</h2>
+        <h2 id="shuffle-title" style="display: flex; align-items: baseline;">
+          Zufallsauswahl
+          <span v-if="ui.activeCategory || ui.activeTag" style="font-size: 0.95rem; font-weight: 500; color: var(--muted); margin-left: 10px;">
+            {{ [ui.activeCategory, ui.activeTag].filter(Boolean).join(' • ') }}
+          </span>
+        </h2>
         <!-- X entfernt -->
       </header>
 
@@ -92,7 +97,14 @@ interface DerivedDrill {
 }
 
 const derived = computed<DerivedDrill[]>(() => {
-  return catalog.drills
+  let list = catalog.drills
+  if (ui.activeCategory) {
+    list = list.filter((d: any) => d.category === ui.activeCategory)
+  }
+  if (ui.activeTag) {
+    list = list.filter((d: any) => d.tags && d.tags.includes(ui.activeTag))
+  }
+  return list
     .map((d: any) => ({
       id: d.id,
       title: String(d?.title ?? '').trim(),

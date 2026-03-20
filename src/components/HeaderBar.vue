@@ -19,7 +19,8 @@
                     <span v-else>☀️</span>
                 </button>
 
-                <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" type="button" aria-label="Einstellungen" @click="$emit('open-settings')">
+                <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" type="button"
+                    aria-label="Einstellungen" @click="$emit('open-settings')">
                     ⚙️
                 </button>
             </div>
@@ -51,6 +52,8 @@ defineEmits<(e: 'open-settings') => void>()
 
 .i-lucide-settings::before {
     content: '⚙️';
+}
+
 .header-inner {
     padding-top: 8px;
 }

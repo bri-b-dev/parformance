@@ -39,29 +39,12 @@ const toggle = async () => {
     await settingsStore.update({ theme: next })
 }
 
-defineEmits<{ (e: 'open-settings'): void }>()
+defineEmits<(e: 'open-settings') => void>()
 
 </script>
 
 <style scoped>
-/* Using Iconify or a similar system for icons. Replace with your icon lib. */
-.i-lucide-shuffle::before {
-    content: '🔀';
-}
-
-.i-lucide-settings::before {
-    content: '⚙️';
-}
-</style>
-
-<style scoped>
 .header-inner {
-    /* Provide a safe-area top padding fallback for devices where the status
-         bar overlays the WebView. The plain 'padding-top' provides a sensible
-         default and is overridden by the env() value on supporting platforms. */
     padding-top: 8px;
-    padding-top: env(safe-area-inset-top);
-    /* iOS older syntax */
-    padding-top: constant(safe-area-inset-top);
 }
 </style>

@@ -21,5 +21,3 @@ export function filterDrills(drills: Drill[], filter: DrillFilter): Drill[] {
     return !(onlyFavorites && !favSet.has(d.id));
   })
 }
-
-export default { filterDrills }

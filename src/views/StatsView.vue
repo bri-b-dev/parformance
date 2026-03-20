@@ -155,13 +155,6 @@ const isEmpty = computed(() => (filteredSessions.value || []).length === 0)
 // Use current evaluation mode for progress UI: evaluate past sessions using current HCP
 const scores = computed(() => computeCategoryScores(filteredSessions.value, filteredDrills.value, evaluationMode.value))
 
-const rows = computed(() => {
-  // Show categories alphabetically for stability
-  const entries = Object.entries(scores.value || {})
-  entries.sort((a, b) => a[0].localeCompare(b[0]))
-  return entries.map(([category, value]) => ({ category, value: Math.max(0, Math.min(100, Number(value) || 0)) }))
-})
-
 const areas = computed(() => {
   // compute areas using currently filtered sessions/drills and the current evaluation mode
   try {

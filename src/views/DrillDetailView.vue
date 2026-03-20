@@ -3,32 +3,33 @@
     <!-- Loading state -->
     <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite">
       <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"
-        aria-hidden="true"></span>
+            aria-hidden="true"></span>
       <span class="text-sm text-gray-600">Lade Drill…</span>
     </output>
 
     <!-- Content -->
     <template v-else>
-      <DrillDetail v-if="drill" :drill="drill" />
+      <DrillDetail v-if="drill" :drill="drill"/>
 
       <!-- Not found state -->
-      <output v-else class="card" aria-live="polite">
+      <div v-else>
+        <output class="card" aria-live="polite"/>
         <h2 style="margin:0; font-size:1.1rem; font-weight:700;">Drill nicht gefunden</h2>
         <p class="text-sm text-gray-600" style="margin:.25rem 0 0;">Die angeforderte Übung mit ID „{{ id }}“ existiert
           nicht.</p>
         <div class="row" style="margin-top:10px;">
           <RouterLink class="btn" :to="{ name: 'DrillsList' }">Zurück zur Liste</RouterLink>
         </div>
-      </output>
+      </div>
     </template>
   </section>
 </template>
 
 <script setup lang="ts">
 import DrillDetail from '@/components/DrillDetail.vue'
-import { useDrillCatalogStore } from '@/stores/drillCatalog'
-import { computed, onMounted, watch, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+import {useDrillCatalogStore} from '@/stores/drillCatalog'
+import {computed, onMounted, watch, nextTick} from 'vue'
+import {useRoute} from 'vue-router'
 
 const catalog = useDrillCatalogStore()
 const route = useRoute()
@@ -44,9 +45,9 @@ onMounted(async () => {
   await nextTick()
   const mainEl = globalThis.document?.querySelector('main')
   if (mainEl && typeof (mainEl as any).scrollTo === 'function') {
-    (mainEl as any).scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    (mainEl as any).scrollTo({top: 0, left: 0, behavior: 'auto'})
   } else if (globalThis.window !== undefined && typeof globalThis.window.scrollTo === 'function') {
-    globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    globalThis.window.scrollTo({top: 0, left: 0, behavior: 'auto'})
   }
 })
 
@@ -54,9 +55,9 @@ watch(id, async () => {
   await nextTick()
   const mainEl2 = globalThis.document?.querySelector('main')
   if (mainEl2 && typeof (mainEl2 as any).scrollTo === 'function') {
-    (mainEl2 as any).scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    (mainEl2 as any).scrollTo({top: 0, left: 0, behavior: 'auto'})
   } else if (globalThis.window !== undefined && typeof globalThis.window.scrollTo === 'function') {
-    globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    globalThis.window.scrollTo({top: 0, left: 0, behavior: 'auto'})
   }
 })
 

@@ -41,4 +41,50 @@ app.use(router);
 // window insets on native platforms shortly after startup.
 ensureStatusBar()
 
+// Handle Android hardware back button to navigate within the SPA instead of
+// letting the OS close the app. We dynamically import the Capacitor App
+// plugin to avoid compile-time errors in web-only builds.
+async function ensureBackButtonHandling() {
+	try {
+		if (!Capacitor.isNativePlatform()) return
+		// indirect dynamic import to avoid bundlers resolving this for web
+		// eslint-disable-next-line no-new-func
+		const dynamicImport = new Function('s', 'return import(s)') as (s: string) => Promise<any>
+		const mod = await dynamicImport('@capacitor/app').catch(() => null)
+		const AppPlugin = mod?.App
+		if (!AppPlugin || typeof AppPlugin.addListener !== 'function') return
+
+		// Wait until router is ready so currentRoute is reliable
+		router.isReady().then(() => {
+			AppPlugin.addListener('backButton', () => {
+				try {
+					const route = router.currentRoute.value
+					// If we're viewing a drill detail, navigate to the drills list explicitly
+					if (route.name === 'DrillDetail') {
+						router.push({ name: 'DrillsList' })
+						return
+					}
+
+					// Otherwise, if there's history, go back, else exit the app
+					if (typeof window !== 'undefined' && window.history && window.history.length > 1) {
+						router.back()
+						return
+					}
+
+					// No history to go back to — let the OS handle exiting the app
+					if (typeof AppPlugin.exitApp === 'function') {
+						AppPlugin.exitApp()
+					}
+				} catch (e) {
+					console.debug('backButton handler error', e)
+				}
+			})
+		})
+	} catch (e) {
+		console.debug('Back button handler initialization failed', e)
+	}
+}
+
+ensureBackButtonHandling()
+
 app.mount('#app');

@@ -1,5 +1,5 @@
 <template>
-  <svg :width="width" :height="height" :viewBox="`0 0 ${width} ${height}`" fill="none"
+  <svg :width="width" :height="height" :viewBox="`0 0 ${width} ${height}`"
     xmlns="http://www.w3.org/2000/svg" aria-label="Sparkline">
     <polyline :points="pointsAttr" :stroke="color" stroke-width="2" fill="none" vector-effect="non-scaling-stroke" />
   </svg>

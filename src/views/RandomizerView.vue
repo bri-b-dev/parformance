@@ -136,8 +136,7 @@ function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
   let chosen = sampleWeighted(pool, weights)
   const last = lastPick.get('drill')
   if (last && pool.length > 1 && chosen.id === last) {
-    const alt = pool.find((p) => p.id !== last) ?? chosen
-    chosen = alt
+    chosen = pool.find((p) => p.id !== last) ?? chosen
   }
   lastPick.set('drill', chosen.id)
   return chosen.id
@@ -275,22 +274,6 @@ function onReelStopped(slot: SlotKey, _value: string) {
   }
 }
 
-function cancel() {
-  if (!running.value) return
-  running.value = false
-  targetTitle.value = null
-  selectedDrillId.value = null
-  displayTitle.value = null
-  for (const slot of reelOrder) {
-    spinning[slot] = false
-  }
-  if (spinResolver) {
-    const resolver = spinResolver
-    spinResolver = null
-    resolver()
-  }
-}
-
 async function finish() {
   const id = selectedDrillId.value
   if (!id) return
@@ -414,26 +397,6 @@ function close() {
   border: 1px solid var(--border);
 }
 
-.slot-result {
-  margin: 10px 0 4px;
-  text-align: center;
-  color: var(--text, #444C56);
-}
-
-.slot-result-label {
-  display: inline-block;
-  margin-right: 6px;
-  font-size: .75rem;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-  color: #6b7280;
-}
-
-.slot-result-value {
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
 .slot-marker {
   position: absolute;
   left: 18px;
@@ -444,78 +407,6 @@ function close() {
   box-shadow: 0 0 0 1px rgba(47, 122, 82, 0.08);
   transform: translateY(-50%);
   pointer-events: none;
-}
-
-.reel-divider {
-  width: 10px;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.02));
-  border-radius: 6px;
-  box-shadow: inset -1px 0 rgba(255, 255, 255, 0.7), inset 1px 0 rgba(0, 0, 0, 0.05);
-}
-
-/* REEL */
-.reel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.reel-label {
-  font-size: .8rem;
-  color: #6b7280;
-  font-weight: 600;
-  letter-spacing: .2px;
-}
-
-.reel-viewport {
-  position: relative;
-  height: 48px;
-  /* Sichtfenster = itemHeight */
-  overflow: hidden;
-  min-width: 240px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 85%, var(--bg) 15%), var(--surface));
-  border: 1px solid var(--border);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent),
-    inset 0 -2px 12px color-mix(in oklab, rgba(0,0,0,0.06) 20%, transparent);
-}
-
-.reel-track {
-  will-change: transform;
-  transition: none;
-}
-
-.reel-item {
-  height: 48px;
-  line-height: 48px;
-  font-size: 1.06rem;
-  font-weight: 600;
-  color: var(--text, #444C56);
-  text-align: center;
-  white-space: nowrap;
-  padding: 0 12px;
-}
-
-/* Fade masks oben/unten */
-.reel-fade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 18px;
-  pointer-events: none;
-  background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0));
-}
-
-.reel-fade.top {
-  top: 0;
-}
-
-.reel-fade.bottom {
-  bottom: 0;
-  transform: rotate(180deg);
 }
 
 /* CONTROLS */
@@ -539,58 +430,6 @@ function close() {
   transform: translateY(1px);
 }
 
-.actions {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn {
-  border-radius: 12px;
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.btn:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-}
-
-.btn.ghost {
-  background: var(--surface);
-}
-
-/* Hebel-Button */
-.lever {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 16px 12px 14px;
-  border-radius: 999px;
-  box-shadow: 0 6px 16px color-mix(in oklab, var(--primary) 28%, transparent), inset 0 1px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent);
-}
-
-.lever-knob {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--surface);
-  box-shadow: inset 0 1px 0 color-mix(in oklab, rgba(0,0,0,0.06) 40%, transparent), 0 2px 6px color-mix(in oklab, rgba(0,0,0,0.25) 40%, transparent);
-}
-
-.lever-text {
-  font-weight: 800;
-  letter-spacing: .2px;
-}
-
-/* sanftes Wippen: kurz runterdrücken, minimal overshoot, settle */
-.lever.wobble {
-  animation: lever-wobble 320ms cubic-bezier(.2, .8, .3, 1) both;
-}
-
 @keyframes lever-wobble {
   0% {
     transform: translateY(0) scale(1);
@@ -606,13 +445,6 @@ function close() {
 
   100% {
     transform: translateY(0) scale(1);
-  }
-}
-
-/* Accessibility: reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .reel-track {
-    transition: none;
   }
 }
 </style>

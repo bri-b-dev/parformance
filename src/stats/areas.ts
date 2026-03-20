@@ -1,9 +1,8 @@
-import type { Drill, Session } from '@/types'
-import { latestLevelByDrill } from '@/stats/categoryScores'
-import { interpolateTargets, evaluateSessionLevel } from '@/hcp/evaluator'
-import { useHcpHistoryStore } from '@/stores/hcpHistory'
-import { getMovingAverageTrend } from '@/stats/movingAverage'
-import { findBucketKey } from '@/hcp/buckets'
+import type {Drill, Session} from '@/types'
+import {latestLevelByDrill} from '@/stats/categoryScores'
+import {interpolateTargets} from '@/hcp/evaluator'
+import {useHcpHistoryStore} from '@/stores/hcpHistory'
+import {getMovingAverageTrend} from '@/stats/movingAverage'
 
 export type AreaDrill = {
   id: string
@@ -83,12 +82,12 @@ export function computeAreasOfImprovement(
     if (typeof targetLevel === 'number' && Number.isFinite(targetLevel)) {
       const gap = targetLevel - latest
       if (gap > 0) {
-        belowTarget.push({ id, title: d.title, category: d.category, latestLevel: latest, targetLevel, gap })
+        belowTarget.push({id, title: d.title, category: d.category, latestLevel: latest, targetLevel, gap})
       }
     }
 
     // compute trend via moving average
-  const vals = (sessions || []).filter(s => s.drillId === id).map(s => Number(s.result?.value)).filter(v => Number.isFinite(v))
+    const vals = (sessions || []).filter(s => s.drillId === id).map(s => Number(s.result?.value)).filter(v => Number.isFinite(v))
     const trend = getMovingAverageTrend(vals)
     const maLast = trend.maLast5
     const maPrev = trend.maPrev5
@@ -97,10 +96,10 @@ export function computeAreasOfImprovement(
     const smallerIsBetter = Boolean(d.metric?.smallerIsBetter)
     const delta = (maLast != null && maPrev != null) ? (smallerIsBetter ? (maPrev - maLast) : (maLast - maPrev)) : 0
     if (maLast != null && maPrev != null && Math.abs(delta) <= tolerance) {
-      stagnant.push({ id, title: d.title, category: d.category, latestLevel: latest })
+      stagnant.push({id, title: d.title, category: d.category, latestLevel: latest})
     }
 
-    improvements.push({ id, title: d.title, category: d.category, maPrev5: maPrev, maLast5: maLast, delta })
+    improvements.push({id, title: d.title, category: d.category, maPrev5: maPrev, maLast5: maLast, delta})
   }
 
   // sort belowTarget by gap desc
@@ -111,7 +110,5 @@ export function computeAreasOfImprovement(
     .filter(i => i.maPrev5 != null && i.maLast5 != null)
     .sort((a, b) => b.delta - a.delta)
 
-  return { belowTarget, stagnant, mostImproved }
+  return {belowTarget, stagnant, mostImproved}
 }
-
-export default { computeAreasOfImprovement }

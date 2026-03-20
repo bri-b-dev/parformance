@@ -81,6 +81,19 @@ watch(() => props.open, async (isOpen) => {
   }
 })
 
+function resolveThemePreference(preference: 'system' | 'light' | 'dark'): 'light' | 'dark' {
+  if (preference !== 'system') {
+    return preference
+  }
+
+  const hasWindow = globalThis.window !== undefined
+  const hasMatchMedia = globalThis.matchMedia !== undefined
+  const prefersDark = hasWindow && hasMatchMedia &&
+    globalThis.matchMedia('(prefers-color-scheme: dark)').matches
+
+  return prefersDark ? 'dark' : 'light'
+}
+
 async function saveAndClose(values: FormModel) {
   await ensureStoresLoaded()
   await settingsStore.update({
@@ -96,15 +109,13 @@ async function saveAndClose(values: FormModel) {
   })
   // Ensure theme is applied immediately even if listeners miss the event
   try {
-    const pref = values.theme
-    const resolved = pref === 'system'
-      ? (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-      : pref
-    if (typeof document !== 'undefined' && document.documentElement) {
-      document.documentElement.setAttribute('data-theme', resolved)
+    const resolved = resolveThemePreference(values.theme)
+    if (document !== undefined && document.documentElement) {
+      document.documentElement.dataset.theme = resolved
     }
-    try { window.dispatchEvent(new CustomEvent('theme-preference-changed', { detail: pref })) } catch { }
-  } catch (e) {
+    try {
+      globalThis.dispatchEvent(new CustomEvent('theme-preference-changed', { detail: values.theme })) } catch { }
+  } catch {
     // ignore
   }
   emit('close')
@@ -152,8 +163,8 @@ async function downloadJsonNative(filename: string, data: any) {
       })
       showAlert('Export gestartet (native Share)')
       return
-    } catch (errFiles) {
-      console.debug('Share.files failed, falling back to url share', errFiles)
+    } catch (error_) {
+      console.debug('Share.files failed, falling back to url share', error_)
     }
 
     // Fallback: try URL via convertFileSrc (works for webview preview / some share impls)
@@ -169,9 +180,9 @@ async function downloadJsonNative(filename: string, data: any) {
       })
       showAlert('Export gestartet (URL-Fallback)')
       return
-    } catch (errUrl) {
-      console.error('Share.url fallback failed', errUrl)
-      throw errUrl
+    } catch (error_) {
+      console.error('Share.url fallback failed', error_)
+      throw error_
     }
   } catch (err) {
     console.error('downloadJsonNative failed', err)
@@ -236,8 +247,8 @@ async function exportData() {
     try {
       downloadJsonWeb(fileName, payload)
       showAlert('Export als Web-Download gestartet (Fallback).')
-    } catch (webErr) {
-      console.error('Web fallback export also failed', webErr)
+    } catch (error_) {
+      console.error('Web fallback export also failed', error_)
       showAlert('Export fehlgeschlagen. Bitte prüfen Sie die App-Berechtigungen.')
     }
   }
@@ -260,7 +271,7 @@ async function importData(data: any) {
       })
     }
     if (Array.isArray(data?.favorites)) {
-      await favoritesStore.setAll(data.favorites.map((id: any) => String(id)))
+      await favoritesStore.setAll(data.favorites.map(String))
     }
     if (Array.isArray(data?.sessions)) {
       await sessionsStore.replaceAll(data.sessions as Session[])
@@ -288,27 +299,18 @@ async function resetAll() {
 </script>
 
 <style scoped>
-.sheet-enter-active,
-.sheet-leave-active {
-  transition: opacity .2s ease;
-}
-
-.sheet-enter-from,
-.sheet-leave-to {
-  opacity: 0;
-}
 
 /* Ensure the right-side settings panel accounts for device safe-area (status bar)
    so header controls like the "Schließen" button are not hidden on devices
    where the native status bar overlays the WebView. We add the safe-area
-   inset to the existing top padding (1rem from the `p-4` Tailwind class).
+   inset to the existing top padding.
 */
 .settings-sheet-panel {
-  /* sensible default matching p-4 (1rem) */
-  padding-top: 1rem;
-  /* iOS older constant() syntax fallback */
-  padding-top: calc(1rem + constant(safe-area-inset-top));
-  /* modern env() usage; this will be used on supporting platforms */
-  padding-top: calc(1rem + env(safe-area-inset-top));
+  /* Default padding matching p-4 */
+  padding-top: var(1rem);
+  /* Legacy iOS <11.2 fallback - may trigger linter warnings but needed for old devices */
+  padding-top: calc(var(--base-padding) + constant(safe-area-inset-top));
+  /* Modern safe-area support for iOS 11.2+ and other platforms */
+  padding-top: calc(var(--base-padding) + env(safe-area-inset-top));
 }
 </style>

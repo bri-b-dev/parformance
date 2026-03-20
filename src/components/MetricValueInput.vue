@@ -27,9 +27,7 @@ const props = defineProps<{
   disabled?: boolean
 }>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: number | null): void
-}>()
+const emit = defineEmits<(e: 'update:modelValue', value: number | null) => void>()
 
 const inputId = `metric-${Math.random().toString(36).slice(2)}`
 const innerValue = ref<number | null>(props.modelValue ?? null)
@@ -84,10 +82,6 @@ function onInput(e: Event) {
 .metric-input-wrapper:focus-within {
   border-color: color-mix(in oklab, var(--primary) 65%, var(--border));
   box-shadow: 0 0 0 4px var(--ring);
-}
-
-.metric-input-wrapper.disabled {
-  opacity: .65;
 }
 
 .metric-input {

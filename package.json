@@ -1,6 +1,6 @@
 {
   "name": "parformance",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "engines": {
@@ -20,6 +20,7 @@
     "@capacitor/app": "^7.1.0",
     "@capacitor/core": "^7.4.3",
     "@capacitor/filesystem": "^7.1.4",
+    "@capacitor/haptics": "^7.0.4",
     "@capacitor/preferences": "^7.0.2",
     "@capacitor/share": "^7.0.2",
     "@capacitor/status-bar": "^7.0.3",

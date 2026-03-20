@@ -10,7 +10,7 @@ export function useTheme() {
 
     const apply = (value: 'light' | 'dark') => {
         try {
-            document.documentElement.setAttribute('data-theme', value)
+          document.documentElement.dataset.theme = value
         } catch {
             /* ignore */
         }

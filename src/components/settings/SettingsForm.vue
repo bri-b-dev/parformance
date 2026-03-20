@@ -48,21 +48,21 @@
             <option value="dark">Dunkel</option>
           </select>
         </div>
-        <div class="flex items-center justify-between bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2">
+        <div class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2">
           <div>
             <div class="text-sm font-medium">Soundeffekte</div>
             <div class="text-xs text-app-sub">z. B. Slot-Machine</div>
           </div>
           <input v-model="local.sounds" type="checkbox" class="w-5 h-5" />
         </div>
-        <div class="flex items-center justify-between bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2">
+        <div class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2">
           <div>
             <div class="text-sm font-medium">Favoriten bevorzugen</div>
             <div class="text-xs text-app-sub">Shuffle zuerst aus ⭐ Favoriten</div>
           </div>
           <input v-model="local.shuffleFavorites" type="checkbox" class="w-5 h-5" />
         </div>
-        <div class="flex items-center justify-between bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2">
+        <div class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2">
           <div>
             <div class="text-sm font-medium">Benachrichtigungen</div>
             <div class="text-xs text-app-sub">z. B. Trainings-Reminder</div>
@@ -82,11 +82,11 @@
           Daten importieren
         </label>
       </div>
-      <div class="mt-4 p-3 rounded-xl border danger-zone">
-        <div class="text-sm font-medium mb-2">Zurücksetzen</div>
+      <div class="mt-4 p-3 rounded-xl border danger-zone bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800/50">
+        <div class="text-sm font-medium mb-2 text-red-900 dark:text-red-200">Zurücksetzen</div>
         <div class="flex items-center justify-between">
-          <p class="text-sm text-app-sub">Alle lokalen Daten löschen (Sessions, Favoriten, Einstellungen)</p>
-          <button class="btn btn-primary" type="button" @click="confirmReset">Reset</button>
+          <p class="text-sm text-red-700 dark:text-red-400">Alle lokalen Daten löschen (Sessions, Favoriten, Einstellungen)</p>
+          <button class="btn bg-red-600 text-white dark:bg-red-700 border-transparent text-sm" type="button" @click="confirmReset">Reset</button>
         </div>
       </div>
     </section>

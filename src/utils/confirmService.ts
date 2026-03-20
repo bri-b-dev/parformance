@@ -69,5 +69,3 @@ export function requestConfirm(message: string): Promise<boolean> {
     }, 1000)
   })
 }
-
-export default { setConfirmHandler, requestConfirm }

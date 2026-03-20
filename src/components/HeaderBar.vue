@@ -1,7 +1,7 @@
 <template>
     <header
         class="sticky top-0 z-30 bg-app-bg/80 backdrop-blur supports-[backdrop-filter]:bg-app-bg/60 border-b border-zinc-200">
-        <div class="max-w-6xl mx-auto pt-1 px-4 h-18 flex items-center justify-between header-inner">
+        <div class="max-w-6xl mx-auto pt-2 px-4 h-18 flex items-center justify-between header-inner">
             <div class="flex items-center gap-3 select-none">
                 <div class="brand" aria-label="ParFormance">
                     <img src="/logo-header.svg" alt="ParFormance" class="logo" />
@@ -13,13 +13,14 @@
 
             </div>
             <div style="display:flex; gap:8px; align-items:center;">
-                <button class="btn" @click="toggle()"
+                <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" @click="toggle()"
                     :aria-label="theme === 'dark' ? 'Switch to light' : 'Switch to dark'">
                     <span v-if="theme === 'dark'">🌙</span>
                     <span v-else>☀️</span>
                 </button>
 
-                <button class="btn" type="button" aria-label="Einstellungen" @click="$emit('open-settings')">
+                <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" type="button"
+                    aria-label="Einstellungen" @click="$emit('open-settings')">
                     ⚙️
                 </button>
             </div>
@@ -39,7 +40,7 @@ const toggle = async () => {
     await settingsStore.update({ theme: next })
 }
 
-defineEmits<{ (e: 'open-settings'): void }>()
+defineEmits<(e: 'open-settings') => void>()
 
 </script>
 
@@ -52,16 +53,8 @@ defineEmits<{ (e: 'open-settings'): void }>()
 .i-lucide-settings::before {
     content: '⚙️';
 }
-</style>
 
-<style scoped>
 .header-inner {
-    /* Provide a safe-area top padding fallback for devices where the status
-         bar overlays the WebView. The plain 'padding-top' provides a sensible
-         default and is overridden by the env() value on supporting platforms. */
     padding-top: 8px;
-    padding-top: env(safe-area-inset-top);
-    /* iOS older syntax */
-    padding-top: constant(safe-area-inset-top);
 }
 </style>

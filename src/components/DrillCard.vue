@@ -1,7 +1,7 @@
 <template>
   <article class="drill-card card" style="flex:1 1 280px;">
     <header style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-      <RouterLink :to="{ name: 'DrillDetail', params: { id: drill.id } }"
+      <RouterLink :to="preserve({ name: 'DrillDetail', params: { id: drill.id } })"
         style="font-weight:700; text-decoration:none; color:inherit">
         {{ drill.title }}
       </RouterLink>
@@ -13,7 +13,7 @@
       <span class="chip" v-for="t in drill.tags" :key="t">{{ t }}</span>
     </div>
     <footer style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
-      <RouterLink :to="{ name: 'DrillDetail', params: { id: drill.id } }" class="btn" aria-label="Details">Details
+      <RouterLink :to="preserve({ name: 'DrillDetail', params: { id: drill.id } })" class="btn" aria-label="Details">Details
       </RouterLink>
     </footer>
   </article>
@@ -22,8 +22,12 @@
 <script setup lang="ts">
 import type { Drill } from '@/types';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router'
+import { withPreservedQuery } from '@/router'
 
 const props = defineProps<{ drill: Drill }>()
+const route = useRoute()
+const preserve = (to: any) => withPreservedQuery(to, route)
 
 const difficultyLabel = computed(() => {
   // Use difficulty.base when available, otherwise use 3 as neutral default

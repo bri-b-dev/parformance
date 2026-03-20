@@ -6,6 +6,8 @@ export const useUiStore = defineStore('ui', {
     gamblerCollapsed: {} as Record<string, boolean>,
     // whether the shuffle overlay/modal is open (transient)
     shuffleOpen: false as boolean,
+    // active tag filter shared between DrillList and Randomizer
+    activeTag: '' as string,
   }),
   getters: {
     isGamblerCollapsed: (state) => (drillId: string) => {
@@ -15,11 +17,13 @@ export const useUiStore = defineStore('ui', {
   },
   actions: {
     setGamblerCollapsed(drillId: string, collapsed: boolean) {
-      this.gamblerCollapsed = { ...(this.gamblerCollapsed || {}), [drillId]: collapsed }
-    }
-    ,
+      this.gamblerCollapsed = { ...this.gamblerCollapsed, [drillId]: collapsed }
+    },
     setShuffle(open: boolean) {
       this.shuffleOpen = !!open
+    },
+    setActiveTag(tag: string) {
+      this.activeTag = tag
     }
   }
 })

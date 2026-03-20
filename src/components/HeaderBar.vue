@@ -1,7 +1,7 @@
 <template>
     <header
         class="sticky top-0 z-30 bg-app-bg/80 backdrop-blur supports-[backdrop-filter]:bg-app-bg/60 border-b border-zinc-200">
-        <div class="max-w-6xl mx-auto pt-1 px-4 h-18 flex items-center justify-between header-inner">
+        <div class="max-w-6xl mx-auto pt-2 px-4 h-18 flex items-center justify-between header-inner">
             <div class="flex items-center gap-3 select-none">
                 <div class="brand" aria-label="ParFormance">
                     <img src="/logo-header.svg" alt="ParFormance" class="logo" />
@@ -13,13 +13,13 @@
 
             </div>
             <div style="display:flex; gap:8px; align-items:center;">
-                <button class="btn" @click="toggle()"
+                <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" @click="toggle()"
                     :aria-label="theme === 'dark' ? 'Switch to light' : 'Switch to dark'">
                     <span v-if="theme === 'dark'">🌙</span>
                     <span v-else>☀️</span>
                 </button>
 
-                <button class="btn" type="button" aria-label="Einstellungen" @click="$emit('open-settings')">
+                <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" type="button" aria-label="Einstellungen" @click="$emit('open-settings')">
                     ⚙️
                 </button>
             </div>
@@ -44,6 +44,13 @@ defineEmits<(e: 'open-settings') => void>()
 </script>
 
 <style scoped>
+/* Using Iconify or a similar system for icons. Replace with your icon lib. */
+.i-lucide-shuffle::before {
+    content: '🔀';
+}
+
+.i-lucide-settings::before {
+    content: '⚙️';
 .header-inner {
     padding-top: 8px;
 }

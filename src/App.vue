@@ -3,8 +3,12 @@
     <HeaderBar @shuffle="openShuffle" @open-settings="onOpenSettings" />
 
     <main>
-      <div class="container">
-        <RouterView />
+      <div class="container relative">
+        <RouterView v-slot="{ Component }">
+          <transition name="fade-slide" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </RouterView>
       </div>
       <!-- Render the shuffle overlay as a real modal when toggled via the UI store -->
       <RandomizerView v-if="ui.shuffleOpen" />
@@ -41,3 +45,18 @@ onMounted(async () => {
   if (!sessions.loaded) await sessions.load()
 })
 </script>
+
+<style>
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.25s ease-out;
+}
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(10px);
+}
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+</style>

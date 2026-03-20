@@ -18,7 +18,7 @@
         <p class="text-sm text-gray-600" style="margin:.25rem 0 0;">Die angeforderte Übung mit ID „{{ id }}“ existiert
           nicht.</p>
         <div class="row" style="margin-top:10px;">
-          <RouterLink class="btn" :to="{ name: 'DrillsList' }">Zurück zur Liste</RouterLink>
+          <RouterLink class="btn" :to="preserve({ name: 'DrillsList' })">Zurück zur Liste</RouterLink>
         </div>
       </div>
     </template>
@@ -30,9 +30,11 @@ import DrillDetail from '@/components/DrillDetail.vue'
 import {useDrillCatalogStore} from '@/stores/drillCatalog'
 import {computed, onMounted, watch, nextTick} from 'vue'
 import {useRoute} from 'vue-router'
+import { withPreservedQuery } from '@/router'
+const route = useRoute()
+const preserve = (to: any) => withPreservedQuery(to, route)
 
 const catalog = useDrillCatalogStore()
-const route = useRoute()
 const id = computed(() => String(route.params.id ?? ''))
 
 onMounted(async () => {

@@ -53,7 +53,7 @@
               <h3 style="margin-top:0;">Unter Ziel</h3>
               <ul style="margin:0; padding-left:16px;">
                 <li v-for="d in areas.belowTarget" :key="d.id">
-                  <router-link :to="{ name: 'DrillDetail', params: { id: d.id } }">{{ d.title || d.id }}</router-link>
+                  <router-link :to="preserve({ name: 'DrillDetail', params: { id: d.id } })">{{ d.title || d.id }}</router-link>
                   <span class="muted" style="margin-left:8px;">(Lücke: {{ Math.round(d.gap || 0) }})</span>
                 </li>
                 <li v-if="areas.belowTarget.length === 0" class="muted">Keine</li>
@@ -64,7 +64,7 @@
               <h3 style="margin-top:0;">Stagnant</h3>
               <ul style="margin:0; padding-left:16px;">
                 <li v-for="d in areas.stagnant" :key="d.id">
-                  <router-link :to="{ name: 'DrillDetail', params: { id: d.id } }">{{ d.title || d.id }}</router-link>
+                  <router-link :to="preserve({ name: 'DrillDetail', params: { id: d.id } })">{{ d.title || d.id }}</router-link>
                   <span class="muted" style="margin-left:8px;">(aktuell: {{ Math.round(d.latestLevel || 0) }})</span>
                 </li>
                 <li v-if="areas.stagnant.length === 0" class="muted">Keine</li>
@@ -75,7 +75,7 @@
               <h3 style="margin-top:0;">Meiste Verbesserung</h3>
               <ul style="margin:0; padding-left:16px;">
                 <li v-for="i in areas.mostImproved.slice(0, 10)" :key="i.id">
-                  <router-link :to="{ name: 'DrillDetail', params: { id: i.id } }">{{ i.title || i.id }}</router-link>
+                  <router-link :to="preserve({ name: 'DrillDetail', params: { id: i.id } })">{{ i.title || i.id }}</router-link>
                   <span class="muted" style="margin-left:8px;">(Δ {{ (i.delta || 0).toFixed(2) }})</span>
                 </li>
                 <li v-if="areas.mostImproved.length === 0" class="muted">Keine</li>
@@ -90,7 +90,7 @@
         <p>Starte eine Trainingseinheit und speichere dein Ergebnis - dann füllen wir diese Übersicht automatisch.</p>
         <div class="empty-actions">
           <button type="button" class="btn btn-primary" @click="ui.setShuffle(true)">Zufalls-Drill starten</button>
-          <router-link class="btn" :to="{ name: 'DrillsList' }">Alle Drills anzeigen</router-link>
+          <router-link class="btn" :to="preserve({ name: 'DrillsList' })">Alle Drills anzeigen</router-link>
         </div>
       </div>
     </div>
@@ -100,6 +100,10 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+import { withPreservedQuery } from '@/router'
+const route = useRoute()
+const preserve = (to: any) => withPreservedQuery(to, route)
 import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
 import { computeAreasOfImprovement } from '@/stats/areas'
 import { computeCategoryScores } from '@/stats/categoryScores'

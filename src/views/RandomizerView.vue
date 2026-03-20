@@ -50,6 +50,7 @@ import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { withPreservedQuery } from '@/router'
 import Reel from '@/components/Reel.vue'
 
 const props = defineProps<{ durationNameMs?: number }>()
@@ -64,6 +65,7 @@ const favorites = useFavoritesStore()
 const settings = useSettingsStore()
 const router = useRouter()
 const route = useRoute()
+import { withPreservedQuery } from '@/router'
 const ui = useUiStore()
 const isOpen = computed(() => !!(ui.shuffleOpen || route.name === 'ShuffleOverlay'))
 
@@ -307,7 +309,7 @@ async function finish() {
 
   try {
     ; (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: original.id }
-    const p = router.push({ name: 'DrillDetail', params: { id: original.id } })
+    const p = router.push(withPreservedQuery({ name: 'DrillDetail', params: { id: original.id } }, route))
     p.finally(() => {
       try { ui.setShuffle(false) } catch { }
     })

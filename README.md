@@ -45,15 +45,15 @@ It combines structured drills, lightweight analytics, and an intuitive UX that h
 Built with **Vue 3**, **Tailwind**, and **Capacitor**, ParFormance runs seamlessly on web, Android, and iOS.
 
 ## Features
-- **Drill Catalog** — categorized by *Putting, Chipping, Pitching, Range, Course, Tempo, and more*  
-- **Smart Shuffle (🎰 Slot Machine)** — randomized drill selection with animated reels  
+- **Drill Catalog** — categorized by *Putting, Chipping, Pitching, Range, Course, Tempo, and more*, complete with **tag & category filtering**
+- **Smart Shuffle (🎰 Slot Machine)** — randomized drill selection with animated reels, **favorites-bias**, and **live-synchronization with active catalog filters**
 - **Drill Details** — clear setup, step-by-step flow, and measurable targets  
 - **Favorites & History** — quick access to starred drills and past sessions  
 - **Progress Analytics** — radar charts, micro-trends, and personal-best badges  
-- **User Settings** — HCP, language, units, themes, and data export/import  
-- **Offline Mode** — data stored locally via LocalStorage or IndexedDB  
-- **Responsive Design** — optimized for mobile and tablet  
-- **Soft Animations** — Framer Motion effects for clean, lightweight transitions  
+- **User Settings** — HCP, language, units, native Dark Mode, and data export/import  
+- **Offline Mode** — data stored locally via IndexedDB  
+- **Native Experience** — **Haptic feedback** interactions and **seamless route transitions** for mobile devices
+- **Responsive Design** — fully optimized responsive layout for mobile and tablet
 
 ## UX Philosophy
 > “As little text as necessary, as much clarity as possible.”

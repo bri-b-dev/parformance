@@ -8,6 +8,8 @@ export const useUiStore = defineStore('ui', {
     shuffleOpen: false as boolean,
     // active tag filter shared between DrillList and Randomizer
     activeTag: '' as string,
+    // active category filter
+    activeCategory: '' as string,
   }),
   getters: {
     isGamblerCollapsed: (state) => (drillId: string) => {
@@ -24,6 +26,9 @@ export const useUiStore = defineStore('ui', {
     },
     setActiveTag(tag: string) {
       this.activeTag = tag
+    },
+    setActiveCategory(category: string) {
+      this.activeCategory = category
     }
   }
 })

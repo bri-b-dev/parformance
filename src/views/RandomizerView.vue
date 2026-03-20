@@ -6,7 +6,9 @@
       <header class="slot-header">
         <h2 id="shuffle-title" style="display: flex; align-items: baseline;">
           Zufallsauswahl
-          <span v-if="ui.activeTag" style="font-size: 0.95rem; font-weight: 500; color: var(--muted); margin-left: 10px;">{{ ui.activeTag }}</span>
+          <span v-if="ui.activeCategory || ui.activeTag" style="font-size: 0.95rem; font-weight: 500; color: var(--muted); margin-left: 10px;">
+            {{ [ui.activeCategory, ui.activeTag].filter(Boolean).join(' • ') }}
+          </span>
         </h2>
         <!-- X entfernt -->
       </header>
@@ -96,6 +98,9 @@ interface DerivedDrill {
 
 const derived = computed<DerivedDrill[]>(() => {
   let list = catalog.drills
+  if (ui.activeCategory) {
+    list = list.filter((d: any) => d.category === ui.activeCategory)
+  }
   if (ui.activeTag) {
     list = list.filter((d: any) => d.tags && d.tags.includes(ui.activeTag))
   }

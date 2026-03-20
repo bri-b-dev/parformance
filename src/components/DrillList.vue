@@ -91,7 +91,10 @@ const favorites = useFavoritesStore()
 const ui = useUiStore()
 
 // Filters
-const filterCategory = ref<string>('')
+const filterCategory = computed({
+  get: () => ui.activeCategory,
+  set: (val) => ui.setActiveCategory(val)
+})
 const filterQuery = ref<string>('')
 const filterTag = computed({
   get: () => ui.activeTag,

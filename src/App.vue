@@ -3,8 +3,12 @@
     <HeaderBar @shuffle="openShuffle" @open-settings="onOpenSettings" />
 
     <main>
-      <div class="container">
-        <RouterView />
+      <div class="container relative">
+        <RouterView v-slot="{ Component }">
+          <transition name="fade-slide" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </RouterView>
       </div>
       <!-- Render the shuffle overlay as a real modal when toggled via the UI store -->
       <RandomizerView v-if="ui.shuffleOpen" />

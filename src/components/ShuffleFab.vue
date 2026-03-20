@@ -33,9 +33,17 @@
 
 <script setup lang="ts">
 import { useUiStore } from '@/stores/ui';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
+
 const ui = useUiStore()
 
-function openShuffle() {
+async function openShuffle() {
+    // Provide a light haptic bump
+    try {
+        await Haptics.impact({ style: ImpactStyle.Light });
+    } catch (e) {
+        // Ignore on web or unsupported platforms
+    }
     // Open as real overlay/modal using the UI store
     ui.setShuffle(true)
 }

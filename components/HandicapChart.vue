@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import Chart from 'chart.js/auto'
 import 'chartjs-adapter-date-fns'
@@ -21,20 +21,22 @@ const props = defineProps({
   }
 })
 
-const canvas = ref(null)
-let chartInstance = null
+const canvas = ref<any>(null)
+let chartInstance: any = null
 
 const buildChart = () => {
   if (!canvas.value || !props.data.length) return
 
   // Map data to {x: Date, y}
-  const parsed = props.data.map(r => ({
-    x: new Date(r.date),
-    yDiff: r.scoreDifferential,
-    yHC: r.storedHandicap
-  }))
-  const diffData = parsed.map(p => ({ x: p.x, y: p.yDiff }))
-  const hcData   = parsed.map(p => ({ x: p.x, y: p.yHC }))
+  const parsedData = props.data.map((r: any) => {
+    return {
+      x: new Date(r.date),
+      yDiff: r.scoreDifferential,
+      yHC: r.storedHandicap
+    }
+  })
+  const diffData = parsedData.map(p => ({ x: p.x, y: p.yDiff }))
+  const hcData   = parsedData.map(p => ({ x: p.x, y: p.yHC }))
 
   // Determine date-fns locale
   const dfnsLocale = locale.value === 'de' ? de : enUS
@@ -72,6 +74,7 @@ const buildChart = () => {
   }
 
   if (chartInstance) chartInstance.destroy()
+  // @ts-ignore
   chartInstance = new Chart(canvas.value.getContext('2d'), config)
 }
 

@@ -30,10 +30,10 @@
 </template>
 
 
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { db } from '@/db'
+import { db } from './db'
 
 // load locale from db if saved
 const { locale } = useI18n()
@@ -51,11 +51,11 @@ onMounted(async () => {
   max-width: 900px;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem;
-  padding-bottom: 70px; 
+  padding: 1.5rem;
+  padding-bottom: 90px; 
   min-height: 100vh;
   box-sizing: border-box;
-  padding-bottom: calc(70px + env(safe-area-inset-bottom, 12px)); 
+  padding-bottom: calc(90px + env(safe-area-inset-bottom, 12px)); 
 }
 
 /* bottom navigation exactly underneigh container */
@@ -64,9 +64,11 @@ onMounted(async () => {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #ffffff;
-  border-top: 1px solid #dddddd;
-  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
   z-index: 100;
 
   /* place for android/ios-system-navigation */
@@ -85,23 +87,38 @@ onMounted(async () => {
 .nav-item {
   flex: 1;
   text-align: center;
-  padding: 8px 0;
-  color: var(--text-muted);
+  padding: 10px 0 8px 0;
+  color: #64748b;
   text-decoration: none;
   font-size: 0.75rem;
+  font-weight: 500;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.3s ease;
 }
+
 .nav-item .material-icons {
-  font-size: 24px;
-  margin-bottom: 2px;
+  font-size: 26px;
+  padding: 6px 18px;
+  border-radius: 24px;
+  margin-bottom: 4px;
   color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.nav-item:hover {
+  color: var(--primary);
+}
+
 .nav-item.active {
   color: var(--primary);
+  font-weight: 600;
 }
+
 .nav-item.active .material-icons {
+  background: rgba(4, 75, 47, 0.08);
   color: var(--primary);
+  transform: scale(1.05);
 }
 </style>

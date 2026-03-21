@@ -10,7 +10,7 @@
   </span>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   /** Text, der im Tooltip angezeigt werden soll */
   text: {

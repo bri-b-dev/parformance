@@ -187,12 +187,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { db } from '@/db'
+import { db, type Result } from '../db'
 import InfoTooltip from '@/components/InfoTooltip.vue'
-import { computeBaseHandicap, applyCap } from '@/utils/calculations.ts'
+import { computeBaseHandicap, applyCap } from '../utils/calculations'
 import LogoIcon from '@/components/IconLogo.vue'
 
 // i18n
@@ -200,10 +200,10 @@ const { t } = useI18n()
 
 // Reactive States
 const holes = ref('')
-const handicapIndexInput = ref(null)
-const courseRating = ref(null)
-const slope = ref(null)
-const grossScore = ref(null)
+const handicapIndexInput = ref<number | null>(null)
+const courseRating = ref<number | null>(null)
+const slope = ref<number | null>(null)
+const grossScore = ref<number | null>(null)
 const pccAdjustment = ref(0)
 
 const calculated = ref(false)
@@ -211,7 +211,7 @@ const showSaveModal = ref(false)
 const pickedDate = ref(new Date().toISOString().slice(0, 10))
 const courseName = ref('')
 
-const results = ref([])
+const results = ref<Result[]>([])
 
 // Fehlerobjekt für Inline-Validierung
 const errors = ref({
@@ -233,19 +233,24 @@ const storedHandicap = computed(() => {
 // Score Differential (wie gehabt, nur berechnet, wenn calculated=true)
 const scoreDifferential = computed(() => {
   if (!calculated.value) return 0
+  const gs = grossScore.value || 0
+  const cr = courseRating.value || 0
+  const sl = slope.value || 113
+  const hi = handicapIndexInput.value || 0
+
   if (holes.value === '9') {
-    const played9 = (grossScore.value - courseRating.value) * (113 / slope.value)
-    const notPlayed9 = ((handicapIndexInput.value * 1.04) + 2.4) / 2.0
+    const played9 = (gs - cr) * (113 / sl)
+    const notPlayed9 = ((hi * 1.04) + 2.4) / 2.0
     return parseFloat((played9 + notPlayed9 - 0.5 * pccAdjustment.value).toFixed(1))
   }
-  const raw18 = (grossScore.value - courseRating.value) * (113 / slope.value)
+  const raw18 = (gs - cr) * (113 / sl)
   return parseFloat((raw18 - pccAdjustment.value).toFixed(1))
 })
 
 // Projektion des Handicap‐Index (gleiche Logik wie recalcAll, nur einmalig für neueste Runde)
 const projectedHandicap = computed(() => {
   // Einfache Näherung: nehme alle bisherigen scoreDifferentials plus den neuen, sortiere und wende computeBaseHandicap/applyCap an.
-  const existing = results.value.slice().sort((a, b) => new Date(a.date) - new Date(b.date))
+  const existing = results.value.slice().sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
   // Build Array aller bisherigen diffs
   const diffs = existing.map(r => r.scoreDifferential)
   // Füge aktuellen Diff ein und sortiere
@@ -257,10 +262,11 @@ const projectedHandicap = computed(() => {
     ...existing,
     {
       date: pickedDate.value,
-      courseName: courseRating.value + '/' + slope.value,
-      grossScore: grossScore.value,
+      courseName: String(courseRating.value) + '/' + String(slope.value),
+      grossScore: grossScore.value || 0,
       scoreDifferential: scoreDifferential.value,
-      storedHandicap: hcRaw
+      storedHandicap: hcRaw,
+      id: Date.now() // temporary ID
     }
   ]
   const idx = pseudoRecords.length - 1
@@ -270,9 +276,10 @@ const projectedHandicap = computed(() => {
 // CSS-Klasse, um Ergebnis‐Box farblich zu markieren
 const scoreClass = computed(() => {
   if (!calculated.value) return ''
-  return scoreDifferential.value < handicapIndexInput.value
+  const hi = handicapIndexInput.value || 0
+  return scoreDifferential.value < hi
     ? 'score-good'
-    : scoreDifferential.value > handicapIndexInput.value
+    : scoreDifferential.value > hi
       ? 'score-bad'
       : 'score-neutral'
 })
@@ -281,9 +288,9 @@ const scoreClass = computed(() => {
 const formValid = computed(() => {
   return (
     holes.value &&
-    courseRating.value > 0 &&
-    slope.value > 0 &&
-    grossScore.value > 0 &&
+    (courseRating.value || 0) > 0 &&
+    (slope.value || 0) > 0 &&
+    (grossScore.value || 0) > 0 &&
     pccAdjustment.value !== null
   )
 })
@@ -299,7 +306,7 @@ onMounted(async () => {
 // Validierungs­funktion (vor onCalculate)
 function validateForm() {
   // Reset
-  Object.keys(errors.value).forEach(k => (errors.value[k] = ''))
+  Object.keys(errors.value).forEach(k => (errors.value[k as keyof typeof errors.value] = ''))
 
   let ok = true
   if (!holes.value) {
@@ -355,7 +362,7 @@ function onReset() {
   showSaveModal.value = false
   pickedDate.value = new Date().toISOString().slice(0, 10)
   courseName.value = ''
-  Object.keys(errors.value).forEach(k => (errors.value[k] = ''))
+  Object.keys(errors.value).forEach(k => (errors.value[k as keyof typeof errors.value] = ''))
 }
 
 // Modal öffnen
@@ -363,7 +370,7 @@ function openSaveModal() {
   // Prüfen, ob eingegebener HI mit gespeichertem übereinstimmt
   if (
     results.value.length &&
-    Number(handicapIndexInput.value.toFixed(1)) !== results.value[0].storedHandicap
+    Number((handicapIndexInput.value || 0).toFixed(1)) !== results.value[0].storedHandicap
   ) {
     // Inconsistency
     errors.value.handicapIndex = t('inconsistentIndex')
@@ -388,7 +395,7 @@ async function onConfirmSave() {
   const entry = {
     date: pickedDate.value,
     courseName: courseName.value || `${courseRating.value}/${slope.value}`,
-    grossScore: grossScore.value,
+    grossScore: grossScore.value || 0,
     scoreDifferential: scoreDifferential.value,
     storedHandicap: 0 // wird in recalcAll überschrieben
   }
@@ -402,7 +409,7 @@ async function onConfirmSave() {
 
 // Recalculate All (analog zu App.vue-Logik)
 async function recalcAll() {
-  const ascending = [...results.value].sort((a, b) => new Date(a.date) - new Date(b.date))
+  const ascending = [...results.value].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
   let prevHC = null
   for (let i = 0; i < ascending.length; i++) {
     const diffs = ascending
@@ -412,189 +419,72 @@ async function recalcAll() {
     let hc = computeBaseHandicap(diffs, prevHC)
     hc = applyCap(hc, ascending, i)
     ascending[i].storedHandicap = hc
-    await db.results.update(ascending[i].id, { storedHandicap: hc })
+    if (ascending[i].id !== undefined) {
+      await db.results.update(ascending[i].id!, { storedHandicap: hc })
+    }
     prevHC = hc
   }
-  results.value = ascending.sort((a, b) => new Date(b.date) - new Date(a.date))
+  results.value = ascending.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
 </script>
 
 <style scoped>
-.card {
-  background: var(--bg-card);
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-top: 1rem;
+.calculator-card {
+  max-width: 500px;
+  margin: 2rem auto;
 }
 
 .title {
-  margin: 0 0 0.5rem;
-  font-size: 1.5rem;
-  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.75rem;
 }
 
 .intro {
-  margin-bottom: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
 }
 
-.form-group {
+form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-.form-group.full-width {
-  width: 100%;
-}
-
-.form-group label {
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-  display: flex;
-  align-items: center;
-}
-
-.required {
-  color: var(--danger);
-  margin-left: 0.25rem;
-}
-
-.info-btn {
-  background: transparent;
-  border: none;
-  margin-left: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  line-height: 1;
-}
-
-input[type="number"],
-input[type="text"],
-input[type="date"],
-select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-input[type="number"]:focus,
-input[type="text"]:focus,
-input[type="date"]:focus,
-select:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(29, 98, 58, 0.2);
-}
-
-.error {
-  color: var(--danger);
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-}
-
-.validation-note {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-.form-actions {
-  display: flex;
   gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.btn-primary {
-  flex: 1;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 0.75rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-primary:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: var(--accent);
-}
-
-.btn-secondary {
-  flex: 1;
-  background: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-  border-radius: 4px;
-  padding: 0.75rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-
-.btn-secondary:hover {
-  background: var(--primary);
-  color: #fff;
-}
-
-/* Ergebnisbox */
-.result-box {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border-radius: 8px;
-  text-align: center;
-  color: #fff;
-}
-
-.score-good {
-  background: var(--accent);
-}
-
-.score-bad {
-  background: var(--danger);
-}
-
-.score-neutral {
-  background: var(--primary);
-}
-
-.result-actions {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 0.75rem;
 }
 
 /* Modal */
 .modal-backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 20;
+  z-index: 50;
+  animation: fadeIn 0.25s ease-out;
 }
 
 .modal {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: var(--radius);
   width: 90%;
-  max-width: 340px;
+  max-width: 380px;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(0);
+  animation: modalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal h3 {
+  margin-top: 0;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
 }
 
 .date-input-wrapper {
@@ -603,27 +493,27 @@ select:focus {
 
 .calendar-icon {
   position: absolute;
-  right: 8px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 20px;
-  color: #555;
+  color: var(--text-muted);
+  pointer-events: none;
 }
 
 .modal-actions {
   display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-/* Fade-Transition für Ergebnis */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+
+@keyframes modalSlide {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 </style>

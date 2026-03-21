@@ -14,12 +14,8 @@
     <!-- Rules‐PDF -->
     <div class="form-group">
       <label>{{ t('downloadRules') }}</label>
-      <a
-        href="https://www.usga.org/content/dam/usga/pdf/2024-revision/2024-Rules-of-Handicapping-USGA.pdf"
-        target="_blank"
-        rel="noopener"
-        class="rules-link"
-      >
+      <a href="https://www.usga.org/content/dam/usga/pdf/2024-revision/2024-Rules-of-Handicapping-USGA.pdf"
+        target="_blank" rel="noopener" class="rules-link">
         {{ t('currentRules') }}
       </a>
     </div>
@@ -27,30 +23,30 @@
     <!-- App‐Info -->
     <div class="form-group">
       <label>{{ t('aboutApp') }}</label>
-      <p>{{ t('appVersion', { version: APP_VERSION }) }}</p>
+      <p>Version: {{ APP_VERSION }}</p>
       <p>{{ t('appAuthor') }}</p>
     </div>
 
     <!-- data privacy/copyright (just link) -->
     <div class="form-group">
       <label>{{ t('legal') }}</label>
-      <a href="/impressum" class="rules-link">{{ t('impressum') }}</a><br/>
+      <a href="/impressum" class="rules-link">{{ t('impressum') }}</a><br />
       <a href="/datenschutz" class="rules-link">{{ t('dataProtection') }}</a>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, watch, onMounted } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { db } from '@/db'
+import { db } from '../db'
 
 // i18n
 const { t, locale } = useI18n()
 const currentLocale = ref(locale.value)
 
 // app-version from env (e.g. in vue.config.js or .env)
-const APP_VERSION = import.meta.env.VITE_APP_VERSION || '1.0.0'
+const APP_VERSION = (import.meta as any).env.VITE_APP_VERSION || '1.0'
 
 // on locale change: save to db
 async function onLocaleChange() {
@@ -64,7 +60,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 .rules-link {
   color: var(--primary);
   text-decoration: none;

@@ -7,6 +7,7 @@ export interface Result {
   courseName: string
   grossScore: number
   scoreDifferential: number
+  storedHandicap: number
 }
 
 export interface Setting {

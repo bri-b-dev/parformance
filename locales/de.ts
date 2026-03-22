@@ -31,6 +31,8 @@ export const de = {
   development: 'Entwicklung',
   confirm: 'OK',
   cancel: 'Abbrechen',
+  confirmDeleteTitle: 'Ergebnis löschen',
+  confirmDeleteMessage: 'Bist du sicher, dass du dieses Ergebnis löschen möchtest?',
   inconsistentIndex: 'Speichern des Ergebnisses nicht möglich - der angegebene HCPI weicht von deinem errechneten ab',
   rights: '© 2025, Brigitte Böhm. Alle Rechte vorbehalten.',
   sdVsHcpiTitle: 'Score-Differential vs. Handicap-Index',
@@ -274,5 +276,23 @@ export const de = {
   detailTitle: "Details zur Runde",
   close: 'Schließen',
   navFaq: 'FAQ',
+
+  // PDF Import
+  importPdf: 'Scoring Record importieren',
+  importModalTitle: 'Runden aus Scoring Record importieren',
+  importPreviewInfo: 'Folgende Runden wurden erkannt. Die SD-Werte stammen direkt aus dem Scoring Record (offizieller Handicap-Server-Wert). Bitte prüfe die Daten vor dem Import.',
+  importConfirm: 'Alle importieren',
+  importCancel: 'Abbrechen',
+  importSuccess: '{n} Runde(n) erfolgreich importiert.',
+  importError: 'Fehler beim Lesen der PDF-Datei.',
+  importNothingFound: 'Es wurden keine gültigen Runden in der PDF gefunden.',
+  importDuplicateSkipped: '{n} Runde(n) übersprungen (bereits vorhanden).',
+  importColHoles: 'Löcher',
+  importColCR: 'CR',
+  importColSlope: 'Slope',
+  importColGBE: 'GBE',
+  importColSD: 'SD (offiziell)',
+  importLoading: 'PDF wird verarbeitet…',
+  importSelected: '{n} ausgewählt',
 
 };

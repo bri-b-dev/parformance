@@ -1,8 +1,23 @@
 <template>
   <div>
+    <!-- hidden file input for PDF import -->
+    <input
+      ref="pdfFileInput"
+      type="file"
+      accept=".pdf,application/pdf"
+      style="display:none"
+      @change="onPdfSelected"
+    />
+
     <!-- statistics -->
     <div class="card stats-card">
-      <h1 class="card-title">{{ t('yourStats') }}</h1>
+      <div class="stats-header">
+        <h1 class="card-title">{{ t('yourStats') }}</h1>
+        <button class="btn-import" @click="triggerPdfImport" :disabled="importLoading">
+          <span class="material-icons" style="font-size:1.1rem;vertical-align:middle;margin-right:4px">upload_file</span>
+          {{ importLoading ? t('importLoading') : t('importPdf') }}
+        </button>
+      </div>
       <div class="stats-grid">
         <div class="stat-item">
           <span class="stat-label">{{ t('lastHandicap') }}:</span>
@@ -76,6 +91,77 @@
       </table>
     </div>
 
+    <!-- import-error/success message -->
+    <transition name="fade">
+      <div v-if="importMessage" class="import-message" :class="importMessageType">
+        {{ importMessage }}
+      </div>
+    </transition>
+
+    <!-- import preview modal -->
+    <div v-if="showImportModal" class="modal-backdrop">
+      <div class="modal modal-wide">
+        <h3>{{ t('importModalTitle') }}</h3>
+        <p class="import-info">{{ t('importPreviewInfo') }}</p>
+
+        <div v-if="parsedRounds.length === 0" class="import-empty">
+          {{ t('importNothingFound') }}
+        </div>
+
+        <div v-else class="import-table-wrap">
+          <table class="import-table">
+            <thead>
+              <tr>
+                <th><input type="checkbox" :checked="allSelected" @change="toggleAll" /></th>
+                <th>{{ t('date') }}</th>
+                <th>{{ t('course') }}</th>
+                <th>{{ t('importColHoles') }}</th>
+                <th>{{ t('importColCR') }}</th>
+                <th>{{ t('importColSlope') }}</th>
+                <th>{{ t('importColGBE') }}</th>
+                <th>{{ t('importColSD') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(row, idx) in parsedRounds"
+                :key="idx"
+                :class="{ 'row-duplicate': row.isDuplicate }"
+              >
+                <td>
+                  <input
+                    type="checkbox"
+                    v-model="row.selected"
+                    :disabled="row.isDuplicate"
+                  />
+                </td>
+                <td>{{ formatDate(row.date) }}</td>
+                <td class="course-col">{{ row.courseName }}</td>
+                <td>{{ row.holes }}</td>
+                <td>{{ row.cr }}</td>
+                <td>{{ row.slope }}</td>
+                <td>{{ row.gbe }}</td>
+                <td>{{ row.sd.toFixed(1) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            v-if="parsedRounds.length > 0"
+            class="btn-primary"
+            @click="confirmImport"
+            :disabled="selectedCount === 0"
+          >
+            {{ t('importConfirm') }}
+            <span v-if="selectedCount > 0">({{ selectedCount }})</span>
+          </button>
+          <button class="btn-secondary" @click="cancelImport">{{ t('importCancel') }}</button>
+        </div>
+      </div>
+    </div>
+
     <!-- delete-confirm-modal -->
     <div v-if="showDeleteConfirm" class="modal-backdrop">
       <div class="modal">
@@ -138,9 +224,10 @@ import { useI18n } from 'vue-i18n'
 import HandicapChart from '../components/HandicapChart.vue'
 import { db, type Result } from '../db'
 import { computeBaseHandicap, applyCap } from '../utils/calculations'
+import { parsePdf, computeScoreDifferential, type ImportedRound } from '../utils/pdfParser'
 
 // i18n
-const { t, locale } = useI18n()
+const { t } = useI18n()
 
 // states
 const results = ref<Result[]>([])
@@ -149,6 +236,115 @@ const deleteTargetId = ref<number | null>(null)
 
 const showDetailModal = ref(false)
 const detailEntry = ref<Result | null>(null)
+
+// PDF import state
+const pdfFileInput = ref<{ click(): void } | null>(null)
+const showImportModal = ref(false)
+const importLoading = ref(false)
+const importMessage = ref('')
+const importMessageType = ref<'success' | 'error'>('success')
+
+interface ParsedRow extends ImportedRound {
+  sd: number
+  selected: boolean
+  isDuplicate: boolean
+}
+const parsedRounds = ref<ParsedRow[]>([])
+
+const allSelected = computed(() =>
+  parsedRounds.value.filter(r => !r.isDuplicate).every(r => r.selected)
+)
+const selectedCount = computed(() =>
+  parsedRounds.value.filter(r => r.selected).length
+)
+
+function toggleAll(e: Event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const checked = (e.target as any).checked as boolean
+  parsedRounds.value.forEach(r => { if (!r.isDuplicate) r.selected = checked })
+}
+
+function triggerPdfImport() {
+  importMessage.value = ''
+  pdfFileInput.value?.click()
+}
+
+async function onPdfSelected(e: Event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const input = e.target as any
+  const file = input.files?.[0]
+  if (!file) return
+  input.value = '' // reset so same file can be re-selected
+
+  importLoading.value = true
+  try {
+    const raw = await parsePdf(file)
+    if (raw.length === 0) {
+      importMessage.value = t('importNothingFound')
+      importMessageType.value = 'error'
+      importLoading.value = false
+      return
+    }
+
+    // Mark duplicates: same date + same courseName already in DB
+    const existingKeys = new Set(results.value.map(r => `${r.date}|${r.courseName}`))
+    parsedRounds.value = raw.map(r => {
+      const sd = computeScoreDifferential(r)
+      const key = `${r.date}|${r.courseName}`
+      const isDuplicate = existingKeys.has(key)
+      return { ...r, sd, selected: !isDuplicate, isDuplicate }
+    })
+    showImportModal.value = true
+  } catch {
+    importMessage.value = t('importError')
+    importMessageType.value = 'error'
+  } finally {
+    importLoading.value = false
+  }
+}
+
+function cancelImport() {
+  showImportModal.value = false
+  parsedRounds.value = []
+}
+
+async function confirmImport() {
+  const toImport = parsedRounds.value.filter(r => r.selected && !r.isDuplicate)
+  const skipped  = parsedRounds.value.filter(r => r.isDuplicate).length
+
+  for (const row of toImport) {
+    const entry: Result = {
+      date: row.date,
+      courseName: row.courseName,
+      grossScore: row.gbe,
+      scoreDifferential: row.sd,
+      storedHandicap: 0   // recalcAll will fill this in
+    }
+    const id = await db.results.add(entry)
+    results.value.push({ id, ...entry })
+  }
+
+  if (toImport.length > 0) {
+    await recalcAll()
+  }
+
+  showImportModal.value = false
+  parsedRounds.value = []
+
+  const parts: string[] = []
+  if (toImport.length > 0) {
+    parts.push(t('importSuccess', { n: toImport.length }))
+  }
+  if (skipped > 0) {
+    parts.push(t('importDuplicateSkipped', { n: skipped }))
+  }
+  if (parts.length === 0) {
+    parts.push(t('importNothingFound'))
+  }
+  importMessage.value = parts.join(' ')
+  importMessageType.value = toImport.length > 0 ? 'success' : 'error'
+  setTimeout(() => { importMessage.value = '' }, 5000)
+}
 
 // load results from db
 onMounted(async () => {
@@ -193,9 +389,13 @@ const avgDiff5 = computed(() => {
   return sum / last5.length
 })
 
-// date formatting
+// date formatting — always DD.MM.YYYY to avoid timezone off-by-one on ISO strings
 function formatDate(raw: string | number | Date) {
-  return new Date(raw).toLocaleDateString(locale.value)
+  if (typeof raw === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+    const [y, m, d] = raw.split('-')
+    return `${d}.${m}.${y}`
+  }
+  return new Date(raw).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
 // parsing of course-name (e.g. "72/113")
@@ -216,7 +416,7 @@ function hasCustomCourseName(courseName: string) {
   // or one of the two parts is not a number, we treat it as custom.
   if (!courseName.includes('/')) return true
   const parts = courseName.split('/')
-  return parts.length !== 2 || isNaN(Number(parts[0])) || isNaN(Number(parts[1]))
+  return parts.length !== 2 || Number.isNaN(Number(parts[0])) || Number.isNaN(Number(parts[1]))
 }
 
 // delete-confirm-modal handling
@@ -311,8 +511,6 @@ function closeDetail() {
 
 /* chart-container */
 .chart-card {
-  position: relative;
-  height: 320px;
   margin-top: 1.5rem;
 }
 
@@ -447,6 +645,134 @@ function closeDetail() {
 
 .detail-content p:last-child {
   border-bottom: none;
+}
+
+/* ---- Import Button ---- */
+.stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0;
+}
+
+.stats-header .card-title {
+  margin: 0;
+}
+
+.btn-import {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-radius: var(--input-radius);
+  border: 1.5px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-import:hover:not(:disabled) {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-import:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ---- Import status message ---- */
+.import-message {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--input-radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.import-message.success {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #6ee7b7;
+}
+
+.import-message.error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+/* ---- Import preview modal ---- */
+.modal-wide {
+  max-width: 760px !important;
+  width: 95% !important;
+}
+
+.import-info {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.import-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 1rem 0;
+}
+
+.import-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  max-height: 55vh;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--input-radius);
+}
+
+.import-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.import-table th {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.import-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.import-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.import-table .course-col {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-duplicate td {
+  opacity: 0.45;
+  font-style: italic;
 }
 
 @keyframes fadeIn {

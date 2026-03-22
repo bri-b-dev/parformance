@@ -11,7 +11,7 @@ import 'chartjs-adapter-date-fns'
 import { useI18n } from 'vue-i18n'
 import { de, enUS } from 'date-fns/locale'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 
 // Props: Daten chronologisch sortiert
 const props = defineProps({
@@ -55,13 +55,18 @@ const buildChart = () => {
           type: 'time',
           time: {
             unit: 'month',
-            displayFormats: { month: 'MMM yyyy' },
+            displayFormats: { month: 'MM/yy' },
             tooltipFormat: 'P'
           },
           adapters: { date: { locale: dfnsLocale } },
           distribution: 'linear',
-          title: { display: true, text: t('date') },
-          ticks: { autoSkip: true, maxRotation: 45, minRotation: 45 }
+          title: { display: false },
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 8,
+            maxRotation: 45,
+            minRotation: 45
+          }
         },
         y: { title: { display: true } }
       },
@@ -85,7 +90,7 @@ watch(() => [props.data, locale.value], buildChart)
 <style scoped>
 .chart-container {
   position: relative;
-  height: 300px;
+  height: 340px;
   margin: 1rem 0;
 }
 </style>

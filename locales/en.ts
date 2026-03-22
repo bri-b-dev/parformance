@@ -283,4 +283,22 @@ export const en = {
   diffShort: 'SD',
   detailTitle: "Round-details",
   navFaq: 'FAQ',
+
+  // PDF Import
+  importPdf: 'Import Scoring Record',
+  importModalTitle: 'Import Rounds from Scoring Record',
+  importPreviewInfo: 'The following rounds were detected. SD values are taken directly from the Scoring Record (official handicap server value). Please review before importing.',
+  importConfirm: 'Import all',
+  importCancel: 'Cancel',
+  importSuccess: '{n} round(s) successfully imported.',
+  importError: 'Error reading the PDF file.',
+  importNothingFound: 'No valid rounds were found in the PDF.',
+  importDuplicateSkipped: '{n} round(s) skipped (already exist).',
+  importColHoles: 'Holes',
+  importColCR: 'CR',
+  importColSlope: 'Slope',
+  importColGBE: 'GBE',
+  importColSD: 'SD (calculated)',
+  importLoading: 'Processing PDF…',
+  importSelected: '{n} selected',
 };

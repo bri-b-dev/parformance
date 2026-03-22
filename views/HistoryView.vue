@@ -338,10 +338,10 @@ async function confirmImport() {
 
   const parts: string[] = []
   if (toImport.length > 0) {
-    parts.push(t('importSuccess', { n: toImport.length }))
+    parts.push(`${toImport.length} ${t('importSuccess')}`)
   }
   if (skipped > 0) {
-    parts.push(t('importDuplicateSkipped', { n: skipped }))
+    parts.push(`${skipped} ${t('importDuplicateSkipped')}`)
   }
   if (parts.length === 0) {
     parts.push(t('importNothingFound'))

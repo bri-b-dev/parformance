@@ -63,7 +63,6 @@
             <th>{{ t('course') }}</th>
             <th>{{ t('diffShort') }}</th>
             <th>{{ t('hiShort') }}</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -81,11 +80,6 @@
             </td>
             <td>{{ res.scoreDifferential.toFixed(1) }}</td>
             <td>{{ res.storedHandicap.toFixed(1) }}</td>
-            <td>
-              <button class="btn-delete" @click.stop="openDeleteConfirm(res.id!)">
-                {{ t('delete') }}
-              </button>
-            </td>
           </tr>
         </tbody>
       </table>
@@ -212,6 +206,9 @@
           <button class="btn-secondary" @click="closeDetail">
             {{ t('close') }}
           </button>
+          <button class="btn-delete" @click="openDeleteConfirmFromDetail">
+            {{ t('delete') }}
+          </button>
         </div>
       </div>
     </div>
@@ -286,12 +283,19 @@ async function onPdfSelected(e: Event) {
       return
     }
 
-    // Mark duplicates: same date + same courseName already in DB
-    const existingKeys = new Set(results.value.map(r => `${r.date}|${r.courseName}`))
+    // Mark duplicates:
+    // - Results with importKey: match by importKey (exact, format-stable)
+    // - Results without importKey (manually entered or old imports): fall back to date match
+    const importedKeySet = new Set(
+      results.value.flatMap(r => r.importKey ? [r.importKey] : [])
+    )
+    const datesWithoutImportKey = new Set(
+      results.value.filter(r => !r.importKey).map(r => r.date)
+    )
     parsedRounds.value = raw.map(r => {
       const sd = computeScoreDifferential(r)
       const key = `${r.date}|${r.courseName}`
-      const isDuplicate = existingKeys.has(key)
+      const isDuplicate = importedKeySet.has(key) || datesWithoutImportKey.has(r.date)
       return { ...r, sd, selected: !isDuplicate, isDuplicate }
     })
     showImportModal.value = true
@@ -318,7 +322,8 @@ async function confirmImport() {
       courseName: row.courseName,
       grossScore: row.gbe,
       scoreDifferential: row.sd,
-      storedHandicap: 0   // recalcAll will fill this in
+      storedHandicap: 0,  // recalcAll will fill this in
+      importKey: `${row.date}|${row.courseName}`
     }
     const id = await db.results.add(entry)
     results.value.push({ id, ...entry })
@@ -389,7 +394,7 @@ const avgDiff5 = computed(() => {
   return sum / last5.length
 })
 
-// date formatting — always DD.MM.YYYY to avoid timezone off-by-one on ISO strings
+// date formatting - always DD.MM.YYYY to avoid timezone off-by-one on ISO strings
 function formatDate(raw: string | number | Date) {
   if (typeof raw === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(raw)) {
     const [y, m, d] = raw.split('-')
@@ -466,6 +471,13 @@ function openDetail(entry: Result) {
 function closeDetail() {
   showDetailModal.value = false
   detailEntry.value = null
+}
+function openDeleteConfirmFromDetail() {
+  const id = detailEntry.value?.id
+  if (id !== undefined) {
+    closeDetail()
+    openDeleteConfirm(id)
+  }
 }
 
 </script>

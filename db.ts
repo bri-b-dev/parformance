@@ -8,6 +8,7 @@ export interface Result {
   grossScore: number
   scoreDifferential: number
   storedHandicap: number
+  importKey?: string  // "<date>|<courseName-at-import-time>", set on PDF import, not shown in UI
 }
 
 export interface Setting {
@@ -27,8 +28,16 @@ export class ScoreDiffDB extends Dexie {
     })
     // upgrade-schema for version 2: new table "settings"
     this.version(2).stores({
-      // "&key" ensures that key is the primary key
       settings: '&key'
+    })
+    // version 3 added importedKeys table (now superseded by importKey on Result)
+    this.version(3).stores({
+      importedKeys: '&key'
+    })
+    // version 4: add importKey index to results, drop unused importedKeys table
+    this.version(4).stores({
+      results: '++id, date, courseName, grossScore, scoreDifferential, importKey',
+      importedKeys: null  // drop the table
     })
   }
 }

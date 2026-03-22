@@ -41,7 +41,7 @@ export const en = {
 <ol>\
   <li>You calculate a Score Differential for each round.</li>\
   <li>You gather your last (up to) 20 differentials.</li>\
-  <li>From these, you select the best (lowest) ones, average them, and apply the USGA adjustment factor—this yields your Handicap Index.</li>\
+  <li>From these, you select the best (lowest) ones, average them, and apply the USGA adjustment factor-this yields your Handicap Index.</li>\
 </ol>\
 <p><em>In short:</em> The Score Differential is the “raw value” of each round; the Handicap Index is the profile created from your best rounds.</p>\
 <p>The weighted Score Differentials used in the Handicap Index calculation are as follows:</p>\
@@ -120,7 +120,7 @@ export const en = {
 <p>This ensures that an extremely high score on any single hole (e.g., a 10 on a par 4) is limited to the Net Double Bogey value and does not disproportionately raise your handicap.</p>',
 
   pccTitle: 'What is the Playing Conditions Calculation?',
-  pccText: '<p>The <strong>Playing Conditions Calculation (PCC)</strong> adjusts the Score Differentials posted on a given day when actual playing conditions differ significantly from normal course conditions. Although the Course Rating provides an accurate standard-day rating, daily factors—such as:</p>\
+  pccText: '<p>The <strong>Playing Conditions Calculation (PCC)</strong> adjusts the Score Differentials posted on a given day when actual playing conditions differ significantly from normal course conditions. Although the Course Rating provides an accurate standard-day rating, daily factors-such as:</p>\
 <ul>\
   <li>Weather (windstorms, heavy rain, extreme heat)</li>\
   <li>Tee box placements and pin positions</li>\

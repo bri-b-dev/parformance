@@ -19,7 +19,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
 
 export interface ImportedRound {
   date: string       // ISO date: YYYY-MM-DD
-  courseName: string // "<Club> — <Tournament>"
+  courseName: string // "<Club> - <Tournament>"
   holes: number      // 9 or 18
   cr: number         // Course Rating
   slope: number      // Slope
@@ -104,7 +104,7 @@ function parseRounds(text: string): ImportedRound[] {
     if (Number.isNaN(cr) || Number.isNaN(slope) || Number.isNaN(gbe) || Number.isNaN(holes) || Number.isNaN(sd)) continue
 
     const courseName = club && tournament
-      ? `${club} — ${tournament}`
+      ? `${club} - ${tournament}`
       : tournament || club
 
     rounds.push({

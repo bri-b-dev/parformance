@@ -293,6 +293,7 @@ export const de = {
   importColGBE: 'GBE',
   importColSD: 'SD (offiziell)',
   importLoading: 'PDF wird verarbeitet…',
+  recalcNotice: 'Berechnung korrigiert: Es zählen nur noch die letzten 20 Runden. Neu berechnete Einträge:',
   importSelected: '{n} ausgewählt',
 
 };

@@ -1,6 +1,26 @@
+/** Anzahl der jüngsten Runden, die in die Berechnung eingehen (WHS). */
+export const WHS_WINDOW = 20
+
 /**
- * Berechnet das Basis-Handicap (ohne Cap) aus einem Array von Score-Differentials.
- * @param diffs Array von Score-Differentials (als Zahlen).
+ * WHS-Tabelle: wie viele der besten Differentials zählen bei n Runden und welche Anpassung gilt.
+ */
+export function getCalculationRule(n: number): { count: number; adj: number } {
+  if (n <= 3) return { count: 1, adj: -2.0 }
+  if (n === 4) return { count: 1, adj: -1.0 }
+  if (n === 5) return { count: 1, adj: 0.0 }
+  if (n === 6) return { count: 2, adj: -1.0 }
+  if (n <= 8) return { count: 2, adj: 0.0 }
+  if (n <= 11) return { count: 3, adj: 0.0 }
+  if (n <= 14) return { count: 4, adj: 0.0 }
+  if (n <= 16) return { count: 5, adj: 0.0 }
+  if (n <= 18) return { count: 6, adj: 0.0 }
+  if (n === 19) return { count: 7, adj: 0.0 }
+  return { count: 8, adj: 0.0 }
+}
+
+/**
+ * Berechnet das Basis-Handicap (ohne Cap) aus einem aufsteigend sortierten Array von Score-Differentials.
+ * @param diffs Score-Differentials der berücksichtigten Runden (aufsteigend sortiert).
  * @param prevHC Vorheriger Handicap-Index (oder null, wenn keiner vorhanden).
  * @returns Neues Handicap (gerundet auf eine Nachkommastelle).
  */
@@ -8,41 +28,7 @@ export function computeBaseHandicap(diffs: number[], prevHC: number | null = nul
   const n = diffs.length
   if (n === 0) return 0
 
-  let count: number, adj: number
-  if (n <= 3) {
-    count = 1
-    adj = -2.0
-  } else if (n === 4) {
-    count = 1
-    adj = -1.0
-  } else if (n === 5) {
-    count = 1
-    adj = 0.0
-  } else if (n === 6) {
-    count = 2
-    adj = -1.0
-  } else if (n <= 8) {
-    count = 2
-    adj = 0.0
-  } else if (n <= 11) {
-    count = 3
-    adj = 0.0
-  } else if (n <= 14) {
-    count = 4
-    adj = 0.0
-  } else if (n <= 16) {
-    count = 5
-    adj = 0.0
-  } else if (n <= 18) {
-    count = 6
-    adj = 0.0
-  } else if (n === 19) {
-    count = 7
-    adj = 0.0
-  } else {
-    count = 8
-    adj = 0.0
-  }
+  const { count, adj } = getCalculationRule(n)
 
   // Die kleinsten 'count' Differentials aufsummieren und den Durchschnitt berechnen
   const sumOfSmallest = diffs

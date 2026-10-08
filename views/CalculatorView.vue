@@ -190,9 +190,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { db, type Result } from '../db'
-import InfoTooltip from '@/components/InfoTooltip.vue'
-import { computeBaseHandicap, applyCap } from '../utils/calculations'
+import { useResults } from '../composables/useResults'
+import { projectHandicap } from '../utils/handicap'
 import LogoIcon from '@/components/IconLogo.vue'
 
 // i18n
@@ -211,7 +210,7 @@ const showSaveModal = ref(false)
 const pickedDate = ref(new Date().toISOString().slice(0, 10))
 const courseName = ref('')
 
-const results = ref<Result[]>([])
+const { results, storedHandicap, load, add } = useResults()
 
 // Fehlerobjekt für Inline-Validierung
 const errors = ref({
@@ -222,12 +221,6 @@ const errors = ref({
   grossScore: '',
   pccAdjustment: '',
   pickedDate: ''
-})
-
-// gespeicherter Handicap‐Index (letzter Eintrag)
-const storedHandicap = computed(() => {
-  if (!results.value.length) return null
-  return results.value[0].storedHandicap
 })
 
 // Score Differential (wie gehabt, nur berechnet, wenn calculated=true)
@@ -247,31 +240,13 @@ const scoreDifferential = computed(() => {
   return parseFloat((raw18 - pccAdjustment.value).toFixed(1))
 })
 
-// Projektion des Handicap‐Index (gleiche Logik wie recalcAll, nur einmalig für neueste Runde)
-const projectedHandicap = computed(() => {
-  // Einfache Näherung: nehme alle bisherigen scoreDifferentials plus den neuen, sortiere und wende computeBaseHandicap/applyCap an.
-  const existing = results.value.slice().sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-  // Build Array aller bisherigen diffs
-  const diffs = existing.map(r => r.scoreDifferential)
-  // Füge aktuellen Diff ein und sortiere
-  const combined = [...diffs, scoreDifferential.value].sort((a, b) => a - b)
-  // computeBaseHandicap
-  const hcRaw = computeBaseHandicap(combined, storedHandicap.value)
-  // applyCap auf virtuellen neuen Eintrag
-  const pseudoRecords = [
-    ...existing,
-    {
-      date: pickedDate.value,
-      courseName: String(courseRating.value) + '/' + String(slope.value),
-      grossScore: grossScore.value || 0,
-      scoreDifferential: scoreDifferential.value,
-      storedHandicap: hcRaw,
-      id: Date.now() // temporary ID
-    }
-  ]
-  const idx = pseudoRecords.length - 1
-  return applyCap(hcRaw, pseudoRecords, idx)
-})
+// Projektion des Handicap-Index mit der neuen Runde
+const projectedHandicap = computed(() =>
+  projectHandicap(results.value, {
+    date: pickedDate.value,
+    scoreDifferential: scoreDifferential.value
+  })
+)
 
 // CSS-Klasse, um Ergebnis‐Box farblich zu markieren
 const scoreClass = computed(() => {
@@ -297,7 +272,7 @@ const formValid = computed(() => {
 
 // Beim Mount alle bisherigen Ergebnisse laden
 onMounted(async () => {
-  results.value = await db.results.orderBy('date').reverse().toArray()
+  await load()
   if (results.value.length) {
     handicapIndexInput.value = storedHandicap.value ?? 0
   }
@@ -397,34 +372,12 @@ async function onConfirmSave() {
     courseName: courseName.value || `${courseRating.value}/${slope.value}`,
     grossScore: grossScore.value || 0,
     scoreDifferential: scoreDifferential.value,
-    storedHandicap: 0 // wird in recalcAll überschrieben
+    storedHandicap: 0 // wird beim Neuberechnen gesetzt
   }
-  const id = await db.results.add(entry)
-  results.value.unshift({ id, ...entry })
-  await recalcAll()
+  await add(entry)
   calculated.value = false
   handicapIndexInput.value = results.value[0].storedHandicap
   showSaveModal.value = false
-}
-
-// Recalculate All (analog zu App.vue-Logik)
-async function recalcAll() {
-  const ascending = [...results.value].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-  let prevHC = null
-  for (let i = 0; i < ascending.length; i++) {
-    const diffs = ascending
-      .slice(0, i + 1)
-      .map(r => r.scoreDifferential)
-      .sort((a, b) => a - b)
-    let hc = computeBaseHandicap(diffs, prevHC)
-    hc = applyCap(hc, ascending, i)
-    ascending[i].storedHandicap = hc
-    if (ascending[i].id !== undefined) {
-      await db.results.update(ascending[i].id!, { storedHandicap: hc })
-    }
-    prevHC = hc
-  }
-  results.value = ascending.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
 </script>

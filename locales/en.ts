@@ -300,5 +300,6 @@ export const en = {
   importColGBE: 'GBE',
   importColSD: 'SD (calculated)',
   importLoading: 'Processing PDF…',
+  recalcNotice: 'Calculation corrected: only the most recent 20 rounds count. Recalculated entries:',
   importSelected: '{n} selected',
 };

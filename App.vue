@@ -34,10 +34,13 @@
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { db } from './db'
+import { useResults } from './composables/useResults'
 
 // load locale from db if saved
 const { locale } = useI18n()
+const { startupRecalc } = useResults()
 onMounted(async () => {
+  await startupRecalc()
   const saved = await db.settings.get('locale')
   if (saved?.value) {
     locale.value = saved.value

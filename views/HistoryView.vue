@@ -9,6 +9,12 @@
       @change="onPdfSelected"
     />
 
+    <!-- notice after the calculation was corrected -->
+    <div v-if="recalcNotice" class="import-message success">
+      {{ t('recalcNotice') }} {{ recalcNotice }}
+      <button class="btn-secondary" @click="dismissRecalcNotice">{{ t('close') }}</button>
+    </div>
+
     <!-- statistics -->
     <div class="card stats-card">
       <div class="stats-header">
@@ -219,15 +225,15 @@
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import HandicapChart from '../components/HandicapChart.vue'
-import { db, type Result } from '../db'
-import { computeBaseHandicap, applyCap } from '../utils/calculations'
+import { type Result } from '../db'
+import { useResults } from '../composables/useResults'
 import { parsePdf, computeScoreDifferential, type ImportedRound } from '../utils/pdfParser'
 
 // i18n
 const { t } = useI18n()
 
 // states
-const results = ref<Result[]>([])
+const { results, recalcNotice, dismissRecalcNotice, load, addMany, remove, recalc: recalcAll } = useResults()
 const showDeleteConfirm = ref(false)
 const deleteTargetId = ref<number | null>(null)
 
@@ -316,22 +322,16 @@ async function confirmImport() {
   const toImport = parsedRounds.value.filter(r => r.selected && !r.isDuplicate)
   const skipped  = parsedRounds.value.filter(r => r.isDuplicate).length
 
-  for (const row of toImport) {
-    const entry: Result = {
+  await addMany(
+    toImport.map(row => ({
       date: row.date,
       courseName: row.courseName,
       grossScore: row.gbe,
       scoreDifferential: row.sd,
-      storedHandicap: 0,  // recalcAll will fill this in
+      storedHandicap: 0,  // filled in by recalc
       importKey: `${row.date}|${row.courseName}`
-    }
-    const id = await db.results.add(entry)
-    results.value.push({ id, ...entry })
-  }
-
-  if (toImport.length > 0) {
-    await recalcAll()
-  }
+    }))
+  )
 
   showImportModal.value = false
   parsedRounds.value = []
@@ -352,14 +352,10 @@ async function confirmImport() {
 }
 
 // load results from db
-onMounted(async () => {
-  results.value = await db.results.orderBy('date').reverse().toArray()
-})
+onMounted(load)
 
 // sort lists
-const sortedResults = computed(() =>
-  [...results.value].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-)
+const sortedResults = results
 
 const sortedResultsForChart = computed(() =>
   [...results.value]
@@ -434,33 +430,10 @@ function cancelDelete() {
   deleteTargetId.value = null
 }
 async function confirmDelete() {
-  if (deleteTargetId.value !== null) {
-    await db.results.delete(deleteTargetId.value)
-  }
-  results.value = results.value.filter(r => r.id !== deleteTargetId.value)
+  const id = deleteTargetId.value
   showDeleteConfirm.value = false
   deleteTargetId.value = null
-  await recalcAll()
-}
-
-// recalculate all handicaps from scratch
-async function recalcAll() {
-  const ascending = [...results.value].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-  let prevHC: number | null = null
-  for (let i = 0; i < ascending.length; i++) {
-    const diffs = ascending
-      .slice(0, i + 1)
-      .map(r => r.scoreDifferential)
-      .sort((a, b) => a - b)
-    let hc = computeBaseHandicap(diffs, prevHC)
-    hc = applyCap(hc, ascending, i)
-    ascending[i].storedHandicap = hc
-    if (ascending[i].id !== undefined) {
-      await db.results.update(ascending[i].id!, { storedHandicap: hc })
-    }
-    prevHC = hc
-  }
-  results.value = ascending.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  if (id !== null) await remove(id)
 }
 
 // detail modal handling

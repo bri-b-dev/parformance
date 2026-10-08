@@ -372,7 +372,11 @@ async function onConfirmSave() {
     courseName: courseName.value || `${courseRating.value}/${slope.value}`,
     grossScore: grossScore.value || 0,
     scoreDifferential: scoreDifferential.value,
-    storedHandicap: 0 // wird beim Neuberechnen gesetzt
+    storedHandicap: 0, // wird beim Neuberechnen gesetzt
+    holes: Number(holes.value),
+    courseRating: courseRating.value ?? undefined,
+    slope: slope.value ?? undefined,
+    pcc: pccAdjustment.value
   }
   await add(entry)
   calculated.value = false

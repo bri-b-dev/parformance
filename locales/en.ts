@@ -301,5 +301,7 @@ export const en = {
   importColSD: 'SD (calculated)',
   importLoading: 'Processing PDF…',
   recalcNotice: 'Calculation corrected: only the most recent 20 rounds count. Recalculated entries:',
+  importEnriched: 'round(s) updated with course data (CR, slope, holes).',
+  importEnrichInfo: 'existing round(s) will be updated with course data (CR, slope, holes).',
   importSelected: '{n} selected',
 };

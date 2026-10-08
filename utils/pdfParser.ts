@@ -26,6 +26,8 @@ export interface ImportedRound {
   hcpi: number       // HCPI at time of round
   gbe: number        // Gewertetes Bruttoergebnis (Adjusted Gross Score)
   sd: number         // Score Differential (official value from the PDF)
+  tee?: string       // from the "Tees:" line, if recognised
+  par?: number       // from the "Par:" value, if recognised
 }
 
 /**
@@ -78,6 +80,9 @@ function parseRounds(text: string): ImportedRound[] {
   const clubRe = /Club:\s*(.*?)\s+Country:/
 
   // CR, Slope, HCPI from the Tees line
+  // Optional: tee name and par ("Tees: <tee> Par: <par> CR: ...")
+  const teeParRe = /Tees:\s*(.*?)\s+Par:\s*(\d+)\s+CR:/
+
   const detailRe = /CR:\s*([\d,.]+)\s+Slope:\s*(\d+).*?HCPI:\s*([\d,]+)/
 
   for (const seg of segments) {
@@ -93,6 +98,10 @@ function parseRounds(text: string): ImportedRound[] {
     if (!detailMatch) continue
 
     const [, rawCR, rawSlope, rawHCPI] = detailMatch
+
+    const teeMatch = teeParRe.exec(seg)
+    const tee = teeMatch?.[1]?.trim() || undefined
+    const par = teeMatch ? Number.parseInt(teeMatch[2], 10) : undefined
 
     const holes = Number.parseInt(rawHoles, 10)
     const gbe = Number.parseInt(rawGBE, 10)
@@ -115,7 +124,9 @@ function parseRounds(text: string): ImportedRound[] {
       slope,
       hcpi,
       gbe,
-      sd
+      sd,
+      tee,
+      par
     })
   }
 

@@ -75,6 +75,18 @@ async function add(entry: Omit<Result, 'id'>): Promise<void> {
   await addMany([entry])
 }
 
+/** Updates fields that do not affect the handicap (e.g. course data); no recalc. */
+async function updateMany(updates: { id: number; changes: Partial<Result> }[]): Promise<void> {
+  if (!updates.length) return
+  await db.transaction('rw', db.results, async () => {
+    for (const u of updates) await db.results.update(u.id, u.changes)
+  })
+  results.value = results.value.map((r) => {
+    const u = updates.find((x) => x.id === r.id)
+    return u ? { ...r, ...u.changes } : r
+  })
+}
+
 async function remove(id: number): Promise<void> {
   await db.results.delete(id)
   results.value = results.value.filter((r) => r.id !== id)
@@ -93,6 +105,7 @@ export function useResults() {
     recalc,
     add,
     addMany,
+    updateMany,
     remove,
   }
 }

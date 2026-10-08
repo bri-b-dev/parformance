@@ -104,6 +104,8 @@
         <h3>{{ t('importModalTitle') }}</h3>
         <p class="import-info">{{ t('importPreviewInfo') }}</p>
 
+        <p v-if="enrichCount > 0" class="import-info">{{ enrichCount }} {{ t('importEnrichInfo') }}</p>
+
         <div v-if="parsedRounds.length === 0" class="import-empty">
           {{ t('importNothingFound') }}
         </div>
@@ -152,7 +154,7 @@
             v-if="parsedRounds.length > 0"
             class="btn-primary"
             @click="confirmImport"
-            :disabled="selectedCount === 0"
+            :disabled="selectedCount === 0 && enrichCount === 0"
           >
             {{ t('importConfirm') }}
             <span v-if="selectedCount > 0">({{ selectedCount }})</span>
@@ -233,7 +235,7 @@ import { parsePdf, computeScoreDifferential, type ImportedRound } from '../utils
 const { t } = useI18n()
 
 // states
-const { results, recalcNotice, dismissRecalcNotice, load, addMany, remove, recalc: recalcAll } = useResults()
+const { results, recalcNotice, dismissRecalcNotice, load, addMany, updateMany, remove, recalc: recalcAll } = useResults()
 const showDeleteConfirm = ref(false)
 const deleteTargetId = ref<number | null>(null)
 
@@ -251,12 +253,14 @@ interface ParsedRow extends ImportedRound {
   sd: number
   selected: boolean
   isDuplicate: boolean
+  enrichId?: number // existing round (same importKey) that lacks course data
 }
 const parsedRounds = ref<ParsedRow[]>([])
 
 const allSelected = computed(() =>
   parsedRounds.value.filter(r => !r.isDuplicate).every(r => r.selected)
 )
+const enrichCount = computed(() => parsedRounds.value.filter(r => r.enrichId !== undefined).length)
 const selectedCount = computed(() =>
   parsedRounds.value.filter(r => r.selected).length
 )
@@ -302,7 +306,8 @@ async function onPdfSelected(e: Event) {
       const sd = computeScoreDifferential(r)
       const key = `${r.date}|${r.courseName}`
       const isDuplicate = importedKeySet.has(key) || datesWithoutImportKey.has(r.date)
-      return { ...r, sd, selected: !isDuplicate, isDuplicate }
+      const existing = results.value.find(x => x.importKey === key && x.courseRating === undefined)
+      return { ...r, sd, selected: !isDuplicate, isDuplicate, enrichId: existing?.id }
     })
     showImportModal.value = true
   } catch {
@@ -329,7 +334,21 @@ async function confirmImport() {
       grossScore: row.gbe,
       scoreDifferential: row.sd,
       storedHandicap: 0,  // filled in by recalc
-      importKey: `${row.date}|${row.courseName}`
+      importKey: `${row.date}|${row.courseName}`,
+      holes: row.holes,
+      courseRating: row.cr,
+      slope: row.slope,
+      tee: row.tee,
+      par: row.par
+    }))
+  )
+
+  // already imported earlier without course data -> add it
+  const enriched = parsedRounds.value.filter(r => r.enrichId !== undefined)
+  await updateMany(
+    enriched.map(r => ({
+      id: r.enrichId!,
+      changes: { holes: r.holes, courseRating: r.cr, slope: r.slope, tee: r.tee, par: r.par }
     }))
   )
 
@@ -340,6 +359,9 @@ async function confirmImport() {
   if (toImport.length > 0) {
     parts.push(`${toImport.length} ${t('importSuccess')}`)
   }
+  if (enriched.length > 0) {
+    parts.push(`${enriched.length} ${t('importEnriched')}`)
+  }
   if (skipped > 0) {
     parts.push(`${skipped} ${t('importDuplicateSkipped')}`)
   }
@@ -347,7 +369,7 @@ async function confirmImport() {
     parts.push(t('importNothingFound'))
   }
   importMessage.value = parts.join(' ')
-  importMessageType.value = toImport.length > 0 ? 'success' : 'error'
+  importMessageType.value = toImport.length + enriched.length > 0 ? 'success' : 'error'
   setTimeout(() => { importMessage.value = '' }, 5000)
 }
 

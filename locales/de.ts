@@ -294,6 +294,8 @@ export const de = {
   importColSD: 'SD (offiziell)',
   importLoading: 'PDF wird verarbeitet…',
   recalcNotice: 'Berechnung korrigiert: Es zählen nur noch die letzten 20 Runden. Neu berechnete Einträge:',
+  importEnriched: 'Runde(n) um Platzdaten (CR, Slope, Löcher) ergänzt.',
+  importEnrichInfo: 'bereits vorhandene Runde(n) werden beim Import um Platzdaten (CR, Slope, Löcher) ergänzt.',
   importSelected: '{n} ausgewählt',
 
 };

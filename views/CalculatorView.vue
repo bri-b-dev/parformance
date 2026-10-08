@@ -4,6 +4,15 @@
     <p class="intro">{{ t('calculatorIntro') }}</p>
 
     <form @submit.prevent="onCalculate" novalidate>
+      <!-- Platz-Vorlage -->
+      <div class="form-group" v-if="templates.length">
+        <label for="template">{{ t('templateSelect') }}</label>
+        <select id="template" :value="templateId ?? ''" @change="onTemplateChange">
+          <option value="">{{ t('templateNone') }}</option>
+          <option v-for="tpl in templates" :key="tpl.id" :value="tpl.id">{{ templateLabel(tpl) }}</option>
+        </select>
+      </div>
+
       <!-- Anzahl Löcher -->
       <div class="form-group">
         <label for="holes">
@@ -28,6 +37,7 @@
           id="handicapInput"
           type="number"
           v-model.number="handicapIndexInput"
+          @input="handicapIsOwn = false"
           step="0.1"
           :placeholder="storedHandicap !== null ? storedHandicap.toFixed(1) : '0.0'"
         />
@@ -129,12 +139,13 @@
           <strong>{{ t('scoreDifferential') }}:</strong>
           {{ scoreDifferential.toFixed(1) }}
         </p>
-        <p>
+        <p v-if="!isProxy">
           <strong>{{ t('projectedHandicap') }}:</strong>
           {{ projectedHandicap.toFixed(1) }}
         </p>
+        <p v-else class="proxy-note">{{ t('proxyNote') }}</p>
         <div class="result-actions">
-          <button class="btn-primary" @click="openSaveModal">
+          <button v-if="!isProxy" class="btn-primary" @click="openSaveModal">
             {{ t('saveResult') }}
           </button>
           <button class="btn-secondary" @click="onReset">
@@ -175,6 +186,21 @@
             />
           </div>
 
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" v-model="saveAsTemplate" />
+              {{ t('saveAsTemplate') }}
+            </label>
+            <input
+              v-if="saveAsTemplate"
+              type="text"
+              v-model="templateTee"
+              :placeholder="t('templateTeePlaceholder')"
+              :aria-label="t('templateTee')"
+            />
+            <small v-if="errors.template" class="error">{{ errors.template }}</small>
+          </div>
+
           <div class="modal-actions">
             <button type="submit" class="btn-primary">{{ t('confirm') }}</button>
             <button type="button" class="btn-secondary" @click="closeSaveModal">
@@ -191,6 +217,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useResults } from '../composables/useResults'
+import { useCourseTemplates } from '../composables/useCourseTemplates'
+import { templateLabel } from '../utils/courseTemplate'
+import { useCalculatorDraft } from '../composables/useCalculatorDraft'
 import { projectHandicap } from '../utils/handicap'
 import LogoIcon from '@/components/IconLogo.vue'
 
@@ -198,17 +227,28 @@ import LogoIcon from '@/components/IconLogo.vue'
 const { t } = useI18n()
 
 // Reactive States
-const holes = ref('')
-const handicapIndexInput = ref<number | null>(null)
-const courseRating = ref<number | null>(null)
-const slope = ref<number | null>(null)
-const grossScore = ref<number | null>(null)
-const pccAdjustment = ref(0)
+// Eingaben bleiben beim Seitenwechsel erhalten (Draft, sessionStorage)
+const {
+  holes,
+  handicapIndexInput,
+  handicapIsOwn,
+  templateId,
+  courseRating,
+  slope,
+  grossScore,
+  pccAdjustment,
+  reset: resetDraft
+} = useCalculatorDraft()
 
 const calculated = ref(false)
 const showSaveModal = ref(false)
 const pickedDate = ref(new Date().toISOString().slice(0, 10))
 const courseName = ref('')
+const saveAsTemplate = ref(false)
+const templateTee = ref('')
+
+const { templates, load: loadTemplates, add: addTemplate } = useCourseTemplates()
+const selectedTemplate = computed(() => templates.value.find(tpl => tpl.id === templateId.value) ?? null)
 
 const { results, storedHandicap, load, add } = useResults()
 
@@ -220,8 +260,16 @@ const errors = ref({
   slope: '',
   grossScore: '',
   pccAdjustment: '',
-  pickedDate: ''
+  pickedDate: '',
+  template: ''
 })
+
+// Fremdberechnung: eingegebener HCPI weicht vom gespeicherten ab -> nur Score Differential
+const isProxy = computed(
+  () =>
+    storedHandicap.value !== null &&
+    Number((handicapIndexInput.value || 0).toFixed(1)) !== storedHandicap.value
+)
 
 // Score Differential (wie gehabt, nur berechnet, wenn calculated=true)
 const scoreDifferential = computed(() => {
@@ -272,9 +320,10 @@ const formValid = computed(() => {
 
 // Beim Mount alle bisherigen Ergebnisse laden
 onMounted(async () => {
-  await load()
-  if (results.value.length) {
-    handicapIndexInput.value = storedHandicap.value ?? 0
+  await Promise.all([load(), loadTemplates()])
+  // eigener HCPI wird aktuell gehalten; ein eingetippter (fremder) bleibt erhalten
+  if (handicapIsOwn.value) {
+    handicapIndexInput.value = storedHandicap.value
   }
 })
 
@@ -319,6 +368,17 @@ function validateForm() {
   return ok
 }
 
+// Vorlage wählen: Felder vorbelegen (bleiben überschreibbar)
+function onTemplateChange(e: Event) {
+  const id = Number(((e.target ?? { value: '' }) as unknown as { value: string }).value)
+  const tpl = templates.value.find(x => x.id === id)
+  templateId.value = tpl?.id ?? null
+  if (!tpl) return
+  holes.value = String(tpl.holes)
+  courseRating.value = tpl.courseRating
+  slope.value = tpl.slope
+}
+
 // “Berechnen”-Button
 function onCalculate() {
   if (!validateForm()) return
@@ -327,31 +387,22 @@ function onCalculate() {
 
 // Reset‐Funktion
 function onReset() {
-  holes.value = ''
-  handicapIndexInput.value = storedHandicap.value ?? null
-  courseRating.value = null
-  slope.value = null
-  grossScore.value = null
-  pccAdjustment.value = 0
+  resetDraft()
+  handicapIndexInput.value = storedHandicap.value
   calculated.value = false
   showSaveModal.value = false
   pickedDate.value = new Date().toISOString().slice(0, 10)
   courseName.value = ''
+  saveAsTemplate.value = false
+  templateTee.value = ''
   Object.keys(errors.value).forEach(k => (errors.value[k as keyof typeof errors.value] = ''))
 }
 
 // Modal öffnen
 function openSaveModal() {
-  // Prüfen, ob eingegebener HI mit gespeichertem übereinstimmt
-  if (
-    results.value.length &&
-    Number((handicapIndexInput.value || 0).toFixed(1)) !== results.value[0].storedHandicap
-  ) {
-    // Inconsistency
-    errors.value.handicapIndex = t('inconsistentIndex')
-    return
-  }
+  if (isProxy.value) return
   pickedDate.value = new Date().toISOString().slice(0, 10)
+  if (!courseName.value && selectedTemplate.value) courseName.value = selectedTemplate.value.name
   showSaveModal.value = true
 }
 
@@ -367,6 +418,18 @@ async function onConfirmSave() {
     errors.value.pickedDate = t('errorDateRequired')
     return
   }
+  if (saveAsTemplate.value && !courseName.value.trim()) {
+    errors.value.template = t('templateNeedsName')
+    return
+  }
+  errors.value.template = ''
+  // tee/par only if the fields still match the selected template
+  const tpl = selectedTemplate.value
+  const sameAsTemplate =
+    !!tpl &&
+    tpl.holes === Number(holes.value) &&
+    tpl.courseRating === courseRating.value &&
+    tpl.slope === slope.value
   const entry = {
     date: pickedDate.value,
     courseName: courseName.value || `${courseRating.value}/${slope.value}`,
@@ -376,12 +439,21 @@ async function onConfirmSave() {
     holes: Number(holes.value),
     courseRating: courseRating.value ?? undefined,
     slope: slope.value ?? undefined,
-    pcc: pccAdjustment.value
+    pcc: pccAdjustment.value,
+    tee: sameAsTemplate ? tpl.tee || undefined : saveAsTemplate.value ? templateTee.value.trim() || undefined : undefined,
+    par: sameAsTemplate ? tpl.par : undefined
+  }
+  if (saveAsTemplate.value) {
+    await addTemplate({
+      name: courseName.value.trim(),
+      tee: templateTee.value.trim(),
+      holes: Number(holes.value),
+      courseRating: courseRating.value as number,
+      slope: slope.value as number
+    })
   }
   await add(entry)
-  calculated.value = false
-  handicapIndexInput.value = results.value[0].storedHandicap
-  showSaveModal.value = false
+  onReset()
 }
 
 </script>
@@ -398,6 +470,21 @@ async function onConfirmSave() {
   justify-content: center;
   gap: 0.5rem;
   font-size: 1.75rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-label input {
+  width: auto;
+}
+
+.proxy-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
 .intro {

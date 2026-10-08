@@ -77,6 +77,7 @@
             :key="res.id"
             @click="openDetail(res)"
             class="clickable-row"
+            :class="{ 'counting-row': isCounting(res) }"
           >
             <td>{{ formatDate(res.date) }}</td>
             <td>
@@ -84,11 +85,23 @@
                 {{ res.courseName }}
               </span>
             </td>
-            <td>{{ res.scoreDifferential.toFixed(1) }}</td>
+            <td>
+              <span
+                v-if="isCounting(res)"
+                class="material-icons counting-icon"
+                role="img"
+                :aria-label="t('countingLabel')"
+                :title="t('countingLabel')"
+              >star</span>{{ res.scoreDifferential.toFixed(1) }}
+            </td>
             <td>{{ res.storedHandicap.toFixed(1) }}</td>
           </tr>
         </tbody>
       </table>
+      <p class="counting-legend">
+        <span class="material-icons counting-icon" aria-hidden="true">star</span>
+        {{ t('countingLegend') }} ({{ countingIds.size }})
+      </p>
     </div>
 
     <!-- import-error/success message -->
@@ -235,7 +248,7 @@ import { parsePdf, computeScoreDifferential, type ImportedRound } from '../utils
 const { t } = useI18n()
 
 // states
-const { results, recalcNotice, dismissRecalcNotice, load, addMany, updateMany, remove, recalc: recalcAll } = useResults()
+const { results, countingIds, recalcNotice, dismissRecalcNotice, load, addMany, updateMany, remove, recalc: recalcAll } = useResults()
 const showDeleteConfirm = ref(false)
 const deleteTargetId = ref<number | null>(null)
 
@@ -412,6 +425,10 @@ const avgDiff5 = computed(() => {
   return sum / last5.length
 })
 
+function isCounting(res: Result): boolean {
+  return res.id !== undefined && countingIds.value.has(res.id)
+}
+
 // date formatting - always DD.MM.YYYY to avoid timezone off-by-one on ISO strings
 function formatDate(raw: string | number | Date) {
   if (typeof raw === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(raw)) {
@@ -579,6 +596,24 @@ function openDeleteConfirmFromDetail() {
   color: var(--primary);
   text-decoration: none;
   border-bottom: 1px dashed var(--primary-light);
+}
+
+.counting-row td {
+  font-weight: 700;
+  background: var(--counting-bg, rgba(46, 125, 50, 0.08));
+}
+
+.counting-icon {
+  font-size: 1rem;
+  vertical-align: text-bottom;
+  margin-right: 2px;
+  color: var(--primary);
+}
+
+.counting-legend {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
 .btn-delete {

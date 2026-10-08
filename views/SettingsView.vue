@@ -11,6 +11,11 @@
       </select>
     </div>
 
+    <!-- course templates -->
+    <div class="form-group">
+      <CourseTemplates />
+    </div>
+
     <!-- Rules‐PDF -->
     <div class="form-group">
       <label>{{ t('downloadRules') }}</label>
@@ -40,6 +45,7 @@
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { db } from '../db'
+import CourseTemplates from '../components/CourseTemplates.vue'
 
 // i18n
 const { t, locale } = useI18n()

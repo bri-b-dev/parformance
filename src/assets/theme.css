@@ -369,10 +369,9 @@ textarea:focus-visible {
 
 /* Content spacing for tabs */
 main {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    /* stop overscroll from propagating and pulling other page chrome into view */
-    overscroll-behavior: contain;
+    /* The window scrolls, not <main>. An overflow value other than visible here would turn <main> into the
+       sticky container and sticky bars inside it (drill head, search bar, session bar) would never stick. */
+    overflow: visible;
     /* slightly reduced padding so pages feel more centered on narrow viewports */
     padding: 8px;
     padding-top: 8px;

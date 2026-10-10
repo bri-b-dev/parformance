@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div ref="root" class="catalog" :style="{ '--cat-bar-h': barHeight + 'px' }">
     <!-- Loading state -->
-    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite"
-      :style="{ color: 'var(--muted)' }">
+    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite" :style="{ color: 'var(--muted)' }">
       <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="margin-right:8px">
         <g transform="translate(12,12)">
           <circle cx="0" cy="0" r="9" fill="none" stroke="var(--border)" stroke-width="2" stroke-opacity="0.9"></circle>
@@ -14,68 +13,44 @@
       <span class="text-sm" style="color:var(--muted)">Lade Trainingsspiele…</span>
     </output>
 
-    <!-- Content/filters are hidden until loaded to avoid flashing -->
     <template v-else>
       <DrillsTabs />
       <HcpHint />
-      <section class="row" aria-labelledby="filter-heading">
-        <h2 id="filter-heading" class="sr-only">Filter</h2>
 
-        <div class="field" style="min-width:180px;">
-          <label class="label" for="filter-category">Kategorie</label>
-          <select id="filter-category" v-model="filterCategory" class="input">
-            <option value="">Alle</option>
-            <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
-          </select>
-        </div>
+      <!-- Search stays on top while scrolling -->
+      <div ref="bar" class="cat-bar" data-testid="catalog-bar">
+        <label class="sr-only" for="catalog-search">Drills suchen</label>
+        <input id="catalog-search" v-model="searchText" class="input cat-search" type="search" enterkeyhint="search" autocomplete="off" placeholder="Suchen: Titel, Tags, Beschreibung"
+          data-testid="catalog-search" @input="onSearchInput" @keydown.enter="flushSearch" />
+        <button ref="filterBtn" type="button" class="btn cat-filter" aria-haspopup="dialog" :aria-expanded="sheetOpen" data-testid="filter-open" @click="sheetOpen = true">
+          Filter<span v-if="chips.length" class="cat-badge" :aria-label="`${chips.length} aktiv`" data-testid="filter-badge">{{ chips.length }}</span>
+        </button>
+      </div>
 
-        <div class="field" style="min-width:180px;">
-          <label class="label" for="filter-tag">Tag</label>
-          <select id="filter-tag" v-model="filterTag" class="input">
-            <option value="">Alle</option>
-            <option v-for="t in tags" :key="t" :value="t">{{ t }}</option>
-          </select>
-        </div>
+      <div v-if="chips.length" class="cat-chips" role="group" aria-label="Aktive Filter" data-testid="active-chips">
+        <button v-for="c in chips" :key="c.key" type="button" class="chip fchip on" :aria-label="`Filter ${c.label} entfernen`" data-testid="active-chip" @click="clear(c.key)">{{ c.label }} ✕</button>
+        <button type="button" class="btn cat-reset" data-testid="chips-reset" @click="reset">Alle zurücksetzen</button>
+      </div>
 
-        <div class="field" style="min-width:220px; flex:1;">
-          <label class="label" for="filter-query">Suche</label>
-          <input id="filter-query" v-model.trim="filterQuery" class="input" type="search" placeholder="Titel suchen…" />
-        </div>
+      <p class="muted cat-count" aria-live="polite" data-testid="result-count">{{ filtered.length }} von {{ catalog.drills.length }} Drills</p>
 
-        <div class="field" style="min-width:160px; display:flex; align-items:end;">
-          <label class="chip" style="cursor:pointer;">
-            <input id="filter-fav" v-model="onlyFavorites" type="checkbox" style="margin-right:6px" />
-            Nur Favoriten
-          </label>
+      <!-- Empty state -->
+      <div v-if="filtered.length === 0" class="card cat-empty" data-testid="catalog-empty" aria-live="polite">
+        <h3>Keine Drills gefunden</h3>
+        <p class="muted">Passe die Suche an oder lockere die Filter.</p>
+        <button type="button" class="btn btn-primary" data-testid="empty-reset" @click="reset">Filter zurücksetzen</button>
+      </div>
+
+      <!-- Groups with sticky headings -->
+      <section v-for="g in groups" v-else :key="g.category" class="cat-group" :aria-labelledby="`cat-${slug(g.category)}`" data-testid="catalog-group">
+        <h2 :id="`cat-${slug(g.category)}`" class="cat-head">{{ g.category }} <small class="muted">{{ g.drills.length }}</small></h2>
+        <div class="row">
+          <DrillCard v-for="d in g.drills" :key="d.id" :drill="d" />
         </div>
       </section>
 
-      <div class="row">
-        <button class="btn" type="button" @click="resetFilters">Filter löschen</button>
-      </div>
-
-      <!-- Empty state -->
-      <div v-if="filtered.length === 0">
-      <output
-        class="p-6 text-center rounded-md" aria-live="polite"
-        :style="{
-          display: 'block',
-          width: '100%',
-          maxWidth: '820px',
-          margin: '28px auto',
-          background: 'color-mix(in oklab, var(--surface) 92%, var(--bg) 8%)',
-          border: '1px solid var(--border)',
-          color: 'var(--muted)'
-        }"/>
-        <h3 class="text-base font-semibold" :style="{ color: 'var(--text)', margin: 0 }">Keine Drills gefunden</h3>
-        <p class="text-sm mt-1" style="margin:8px 0 0">Passe die Filter an oder ändere die Suche.</p>
-
-      </div>
-
-      <!-- List -->
-      <div v-else class="row">
-        <DrillCard v-for="d in filtered" :key="d.id" :drill="d" />
-      </div>
+      <FilterSheet v-if="sheetOpen" :filter="filter" :drills="catalog.drills" :result-count="filtered.length" :has-favorites="favorites.list.length > 0"
+        :target-known="targetKnown" @update="update" @reset="reset" @close="sheetOpen = false" />
     </template>
   </div>
 </template>
@@ -83,61 +58,163 @@
 <script setup lang="ts">
 import DrillCard from '@/components/DrillCard.vue'
 import DrillsTabs from '@/components/DrillsTabs.vue'
+import FilterSheet from '@/components/FilterSheet.vue'
 import HcpHint from '@/components/HcpHint.vue'
-import { filterDrills } from '@/filters/drills'
+import { useCatalogFilter } from '@/composables/useCatalogFilter'
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
+import { activeChips, filterCatalog, groupByCategory } from '@/filters/catalog'
+import { computeAreasOfImprovement } from '@/stats/areas'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
-import { useUiStore } from '@/stores/ui'
-import { computed, onMounted, ref } from 'vue'
+import { useSessionsStore } from '@/stores/sessions'
+import { useSettingsStore } from '@/stores/settings'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const catalog = useDrillCatalogStore()
 const favorites = useFavoritesStore()
-const ui = useUiStore()
+const sessions = useSessionsStore()
+const settings = useSettingsStore()
+const { hcp: currentHcp } = useCurrentHcp()
 
-// Filters
-const filterCategory = computed({
-  get: () => ui.activeCategory,
-  set: (val) => ui.setActiveCategory(val)
-})
-const filterQuery = ref<string>('')
-const filterTag = computed({
-  get: () => ui.activeTag,
-  set: (val) => ui.setActiveTag(val)
-})
-const onlyFavorites = ref<boolean>(false)
+const { filter, searchText, update, clear, reset, onSearchInput, flushSearch } = useCatalogFilter()
+
+const sheetOpen = ref(false)
 
 onMounted(async () => {
-  await Promise.all([catalog.load(), favorites.load()])
+  await Promise.all([catalog.load(), favorites.load(), sessions.loaded ? null : sessions.load(), settings.loaded ? null : settings.load()])
+  await nextTick()
+  measure()
 })
 
-const categories = computed(() => {
-  const set = new Set<string>()
-  for (const d of catalog.drills) set.add(d.category)
-  return Array.from(set).sort((a, b) => a.localeCompare(b))
-})
+const chips = computed(() => activeChips(filter.value))
+const targetKnown = computed(() => currentHcp.value !== null || settings.targetHcp !== null)
 
-const tags = computed(() => {
-  const set = new Set<string>()
-  for (const d of catalog.drills) {
-    if (d.tags) d.tags.forEach((t: string) => set.add(t))
+const context = computed(() => {
+  const played = new Set(sessions.sessions.map(s => s.drillId))
+  let below = new Set<string>()
+  if (filter.value.belowTarget && targetKnown.value) {
+    below = new Set(computeAreasOfImprovement(sessions.sessions, catalog.drills, currentHcp.value, { mode: 'current', targetHcp: settings.targetHcp }).belowTarget.map(a => a.id))
   }
-  return Array.from(set).sort((a, b) => a.localeCompare(b))
+  return { favorites: new Set(favorites.list), played, belowTarget: below }
 })
 
-const filtered = computed(() => {
-  return filterDrills(catalog.drills, {
-    category: filterCategory.value || undefined,
-    query: filterQuery.value || undefined,
-    onlyFavorites: onlyFavorites.value,
-    favorites: favorites.list,
-    tag: filterTag.value || undefined,
-  })
-})
+const filtered = computed(() => filterCatalog(catalog.drills, filter.value, context.value))
+const groups = computed(() => groupByCategory(filtered.value))
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-')
 
-function resetFilters() {
-  filterCategory.value = ''
-  filterQuery.value = ''
-  filterTag.value = ''
-  onlyFavorites.value = false
+// the sticky group headings sit right below the search bar: publish its height
+const bar = ref<HTMLElement | null>(null)
+const barHeight = ref(56)
+let observer: ResizeObserver | null = null
+
+function measure() {
+  if (bar.value) barHeight.value = bar.value.offsetHeight
+  if (typeof ResizeObserver !== 'undefined' && bar.value && !observer) {
+    observer = new ResizeObserver(() => { if (bar.value) barHeight.value = bar.value.offsetHeight })
+    observer.observe(bar.value)
+  }
 }
+
+watch(() => catalog.loaded, async (l) => { if (l) { await nextTick(); measure() } })
+onBeforeUnmount(() => observer?.disconnect())
 </script>
+
+<style scoped>
+.catalog {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cat-bar {
+  position: sticky;
+  top: var(--app-header-h, 0px);
+  z-index: 15;
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+  background: var(--bg);
+}
+
+.cat-search {
+  flex: 1;
+  min-width: 0;
+}
+
+.cat-filter {
+  position: relative;
+  flex: none;
+  min-height: 44px;
+}
+
+.cat-badge {
+  margin-left: 6px;
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--primary-ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.cat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.fchip {
+  cursor: pointer;
+  min-height: 32px;
+}
+
+.fchip.on {
+  background: color-mix(in oklab, var(--primary) 16%, transparent);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.cat-reset {
+  min-height: 32px;
+  padding: 0 10px;
+}
+
+.cat-count {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.cat-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+}
+
+.cat-empty h3,
+.cat-empty p {
+  margin: 0;
+}
+
+.cat-head {
+  position: sticky;
+  top: calc(var(--app-header-h, 0px) + var(--cat-bar-h, 56px));
+  z-index: 10;
+  margin: 0;
+  padding: 6px 0;
+  font-size: 1rem;
+  font-weight: 800;
+  background: var(--bg);
+}
+
+.cat-group .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+</style>

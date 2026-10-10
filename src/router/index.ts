@@ -19,6 +19,9 @@ const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
 // Handicap area (module): lazy shell with lazy child routes
 const HandicapShell = isBrowser ? (() => import('@/modules/handicap/HandicapShell.vue')) : Stub
 
+/** Slightly longer than the 250 ms page transition in App.vue. */
+export const SCROLL_RESTORE_DELAY_MS = 320
+
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: { name: 'Today' } },
   { name: 'Today', path: '/today', component: TodayView },
@@ -57,14 +60,13 @@ export function makeRouter(history?: RouterHistory): Router {
   return createRouter({
     history: h,
     routes,
-    scrollBehavior() {
-      // Only return a scroll position when the global scroll API exists.
-      // In some test environments (jsdom) window.scrollTo may be missing or not implemented.
-      if (globalThis.window !== undefined && typeof (globalThis.window as any).scrollTo === 'function') {
-        return { top: 0 }
-      }
-      // avoid invoking scroll behavior that would call window.scrollTo in environments without it
-      return undefined
+    // Back/forward restores the saved scroll position (list -> drill -> back); new pages start at the top.
+    // The page transition (see App.vue) keeps the new view out of the DOM for a moment, so restoring waits for it.
+    scrollBehavior(_to, _from, savedPosition) {
+      // Only act when the global scroll API exists (jsdom/SSR may lack it)
+      if (globalThis.window === undefined || typeof (globalThis.window as any).scrollTo !== 'function') return undefined
+      if (savedPosition) return new Promise(resolve => setTimeout(() => resolve(savedPosition), SCROLL_RESTORE_DELAY_MS))
+      return { top: 0 }
     },
   })
 }

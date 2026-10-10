@@ -29,7 +29,7 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-01 · Navigation neu ordnen — P0 · M
 
-> **Teilweise umgesetzt** (siehe MERGE-HANDYCAP.md, Phase D): Tabs Drills · Handicap · Zufalls-Drill · Fortschritt. Offen: Heute (UX-03) und Verlauf.
+> **Weitgehend umgesetzt**: Tabs Heute · Drills · Zufalls-Drill · Handicap · Fortschritt. Offen: Verlauf (Session-Liste).
 
 **Problem:** B1. Nutzer finden ihre vergangenen Sessions nicht, „Historie" ist falsch benannt.
 
@@ -59,6 +59,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 - Überspringen führt zu sichtbarem, schließbarem Hinweis, nicht zu leeren Statistiken.
 
 ## UX-03 · Tagesansicht „Heute" — P1 · M
+
+> **Umgesetzt** (`/today`, `src/views/TodayView.vue`, Engine in `src/today/suggest.ts`): Serie und Wochen-Sessions, Weiter üben, 3 begründete Vorschläge, Zeitbudget 15/30/60 min. Offen: Wochenziel einstellbar, Fokus-Punkte (UX-05).
 
 **Problem:** Der App-Einstieg ist ein roher Katalog. Die README-Schleife beginnt mit „Shuffle", aber nichts führt dorthin.
 

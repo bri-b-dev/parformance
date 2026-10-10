@@ -5,6 +5,7 @@ import { createRouter, createWebHistory, createMemoryHistory, type Router, type 
 const isBrowser = globalThis !== undefined && (globalThis.window as any)?.document !== undefined
 const Stub = { render() { return null } }
 
+const TodayView = isBrowser ? (() => import('@/views/TodayView.vue')) : Stub
 const DrillList = isBrowser ? (() => import('@/components/DrillList.vue')) : Stub
 
 // Detail view: shows a drill based on :id
@@ -16,7 +17,8 @@ const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
 const HandicapShell = isBrowser ? (() => import('@/modules/handicap/HandicapShell.vue')) : Stub
 
 export const routes: RouteRecordRaw[] = [
-  { path: '/', redirect: { name: 'DrillsList' } },
+  { path: '/', redirect: { name: 'Today' } },
+  { name: 'Today', path: '/today', component: TodayView },
   {
     name: 'DrillsList',
     path: '/drills',

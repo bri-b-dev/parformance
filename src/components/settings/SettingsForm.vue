@@ -9,8 +9,10 @@
           <input v-model="local.name" type="text" class="input w-full" placeholder="Optional" />
         </div>
         <div>
-          <label class="text-sm text-app-sub">Handicap (HCP)</label>
-          <input v-model.number="local.hcp" type="number" step="0.1" min="-10" max="54" class="input w-full" />
+          <label class="text-sm text-app-sub" for="settings-hcp">Handicap (HCP)</label>
+          <input v-if="derivedHcp == null" id="settings-hcp" v-model.number="local.hcp" type="number" step="0.1" min="-10" max="54" class="input w-full" />
+          <input v-else id="settings-hcp" :value="derivedHcp" type="number" class="input w-full" disabled aria-describedby="settings-hcp-note" />
+          <p v-if="derivedHcp != null" id="settings-hcp-note" class="text-xs text-app-sub mt-1">Aus deinen Runden berechnet (Bereich Handicap).</p>
         </div>
         <div>
           <label class="text-sm text-app-sub" for="settings-target-hcp">Ziel-Handicap</label>
@@ -123,7 +125,7 @@ type Settings = {
   notifications: boolean
 }
 
-const props = defineProps<{ modelValue?: Partial<Settings> }>()
+const props = defineProps<{ modelValue?: Partial<Settings>; derivedHcp?: number | null }>()
 const emit = defineEmits<{ (e:'update:modelValue', v:Settings):void; (e:'save', v:Settings):void; (e:'cancel'):void; (e:'export-data'):void; (e:'import-data', v:any):void; (e:'reset'):void }>()
 
 const local = reactive<Settings>({

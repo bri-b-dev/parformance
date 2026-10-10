@@ -10,6 +10,7 @@ export function useManualHcpSource(): HcpSource {
   const history = useHcpHistoryStore()
   const settings = useSettingsStore()
   return {
+    kind: 'manual',
     getHcpAt: (date) => history.getHcpAt(date),
     getLatest: () => history.getLatestHcp() ?? settings.hcp,
     getSeries: () => history.rows.map(r => ({ date: r.valid_from, hcp: r.hcp })),

@@ -102,7 +102,7 @@ export const useSessionsStore = defineStore('sessions', {
           id,
           drillId: String(drillId),
           date: String(date),
-          hcp: typeof (item as any).hcp === 'number' ? (item as any).hcp : 0,
+          hcp: typeof (item as any).hcp === 'number' ? (item as any).hcp : null,
           result: {
             value: Number((item as any).result?.value ?? 0),
             unit: String((item as any).result?.unit ?? ''),

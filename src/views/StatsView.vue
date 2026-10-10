@@ -25,6 +25,13 @@
             </template>
             <template v-else>Kein Zieldatum gesetzt</template>
           </p>
+          <p v-if="currentHcp != null" class="goal-line" data-testid="goal-current">
+            Aktuell <strong>{{ String(currentHcp).replace('.', ',') }}</strong>
+            <template v-if="strokesToGoal != null && strokesToGoal > 0">- noch {{ String(strokesToGoal).replace('.', ',') }} Schläge bis zum Ziel</template>
+            <template v-else-if="strokesToGoal != null">- Ziel erreicht</template>
+            <span v-if="fromRounds" class="muted"> (aus deinen Runden)</span>
+          </p>
+          <Sparkline v-if="hcpSeries.length > 1" :data="hcpSeries" :width="200" :height="32" color="var(--primary)" />
           <p v-if="areas.evaluatedForTarget > 0" class="goal-line">
             Zielniveau erreicht in <strong>{{ areas.evaluatedForTarget - areas.belowTarget.length }}</strong>
             von {{ areas.evaluatedForTarget }} geübten Drills
@@ -128,6 +135,9 @@ const route = useRoute()
 const preserve = (to: any) => withPreservedQuery(to, route)
 import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
 import HcpHint from '@/components/HcpHint.vue'
+import Sparkline from '@/components/Sparkline.vue'
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
+import { useHcpSource } from '@/hcp/source'
 import { computeGoalProgress, formatGoalDate } from '@/stats/goal'
 import { computeAreasOfImprovement } from '@/stats/areas'
 import { computeCategoryScores } from '@/stats/categoryScores'
@@ -140,6 +150,7 @@ import { computed, onMounted, ref } from 'vue'
 const catalog = useDrillCatalogStore()
 const sessions = useSessionsStore()
 const settings = useSettingsStore()
+const { hcp: currentHcp, fromRounds } = useCurrentHcp()
 const ui = useUiStore()
 
 onMounted(async () => {
@@ -182,6 +193,8 @@ const goal = computed(() => (settings.targetHcp == null ? null : (computeGoalPro
 const goalPct = computed(() => areas.value.evaluatedForTarget
   ? Math.round(((areas.value.evaluatedForTarget - areas.value.belowTarget.length) / areas.value.evaluatedForTarget) * 100)
   : 0)
+const hcpSeries = computed(() => (useHcpSource().getSeries?.() ?? []).slice(-20).map(p => p.hcp))
+const strokesToGoal = computed(() => (currentHcp.value != null && settings.targetHcp != null ? Math.round((currentHcp.value - settings.targetHcp) * 10) / 10 : null))
 const hasAnySessions = computed(() => (sessions.sessions?.length ?? 0) > 0)
 const isEmpty = computed(() => (filteredSessions.value || []).length === 0)
 // Use current evaluation mode for progress UI: evaluate past sessions using current HCP
@@ -190,7 +203,7 @@ const scores = computed(() => computeCategoryScores(filteredSessions.value, filt
 const areas = computed(() => {
   // compute areas using currently filtered sessions/drills and the current evaluation mode
   try {
-  return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], settings.hcp, { mode: evaluationMode.value, targetHcp: settings.targetHcp })
+  return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], currentHcp.value, { mode: evaluationMode.value, targetHcp: settings.targetHcp })
   } catch (e) {
     console.error('Error computing areas of improvement:', e)
     return { belowTarget: [], stagnant: [], mostImproved: [], evaluatedForTarget: 0 }

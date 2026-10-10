@@ -31,18 +31,20 @@
 <script setup lang="ts">
 import { buildRowsForDrill } from '@/hcp/buckets';
 import { useSettingsStore } from '@/stores/settings';
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import type { Drill } from '@/types';
 import { computed, onMounted } from 'vue';
 
 const props = defineProps<{ drill: Drill }>()
 
 const settings = useSettingsStore()
+const { hcp: currentHcp } = useCurrentHcp()
 
 onMounted(async () => {
   if (!settings.loaded) await settings.load()
 })
 
-const rows = computed(() => buildRowsForDrill(props.drill, settings.hcp, settings.targetHcp))
+const rows = computed(() => buildRowsForDrill(props.drill, currentHcp.value, settings.targetHcp))
 const columnCount = computed(() => {
   const lengths = rows.value.map(r => r.values.length)
   const max = lengths.length ? Math.max(...lengths) : 0

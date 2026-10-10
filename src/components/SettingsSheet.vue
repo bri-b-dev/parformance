@@ -8,7 +8,7 @@
           <h3 class="text-lg font-semibold">Einstellungen</h3>
           <button class="btn" type="button" @click="$emit('close')">Schließen</button>
         </div>
-        <SettingsForm v-model="formModel" @save="saveAndClose" @cancel="$emit('close')" @export-data="exportData"
+        <SettingsForm v-model="formModel" :derived-hcp="derivedHcp" @save="saveAndClose" @cancel="$emit('close')" @export-data="exportData"
           @import-data="importData" @reset="resetAll" />
       </div>
     </div>
@@ -17,12 +17,13 @@
 
 <script setup lang="ts">
 import SettingsForm from '@/components/settings/SettingsForm.vue'
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useHcpHistoryStore } from '@/stores/hcpHistory'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
 import type { Session } from '@/types'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { Capacitor } from '@capacitor/core'
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem'
 import { Share } from '@capacitor/share'
@@ -48,6 +49,8 @@ const settingsStore = useSettingsStore()
 const favoritesStore = useFavoritesStore()
 const sessionsStore = useSessionsStore()
 const hcpHistoryStore = useHcpHistoryStore()
+const { hcp: currentHcp, fromRounds } = useCurrentHcp()
+const derivedHcp = computed(() => (fromRounds.value ? currentHcp.value : null))
 
 const defaultModel = (): FormModel => ({
   name: settingsStore.name ?? '',

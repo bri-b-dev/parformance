@@ -1,15 +1,17 @@
 <template>
-  <aside v-if="settings.loaded && settings.onboardingDone && settings.hcp == null" class="hcp-hint card" role="note">
-    <span>Ohne Handicap können wir keine Zielwerte anzeigen.</span>
+  <aside v-if="settings.loaded && settings.onboardingDone && currentHcp == null" class="hcp-hint card" role="note">
+    <span>Ohne Handicap können wir keine Zielwerte anzeigen. Trage es ein oder erfasse Runden im Handicap-Bereich.</span>
     <button type="button" class="btn btn-primary" @click="ui.setSettings(true)">Handicap eintragen</button>
   </aside>
 </template>
 
 <script setup lang="ts">
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
 
 const settings = useSettingsStore()
+const { hcp: currentHcp } = useCurrentHcp()
 const ui = useUiStore()
 </script>
 

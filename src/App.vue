@@ -27,6 +27,7 @@ import BottomTabs from '@/components/BottomTabs.vue';
 import ShuffleFab from '@/components/ShuffleFab.vue';
 import { useSessionsStore } from '@/stores/sessions';
 import { useHcpHistoryStore } from '@/stores/hcpHistory';
+import { useRoundsStore } from '@/stores/rounds';
 import { useUiStore } from '@/stores/ui';
 import RandomizerView from '@/views/RandomizerView.vue';
 import { onMounted } from 'vue';
@@ -40,6 +41,7 @@ import ConfirmModal from './components/ConfirmModal.vue'
 const sessions = useSessionsStore()
 const ui = useUiStore()
 const hcpHistory = useHcpHistoryStore()
+const rounds = useRoundsStore()
 
 function openShuffle() { ui.setShuffle(true) }
 
@@ -47,6 +49,8 @@ const settings = useSettingsStore()
 
 onMounted(async () => {
   if (!settings.loaded) await settings.load()
+  // HCP from rounds (Dexie loads in the background and the series updates reactively)
+  void rounds.start()
   if (!sessions.loaded) await sessions.load()
   if (!hcpHistory.loaded) await hcpHistory.load()
 })

@@ -82,6 +82,7 @@ import { computeLevelForDrill } from '@/hcp/level'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import type { Drill, Session } from '@/types'
 import { computed, nextTick, onMounted, ref } from 'vue'
 import DrillDetailGrid from './DrillDetailGrid.vue'
@@ -91,6 +92,7 @@ const props = defineProps<{ drill: Drill }>()
 const favorites = useFavoritesStore()
 const sessions = useSessionsStore()
 const settings = useSettingsStore()
+const { hcp: currentHcp } = useCurrentHcp()
 
 onMounted(async () => {
   if (!favorites.loaded) favorites.load()
@@ -148,11 +150,11 @@ function incAttempts() {
 
 async function saveSession() {
   if (!canSave.value) return
-  const level = computeLevelForDrill(props.drill, settings.hcp, value.value as number)
+  const level = computeLevelForDrill(props.drill, currentHcp.value, value.value as number)
   const session: Omit<Session, 'id'> & Partial<Pick<Session, 'id'>> = {
     drillId: props.drill.id,
     date: new Date().toISOString(),
-    hcp: typeof settings.hcp === 'number' ? settings.hcp : 0,
+    hcp: currentHcp.value,
     result: { value: value.value as number, unit: props.drill.metric.unit },
     levelReached: level,
     // Default favorite flag per acceptance criteria

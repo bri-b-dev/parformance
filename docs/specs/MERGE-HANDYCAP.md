@@ -103,12 +103,20 @@ Jede Phase ist ein eigener PR, die App bleibt in jeder Phase lauffähig.
 - Tests: 103 → 105 (inkl. Smoke-Test der Einbindung). Strikte TypeScript-Prüfung nur für das Modul (`tsconfig.handicap.json`).
 - Vorläufig: eigener Tab „Handicap" in der Bottom-Navigation; Links `/impressum` und `/datenschutz` im Modul zeigen noch ins Leere.
 
-### Phase C – Verdrahtung
+### Phase C – Verdrahtung – umgesetzt (Entscheidung: HCP bei vorhandenen Runden nur aus den Runden)
 1. `rounds`-Quelle: `getHcpAt` über die Runden (letzter `storedHandicap` mit `date <= dateIso`), `getLatest`, `getSeries`.
 2. Einstellungen: HCP-Feld ausgrauen, wenn Runden existieren; Onboarding fragt das HCP nur ohne Runden ab.
 3. Zielkarte (Statistik): „Ziel-HCP 12 – aktuell 18,4" mit Verlaufsdiagramm aus `getSeries`.
 
 **Akzeptanz:** Eine neue Runde ändert das HCP in Drill-Zieltabelle („Du") und Statistik ohne manuelle Eingabe; eine Session von letztem Monat wird im Modus „Historisch" mit dem damaligen HCP bewertet.
+
+**Umsetzung Phase C**
+- `stores/rounds.ts`: Spiegel der Rundenreihe per Dexie-`liveQuery` (Dexie und Modul-DB werden dynamisch geladen; Start-Chunk +6,5 % gegenüber vor Phase B).
+- `hcp/sources/rounds.ts`: HCP an einem Datum = `storedHandicap` der letzten Runde am oder vor diesem Tag; `useHcpSource()` wählt `rounds`, sobald Runden existieren.
+- Alle Verbraucher nutzen `useCurrentHcp()` (Drill-Detail, Zieltabelle, Level-Badge, Statistik, Hinweis, Onboarding). `Session.hcp` ist jetzt `number | null` (statt `0` bei unbekanntem HCP).
+- Einstellungen: HCP-Feld gesperrt mit Hinweis, solange Runden existieren; Onboarding fragt es dann nicht ab.
+- Zielkarte: aktuelles HCP, Abstand zum Ziel und Verlauf der letzten 20 Werte.
+- Grenzen: Vor der ersten Runde bleibt das manuelle HCP bzw. `session.hcp` der Rückfall; ein HCPI nach WHS gibt es erst ab 3 Runden (Verhalten des Moduls unverändert).
 
 ### Phase D – Navigation und Branding
 1. Navigation nach UX-01: **Heute · Drills · Handicap · Fortschritt**, Verlauf folgt.
@@ -153,7 +161,7 @@ Es gibt einen Nutzer, daher genügt der vorhandene Weg:
 
 ## 8. Offene Entscheidungen
 
-1. Soll das HCP bei vorhandenen Runden **nur** aus den Runden kommen, oder darf man es manuell überschreiben (z. B. wenn der Verein ein anderes HCP führt)?
+1. ~~HCP bei vorhandenen Runden nur aus den Runden oder manuell überschreibbar?~~ **Entschieden: nur aus den Runden.** Ohne Runden bleibt die manuelle Eingabe.
 2. Soll die Rundenerfassung auch **Schlag-/Stats-Daten** (FIR, GIR, Putts) aufnehmen, damit Drills gezielt vorgeschlagen werden können? (Eigene Spec, baut auf Phase C auf.)
 3. Wird die Sprache **de/en** für die ganze App Pflicht (Phase D) oder bleibt das Training zunächst deutsch?
 4. Version der zusammengeführten App: Fortsetzung der ParFormance-Version (1.x) oder 2.0?

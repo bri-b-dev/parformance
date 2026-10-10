@@ -1444,22 +1444,34 @@
       "unit": "Minuten bis 8 Treffer",
       "hcpTargets": {
         "54-37": [
-          15
-        ],
-        "36-27": [
+          17,
+          15,
           13
         ],
-        "26-19": [
+        "36-27": [
+          14,
+          13,
           12
         ],
+        "26-19": [
+          13,
+          12,
+          11
+        ],
         "18-12": [
-          10
+          11,
+          10,
+          9
         ],
         "11-5": [
-          8
+          9,
+          8,
+          7
         ],
         "4-0": [
-          6
+          7,
+          6,
+          5
         ]
       },
       "smallerIsBetter": true
@@ -2529,15 +2541,26 @@
       "tooEasy": "Verwende Schläger mit kleinerer Schlagfläche oder markiere die Sweetspot-Zone enger (z. B. 2 cm Durchmesser)."
     },
     "metric": {
-      "type": "qualitative",
-      "unit": "Treffpunkt-Analyse (Zentrierung)",
+      "type": "rating",
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
       "evaluation": [
         "zentriert → optimaler Energieübertrag",
         "außen/spitze → Tendenz zu Slice",
         "innen/hacke → Tendenz zu Hook",
         "oben → hoher Launch",
         "unten → flacher Launch"
-      ]
+      ],
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Driver",
@@ -2588,14 +2611,26 @@
       "tooEasy": "Verkleinere den Zielkorridor (z. B. Baum oder Fahne). Spiele mit bewusstem Draw/Fade-Wechsel, um die Kontrolle über den Schwungpfad zu trainieren."
     },
     "metric": {
-      "type": "qualitative",
-      "unit": "Trefferqualität",
+      "type": "rating",
+      "unit": "Selbsteinschätzung (Schulnote 1-6, 1 = sehr gut)",
       "evaluation": [
         "Ball mittig getroffen → neutraler Pfad, maximale Energieübertragung",
         "Ball innen getroffen → tendenziell Draw",
         "Ball außen getroffen → tendenziell Fade oder Slice",
         "Gefühl (Schulnote 1-6) im Treffmoment dokumentieren"
-      ]
+      ],
+      "range": [
+        1,
+        6
+      ],
+      "smallerIsBetter": true,
+      "hcpTargets": {
+        "54-0": [
+          4,
+          3,
+          2
+        ]
+      }
     },
     "tags": [
       "Sweetspot",
@@ -2648,14 +2683,26 @@
       "tooEasy": "Verkleinere den Sweetspot-Bereich oder spiele mit einem Eisen 3 bzw. einem Blade-Schläger. So wird das Feedback deutlicher."
     },
     "metric": {
-      "type": "qualitative",
-      "unit": "Trefferqualität & Feedbackbewertung",
+      "type": "rating",
+      "unit": "Selbsteinschätzung (Schulnote 1-6, 1 = sehr gut)",
       "evaluation": [
         "Ball außen (toe) → tendenziell Fade/Slice, geringere Energieübertragung",
         "Ball innen (heel) → tendenziell Hook, leicht unruhiger Klang",
         "Ball mittig → neutraler Flug, klarer Klang, maximales Feedback",
         "Gefühl im Treffmoment (Schulnote 1-6) dokumentieren"
-      ]
+      ],
+      "range": [
+        1,
+        6
+      ],
+      "smallerIsBetter": true,
+      "hcpTargets": {
+        "54-0": [
+          4,
+          3,
+          2
+        ]
+      }
     },
     "tags": [
       "Treffmoment",
@@ -2706,16 +2753,24 @@
       "tooEasy": "Verkürze den Zielkorridor oder variiere dein Rhythmusverhältnis (z. B. 2:1 oder 4:1), um deine Anpassungsfähigkeit zu testen."
     },
     "metric": {
-      "type": "dual",
-      "unit": [
-        "Drives im Rhythmus",
-        "Drives im Zielkorridor"
-      ],
+      "type": "rating",
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
       "evaluation": [
         "Ruhiger 3:1-Rhythmus → optimale Balance zwischen Kontrolle & Power",
         "Zu schneller Rückschwung → Timingverlust, Ballflug inkonsistent",
         "Zu schneller Abschwung → Tendenz zu Slice oder Top"
-      ]
+      ],
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Driver",
@@ -2768,8 +2823,8 @@
       "tooEasy": "Verkleinere den Zielkorridor auf 20 Meter oder spiele jede Serie mit einem anderen Schläger (z. B. Eisen 5, Hybrid, Driver)."
     },
     "metric": {
-      "type": "series",
-      "unit": "Bälle im Zielkorridor",
+      "type": "rating",
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
       "stages": [
         "30%",
         "60%",
@@ -2780,7 +2835,18 @@
         "Hohe Kontrolle bei 60-90 % → ideales persönliches Tempo",
         "Trefferquote fällt bei 100 % → Hinweis auf Rhythmusverlust",
         "Schwung bei 30 % zu langsam → Timing und Distanz leiden"
-      ]
+      ],
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Tempo",
@@ -2832,16 +2898,24 @@
       "tooEasy": "Verkürze die Zeitvorgabe im Finish auf zwei Sekunden oder spiele mit verschiedenen Schlägern. Optional: Schließe bei den letzten Schlägen die Augen nach dem Impact, um die Balance zu prüfen."
     },
     "metric": {
-      "type": "dual",
-      "unit": [
-        "Saubere Finishes",
-        "Bälle im Zielkorridor"
-      ],
+      "type": "rating",
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
       "evaluation": [
         "Sauberes Finish = gute Balance & vollständiger Schwung",
         "Kippende Haltung = zu viel Kraft oder Timingverlust",
         "Finish länger halten → verbessert Bewegungsgefühl und Stabilität"
-      ]
+      ],
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Tempo",
@@ -2905,7 +2979,18 @@
         "Höhere Punktzahlen zeigen konstantes Timing bei variabler Geschwindigkeit.",
         "Viele Fehlschläge bei 90-100 % deuten auf zu viel Kraft statt Rhythmus hin.",
         "Bessere Kontrolle bei 70-80 % → ideales persönliches Spieltempo."
-      ]
+      ],
+      "range": [
+        0,
+        15
+      ],
+      "hcpTargets": {
+        "54-0": [
+          6,
+          9,
+          13
+        ]
+      }
     },
     "tags": [
       "Tempo",
@@ -2957,7 +3042,7 @@
       "tooEasy": "Spiele den Drill bei Wind oder mit verschiedenen Schlägern (z. B. 3-Holz, Hybrid). Oder simuliere auf der Range visuell ein Loch mit Baumreihen links und rechts."
     },
     "metric": {
-      "type": "record",
+      "type": "rating",
       "fields": [
         "Flugkurve (Draw/Fade)",
         "Schwunggeschwindigkeit (%)",
@@ -2968,7 +3053,19 @@
         "Ein konstanter Sicherheitsschlag gibt Selbstvertrauen für enge Fairways.",
         "Deine Tendenz zeigt, welche Schwungrichtung (innen-außen oder außen-innen) du natürlicherweise bevorzugst.",
         "Je stabiler dein Safety Shot, desto besser kannst du Drucksituationen kontrollieren."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Driver",
@@ -3033,7 +3130,18 @@
         "Jede klare Kurve (Draw/Fade) ist besser als ein zufälliger Ballflug.",
         "Eine gleichbleibende Flughöhe zeigt gutes Timing und Loft-Gefühl.",
         "Dein ‚Go-To-Shot‘ sollte bei 90 % der Schläge reproduzierbar sein."
-      ]
+      ],
+      "range": [
+        0,
+        12
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          6,
+          9
+        ]
+      }
     },
     "tags": [
       "Shapen",
@@ -3087,7 +3195,7 @@
       "tooEasy": "Erweitere auf sechs Löcher oder spiele mit realistischem Course-Management: Lege bewusst vor, wenn das Risiko zu hoch ist."
     },
     "metric": {
-      "type": "scorecard",
+      "type": "rating",
       "fields": [
         "Fairway getroffen (FIR)",
         "Grün getroffen (GIR)",
@@ -3098,7 +3206,19 @@
         "Hoher FIR/GIR-Anteil zeigt gutes mentales Course-Management.",
         "Viele Up & Downs belegen effektives Shortgame-Training.",
         "Wenig Putts → stabile Konzentration bis zum Schluss."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Simulation",
@@ -3150,7 +3270,7 @@
       "tooEasy": "Erhöhe den Druck: Führe die Übung vor anderen Spielern durch, zähle laut deine Routine oder setze dir selbst eine mentale ‚Strafe‘ für ein verfehltes Fairway."
     },
     "metric": {
-      "type": "binary",
+      "type": "rating",
       "fields": [
         "Fairway getroffen (Ja/Nein)"
       ],
@@ -3158,7 +3278,19 @@
         "Ein einzelner Ball testet dein mentales Vertrauen besser als zehn perfekte Drives.",
         "Mit wachsender Routine sinkt dein Puls vor dem Schlag und steigt dein Fokus.",
         "Langfristig steigert die Übung deine Gelassenheit auf dem Platz erheblich."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Simulation",
@@ -3372,7 +3504,7 @@
       "tooEasy": "Kombiniere die Übung mit Wind- oder Hanglagen. Oder variiere Tempo pro Schlag: 70 %, 90 %, 100 % - um deine Kontrolle zu testen."
     },
     "metric": {
-      "type": "comparison",
+      "type": "rating",
       "fields": [
         "Score",
         "FIR",
@@ -3383,7 +3515,19 @@
         "80 %-Schwünge fördern Konstanz und Präzision.",
         "100 % zeigen, ob du deinen Körper unter Druck kontrollieren kannst.",
         "Der Vergleich liefert wertvolle Rückschlüsse für deine Turnierstrategie."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Platz",
@@ -3434,7 +3578,7 @@
       "tooEasy": "Ergänze zusätzliche Werte wie ‚Miss left/right‘, ‚3-Putts‘ oder ‚Sand Saves‘, um dein Spiel detaillierter auszuwerten."
     },
     "metric": {
-      "type": "scorecard",
+      "type": "rating",
       "fields": [
         "Score",
         "FIR",
@@ -3446,7 +3590,19 @@
         "Hohe GIR-Werte zeigen solides Ballstriking.",
         "Viele Fairway-Treffer (FIR) verbessern die Chance auf GIR.",
         "Weniger Putts bedeuten in der Regel mehr Kontrolle auf dem Grün."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Platz",
@@ -3499,7 +3655,7 @@
       "tooEasy": "Verfeinere die Bewertung: z. B. 5 Punkte für Mitte Fairway, 3 für Randbereich, 1 für Semi-Rough. Oder definiere Fairwaybreite enger (20 m statt 30 m)."
     },
     "metric": {
-      "type": "points",
+      "type": "rating",
       "fields": [
         "Fairwaytreffer",
         "Semi-Rough",
@@ -3510,7 +3666,19 @@
         "Hohe Punktzahlen zeigen präzises und kontrolliertes Driving.",
         "Die Übung schärft das Bewusstsein für Risiko und Zielrichtung vom Tee.",
         "Durch wiederholte Messung erkennst du Fortschritte in Konsistenz und Selbstvertrauen."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Platz",
@@ -3563,7 +3731,7 @@
       "tooEasy": "Kombiniere den Drill mit Wind oder Sidehill-Lagen. Oder wechsle den Schläger: z. B. 3-Holz oder Driving-Iron für flache, präzise Schläge."
     },
     "metric": {
-      "type": "count",
+      "type": "rating",
       "fields": [
         "Trefferzahl",
         "Fairway getroffen",
@@ -3573,7 +3741,19 @@
         "Treffer ohne Tee verbessern Bodenkontakt und Ballposition.",
         "Die Übung stärkt das Vertrauen in deine Schwungkontrolle.",
         "Ideal zur Vorbereitung auf reale Drucksituationen bei schlechtem Lie."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Platz",
@@ -3626,7 +3806,7 @@
       "tooEasy": "Reduziere die Fairwaybreite oder bestrafe auch Drives im Semi-Rough. Alternativ: +2 Strafschläge für Aus- oder Wasserbälle."
     },
     "metric": {
-      "type": "score",
+      "type": "rating",
       "fields": [
         "Score",
         "FIR",
@@ -3636,7 +3816,19 @@
         "Treffer unter Druck sind entscheidend für konstantes Scoring.",
         "Die Übung simuliert Turniersituationen realistisch.",
         "Wer trotz Strafdruck gelassen bleibt, verbessert sein Course Management deutlich."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Platz",
@@ -3687,7 +3879,7 @@
       "tooEasy": "Lass den Mitspieler den Abschlagsschläger für dich wählen - zufällig oder absichtlich herausfordernd."
     },
     "metric": {
-      "type": "score",
+      "type": "rating",
       "fields": [
         "Score",
         "FIR",
@@ -3697,7 +3889,19 @@
         "Fördert Kreativität und Improvisationsfähigkeit auf dem Platz.",
         "Stärkt das Vertrauen in alternative Schlägerwahl und kreative Lösungsansätze.",
         "Hilft, den eigenen Gameplan zu reflektieren und zu variieren."
-      ]
+      ],
+      "unit": "Selbsteinschätzung (1 = schwach, 5 = sehr gut)",
+      "range": [
+        1,
+        5
+      ],
+      "hcpTargets": {
+        "54-0": [
+          3,
+          4,
+          5
+        ]
+      }
     },
     "tags": [
       "Platz",

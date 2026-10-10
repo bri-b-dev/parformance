@@ -40,10 +40,10 @@ const placeholder = computed(() => (props.disabled ? 'Session starten, um einzut
 // Effective min: use provided prop, otherwise default to 1 (validates numeric value > 0)
 const effectiveMin = computed<number | undefined>(() => {
   if (typeof props.min === 'number') return props.min
-  return 1
+  return props.drill.metric.range?.[0] ?? 1
 })
 
-const max = computed(() => props.max)
+const max = computed(() => props.max ?? props.drill.metric.range?.[1])
 
 const error = computed(() => {
   // First use domain-specific validation

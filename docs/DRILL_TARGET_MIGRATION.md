@@ -149,36 +149,26 @@ Vorschläge (größer ist besser: ±25 %, kleiner ist besser: ±10 %, jeweils mi
 - `pitching_mixed_clubs` 11-5: {"radius":"≤ 3 m"}
 - `pitching_mixed_clubs` 4-0: {"radius":"≤ 1.5 m"}
 
-## Manuell: Arrays mit nur einem Wert (6)
+## Arrays mit nur einem Wert (6) – migriert
 
-- `shortgame_towel_target` 54-37: [15]
-- `shortgame_towel_target` 36-27: [13]
-- `shortgame_towel_target` 26-19: [12]
-- `shortgame_towel_target` 18-12: [10]
-- `shortgame_towel_target` 11-5: [8]
-- `shortgame_towel_target` 4-0: [6]
+- `shortgame_towel_target` (kleiner ist besser, Wert = Ziel/Level 2)
+  - 54-37: [15] → [17, 15, 13]
+  - 36-27: [13] → [14, 13, 12]
+  - 26-19: [12] → [13, 12, 11]
+  - 18-12: [10] → [11, 10, 9]
+  - 11-5: [8] → [9, 8, 7]
+  - 4-0: [6] → [7, 6, 5]
 
 ## Von Hand geklärt
 
 - `putting_hit_the_hall`: Reihenfolge der Ziele war vertauscht. Jetzt 54-27: 15, 26-12: 18, 11-0: 24 als Ziel (Level 2) → `[11, 15, 19]`, `[13, 18, 23]`, `[18, 24, 30]`.
 - `putting_under_pressure`: Die alten Tripel (z. B. `[3, 1, 1]`) waren Serien je Position (90 / 180 / 270 cm), keine Level. Gemessen wird jetzt die geschaffte Serie an Position 1; deren bisheriger Zielwert (3 / 5 / 10) ist Level 2 → `[2, 3, 4]`, `[4, 5, 6]`, `[7, 10, 13]`. Die Zielwerte für Position 2 und 3 (1/1, 3/1, 4/2) sind nicht mehr hinterlegt; Einheit entsprechend angepasst.
 
-## Manuell: Drills ohne Zielwerte (17)
+## Drills ohne Zielwerte (17) – ergänzt
 
-- `sweetspot_hit_the_sweetspot_1`
-- `sweetspot_hit_the_sweetspot_2`
-- `sweetspot_out_of_the_sweetspot`
-- `tempo_stay_in_the_rhythm`
-- `tempo_find_your_tempo`
-- `tempo_swing_like_a_pro`
-- `tempo_improve_your_feeling`
-- `shapen_safety_shot`
-- `shapen_shape_it`
-- `simulation_imagination_on`
-- `simulation_first_tee_shot`
-- `platz_long_vs_easy`
-- `platz_stats`
-- `platz_get_your_points`
-- `platz_no_tees`
-- `platz_make_it_rough`
-- `platz_play_unusual_shots`
+Alle Werte gelten für jedes HCP (Bereich \`54-0\`), weil es keine HCP-abhängigen Vorgaben gibt.
+
+- **Punkteskala aus dem Drill-Text abgeleitet:** \`tempo_improve_your_feeling\` (0–15 Punkte) → \`[6, 9, 13]\`, \`shapen_shape_it\` (0–12 Treffer) → \`[3, 6, 9]\`.
+- **Schulnote 1–6 (1 = sehr gut), kleiner ist besser:** \`sweetspot_hit_the_sweetspot_2\`, \`sweetspot_out_of_the_sweetspot\` → \`[4, 3, 2]\`.
+- **Selbsteinschätzung 1–5 (5 = sehr gut), neuer Metrik-Typ \`rating\`:** \`sweetspot_hit_the_sweetspot_1\`, \`tempo_stay_in_the_rhythm\`, \`tempo_find_your_tempo\`, \`tempo_swing_like_a_pro\`, \`shapen_safety_shot\`, \`simulation_imagination_on\`, \`simulation_first_tee_shot\`, \`platz_long_vs_easy\`, \`platz_stats\`, \`platz_get_your_points\`, \`platz_no_tees\`, \`platz_make_it_rough\`, \`platz_play_unusual_shots\` → \`[3, 4, 5]\`.
+  Die bisherigen Felder (\`fields\`, \`evaluation\`, \`stages\`) bleiben als Hinweis am Drill, werden aber noch nicht einzeln erfasst (Folge-Thema: strukturierte Erfassung von FIR/GIR/Score usw.).

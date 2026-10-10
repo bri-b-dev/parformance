@@ -4,7 +4,7 @@ import type {MetricType, Drill} from '@/types'
  * Validate a numeric input for a given metric type and unit label.
  * Returns null message when valid, otherwise a human-friendly, unit-aware error.
  */
-export function validateMetricValue(type: MetricType, unit: string, value: unknown): string | null {
+export function validateMetricValue(type: MetricType, unit: string, value: unknown, range?: [number, number]): string | null {
   // Normalize
   const num = typeof value === 'string' ? Number(value) : (value as number)
 
@@ -19,6 +19,12 @@ export function validateMetricValue(type: MetricType, unit: string, value: unkno
       return `${unit} muss eine ganze Zahl sein (z. B. -3, 0, 2)`
     }
     return `${unit} muss eine ganze Zahl sein`
+  }
+
+  // Explicit range from the drill wins over the per-type rules
+  if (range) {
+    const [lo, hi] = range
+    return num < lo || num > hi ? `${unit} muss zwischen ${lo} und ${hi} liegen` : null
   }
 
   // Range checks per type
@@ -43,5 +49,5 @@ export function validateMetricValue(type: MetricType, unit: string, value: unkno
 
 /** Helper to validate directly from a Drill object */
 export function validateDrillResult(drill: Drill, value: unknown): string | null {
-  return validateMetricValue(drill.metric.type, drill.metric.unit, value)
+  return validateMetricValue(drill.metric.type, drill.metric.unit, value, drill.metric.range)
 }

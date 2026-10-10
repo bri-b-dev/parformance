@@ -19,7 +19,8 @@ export type MetricType =
   | 'scorecard'
   | 'binary'
   | 'comparison'
-  | 'points';
+  | 'points'
+  | 'rating';
 
 export interface Drill {
   id: string;
@@ -58,6 +59,8 @@ export interface Drill {
   metric: {
     type: MetricType;
     unit: string;
+    /** Inclusive bounds for the entered value (e.g. [1, 5] for a self-rating). Defaults to metric-type rules. */
+    range?: [number, number];
     /** Canonical: up to three ascending numbers. Legacy catalog entries may hold a number, string or object. */
     hcpTargets: Record<string, number[]>;
     /** If true, smaller metric values are better (e.g. fewer strokes). Defaults to false. */

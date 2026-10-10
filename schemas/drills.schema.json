@@ -135,7 +135,8 @@
             "scorecard",
             "binary",
             "comparison",
-            "points"
+            "points",
+            "rating"
           ]
         },
         "unit": {
@@ -174,6 +175,15 @@
         },
         "stages": {
           "$ref": "#/definitions/StringArray"
+        },
+        "range": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "Inclusive [min, max] for the entered value, e.g. [1, 5] for a self-rating."
         }
       },
       "required": [

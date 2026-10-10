@@ -1,7 +1,7 @@
 <template>
   <!-- Overlay backdrop -->
-  <div v-if="isOpen" class="overlay" @click.self="close" role="dialog" aria-modal="true"
-    aria-labelledby="shuffle-title">
+  <div v-if="isOpen" class="overlay" role="dialog" aria-modal="true" aria-labelledby="shuffle-title"
+    @click.self="close">
     <div class="card overlay-panel slot-panel" role="document">
       <header class="slot-header">
         <h2 id="shuffle-title" style="display: flex; align-items: baseline;">
@@ -30,8 +30,8 @@
           <div class="slot-marker" aria-hidden="true"></div>
           <div class="grid grid-cols-3 gap-3">
             <div v-for="slot in reelOrder" :key="slot" class="min-w-0">
-              <Reel :items="nameItems" label="Drill" :spinTrigger="spinTick[slot]" :duration="D_NAME"
-                :targetValue="targetTitle || undefined" @stopped="(v) => onReelStopped(slot, v)" />
+              <Reel :items="nameItems" label="Drill" :spin-trigger="spinTick[slot]" :duration="D_NAME"
+                :target-value="targetTitle || undefined" @stopped="(v) => onReelStopped(slot, v)" />
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
         <!-- Helper row -->
         <div class="slot-controls">
           <label class="chip pref">
-            <input type="checkbox" v-model="biasFavorites" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
+            <input v-model="biasFavorites" type="checkbox" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
             Favoriten bevorzugen
           </label>
         </div>

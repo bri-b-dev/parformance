@@ -2,7 +2,7 @@
   <section class="card history-card" style="margin-top:10px;">
     <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
       <h3 style="margin:0; font-weight:700;">Verlauf</h3>
-      <small class="chip" v-if="items.length" aria-label="Anzahl Sessions">{{ items.length }} Einträge</small>
+      <small v-if="items.length" class="chip" aria-label="Anzahl Sessions">{{ items.length }} Einträge</small>
     </header>
 
     <!-- Empty state -->
@@ -28,22 +28,22 @@
         <div style="margin-top:6px;">
           <template v-if="editingId === s.id">
             <label class="label" :for="`notes-${s.id}`">Notizen bearbeiten</label>
-            <textarea :id="`notes-${s.id}`" class="input" rows="2" v-model.trim="draftNotes"
+            <textarea :id="`notes-${s.id}`" v-model.trim="draftNotes" class="input" rows="2"
               data-testid="notes-textarea" aria-live="polite"></textarea>
             <div class="row" style="justify-content:flex-end; margin-top:6px;">
-              <button type="button" class="btn" @click="cancelEdit" data-testid="notes-cancel">Abbrechen</button>
-              <button type="button" class="btn btn-primary" @click="saveNotes(s.id)"
-                data-testid="notes-save">Speichern</button>
+              <button type="button" class="btn" data-testid="notes-cancel" @click="cancelEdit">Abbrechen</button>
+              <button type="button" class="btn btn-primary" data-testid="notes-save"
+                @click="saveNotes(s.id)">Speichern</button>
             </div>
           </template>
           <template v-else>
             <p v-if="s.notes" style="margin:0; white-space:pre-wrap;">{{ s.notes }}</p>
             <p v-else style="margin:0; color:var(--muted);">Keine Notizen</p>
             <div class="row" style="justify-content:flex-end; margin-top:6px;">
-              <button type="button" class="btn" @click="startEdit(s)"
-                :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`" data-testid="notes-edit">Notizen</button>
+              <button type="button" class="btn" :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`"
+                data-testid="notes-edit" @click="startEdit(s)">Notizen</button>
               <template v-if="!isAwarded(s)">
-                <button type="button" class="btn" @click="awardBadge(s)" data-testid="award-badge">Badge
+                <button type="button" class="btn" data-testid="award-badge" @click="awardBadge(s)">Badge
                   vergeben</button>
               </template>
               <button v-else type="button" class="chip" title="Auszeichnung entfernen"

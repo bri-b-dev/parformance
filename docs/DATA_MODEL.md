@@ -33,12 +33,6 @@ Notes:
   - Purpose: Load static content from src/data/drills.json and expose `drills`, `loaded`, and `error`.
   - Error handling: Emits a `toast` CustomEvent on load failure (browser environments) and stores a friendly message.
 
-- Drills store (editable legacy list)
-  - File: src/stores/drills.ts
-  - Purpose: Manage a user-local list of created/edited drills (separate from the static catalog).
-  - Persistence: Capacitor Preferences under key `parformance.drills.v1` (historical; other stores use the generic adapter).
-  - API examples: `getById(id)`, `getByCategory(cat)`, `add`, `update`, `remove`, `random`.
-
 - Sessions store
   - File: src/stores/sessions.ts
   - Purpose: CRUD for Session items; getters for `listByDrill(drillId)` and `latestByDrill(drillId)` (sorted by date desc).
@@ -53,6 +47,13 @@ Notes:
   - File: src/stores/favorites.ts
   - Purpose: Track favorite drill IDs (string[]).
   - Persistence: persistAdapter, key `favorites`, version `v1`.
+
+## Level evaluation (single source of truth)
+
+- `src/hcp/buckets.ts` `resolveThresholds(hcpTargets, hcp)`: bucket containing the hcp (narrowest wins), nearest bucket for gaps or out-of-range.
+- `src/hcp/level.ts`: level = number of thresholds met (0-3); `smallerIsBetter` flips the comparison. Missing thresholds never grant a level.
+- `src/hcp/evaluator.ts` `evaluateSessionLevel(session, drill, mode)`: `historical` prefers the stored `levelReached` snapshot, `current` re-evaluates with the latest HCP.
+- HCP history (`src/stores/hcpHistory.ts`) gets a row whenever the HCP setting changes; evaluation falls back to `settings.hcp` / `session.hcp` if history has no matching row.
 
 ## Persistence adapter
 

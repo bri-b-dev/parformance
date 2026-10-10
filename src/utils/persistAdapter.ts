@@ -95,7 +95,7 @@ export function createPersist(
   function get<T = any>(key: string): T | null {
     const k = makeKey(key)
     const storage = getStorage()
-    let raw = storage.getItem(k)
+    const raw = storage.getItem(k)
     if (!raw) {
       // Try migrate from legacy/unversioned/other-version
       const migrated = migrateIfNeeded<T>(key)

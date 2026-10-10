@@ -1,59 +1,33 @@
 import type { Drill } from '@/types'
-import { findBucketKey } from '@/hcp/buckets'
+import { resolveThresholds } from '@/hcp/buckets'
+
+export type Level = 0 | 1 | 2 | 3
 
 /**
- * Compute the level (0-3) reached for a given result value using HCP bucket thresholds.
- * - hcpTargets: Record<rangeKey, [L1, L2, L3]>
- * - hcp: user handicap used to pick the bucket (supports keys like "54-27" or "54-27")
- * - value: numeric result to compare
- *
- * Returns:
- * - 0 when no thresholds matched (or inputs invalid)
- * - 1 when value >= L1 (but < L2)
- * - 2 when value >= L2 (but < L3)
- * - 3 when value >= L3
+ * Level = number of thresholds met (max 3). Thresholds are sorted from easiest to hardest.
+ * Missing thresholds are never "met", so a drill with fewer than three never grants phantom levels.
  */
+export function computeLevelFromThresholds(
+  thresholds: number[] | undefined,
+  value: number | null | undefined,
+  smallerIsBetter?: boolean,
+): Level {
+  if (!Array.isArray(thresholds) || typeof value !== 'number' || !Number.isFinite(value)) return 0
+  const thr = thresholds.map(Number).filter(Number.isFinite).slice(0, 3)
+  // Greater-is-better: easiest threshold is the smallest. Smaller-is-better: the largest.
+  const met = thr.filter(t => (smallerIsBetter ? value <= t : value >= t))
+  return Math.min(3, met.length) as Level
+}
+
 export function computeLevelReached(
   hcp: number | null | undefined,
   hcpTargets: Record<string, number[]>,
   value: number | null | undefined,
   smallerIsBetter?: boolean,
-): 0 | 1 | 2 | 3 {
-  if (typeof value !== 'number' || !isFinite(value)) return 0
-  const key = (typeof hcp === 'number') ? findBucketKey(hcp, hcpTargets || {}) : null
-  const rawThresholds = key != null ? (hcpTargets?.[key]) : undefined
-  const array = Array.isArray(rawThresholds)
-    ? rawThresholds
-    : (rawThresholds == null ? [] : [rawThresholds])
-
-  // Normalize to ascending numeric thresholds (fill missing with Infinity)
-  const thresholds = array
-    .slice(0, 3)
-    .map(v => Number(v))
-    .filter(v => Number.isFinite(v))
-    .sort((a, b) => a - b)
-
-  while (thresholds.length < 3) thresholds.push(Infinity)
-
-  const [L1, L2, L3] = thresholds
-
-  // If smallerIsBetter is true, lower metric values correspond to higher levels
-  if (smallerIsBetter) {
-    if (value <= L1) return 3
-    if (value <= L2) return 2
-    if (value <= L3) return 1
-    return 0
-  }
-
-  // Default: greater is better
-  if (value >= L3) return 3
-  if (value >= L2) return 2
-  if (value >= L1) return 1
-  return 0
+): Level {
+  return computeLevelFromThresholds(resolveThresholds(hcpTargets, hcp), value, smallerIsBetter)
 }
 
-/** Convenience wrapper using a Drill object */
-export function computeLevelForDrill(drill: Drill, hcp: number | null | undefined, value: number | null | undefined): 0 | 1 | 2 | 3 {
-  const smaller = !!drill?.metric?.smallerIsBetter
-  return computeLevelReached(hcp, drill.metric?.hcpTargets || {}, value, smaller)
+export function computeLevelForDrill(drill: Drill, hcp: number | null | undefined, value: number | null | undefined): Level {
+  return computeLevelReached(hcp, drill.metric?.hcpTargets || {}, value, !!drill?.metric?.smallerIsBetter)
 }

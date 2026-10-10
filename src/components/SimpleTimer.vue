@@ -1,7 +1,7 @@
 <template>
   <div class="card timer-card">
     <div class="row" style="align-items:center; justify-content:space-between;">
-      <div class="chip" :aria-label="`Voreinstellung ${presetLabel}`" v-if="presetSeconds && presetSeconds > 0">
+      <div v-if="presetSeconds && presetSeconds > 0" class="chip" :aria-label="`Voreinstellung ${presetLabel}`">
         🎯 {{ presetLabel }}
       </div>
       <output class="chip" :aria-label="ariaLabel" aria-live="polite">
@@ -10,10 +10,10 @@
     </div>
 
     <div class="row" style="margin-top:8px;">
-      <button class="btn btn-primary" type="button" @click="toggle" :aria-pressed="running">
+      <button class="btn btn-primary" type="button" :aria-pressed="running" @click="toggle">
         {{ running ? 'Pause' : 'Start' }}
       </button>
-      <button class="btn" type="button" @click="onReset" aria-label="Zurücksetzen">Reset</button>
+      <button class="btn" type="button" aria-label="Zurücksetzen" @click="onReset">Reset</button>
     </div>
   </div>
 </template>

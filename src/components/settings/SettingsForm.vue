@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSave" class="space-y-6">
+  <form class="space-y-6" @submit.prevent="onSave">
     <!-- Profile / Basics -->
     <section class="card p-4">
       <h3 class="text-base font-semibold mb-3">Profil & Basics</h3>

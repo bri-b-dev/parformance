@@ -26,13 +26,12 @@ export function latestLevelByDrill(sessions: Session[], drills?: Drill[], mode: 
   }
   for (const s of sessions || []) {
     if (!s || !s.drillId || !s.date) continue
-    let level = typeof s.levelReached === 'number' && isFinite(s.levelReached) ? s.levelReached : undefined
-    if (level == null) {
-      const drill = drillMap[s.drillId]
-      if (drill) {
-        level = evaluateSessionLevel(s, drill, mode)
-      }
-    }
+    const drill = drillMap[s.drillId]
+    // evaluateSessionLevel honours the mode: 'historical' prefers the stored snapshot, 'current' re-evaluates.
+    // Without a catalog entry fall back to the stored level.
+    let level: number | undefined = drill
+      ? evaluateSessionLevel(s, drill, mode)
+      : (typeof s.levelReached === 'number' ? s.levelReached : undefined)
     if (!Number.isFinite(level)) level = 0
     const cur = latest[s.drillId]
     if (!cur || s.date.localeCompare(cur.date) > 0) {

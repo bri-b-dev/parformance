@@ -29,8 +29,8 @@ import { useSessionsStore } from '@/stores/sessions';
 import { useHcpHistoryStore } from '@/stores/hcpHistory';
 import { useRoundsStore } from '@/stores/rounds';
 import { useUiStore } from '@/stores/ui';
-import RandomizerView from '@/views/RandomizerView.vue';
 import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import HeaderBar from './components/HeaderBar.vue'
 import { useSettingsStore } from '@/stores/settings';
 import Toasts from './components/Toasts.vue'
@@ -44,6 +44,10 @@ const rounds = useRoundsStore()
 function openShuffle() { ui.setShuffle(true) }
 
 const settings = useSettingsStore()
+const route = useRoute()
+// the overlay belongs to a screen: leaving the screen (e.g. browser back) closes it
+watch(() => route.fullPath, () => ui.setShuffle(false))
+const RandomizerView = defineAsyncComponent(() => import('@/views/RandomizerView.vue'))
 const OnboardingModal = defineAsyncComponent(() => import('./components/OnboardingModal.vue'))
 const SettingsSheet = defineAsyncComponent(() => import('./components/SettingsSheet.vue'))
 const settingsSeen = ref(false)

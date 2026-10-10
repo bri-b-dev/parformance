@@ -33,6 +33,9 @@ const props = defineProps<{
 const emit = defineEmits<(e: 'stopped', value: string) => void>()
 
 const listRef = ref<HTMLUListElement | null>(null)
+// running animation: lets a new spin cancel the old one and "skip" jump to the final position
+let raf = 0
+let finalize: (() => void) | null = null
 
 // Einheitliche Höhe per CSS-Var (Default 48px)
 const rowH = 48
@@ -56,6 +59,10 @@ async function spin() {
     const items = baseItems.value
     if (!el || !items.length) return
 
+    // a new spin replaces a running one
+    if (raf) cancelAnimationFrame(raf)
+    finalize = null
+
     // Reset
     el.style.transition = 'none'
     // position list so the center item is aligned to the viewport center (peek above/below)
@@ -77,6 +84,19 @@ async function spin() {
     const start = performance.now()
     const startY = peekPx
 
+    let done = false
+    const complete = () => {
+        if (done) return
+        done = true
+        finalize = null
+        raf = 0
+        // snap to the chosen row and report it
+        const finalIndex = targetIdxInItems >= 0 ? targetIdxInItems : offsetWithin
+        el.style.transform = `translateY(${-(finalIndex * rowH) + peekPx}px)`
+        emit('stopped', items[finalIndex] ?? '-')
+    }
+    finalize = complete
+
     const frame = (now: number) => {
         const t = Math.min(1, (now - start) / duration)
         const eased = easeOutCubic(t)
@@ -86,20 +106,19 @@ async function spin() {
         const targetYAdj = targetY + peekPx
         const y = startY + eased * (targetYAdj - startY - inertia)
         el.style.transform = `translateY(${y % -totalH}px)`
-        if (t < 1) requestAnimationFrame(frame)
-        else {
-            const snapY = Math.round((y % -totalH) / rowH) * rowH
-            const rawIndex = Math.abs(snapY / rowH) % (items.length || 1)
-            const finalIndex = targetIdxInItems >= 0 ? targetIdxInItems : rawIndex
-            // ensure final placement keeps the chosen item centered (account for peek)
-            const normalizedY = -(finalIndex * rowH) + peekPx
-            el.style.transform = `translateY(${normalizedY}px)`
-            const value = (items[finalIndex] ?? '-')
-            emit('stopped', value)
-        }
+        if (t < 1) raf = requestAnimationFrame(frame)
+        else complete()
     }
-    requestAnimationFrame(frame)
+    raf = requestAnimationFrame(frame)
 }
+
+/** Jump to the final position right away (used by "Überspringen"). */
+function skip() {
+    if (raf) cancelAnimationFrame(raf)
+    finalize?.()
+}
+
+defineExpose({ skip })
 
 watch(() => props.spinTrigger, () => { spin() })
 </script>

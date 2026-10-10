@@ -78,6 +78,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-04 · Shuffle überarbeiten — P1 · M
 
+> **Umgesetzt** (`RandomizerView.vue`, `src/shuffle/pick.ts`): eine Walze (1 s, „Überspringen"), Ergebniskarte mit Kategorie, Dauer, Schwierigkeit und Ziel für das aktuelle HCP, Starten (öffnet den Drill mit laufender Session) / Nochmal / Details, Filter-Chips für Kategorie, Ort und Dauer, Favoriten-Schalter mit Erklärung, Sperrliste aus den letzten 5 Sessions und den Zügen im Overlay, Haptik beim Stopp, reduzierte Bewegung = sofort. Das Overlay dreht nicht von selbst: erst „Drehen", damit die Filter vorher gesetzt werden können. Escape, ✕ und Android-Zurück schließen es; der Fokus geht an den auslösenden Button zurück.
+
 **Problem:** B2.
 
 **Anforderungen**

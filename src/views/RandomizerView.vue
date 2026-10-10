@@ -1,47 +1,74 @@
 <template>
-  <!-- Overlay backdrop -->
-  <div v-if="isOpen" class="overlay" role="dialog" aria-modal="true" aria-labelledby="shuffle-title"
-    @click.self="close">
-    <div class="card overlay-panel slot-panel" role="document">
-      <header class="slot-header">
-        <h2 id="shuffle-title" style="display: flex; align-items: baseline;">
-          Zufallsauswahl
-          <span v-if="ui.activeCategory || ui.activeTag" style="font-size: 0.95rem; font-weight: 500; color: var(--muted); margin-left: 10px;">
-            {{ [ui.activeCategory, ui.activeTag].filter(Boolean).join(' • ') }}
-          </span>
-        </h2>
-        <!-- X entfernt -->
+  <div class="overlay" data-testid="shuffle-overlay" @click.self="close">
+    <div ref="panel" class="card overlay-panel" role="dialog" aria-modal="true" aria-labelledby="shuffle-title" @keydown.esc.stop="close" @keydown.tab="trapTab">
+      <header class="shuffle-head">
+        <h2 id="shuffle-title" class="shuffle-title">Zufalls-Drill</h2>
+        <button type="button" class="btn shuffle-close" aria-label="Schließen" data-testid="shuffle-close" @click="close">✕</button>
       </header>
 
-      <!-- Loading / Error -->
-      <output v-if="!catalog.loaded" class="loading" aria-live="polite">
-        <span class="spinner" aria-hidden="true"></span>
-        Lädt…
-      </output>
-      <output v-else-if="catalog.error" class="error" aria-live="polite">
-        {{ catalog.error }}
-      </output>
+      <output v-if="!catalog.loaded" class="shuffle-loading" aria-live="polite">Lädt…</output>
+      <output v-else-if="catalog.error" class="shuffle-error" aria-live="polite">{{ catalog.error }}</output>
 
-      <!-- Content -->
-      <div v-else class="slot-body">
-        <!-- Slot frame -->
-        <div class="slot-frame">
-          <!-- Center marker line -->
-          <div class="slot-marker" aria-hidden="true"></div>
-          <div class="grid grid-cols-3 gap-3">
-            <div v-for="slot in reelOrder" :key="slot" class="min-w-0">
-              <Reel :items="nameItems" label="Drill" :spin-trigger="spinTick[slot]" :duration="D_NAME"
-                :target-value="targetTitle || undefined" @stopped="(v) => onReelStopped(slot, v)" />
-            </div>
+      <div v-else class="shuffle-body">
+        <!-- Filters -->
+        <section class="shuffle-filters" aria-label="Filter">
+          <div class="chip-row" role="group" aria-label="Kategorie">
+            <button type="button" class="chip fchip" :class="{ on: category === '' }" :aria-pressed="category === ''" @click="category = ''">Alle</button>
+            <button v-for="c in categories" :key="c" type="button" class="chip fchip" :class="{ on: category === c }" :aria-pressed="category === c" @click="category = category === c ? '' : c">{{ c }}</button>
           </div>
+          <div class="chip-row" role="group" aria-label="Ort">
+            <button v-for="g in LOCATION_GROUPS" :key="g" type="button" class="chip fchip" :class="{ on: place === g }" :aria-pressed="place === g" @click="place = place === g ? '' : g">{{ g }}</button>
+          </div>
+          <div class="chip-row" role="group" aria-label="Dauer">
+            <button v-for="d in DURATIONS" :key="d.max" type="button" class="chip fchip" :class="{ on: maxMinutes === d.max }" :aria-pressed="maxMinutes === d.max" @click="maxMinutes = maxMinutes === d.max ? 0 : d.max">{{ d.label }}</button>
+          </div>
+          <div v-if="ui.activeTag" class="chip-row">
+            <button type="button" class="chip fchip on" :aria-label="`Tag-Filter ${ui.activeTag} entfernen`" @click="ui.setActiveTag('')">Tag: {{ ui.activeTag }} ✕</button>
+          </div>
+
+          <label class="fav-switch">
+            <input v-model="biasFavorites" type="checkbox" role="switch" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
+            <span>
+              <strong>Favoriten bevorzugen</strong>
+              <small class="muted">{{ hasAnyFavorites ? 'Deine Favoriten werden deutlich häufiger gezogen.' : 'Markiere Drills mit ☆ als Favorit, um sie zu bevorzugen.' }}</small>
+            </span>
+          </label>
+          <p class="muted pool-count" data-testid="pool-count">{{ pool.length }} {{ pool.length === 1 ? 'Drill' : 'Drills' }} im Pool</p>
+        </section>
+
+        <!-- Reel -->
+        <Reel ref="reel" :items="nameItems" label="Zufalls-Drill" :spin-trigger="spinTick" :duration="SPIN_MS" :target-value="target?.title" @stopped="onStopped" />
+
+        <p class="sr-only" aria-live="polite" data-testid="shuffle-announce">{{ announce }}</p>
+
+        <!-- Empty pool -->
+        <div v-if="pool.length === 0" class="shuffle-empty" data-testid="shuffle-empty">
+          <p>Für diese Filter gibt es keine Drills.</p>
+          <button type="button" class="btn" @click="resetFilters">Filter zurücksetzen</button>
         </div>
 
-        <!-- Helper row -->
-        <div class="slot-controls">
-          <label class="chip pref">
-            <input v-model="biasFavorites" type="checkbox" :disabled="!hasAnyFavorites" data-testid="bias-favorites" />
-            Favoriten bevorzugen
-          </label>
+        <!-- Result -->
+        <section v-else-if="result && !spinning" class="card result" data-testid="shuffle-result" aria-labelledby="result-title">
+          <h3 id="result-title" class="result-title">{{ result.title }}</h3>
+          <div class="chip-row">
+            <span class="chip">{{ result.category }}</span>
+            <span class="chip" data-testid="result-minutes">{{ drillMinutes(result) }} Min.</span>
+            <span v-if="difficulty" class="chip" :aria-label="`Schwierigkeit ${difficulty} von 5`" data-testid="result-difficulty">{{ '●'.repeat(difficulty) }}{{ '○'.repeat(5 - difficulty) }}</span>
+            <span v-if="favorites.isFavorite(result.id)" class="chip">★ Favorit</span>
+          </div>
+          <p v-if="result.summary" class="muted">{{ result.summary }}</p>
+          <p class="result-target" data-testid="result-target">{{ targetText }}</p>
+          <div class="result-actions">
+            <button type="button" class="btn btn-primary" data-testid="shuffle-start" @click="start">Starten</button>
+            <button type="button" class="btn" data-testid="shuffle-again" :disabled="spinning" @click="spin">Nochmal</button>
+            <button type="button" class="btn" data-testid="shuffle-details" @click="details">Details</button>
+          </div>
+        </section>
+
+        <!-- Spin -->
+        <div v-else class="spin-actions">
+          <button v-if="!spinning" type="button" class="btn btn-primary spin-btn" data-testid="shuffle-spin" :disabled="pool.length === 0" @click="spin">Drehen</button>
+          <button v-else type="button" class="btn" data-testid="shuffle-skip" @click="skip">Überspringen</button>
         </div>
       </div>
     </div>
@@ -49,281 +76,189 @@
 </template>
 
 <script setup lang="ts">
+import Reel from '@/components/Reel.vue'
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
+import { LOCATION_GROUPS, locationGroup } from '@/filters/location'
+import { formatHcp } from '@/hcp/format'
+import { resolveThresholds } from '@/hcp/buckets'
+import { valueForLevel } from '@/hcp/level'
+import { pickRandomDrill } from '@/shuffle/pick'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { withPreservedQuery } from '@/router'
-import Reel from '@/components/Reel.vue'
+import { drillMinutes } from '@/today/suggest'
+import type { Drill } from '@/types'
+import { Haptics, ImpactStyle } from '@capacitor/haptics'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const props = defineProps<{ durationNameMs?: number }>()
-const D_NAME = computed(() => props.durationNameMs ?? 650)
+const SPIN_MS = 1000
+const RECENT_SESSIONS = 5
+const DURATIONS = [
+  { max: 10, label: 'bis 10 Min.' },
+  { max: 20, label: 'bis 20 Min.' },
+  { max: 30, label: 'bis 30 Min.' },
+]
+
+const catalog = useDrillCatalogStore()
+const favorites = useFavoritesStore()
+const sessions = useSessionsStore()
+const settings = useSettingsStore()
+const ui = useUiStore()
+const router = useRouter()
+const route = useRoute()
+const { hcp: currentHcp } = useCurrentHcp()
+
+const panel = ref<HTMLElement | null>(null)
+const reel = ref<InstanceType<typeof Reel> | null>(null)
+
+// filters start from the list's active filter, but changes here stay inside the overlay
+const category = ref(ui.activeCategory)
+const place = ref('')
+const maxMinutes = ref(0)
+const biasFavorites = ref(false)
+
+const spinTick = ref(0)
+const spinning = ref(false)
+const target = ref<Drill | null>(null)
+const result = ref<Drill | null>(null)
+const announce = ref('')
+/** Picks of this overlay session, newest last (avoid repeating them). */
+const picks = ref<string[]>([])
+
+// focus handling: remember what opened the overlay and give focus back on close
+let opener: HTMLElement | null = null
+
+onMounted(async () => {
+  opener = document.activeElement instanceof HTMLElement ? document.activeElement : null
+  await Promise.all([
+    catalog.loaded ? null : catalog.load(),
+    favorites.loaded ? null : favorites.load(),
+    sessions.loaded ? null : sessions.load(),
+    settings.loaded ? null : settings.load(),
+  ])
+  biasFavorites.value = settings.shuffleFavorites && favorites.list.length > 0
+  await nextTick()
+  focusFirst()
+})
+
+onUnmounted(() => {
+  if (opener?.isConnected) opener.focus()
+})
+
+const categories = computed(() => Array.from(new Set(catalog.drills.map(d => d.category))).sort((a, b) => a.localeCompare(b, 'de')))
+const hasAnyFavorites = computed(() => (favorites.list?.length ?? 0) > 0)
+
+const pool = computed(() => catalog.drills.filter(d =>
+  (!category.value || d.category === category.value) &&
+  (!place.value || locationGroup(d) === place.value) &&
+  (!maxMinutes.value || drillMinutes(d) <= maxMinutes.value) &&
+  (!ui.activeTag || d.tags?.includes(ui.activeTag)),
+))
+const nameItems = computed(() => Array.from(new Set(pool.value.map(d => d.title))).sort((a, b) => a.localeCompare(b, 'de')))
+
+const difficulty = computed(() => {
+  const b = result.value?.difficulty?.base
+  return typeof b === 'number' ? Math.min(5, Math.max(1, Math.round(b))) : 0
+})
+
+const targetText = computed(() => {
+  const d = result.value
+  if (!d) return ''
+  if (currentHcp.value === null) return 'Trage dein Handicap ein, um dein Ziel für diesen Drill zu sehen.'
+  const v = valueForLevel(resolveThresholds(d.metric.hcpTargets, currentHcp.value), 2, !!d.metric.smallerIsBetter)
+  return v === null ? 'Für diesen Drill gibt es keinen Zielwert.' : `Ziel bei HCP ${formatHcp(currentHcp.value)}: ${v} ${d.metric.unit}`
+})
 
 function prefersReducedMotion(): boolean {
   try { return !!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches } catch { return false }
 }
 
-const catalog = useDrillCatalogStore()
-const favorites = useFavoritesStore()
-const settings = useSettingsStore()
-const router = useRouter()
-const route = useRoute()
-const ui = useUiStore()
-const isOpen = computed(() => !!(ui.shuffleOpen || route.name === 'ShuffleOverlay'))
-
-onMounted(async () => {
-  if (!catalog.loaded) await catalog.load()
-  if (!favorites.loaded) await favorites.load()
-  if (!settings.loaded) await settings.load()
-  const q = route?.query || {}
-  const favOn = ['1', 'true', 'yes'].includes(String((q as any).fav ?? (q as any).onlyFavorites ?? '').toLowerCase())
-  if (favOn && hasAnyFavorites.value) biasFavorites.value = true
-  else biasFavorites.value = settings.shuffleFavorites ?? false
-  biasSyncReady = true
-})
-
-const disabled = computed(() => (catalog.drills.length === 0))
-const hasAnyFavorites = computed(() => (favorites.list?.length ?? 0) > 0)
-const biasFavorites = ref<boolean>(settings.shuffleFavorites ?? false)
-let biasSyncReady = settings.loaded
-const isFavorite = (id: string) => favorites.list?.includes?.(id) ?? false
-
-interface DerivedDrill {
-  id: string
-  title: string
-  favorite: boolean
+function recentIds(): string[] {
+  const lastSessions = [...sessions.sessions].sort((a, b) => b.date.localeCompare(a.date)).slice(0, RECENT_SESSIONS).map(s => s.drillId)
+  return [...lastSessions, ...picks.value]
 }
 
-const derived = computed<DerivedDrill[]>(() => {
-  let list = catalog.drills
-  if (ui.activeCategory) {
-    list = list.filter((d: any) => d.category === ui.activeCategory)
-  }
-  if (ui.activeTag) {
-    list = list.filter((d: any) => d.tags && d.tags.includes(ui.activeTag))
-  }
-  return list
-    .map((d: any) => ({
-      id: d.id,
-      title: String(d?.title ?? '').trim(),
-      favorite: isFavorite(d.id),
-    }))
-    .filter((d) => !!d.title)
-})
-
-const nameItems = computed<string[]>(() => {
-  const s = new Set<string>()
-  for (const d of derived.value) {
-    if (d.title) s.add(d.title)
-  }
-  return Array.from(s).sort((a, b) => a.localeCompare(b, 'de'))
-})
-
-function rnd(): number {
-  if (globalThis.crypto?.getRandomValues) {
-    const a = new Uint32Array(1)
-    globalThis.crypto.getRandomValues(a)
-    return (a[0] / 0xFFFFFFFF)
-  }
-  return Math.random()
-}
-
-function sampleWeighted<T>(items: T[], weights: number[]): T {
-  const total = weights.reduce((a, b) => a + b, 0)
-  let r = rnd() * total
-  for (let i = 0; i < items.length; i++) {
-    r -= weights[i]
-    if (r <= 0) return items[i]
-  }
-  return items[items.length - 1]
-}
-
-const lastPick = new Map<string, string>()
-
-function chooseDrillId(pool: { id: string; favorite: boolean }[]): string {
-  if (pool.length === 0) return ''
-  // Significantly increased bias: favorites are 10x more likely to be picked when enabled
-  const favFactor = pool.length <= 3 ? 3 : 10
-  const weights = pool.map((d) => (biasFavorites.value && d.favorite ? favFactor : 1))
-  let chosen = sampleWeighted(pool, weights)
-  const last = lastPick.get('drill')
-  if (last && pool.length > 1 && chosen.id === last) {
-    chosen = pool.find((p) => p.id !== last) ?? chosen
-  }
-  lastPick.set('drill', chosen.id)
-  return chosen.id
-}
-
-const leverRef = ref<HTMLButtonElement | null>(null)
-
-// Auto-start timer id (when modal opens)
-let autoStartTimer: ReturnType<typeof setTimeout> | null = null
-
-function onLeverClick() {
-  const el = leverRef.value
-  if (el) {
-    el.classList.remove('wobble')
-    void el.offsetWidth
-    el.classList.add('wobble')
-    el.addEventListener('animationend', () => el.classList.remove('wobble'), { once: true })
-  }
-  start()
-}
-
-// When the modal opens, auto-start after a short delay (unless user prefers reduced motion)
-// use immediate so it also triggers if the modal is already open when this code runs
-watch(isOpen, (open) => {
-  if (!open) {
-    if (autoStartTimer) { clearTimeout(autoStartTimer); autoStartTimer = null }
-    return
-  }
-  try {
-    if (prefersReducedMotion()) return
-  } catch { }
-  // delay slightly so the modal finishes rendering; use a slightly longer delay to ensure paint
-  const AUTO_START_DELAY = 500
-  requestAnimationFrame(() => {
-    autoStartTimer = globalThis.setTimeout(() => {
-    // if modal still open and not already running, trigger the lever
-    if (isOpen.value && !running.value && !disabled.value) onLeverClick()
-    autoStartTimer = null
-    }, AUTO_START_DELAY)
-  })
-}, { immediate: true })
-
-onUnmounted(() => { if (autoStartTimer) { clearTimeout(autoStartTimer); autoStartTimer = null } })
-
-const reelOrder = ['left', 'center', 'right'] as const
-type SlotKey = typeof reelOrder[number]
-
-const spinTick = reactive<Record<SlotKey, number>>({ left: 0, center: 0, right: 0 })
-const spinning = reactive<Record<SlotKey, boolean>>({ left: false, center: false, right: false })
-const targetTitle = ref<string | null>(null)
-const displayTitle = ref<string | null>(null)
-const running = ref(false)
-const selectedDrillId = ref<string | null>(null)
-
-watch(() => settings.shuffleFavorites, (value) => {
-  if (!settings.loaded) return
-  if (!running.value) biasFavorites.value = !!value
-})
-
-watch(biasFavorites, async (value) => {
-  if (!settings.loaded || !biasSyncReady) return
-  if (settings.shuffleFavorites === value) return
-  await settings.update({ shuffleFavorites: value })
-})
-
-let spinResolver: (() => void) | null = null
-
-async function start() {
-  if (disabled.value || running.value) return
-  running.value = true
-  displayTitle.value = null
-  targetTitle.value = null
-  selectedDrillId.value = null
-  for (const slot of reelOrder) {
-    spinning[slot] = false
-  }
-
-  const pool = derived.value
-  if (!pool.length) {
-    running.value = false
-    return
-  }
-
-  const chosenId = chooseDrillId(pool.map((p) => ({ id: p.id, favorite: p.favorite })))
-  if (!chosenId) {
-    running.value = false
-    return
-  }
-
-  const original = catalog.drills.find((x) => x.id === chosenId)
-  const chosenTitle = (original?.title ?? pool.find((p) => p.id === chosenId)?.title ?? '').trim()
-  if (!chosenTitle) {
-    running.value = false
-    return
-  }
-
-  selectedDrillId.value = chosenId
-  targetTitle.value = chosenTitle
-
+function spin() {
+  if (spinning.value || pool.value.length === 0) return
+  const drill = pickRandomDrill(pool.value, { recent: recentIds(), favorites: new Set(favorites.list), biasFavorites: biasFavorites.value })
+  if (!drill) return
+  target.value = drill
+  result.value = null
+  announce.value = ''
   if (prefersReducedMotion()) {
-    displayTitle.value = chosenTitle
-    running.value = false
-    finish()
+    reveal(drill)
     return
   }
-
-  const waitForSpin = new Promise<void>((resolve) => {
-    spinResolver = resolve
-  })
-  for (const slot of reelOrder) {
-    spinning[slot] = true
-    spinTick[slot]++
-  }
-
-  await waitForSpin
-  spinResolver = null
-
-  if (!selectedDrillId.value || !targetTitle.value) {
-    running.value = false
-    return
-  }
-
-  displayTitle.value = targetTitle.value
-  running.value = false
-  finish()
+  spinning.value = true
+  spinTick.value++
 }
 
-function onReelStopped(slot: SlotKey, _value: string) {
-  spinning[slot] = false
-  if (!spinResolver) return
-  if (!spinning.left && !spinning.center && !spinning.right) {
-    const resolver = spinResolver
-    spinResolver = null
-    resolver()
-  }
+function skip() {
+  reel.value?.skip()
 }
 
-async function finish() {
-  const id = selectedDrillId.value
-  if (!id) return
-  const original = catalog.drills.find((x) => x.id === id)
-  if (!original) return
-  // ensure UI reflects stopped state
-  running.value = false
-
-  // small pause so the user can read the result before the modal closes
-  await new Promise((resolve) => setTimeout(resolve, 500))
-
-  // If the user cancelled during the pause, abort navigation
-  if (selectedDrillId.value !== id) return
-
-  try {
-    ; (globalThis as any).__lastPushedRoute = { name: 'DrillDetail', id: original.id }
-    const p = router.push(withPreservedQuery({ name: 'DrillDetail', params: { id: original.id } }, route))
-    p.finally(() => {
-      try { ui.setShuffle(false) } catch { }
-    })
-  } catch (e) {
-    console.error('Failed to navigate to drill detail:', e)
-  }
+async function onStopped() {
+  if (!spinning.value || !target.value) return
+  spinning.value = false
+  reveal(target.value)
 }
+
+function reveal(drill: Drill) {
+  spinning.value = false
+  result.value = drill
+  picks.value = [...picks.value, drill.id].slice(-RECENT_SESSIONS)
+  announce.value = `Zufalls-Drill: ${drill.title}, ${drill.category}, ${drillMinutes(drill)} Minuten`
+  try { void Haptics.impact({ style: ImpactStyle.Medium }).catch(() => {}) } catch { /* not available */ }
+  void nextTick().then(() => panel.value?.querySelector<HTMLElement>('[data-testid="shuffle-start"]')?.focus())
+}
+
+function resetFilters() {
+  category.value = ''
+  place.value = ''
+  maxMinutes.value = 0
+  ui.setActiveTag('')
+  result.value = null
+}
+
+async function go(autoStart: boolean) {
+  const d = result.value
+  if (!d) return
+  if (autoStart) ui.requestStart(d.id)
+  await router.push(withPreservedQuery({ name: 'DrillDetail', params: { id: d.id } }, route))
+  ui.setShuffle(false)
+}
+const start = () => go(true)
+const details = () => go(false)
 
 function close() {
-  if (ui.shuffleOpen) {
-    ui.setShuffle(false)
-    return
-  }
-  router.back()
+  ui.setShuffle(false)
+}
+
+function focusables(): HTMLElement[] {
+  return Array.from(panel.value?.querySelectorAll<HTMLElement>('button, input, select, [href]') ?? []).filter(el => !(el as HTMLButtonElement).disabled)
+}
+
+function focusFirst() {
+  const spinBtn = panel.value?.querySelector<HTMLElement>('[data-testid="shuffle-spin"]')
+  ;(spinBtn ?? focusables()[0])?.focus()
+}
+
+/** Keep Tab inside the dialog. */
+function trapTab(e: KeyboardEvent) {
+  const items = focusables()
+  if (items.length === 0) return
+  const first = items[0]
+  const last = items[items.length - 1]
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
 }
 </script>
 
 <style scoped>
-/* Overlay/backdrop */
 .overlay {
   position: fixed;
   inset: 0;
@@ -332,133 +267,132 @@ function close() {
   justify-content: center;
   background: rgba(0, 0, 0, 0.55);
   z-index: 1100;
-  padding: 20px;
+  padding: 16px;
 }
 
 .overlay-panel {
-  width: min(980px, 96vw);
+  width: min(560px, 100%);
   max-height: 92vh;
   overflow: auto;
   border-radius: 16px;
-  padding: 18px;
-}
-
-/* Slot look & feel */
-.slot-panel {
+  padding: 16px;
   background: var(--surface, #fff);
   box-shadow: 0 12px 38px rgba(0, 0, 0, 0.22);
 }
 
-.slot-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.slot-header h2 {
-  margin: 0;
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: .2px;
-}
-
-/* Loading + error */
-.loading,
-.error {
-  padding: 16px;
-  font-size: .95rem;
-  color: var(--text, #444C56);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid #d1d5db;
-  border-top-color: #2F7A52;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* SLOT FRAME */
-.slot-body {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.slot-frame {
-  position: relative;
-  align-items: center;
-  padding: 18px;
-  border-radius: 18px;
-  /* theme-aware frame background for light/dark */
-  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 88%, var(--bg) 12%), var(--surface));
-  box-shadow:
-    inset 0 2px 0 color-mix(in oklab, rgba(255,255,255,0.06) 60%, transparent),
-    inset 0 -2px 8px color-mix(in oklab, rgba(0,0,0,0.06) 20%, transparent),
-    0 6px 22px color-mix(in oklab, var(--bg) 8%, transparent);
-  border: 1px solid var(--border);
-}
-
-.slot-marker {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  top: 50%;
-  height: 0;
-  border-top: 2px solid rgba(47, 122, 82, 0.55);
-  box-shadow: 0 0 0 1px rgba(47, 122, 82, 0.08);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-/* CONTROLS */
-.slot-controls {
+.shuffle-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 6px 4px 2px;
+  margin-bottom: 8px;
 }
 
-.pref {
-  display: inline-flex;
+.shuffle-title {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.shuffle-close {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+}
+
+.shuffle-loading,
+.shuffle-error {
+  display: block;
+  padding: 16px;
+}
+
+.shuffle-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shuffle-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fchip {
+  cursor: pointer;
+  min-height: 32px;
+}
+
+.fchip.on {
+  background: color-mix(in oklab, var(--primary) 16%, transparent);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.fav-switch {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.fav-switch input {
+  margin-top: 4px;
+  width: 20px;
+  height: 20px;
+}
+
+.fav-switch span {
+  display: flex;
+  flex-direction: column;
+}
+
+.pool-count {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.shuffle-empty {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 8px;
-  font-size: .9rem;
-  color: #46505b;
+  text-align: center;
 }
 
-.pref input {
-  transform: translateY(1px);
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  margin: 0;
 }
 
-@keyframes lever-wobble {
-  0% {
-    transform: translateY(0) scale(1);
-  }
+.result-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
 
-  28% {
-    transform: translateY(3px) scale(.985);
-  }
+.result-target {
+  margin: 0;
+  font-weight: 600;
+}
 
-  58% {
-    transform: translateY(-1px) scale(1.008);
-  }
+.result-actions,
+.spin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
-  100% {
-    transform: translateY(0) scale(1);
-  }
+.spin-btn {
+  min-width: 140px;
 }
 </style>

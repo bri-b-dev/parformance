@@ -12,6 +12,8 @@ export const useUiStore = defineStore('ui', {
     activeTag: '' as string,
     // active category filter
     activeCategory: '' as string,
+    // drill whose session should start right away when its detail page opens (set by the shuffle overlay)
+    startRequest: '' as string,
   }),
   getters: {
     isGamblerCollapsed: (state) => (drillId: string) => {
@@ -25,6 +27,15 @@ export const useUiStore = defineStore('ui', {
     },
     setSettings(open: boolean) {
       this.settingsOpen = !!open
+    },
+    requestStart(drillId: string) {
+      this.startRequest = drillId
+    },
+    /** True (once) if a start was requested for this drill. */
+    consumeStart(drillId: string): boolean {
+      if (this.startRequest !== drillId) return false
+      this.startRequest = ''
+      return true
     },
     setShuffle(open: boolean) {
       this.shuffleOpen = !!open

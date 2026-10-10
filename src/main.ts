@@ -1,5 +1,6 @@
 import {createApp} from 'vue';
 import {createPinia} from 'pinia';
+import {useUiStore} from '@/stores/ui';
 import App from './App.vue';
 import router, {withPreservedQuery} from './router';
 import '@/assets/tailwind.css';
@@ -34,7 +35,8 @@ async function ensureStatusBar() {
 }
 
 const app = createApp(App);
-app.use(createPinia());
+const pinia = createPinia();
+app.use(pinia);
 app.use(router);
 
 // vue-i18n is only needed by the handicap module: install it lazily on first visit so it stays out of the start bundle.
@@ -68,6 +70,10 @@ async function ensureBackButtonHandling() {
     router.isReady().then(() => {
       AppPlugin.addListener('backButton', () => {
         try {
+          // overlays close first: back closes the shuffle overlay / settings instead of leaving the screen
+          const ui = useUiStore(pinia)
+          if (ui.shuffleOpen) { ui.setShuffle(false); return }
+          if (ui.settingsOpen) { ui.setSettings(false); return }
           const route = router.currentRoute.value
           // If we're viewing a drill detail, navigate to the drills list explicitly
           if (route.name === 'DrillDetail') {

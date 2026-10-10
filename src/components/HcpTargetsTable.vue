@@ -1,5 +1,9 @@
 <template>
   <div class="card" style="margin-top:10px;">
+    <p v-if="currentHcp == null" class="muted hcp-missing" data-testid="hcp-missing">
+      Trage dein Handicap ein, dann wird deine Zeile hervorgehoben.
+      <button type="button" class="btn" @click="ui.setSettings(true)">Handicap eintragen</button>
+    </p>
     <table class="hcp-table" aria-label="HCP Zielwerte">
       <caption class="sr-only">Zielwerte nach Handicap-Bereich</caption>
       <thead>
@@ -31,6 +35,7 @@
 <script setup lang="ts">
 import { buildRowsForDrill } from '@/hcp/buckets';
 import { useSettingsStore } from '@/stores/settings';
+import { useUiStore } from '@/stores/ui';
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import type { Drill } from '@/types';
 import { computed, onMounted } from 'vue';
@@ -38,6 +43,7 @@ import { computed, onMounted } from 'vue';
 const props = defineProps<{ drill: Drill }>()
 
 const settings = useSettingsStore()
+const ui = useUiStore()
 const { hcp: currentHcp } = useCurrentHcp()
 
 onMounted(async () => {
@@ -63,3 +69,14 @@ function cellClass(row: any, _i: number) {
   return row.highlighted ? 'hcp-cell hcp-cell--highlight' : 'hcp-cell'
 }
 </script>
+
+<style scoped>
+.hcp-missing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+}
+</style>

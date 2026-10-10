@@ -32,6 +32,8 @@ export interface SettingsState {
   notifications: boolean
   /** True once the first-run onboarding was completed or skipped. */
   onboardingDone: boolean
+  /** True once the "no handicap" hint was dismissed. */
+  hcpHintDismissed: boolean
   loaded: boolean
 }
 
@@ -49,6 +51,7 @@ export const useSettingsStore = defineStore('settings', {
     shuffleFavorites: false,
     notifications: false,
     onboardingDone: false,
+    hcpHintDismissed: false,
     loaded: false,
   }),
   getters: {
@@ -128,6 +131,7 @@ export const useSettingsStore = defineStore('settings', {
         if (typeof data.onboardingDone === 'boolean') this.onboardingDone = data.onboardingDone
         // Existing installs from before onboarding existed must not see the first-run dialog again.
         else this.onboardingDone = true
+        if (typeof data.hcpHintDismissed === 'boolean') this.hcpHintDismissed = data.hcpHintDismissed
       }
       this.loaded = true
     },
@@ -145,6 +149,7 @@ export const useSettingsStore = defineStore('settings', {
         shuffleFavorites: this.shuffleFavorites,
         notifications: this.notifications,
         onboardingDone: this.onboardingDone,
+        hcpHintDismissed: this.hcpHintDismissed,
       })
     },
     async update(partial: Partial<Omit<SettingsState, 'loaded'>>) {
@@ -166,6 +171,7 @@ export const useSettingsStore = defineStore('settings', {
         this.shuffleFavorites = partial.shuffleFavorites
       }
       if ('onboardingDone' in partial && typeof partial.onboardingDone === 'boolean') this.onboardingDone = partial.onboardingDone
+      if ('hcpHintDismissed' in partial && typeof partial.hcpHintDismissed === 'boolean') this.hcpHintDismissed = partial.hcpHintDismissed
       if ('notifications' in partial && typeof partial.notifications === 'boolean') {
         this.notifications = partial.notifications
       }
@@ -191,6 +197,7 @@ export const useSettingsStore = defineStore('settings', {
       this.shuffleFavorites = false
       this.notifications = false
       this.onboardingDone = false
+      this.hcpHintDismissed = false
       await this.persist()
       this.emitHcpChanged(this.hcp)
       this.emitThemeChanged(this.theme)

@@ -16,7 +16,8 @@
 
     <!-- loaded on first use: it pulls in most stores and is rarely opened -->
     <SettingsSheet v-if="settingsSeen" :open="ui.settingsOpen" @close="ui.setSettings(false)" />
-    <OnboardingModal />
+    <!-- first run only, so returning users do not load it -->
+    <OnboardingModal v-if="settings.loaded && !settings.onboardingDone" />
     <BottomTabs />
     <Toasts />
     <ConfirmModal />
@@ -31,7 +32,6 @@ import { useUiStore } from '@/stores/ui';
 import RandomizerView from '@/views/RandomizerView.vue';
 import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
 import HeaderBar from './components/HeaderBar.vue'
-import OnboardingModal from './components/OnboardingModal.vue'
 import { useSettingsStore } from '@/stores/settings';
 import Toasts from './components/Toasts.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
@@ -44,6 +44,7 @@ const rounds = useRoundsStore()
 function openShuffle() { ui.setShuffle(true) }
 
 const settings = useSettingsStore()
+const OnboardingModal = defineAsyncComponent(() => import('./components/OnboardingModal.vue'))
 const SettingsSheet = defineAsyncComponent(() => import('./components/SettingsSheet.vue'))
 const settingsSeen = ref(false)
 watch(() => ui.settingsOpen, (open) => { if (open) settingsSeen.value = true }, { immediate: true })

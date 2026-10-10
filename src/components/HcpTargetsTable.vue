@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="margin-top:10px;">
-    <p v-if="currentHcp == null" class="muted hcp-missing" data-testid="hcp-missing">
+    <p v-if="currentHcp == null && !hideMissing" class="muted hcp-missing" data-testid="hcp-missing">
       Trage dein Handicap ein, dann wird deine Zeile hervorgehoben.
       <button type="button" class="btn" @click="ui.setSettings(true)">Handicap eintragen</button>
     </p>
@@ -40,7 +40,7 @@ import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import type { Drill } from '@/types';
 import { computed, onMounted } from 'vue';
 
-const props = defineProps<{ drill: Drill }>()
+const props = defineProps<{ drill: Drill; /** The surrounding view already explains the missing handicap. */ hideMissing?: boolean }>()
 
 const settings = useSettingsStore()
 const ui = useUiStore()

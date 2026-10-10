@@ -8,6 +8,7 @@
           <div class="dd-meta">
             <span class="chip">{{ drill.category }}</span>
             <span class="chip" data-testid="dd-minutes">{{ minutes }} Min.</span>
+            <LevelBadge :drill="drill" compact data-testid="dd-level" />
             <span v-if="difficulty" class="chip" :aria-label="`Schwierigkeit ${difficulty} von 5`" data-testid="dd-difficulty">{{ '●'.repeat(difficulty) }}{{ '○'.repeat(5 - difficulty) }}</span>
           </div>
           <p v-if="focus.active" class="focus-line" data-testid="focus-chip">
@@ -63,7 +64,7 @@
       <DrillDetailGrid v-if="tab === 'setup'" :drill="drill" section="setup" />
       <DrillDetailGrid v-else-if="tab === 'flow'" :drill="drill" section="flow" />
       <template v-else-if="tab === 'goals'">
-        <HcpTargetsTable v-if="drill.metric.hcpTargets" :drill="drill" />
+        <TargetScale :drill="drill" />
         <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
       </template>
       <SessionHistory v-else :drill-id="drill.id" />
@@ -83,7 +84,8 @@
 <script setup lang="ts">
 import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
 import GamblerTipPanel from '@/components/GamblerTipPanel.vue'
-import HcpTargetsTable from '@/components/HcpTargetsTable.vue'
+import LevelBadge from '@/components/LevelBadge.vue'
+import TargetScale from '@/components/TargetScale.vue'
 import MetricValueInput from '@/components/MetricValueInput.vue'
 import SessionHistory from '@/components/SessionHistory.vue'
 import LiveSession from '@/components/LiveSession.vue'

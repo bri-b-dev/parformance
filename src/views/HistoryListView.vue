@@ -67,7 +67,7 @@
               </div>
             </div>
             <div class="chips">
-              <span v-if="e.level != null" class="chip" :aria-label="`Level ${e.level} von 3`">{{ '★'.repeat(e.level) }}{{ '☆'.repeat(3 - e.level) }}</span>
+              <LevelStars v-if="e.level != null" :level="e.level" compact />
               <span v-if="e.isPb" class="chip chip-pb" data-testid="pb-chip">PB</span>
               <span v-if="e.session.focusId && focus.byId(e.session.focusId)" class="chip" data-testid="focus-chip">Fokus: {{ focus.byId(e.session.focusId)!.label }}</span>
               <span v-if="e.session.attempts != null" class="chip">{{ e.session.attempts }} Versuche</span>
@@ -94,6 +94,7 @@
 </template>
 
 <script setup lang="ts">
+import LevelStars from '@/components/LevelStars.vue'
 import ProgressTabs from '@/components/ProgressTabs.vue'
 import { evaluateSessionLevel } from '@/hcp/evaluator'
 import { buildHistory, formatDayLabel, limitHistory } from '@/history/entries'

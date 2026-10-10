@@ -111,6 +111,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-06 · Drill-Detail & Session-Flow — P0 · M
 
+> **Teil A umgesetzt** (`DrillDetail.vue`): Sticky-Kopf mit Titel, Favorit, Kategorie/Dauer/Schwierigkeit und den Aktionen **Starten** und **Ergebnis eintragen** (Schnell-Erfassung: 2 Taps, kein Timer, Feld fokussiert); Reiter Aufbau (Diagramm zuerst) · Ablauf · Ziele · Verlauf mit Tastaturbedienung; „Zu leicht? / Varianten" und Zocker-Tipp einklappbar; beim Starten wechselt die Ansicht auf „Ablauf". **Teil B offen:** Live-Modus (Vollbild, großer Timer, +/−-Zähler, Bildschirm bleibt an), Abschluss-Sheet (Level, Abstand zur nächsten Stufe, Bestwert/MA(5), PB-Konfetti, Notiz, Nochmal/Nächster Drill/Fertig) und Rückgängig-Toast.
+
 **Problem:** B7. Lange Scrollseite, Messwert versteckt, kein Abschluss-Moment.
 
 **Anforderungen**

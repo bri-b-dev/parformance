@@ -128,6 +128,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-07 · Ziele & Zielbereiche sichtbar machen — P0 · M
 
+> **Umgesetzt.** `TargetScale.vue` im Reiter „Ziele": Skala mit ★/★★/★★★-Markern, Bestwert (▲) und letztem Ergebnis; bei „kleiner ist besser" gespiegelt, sodass besser immer rechts liegt. Eine Zeile nennt die nächste Schwelle und den Abstand („Nächste Stufe ★★ ab 7: dein Bestwert 6, noch +1."), darunter alle Schwellen für das gewählte HCP. Umschalter **Mein HCP | Ziel-HCP** (Ziel = ★★ beim Ziel-HCP). Die volle Tabelle bleibt unter „Alle HCP-Bereiche". Die Skala ist nur Bild (`aria-hidden`), die Information steht als Text. `LevelStars` ist die einzige Level-Darstellung (Sterne + Zahl + Farbe) in Drill-Karte, Drill-Kopf, Verlauf und Abschluss-Sheet; die Schwierigkeit zeigt die Karte jetzt als Punkte (●●●○○), damit Sterne nur Level bedeuten. Der Auswertungsmodus ist ein Umschalter **Aktuell | Historisch** mit Erklärung; der Standard bleibt „Aktuell". Ein Test belegt, dass der Modus bei einer unter anderem HCP gespielten Session das Ergebnis ändert (33 % vs. 100 %).
+
 **Problem:** B4, B5 – das Kernversprechen „Zielbereiche anhand des (Ziel-)Handicaps" ist in der UI kaum erkennbar.
 
 **Anforderungen**

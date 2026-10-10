@@ -59,13 +59,16 @@
               <option :value="30">30 Tage</option>
               <option :value="90">90 Tage</option>
             </select>
-            <label for="eval-mode" class="sr-only">Auswertung</label>
-            <select id="eval-mode" v-model="evaluationMode" aria-label="Auswertungsmodus" data-testid="stats-eval-mode">
-              <option value="current">Aktuell (mit aktuellem HCP)</option>
-              <option value="historical">Historisch (mit HCP bei Session)</option>
-            </select>
+            <div class="eval-toggle" role="radiogroup" aria-label="Auswertung" aria-describedby="eval-help" data-testid="stats-eval-mode">
+              <button type="button" role="radio" class="eval-opt" :class="{ on: evaluationMode === 'current' }" :aria-checked="evaluationMode === 'current'" data-testid="eval-current" @click="evaluationMode = 'current'">Aktuell</button>
+              <button type="button" role="radio" class="eval-opt" :class="{ on: evaluationMode === 'historical' }" :aria-checked="evaluationMode === 'historical'" data-testid="eval-historical" @click="evaluationMode = 'historical'">Historisch</button>
+            </div>
           </div>
         </div>
+        <p id="eval-help" class="muted eval-help" data-testid="eval-help">
+          <template v-if="evaluationMode === 'current'"><strong>Aktuell:</strong> alle Ergebnisse werden mit deinem heutigen Handicap bewertet.</template>
+          <template v-else><strong>Historisch:</strong> jede Session zählt mit dem Handicap, das damals galt.</template>
+        </p>
         <div class="chart-wrapper">
           <CategoryScoresChart v-if="!isEmpty" :scores="scores" title="Fähigkeiten je Kategorie (0-100)" />
           <div v-else class="card empty-card" aria-live="polite">
@@ -250,6 +253,35 @@ const areas = computed(() => {
   justify-content: space-between;
   gap: 12px;
   margin-top: 8px;
+}
+
+.eval-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.eval-opt {
+  padding: 4px 12px;
+  min-height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.eval-opt.on {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+
+.eval-help {
+  margin: 0;
+  font-size: 0.9rem;
 }
 
 .filter-row {

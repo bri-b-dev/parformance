@@ -12,7 +12,7 @@
       <p class="muted sheet-unit">{{ summary.unit }}</p>
 
       <div class="chip-row">
-        <span v-if="summary.level !== null" class="chip" :aria-label="`Level ${summary.level} von 3`" data-testid="result-stars">{{ '★'.repeat(summary.level) }}{{ '☆'.repeat(3 - summary.level) }}</span>
+        <LevelStars v-if="summary.level !== null" :level="summary.level" compact data-testid="result-stars" />
         <span v-if="summary.isPb" class="chip chip-pb" data-testid="result-pb">PB</span>
       </div>
       <p v-if="summary.nextText" class="sheet-line" data-testid="result-next">{{ summary.nextText }}</p>
@@ -36,6 +36,7 @@
 </template>
 
 <script setup lang="ts">
+import LevelStars from '@/components/LevelStars.vue'
 import { fmtNumber, type ResultSummary } from '@/session/summary'
 import { computed, nextTick, onMounted, ref } from 'vue'
 

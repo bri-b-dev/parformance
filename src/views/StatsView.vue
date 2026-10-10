@@ -50,11 +50,12 @@
           <h2 class="label" style="margin:0 0 8px 0;">Verbesserungsbereiche</h2>
           <div class="grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
             <div class="card" data-testid="areas-below-target">
-              <h3 style="margin-top:0;">Unter Ziel</h3>
+              <h3 style="margin-top:0;">Unter Ziel<span v-if="settings.targetHcp != null" class="muted"> (HCP {{ settings.targetHcp }})</span></h3>
               <ul style="margin:0; padding-left:16px;">
                 <li v-for="d in areas.belowTarget" :key="d.id">
                   <router-link :to="preserve({ name: 'DrillDetail', params: { id: d.id } })">{{ d.title || d.id }}</router-link>
-                  <span class="muted" style="margin-left:8px;">(Lücke: {{ Math.round(d.gap || 0) }})</span>
+                  <span v-if="d.targetValue != null" class="muted" style="margin-left:8px;">(zuletzt {{ d.latestValue }}, Ziel {{ d.targetValue }})</span>
+                  <span v-else class="muted" style="margin-left:8px;">(Lücke: {{ Math.round(d.gap || 0) }})</span>
                 </li>
                 <li v-if="areas.belowTarget.length === 0" class="muted">Keine</li>
               </ul>
@@ -162,7 +163,7 @@ const scores = computed(() => computeCategoryScores(filteredSessions.value, filt
 const areas = computed(() => {
   // compute areas using currently filtered sessions/drills and the current evaluation mode
   try {
-  return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], settings.hcp, { mode: evaluationMode.value })
+  return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], settings.hcp, { mode: evaluationMode.value, targetHcp: settings.targetHcp })
   } catch (e) {
     console.error('Error computing areas of improvement:', e)
     return { belowTarget: [], stagnant: [], mostImproved: [] }

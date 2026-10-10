@@ -1,6 +1,7 @@
 import type {Drill, Session} from '@/types'
 import {latestLevelByDrill} from '@/stats/categoryScores'
 import {resolveThresholds} from '@/hcp/buckets'
+import {computeLevelFromThresholds, valueForLevel} from '@/hcp/level'
 import {useHcpHistoryStore} from '@/stores/hcpHistory'
 import {getMovingAverageTrend} from '@/stats/movingAverage'
 
@@ -11,6 +12,9 @@ export type AreaDrill = {
   latestLevel: number
   targetLevel?: number
   gap?: number
+  /** Only set when a target HCP is used: latest result vs. the result needed at the target HCP. */
+  latestValue?: number
+  targetValue?: number
 }
 
 export type Improvement = {
@@ -32,7 +36,7 @@ export function computeAreasOfImprovement(
   sessions: Session[],
   drills: Drill[],
   userHcp: number | null | undefined,
-  opts?: { stagnantTolerance?: number; mode?: 'historical' | 'current' }
+  opts?: { stagnantTolerance?: number; mode?: 'historical' | 'current'; targetHcp?: number | null }
 ): AreasResult {
   const tolerance = opts?.stagnantTolerance ?? 0.1
 
@@ -53,8 +57,24 @@ export function computeAreasOfImprovement(
     if (!hasSession) continue
     const latest = Number.isFinite(Number(lastLevelMap[id])) ? Number(lastLevelMap[id]) : 0
 
+    // With a target HCP the goal is level 2 ("on target") of the target HCP's bucket, judged on the latest result.
+    if (typeof opts?.targetHcp === 'number' && Number.isFinite(opts.targetHcp)) {
+      const smaller = Boolean(d.metric?.smallerIsBetter)
+      const thr = resolveThresholds(d.metric?.hcpTargets ?? {}, opts.targetHcp)
+      const targetValue = valueForLevel(thr, 2, smaller)
+      const latestSession = (sessions || []).filter(s => s.drillId === id && s.date).sort((a, b) => b.date.localeCompare(a.date))[0]
+      const latestValue = Number(latestSession?.result?.value)
+      if (targetValue != null && Number.isFinite(latestValue)) {
+        const levelAtTarget = computeLevelFromThresholds(thr, latestValue, smaller)
+        if (levelAtTarget < 2) {
+          belowTarget.push({id, title: d.title, category: d.category, latestLevel: latest, targetLevel: 2, gap: 2 - levelAtTarget, latestValue, targetValue})
+        }
+      }
+    }
+
     // determine target level from drill.metric.hcpTargets using either current or historical HCP
     let targetLevel: number | undefined = undefined
+    const useOwnHcp = !(typeof opts?.targetHcp === 'number' && Number.isFinite(opts.targetHcp))
     try {
       let effectiveHcp: number | null | undefined = null
       if (mode === 'current') {
@@ -79,7 +99,7 @@ export function computeAreasOfImprovement(
       // ignore
     }
 
-    if (typeof targetLevel === 'number' && Number.isFinite(targetLevel)) {
+    if (useOwnHcp && typeof targetLevel === 'number' && Number.isFinite(targetLevel)) {
       const gap = targetLevel - latest
       if (gap > 0) {
         belowTarget.push({id, title: d.title, category: d.category, latestLevel: latest, targetLevel, gap})

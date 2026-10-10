@@ -4,10 +4,24 @@ import { useHcpHistoryStore } from '@/stores/hcpHistory'
 
 const persist = createPersist('parformance', 1)
 
+export const HCP_MIN = -10
+export const HCP_MAX = 54
+
+export function normalizeHcp(v: unknown): number | null {
+  return typeof v === 'number' && Number.isFinite(v) && v >= HCP_MIN && v <= HCP_MAX ? v : null
+}
+
+export function normalizeDate(v: unknown): string | null {
+  return typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)) ? v : null
+}
+
 export type Handedness = 'right' | 'left'
 
 export interface SettingsState {
   hcp: number | null
+  /** Goal handicap and optional goal date (YYYY-MM-DD). Used to derive target areas. */
+  targetHcp: number | null
+  targetDate: string | null
   handedness: Handedness
   name: string
   language: 'de' | 'en'
@@ -22,6 +36,8 @@ export interface SettingsState {
 export const useSettingsStore = defineStore('settings', {
   state: (): SettingsState => ({
     hcp: null,
+    targetHcp: null,
+    targetDate: null,
     handedness: 'right',
     name: '',
     language: 'de',
@@ -96,6 +112,8 @@ export const useSettingsStore = defineStore('settings', {
       const data = persist.get<Partial<SettingsState>>('settings')
       if (data) {
         if (typeof data.hcp === 'number' || data.hcp === null) this.hcp = data.hcp ?? null
+        if ('targetHcp' in data) this.targetHcp = normalizeHcp(data.targetHcp)
+        if ('targetDate' in data) this.targetDate = normalizeDate(data.targetDate)
         if (data.handedness === 'right' || data.handedness === 'left') this.handedness = data.handedness
         if (typeof data.name === 'string') this.name = data.name
         if (data.language === 'de' || data.language === 'en') this.language = data.language
@@ -110,6 +128,8 @@ export const useSettingsStore = defineStore('settings', {
     async persist() {
       persist.setDebounced('settings', {
         hcp: this.hcp,
+        targetHcp: this.targetHcp,
+        targetDate: this.targetDate,
         handedness: this.handedness,
         name: this.name,
         language: this.language,
@@ -123,6 +143,8 @@ export const useSettingsStore = defineStore('settings', {
     async update(partial: Partial<Omit<SettingsState, 'loaded'>>) {
       const prevHcp = this.hcp
       if ('hcp' in partial) this.hcp = partial.hcp ?? null
+      if ('targetHcp' in partial) this.targetHcp = normalizeHcp(partial.targetHcp)
+      if ('targetDate' in partial) this.targetDate = normalizeDate(partial.targetDate)
       if ('handedness' in partial && (partial.handedness === 'right' || partial.handedness === 'left')) {
         this.handedness = partial.handedness
       }
@@ -150,6 +172,8 @@ export const useSettingsStore = defineStore('settings', {
     },
     async clearAll() {
       this.hcp = null
+      this.targetHcp = null
+      this.targetDate = null
       this.handedness = 'right'
       this.name = ''
       this.language = 'de'

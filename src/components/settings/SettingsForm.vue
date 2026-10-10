@@ -13,6 +13,14 @@
           <input v-model.number="local.hcp" type="number" step="0.1" min="-10" max="54" class="input w-full" />
         </div>
         <div>
+          <label class="text-sm text-app-sub" for="settings-target-hcp">Ziel-Handicap</label>
+          <input id="settings-target-hcp" v-model.number="local.targetHcp" type="number" step="0.1" min="-10" max="54" class="input w-full" placeholder="Optional" />
+        </div>
+        <div>
+          <label class="text-sm text-app-sub" for="settings-target-date">Ziel bis</label>
+          <input id="settings-target-date" v-model="local.targetDate" type="date" class="input w-full" :disabled="local.targetHcp == null" />
+        </div>
+        <div>
           <label class="text-sm text-app-sub">Schlaghand</label>
           <select v-model="local.handedness" class="input w-full">
             <option value="right">Rechtshänder*in</option>
@@ -104,6 +112,8 @@ import { reactive, watch, toRaw } from 'vue'
 type Settings = {
   name: string
   hcp: number | null
+  targetHcp: number | null
+  targetDate: string | null
   handedness: 'right' | 'left'
   language: 'de' | 'en'
   units: 'metric' | 'imperial'
@@ -119,6 +129,8 @@ const emit = defineEmits<{ (e:'update:modelValue', v:Settings):void; (e:'save', 
 const local = reactive<Settings>({
   name: '',
   hcp: null,
+  targetHcp: null,
+  targetDate: null,
   handedness: 'right',
   language: 'de',
   units: 'metric',

@@ -31,3 +31,12 @@ export function computeLevelReached(
 export function computeLevelForDrill(drill: Drill, hcp: number | null | undefined, value: number | null | undefined): Level {
   return computeLevelReached(hcp, drill.metric?.hcpTargets || {}, value, !!drill?.metric?.smallerIsBetter)
 }
+
+/**
+ * The result needed to reach `level` (1-3) with the given thresholds, or null if the drill has fewer levels.
+ * Greater-is-better: easiest threshold first (ascending). Smaller-is-better: largest first (descending).
+ */
+export function valueForLevel(thresholds: number[] | undefined, level: 1 | 2 | 3, smallerIsBetter?: boolean): number | null {
+  const thr = (thresholds ?? []).map(Number).filter(Number.isFinite).slice(0, 3).sort((a, b) => (smallerIsBetter ? b - a : a - b))
+  return thr[level - 1] ?? null
+}

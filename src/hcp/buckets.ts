@@ -5,6 +5,8 @@ export interface HcpRow {
   label: string // formatted with en dash, e.g., "26-12"
   values: number[]
   highlighted: boolean
+  /** True for the bucket that contains the target HCP. */
+  isTarget: boolean
   hi: number
   lo: number
 }
@@ -53,10 +55,12 @@ export function formatRangeLabel(key: string): string {
 /** Build display rows for a compact table. Sorted by hi desc, then lo desc. */
 export function buildHcpRows(
   hcpTargets: Record<string, number[]>,
-  currentHcp: number | null | undefined
+  currentHcp: number | null | undefined,
+  targetHcp?: number | null
 ): HcpRow[] {
   const rows: HcpRow[] = []
   const matchKey = typeof currentHcp === 'number' ? findBucketKey(currentHcp, hcpTargets) : null
+  const targetKey = typeof targetHcp === 'number' ? findBucketKey(targetHcp, hcpTargets) : null
   for (const key of Object.keys(hcpTargets || {})) {
     const r = parseRangeKey(key)
     if (!r) continue
@@ -74,6 +78,7 @@ export function buildHcpRows(
       label: formatRangeLabel(key),
       values,
       highlighted: key === matchKey,
+      isTarget: key === targetKey,
       hi: r.hi,
       lo: r.lo,
     })
@@ -83,8 +88,8 @@ export function buildHcpRows(
 }
 
 /** Convenience: Build rows directly from a Drill. */
-export function buildRowsForDrill(drill: Drill, currentHcp: number | null | undefined): HcpRow[] {
-  return buildHcpRows(drill.metric.hcpTargets || {}, currentHcp)
+export function buildRowsForDrill(drill: Drill, currentHcp: number | null | undefined, targetHcp?: number | null): HcpRow[] {
+  return buildHcpRows(drill.metric.hcpTargets || {}, currentHcp, targetHcp)
 }
 
 function toValues(raw: unknown): number[] {

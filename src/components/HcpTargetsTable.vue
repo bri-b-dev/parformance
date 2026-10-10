@@ -11,7 +11,11 @@
       </thead>
       <tbody>
         <tr v-for="row in rows" :key="row.key" :class="row.highlighted ? 'bg-emerald-50' : ''">
-          <th scope="row" class="text-left p-2">{{ row.label }}</th>
+          <th scope="row" class="text-left p-2">
+            {{ row.label }}
+            <span v-if="row.highlighted" class="chip">Du</span>
+            <span v-if="row.isTarget" class="chip">Ziel</span>
+          </th>
           <td v-for="(_, idx) in columnLabels" :key="`${row.key}-${idx}`" class="text-right p-2">
             <span :class="cellClass(row, idx)">{{ row.values[idx] ?? '-' }}</span>
           </td>
@@ -38,7 +42,7 @@ onMounted(async () => {
   if (!settings.loaded) await settings.load()
 })
 
-const rows = computed(() => buildRowsForDrill(props.drill, settings.hcp))
+const rows = computed(() => buildRowsForDrill(props.drill, settings.hcp, settings.targetHcp))
 const columnCount = computed(() => {
   const lengths = rows.value.map(r => r.values.length)
   const max = lengths.length ? Math.max(...lengths) : 0

@@ -32,6 +32,8 @@ const emit = defineEmits<(e: 'close') => void>()
 type FormModel = {
   name: string
   hcp: number | null
+  targetHcp: number | null
+  targetDate: string | null
   handedness: 'right' | 'left'
   language: 'de' | 'en'
   units: 'metric' | 'imperial'
@@ -48,6 +50,8 @@ const sessionsStore = useSessionsStore()
 const defaultModel = (): FormModel => ({
   name: settingsStore.name ?? '',
   hcp: typeof settingsStore.hcp === 'number' && Number.isFinite(settingsStore.hcp) ? settingsStore.hcp : null,
+  targetHcp: settingsStore.targetHcp ?? null,
+  targetDate: settingsStore.targetDate ?? null,
   handedness: settingsStore.handedness ?? 'right',
   language: settingsStore.language ?? 'de',
   units: settingsStore.units ?? 'metric',
@@ -99,6 +103,8 @@ async function saveAndClose(values: FormModel) {
   await settingsStore.update({
     name: values.name,
     hcp: typeof values.hcp === 'number' && Number.isFinite(values.hcp) ? values.hcp : null,
+    targetHcp: typeof values.targetHcp === 'number' && Number.isFinite(values.targetHcp) ? values.targetHcp : null,
+    targetDate: values.targetHcp == null || !values.targetDate ? null : values.targetDate,
     handedness: values.handedness,
     language: values.language,
     units: values.units,
@@ -217,6 +223,8 @@ async function exportData() {
     version: 1,
     settings: {
       hcp: settingsStore.hcp,
+      targetHcp: settingsStore.targetHcp,
+      targetDate: settingsStore.targetDate,
       handedness: settingsStore.handedness,
       name: settingsStore.name,
       language: settingsStore.language,
@@ -260,6 +268,8 @@ async function importData(data: any) {
     if (data?.settings && typeof data.settings === 'object') {
       await settingsStore.update({
         hcp: typeof data.settings.hcp === 'number' ? data.settings.hcp : null,
+        targetHcp: data.settings.targetHcp ?? null,
+        targetDate: data.settings.targetDate ?? null,
         handedness: data.settings.handedness,
         name: data.settings.name,
         language: data.settings.language,

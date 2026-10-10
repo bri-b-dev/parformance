@@ -97,6 +97,20 @@ export const useRunStore = defineStore('run', {
         .sort((a, b) => a.date.localeCompare(b.date))[0]
       if (match) this.complete(match.id)
     },
+    /** Steps whose session no longer exists (e.g. undone) become pending again. */
+    forgetMissing(sessions: Session[]) {
+      if (!this.run) return
+      const ids = new Set(sessions.map(s => s.id))
+      let changed = false
+      for (const step of this.run.steps) {
+        if (step.status === 'done' && step.sessionId && !ids.has(step.sessionId)) {
+          step.status = 'pending'
+          step.sessionId = undefined
+          changed = true
+        }
+      }
+      if (changed) this.save()
+    },
     /** Skip the current step and move on. */
     skip() {
       const step = this.current

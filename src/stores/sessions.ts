@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Session } from '@/types'
 import { createPersist } from '@/utils/persistAdapter'
-import { isPersonalBest } from '@/utils/isPersonalBest'
-import { useDrillCatalogStore } from '@/stores/drillCatalog'
 
 const persist = createPersist('parformance', 1)
 
@@ -39,42 +37,6 @@ export const useSessionsStore = defineStore('sessions', {
     async addSession(session: Omit<Session, 'id'> & Partial<Pick<Session, 'id'>>) {
       const id = session.id ?? crypto.randomUUID()
       const toAdd: Session = { ...session, id }
-      // Detect personal best (PB) for this drill and fire a friendly toast if detected.
-      try {
-        const drillCatalog = useDrillCatalogStore()
-        const drill = drillCatalog.drills.find(d => d.id === session.drillId)
-
-        // Build a simple metric shape compatible with isPersonalBest util
-        const metricKey = 'value'
-        const newMapped = { drillId: session.drillId, metrics: { [metricKey]: session.result?.value } }
-        const prevMapped = this.sessions
-          .filter(s => s.drillId === session.drillId)
-          .map(s => ({ drillId: s.drillId, metrics: { [metricKey]: s.result?.value } }))
-
-  // Decide whether greater values are better. New flag `smallerIsBetter` lets drills
-  // declare that lower metric values are better (e.g. fewer strokes). Keep fallback
-  // for legacy drills where only type === 'score_vs_par' implied smaller-is-better.
-  const smallerIsBetter = Boolean(drill?.metric?.smallerIsBetter)
-  const greaterIsBetter = smallerIsBetter ? false : (drill?.metric?.type !== 'score_vs_par')
-
-        if (isPersonalBest(newMapped as any, prevMapped , metricKey, { greaterIsBetter })) {
-          if (typeof globalThis !== 'undefined' && typeof globalThis.dispatchEvent === 'function') {
-            let evt: any
-            const message = 'PB!'
-            try {
-              // @ts-ignore CustomEvent may be missing in some environments
-              evt = new CustomEvent('toast', { detail: { type: 'success', message } })
-            } catch {
-              evt = { type: 'toast', detail: { type: 'success', message } }
-            }
-            globalThis.dispatchEvent(evt)
-          }
-        }
-      } catch (e) {
-        // Non-fatal: PB detection shouldn't block session creation
-        // swallow errors silently
-      }
-
       this.sessions.push(toAdd)
       // Keep sessions roughly ordered by date desc to make getters cheap (not required)
       this.sessions.sort((a, b) => b.date.localeCompare(a.date))

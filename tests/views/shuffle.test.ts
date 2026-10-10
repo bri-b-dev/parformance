@@ -194,7 +194,7 @@ describe('start requested from the overlay', () => {
     ui.requestStart(drill.id)
     const w = mount(DrillDetail, {
       props: { drill },
-      global: { plugins: [pinia, router], stubs: { HcpTargetsTable: true, DrillStatsSummary: true, SessionHistory: true, GamblerTipPanel: true, SimpleTimer: true, DrillDetailGrid: true } },
+      global: { plugins: [pinia, router], stubs: { HcpTargetsTable: true, DrillStatsSummary: true, SessionHistory: true, GamblerTipPanel: true, DrillDetailGrid: true } },
     })
     await flushPromises()
     expect(w.findAll('button').some(b => b.text() === 'Speichern')).toBe(true)

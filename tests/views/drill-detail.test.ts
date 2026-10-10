@@ -30,7 +30,6 @@ async function mountDetail(pick: (d: Drill[]) => Drill, extra: { embedded?: bool
         HcpTargetsTable: { template: '<div data-testid="targets" />' },
         DrillStatsSummary: { template: '<div data-testid="stats" />' },
         SessionHistory: { template: '<div data-testid="history" />' },
-        SimpleTimer: { template: '<div data-testid="timer" />' },
       },
     },
   })
@@ -116,23 +115,22 @@ describe('drill detail structure', () => {
 })
 
 describe('session flow', () => {
-  it('Starten opens the session, shows the instructions and the timer and then saves', async () => {
+  it('Starten opens the live mode with a running timer; saving shows the completion sheet', async () => {
     const { w, drill, sessions } = await mountDetail(withTimer)
-    expect((q(w, 'dd-start').element as HTMLButtonElement)).toBeTruthy()
     await q(w, 'dd-start').trigger('click')
     await flushPromises()
-    expect(q(w, 'dd-active').text()).toBe('Session läuft')
-    expect(q(w, 'dd-tab-flow').attributes('aria-selected')).toBe('true')
-    expect(q(w, 'timer').exists()).toBe(true)
-    expect((q(w, 'dd-save').element as HTMLButtonElement).disabled).toBe(true)
+    expect(q(w, 'live').exists()).toBe(true)
+    expect(q(w, 'live-clock').exists()).toBe(true)
+    expect((q(w, 'live-save').element as HTMLButtonElement).disabled).toBe(true)
     await w.find('input.metric-input').setValue(7)
-    expect((q(w, 'dd-save').element as HTMLButtonElement).disabled).toBe(false)
-    await q(w, 'dd-save').trigger('click')
+    expect((q(w, 'live-save').element as HTMLButtonElement).disabled).toBe(false)
+    await q(w, 'live-save').trigger('click')
     await flushPromises()
     expect(sessions.sessions).toHaveLength(1)
     expect(sessions.sessions[0]).toMatchObject({ drillId: drill.id, result: { value: 7 } })
     expect(sessions.sessions[0].timerUsed).toBeDefined()
-    expect(q(w, 'dd-start').exists()).toBe(true) // back to idle
+    expect(q(w, 'live').exists()).toBe(false)
+    expect(q(w, 'result-value').text()).toBe('7')
   })
 
   it('quick entry needs two taps (open, save), focuses the field and skips the timer', async () => {

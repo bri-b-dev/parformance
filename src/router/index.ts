@@ -7,6 +7,8 @@ const Stub = { render() { return null } }
 
 const TodayView = isBrowser ? (() => import('@/views/TodayView.vue')) : Stub
 const HistoryListView = isBrowser ? (() => import('@/views/HistoryListView.vue')) : Stub
+const CollectionsView = isBrowser ? (() => import('@/views/CollectionsView.vue')) : Stub
+const RunView = isBrowser ? (() => import('@/views/RunView.vue')) : Stub
 const DrillList = isBrowser ? (() => import('@/components/DrillList.vue')) : Stub
 
 // Detail view: shows a drill based on :id
@@ -20,6 +22,8 @@ const HandicapShell = isBrowser ? (() => import('@/modules/handicap/HandicapShel
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: { name: 'Today' } },
   { name: 'Today', path: '/today', component: TodayView },
+  { name: 'Collections', path: '/collections', component: CollectionsView },
+  { name: 'Run', path: '/run', component: RunView },
   {
     name: 'DrillsList',
     path: '/drills',

@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import SettingsForm from '@/components/settings/SettingsForm.vue'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useHcpHistoryStore } from '@/stores/hcpHistory'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
 import type { Session } from '@/types'
@@ -46,6 +47,7 @@ type FormModel = {
 const settingsStore = useSettingsStore()
 const favoritesStore = useFavoritesStore()
 const sessionsStore = useSessionsStore()
+const hcpHistoryStore = useHcpHistoryStore()
 
 const defaultModel = (): FormModel => ({
   name: settingsStore.name ?? '',
@@ -71,6 +73,7 @@ async function ensureStoresLoaded() {
   if (!settingsStore.loaded) await settingsStore.load()
   if (!favoritesStore.loaded) await favoritesStore.load()
   if (!sessionsStore.loaded) await sessionsStore.load()
+  if (!hcpHistoryStore.loaded) await hcpHistoryStore.load()
 }
 
 onMounted(async () => {
@@ -236,6 +239,7 @@ async function exportData() {
     },
     favorites: JSON.parse(JSON.stringify(favoritesStore.favorites ?? [])),
     sessions: JSON.parse(JSON.stringify(sessionsStore.sessions ?? [])),
+    hcpHistory: JSON.parse(JSON.stringify(hcpHistoryStore.rows ?? [])),
   }
 
   const fileName = `parformance-export-${new Date().toISOString().replace(/[:.]/g, '-')}.json`
@@ -278,6 +282,7 @@ async function importData(data: any) {
         sounds: data.settings.sounds,
         shuffleFavorites: data.settings.shuffleFavorites,
         notifications: data.settings.notifications,
+        onboardingDone: true,
       })
     }
     if (Array.isArray(data?.favorites)) {
@@ -285,6 +290,10 @@ async function importData(data: any) {
     }
     if (Array.isArray(data?.sessions)) {
       await sessionsStore.replaceAll(data.sessions as Session[])
+    }
+    // Exports from before the history was included have no `hcpHistory`: keep what is there.
+    if (Array.isArray(data?.hcpHistory)) {
+      await hcpHistoryStore.replaceAll(data.hcpHistory)
     }
     syncFromStore()
     showAlert('Daten importiert.')
@@ -302,6 +311,7 @@ async function resetAll() {
     settingsStore.clearAll(),
     favoritesStore.clearAll(),
     sessionsStore.clearAll(),
+    hcpHistoryStore.clearAll(),
   ])
   syncFromStore()
   showAlert('Alle lokalen Daten wurden gelöscht.')

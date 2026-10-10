@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { createPersist } from '@/utils/persistAdapter'
 import { useHcpHistoryStore } from '@/stores/hcpHistory'
+import { useHcpSource } from '@/hcp/source'
 import { useSessionsStore } from '@/stores/sessions'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { evaluateSessionLevel } from '@/hcp/evaluator'
@@ -86,7 +87,7 @@ export const useAchievementsStore = defineStore('achievements', {
 
       // historical evaluation: prefer any stored session.levelReached; otherwise determine HCP at session date
       const level = evaluateSessionLevel(session, drill, 'historical')
-      const hcpAtAward = hstore.getHcpAt(session.date)
+      const hcpAtAward = useHcpSource().getHcpAt(session.date)
 
       const snapshot: AchievementSnapshot = {
         id: opts.id,

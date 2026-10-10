@@ -95,7 +95,7 @@
       <div class="mt-4 p-3 rounded-xl border danger-zone bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800/50">
         <div class="text-sm font-medium mb-2 text-red-900 dark:text-red-200">Zurücksetzen</div>
         <div class="flex items-center justify-between">
-          <p class="text-sm text-red-700 dark:text-red-400">Alle lokalen Daten löschen (Sessions, Favoriten, Einstellungen)</p>
+          <p class="text-sm text-red-700 dark:text-red-400">Alle lokalen Daten löschen (Sessions, Sammlungen, Favoriten, Einstellungen)</p>
           <button class="btn bg-red-600 text-white dark:bg-red-700 border-transparent text-sm" type="button" @click="confirmReset">Reset</button>
         </div>
       </div>

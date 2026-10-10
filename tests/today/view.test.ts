@@ -7,6 +7,9 @@ import { useSessionsStore } from '@/stores/sessions'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
+import { useRunStore } from '@/stores/run'
+import { useCollectionsStore } from '@/stores/collections'
+import { setConfirmHandler } from '@/utils/confirmService'
 
 const Stub = { template: '<div />' }
 
@@ -19,6 +22,8 @@ async function mountToday(withSession: boolean) {
       { path: '/drills', name: 'DrillsList', component: Stub },
       { path: '/drill/:id', name: 'DrillDetail', component: Stub },
       { path: '/today', name: 'Today', component: Stub },
+      { path: '/collections', name: 'Collections', component: Stub },
+      { path: '/run', name: 'Run', component: Stub },
     ],
   })
   await router.push('/today')
@@ -36,7 +41,7 @@ async function mountToday(withSession: boolean) {
   }
   const w = mount(TodayView, { global: { plugins: [pinia, router] } })
   await flushPromises()
-  return { w, ui: useUiStore(), catalog }
+  return { w, ui: useUiStore(), catalog, router }
 }
 
 describe('TodayView', () => {
@@ -63,5 +68,43 @@ describe('TodayView', () => {
     const m = /zusammen (\d+) von 30 Minuten/.exec(total)
     expect(m).not.toBeNull()
     expect(Number(m![1])).toBeLessThanOrEqual(30)
+  })
+
+  it('starts a guided session from the plan and filters by place', async () => {
+    const { w, router, catalog } = await mountToday(false)
+    await w.findAll('[data-testid="today-budget"] button').find(b => b.text() === '60 min')!.trigger('click')
+    await w.findAll('[data-testid="today-locations"] button').find(b => b.text() === 'Putting')!.trigger('click')
+    expect(w.findAll('[data-testid="today-budget"] ol li').length).toBeGreaterThan(0)
+    await w.find('[data-testid="plan-start"]').trigger('click')
+    await flushPromises()
+    const run = useRunStore()
+    expect(run.run).not.toBeNull()
+    expect(run.run!.title).toContain('60-Minuten-Einheit, Putting')
+    const byId = new Map(catalog.drills.map(d => [d.id, d]))
+    expect(run.run!.steps.every(st => /putting|grün/i.test(byId.get(st.drillId)!.setup.location ?? ''))).toBe(true)
+    expect(router.currentRoute.value.name).toBe('Run')
+  })
+
+  it('offers to resume or discard a running session and starts collections', async () => {
+    const { w, catalog } = await mountToday(false)
+    const collections = useCollectionsStore()
+    collections.add({ name: 'Vor der Runde', drillIds: [catalog.drills[0].id, catalog.drills[1].id] })
+    useRunStore().start({ title: 'Läuft', drillIds: [catalog.drills[2].id, catalog.drills[3].id] })
+    await flushPromises()
+    expect(w.find('[data-testid="today-resume"]').text()).toContain('Läuft')
+    expect(w.find('[data-testid="today-resume"]').text()).toContain('Drill 1 von 2')
+    expect(w.find('[data-testid="today-collections"]').text()).toContain('Vor der Runde')
+
+    setConfirmHandler(async () => true)
+    await w.find('[data-testid="today-discard"]').trigger('click')
+    await flushPromises()
+    expect(useRunStore().run).toBeNull()
+    expect(w.find('[data-testid="today-resume"]').exists()).toBe(false)
+
+    await w.find('[data-testid="today-collection-start"]').trigger('click')
+    await flushPromises()
+    expect(useRunStore().run).toMatchObject({ title: 'Vor der Runde' })
+    expect(useRunStore().total).toBe(2)
+    setConfirmHandler(null)
   })
 })

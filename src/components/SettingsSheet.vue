@@ -18,7 +18,9 @@
 <script setup lang="ts">
 import SettingsForm from '@/components/settings/SettingsForm.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
+import { useCollectionsStore } from '@/stores/collections'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useRunStore } from '@/stores/run'
 import { useHcpHistoryStore } from '@/stores/hcpHistory'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
@@ -49,6 +51,8 @@ const settingsStore = useSettingsStore()
 const favoritesStore = useFavoritesStore()
 const sessionsStore = useSessionsStore()
 const hcpHistoryStore = useHcpHistoryStore()
+const collectionsStore = useCollectionsStore()
+const runStore = useRunStore()
 const { hcp: currentHcp, fromRounds } = useCurrentHcp()
 const derivedHcp = computed(() => (fromRounds.value ? currentHcp.value : null))
 
@@ -77,6 +81,7 @@ async function ensureStoresLoaded() {
   if (!favoritesStore.loaded) await favoritesStore.load()
   if (!sessionsStore.loaded) await sessionsStore.load()
   if (!hcpHistoryStore.loaded) await hcpHistoryStore.load()
+  if (!collectionsStore.loaded) await collectionsStore.load()
 }
 
 onMounted(async () => {
@@ -243,6 +248,7 @@ async function exportData() {
     favorites: JSON.parse(JSON.stringify(favoritesStore.favorites ?? [])),
     sessions: JSON.parse(JSON.stringify(sessionsStore.sessions ?? [])),
     hcpHistory: JSON.parse(JSON.stringify(hcpHistoryStore.rows ?? [])),
+    collections: JSON.parse(JSON.stringify(collectionsStore.items ?? [])),
   }
 
   const fileName = `parformance-export-${new Date().toISOString().replace(/[:.]/g, '-')}.json`
@@ -294,6 +300,9 @@ async function importData(data: any) {
     if (Array.isArray(data?.sessions)) {
       await sessionsStore.replaceAll(data.sessions as Session[])
     }
+    if (Array.isArray(data?.collections)) {
+      collectionsStore.replaceAll(data.collections)
+    }
     // Exports from before the history was included have no `hcpHistory`: keep what is there.
     if (Array.isArray(data?.hcpHistory)) {
       await hcpHistoryStore.replaceAll(data.hcpHistory)
@@ -315,7 +324,9 @@ async function resetAll() {
     favoritesStore.clearAll(),
     sessionsStore.clearAll(),
     hcpHistoryStore.clearAll(),
+    collectionsStore.clearAll(),
   ])
+  runStore.clear()
   syncFromStore()
   showAlert('Alle lokalen Daten wurden gelöscht.')
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-tabs">
     <nav aria-label="Hauptnavigation">
-      <RouterLink class="tab" :class="{ active: isActive('/today') }" :aria-current="isActive('/today') ? 'page' : undefined"
+      <RouterLink class="tab" :class="{ active: isActive('/today') || isActive('/run') }" :aria-current="isActive('/today') || isActive('/run') ? 'page' : undefined"
         :to="{ name: 'Today' }" @click="triggerHaptic">
         <span class="icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
@@ -12,7 +12,7 @@
         <span>Heute</span>
       </RouterLink>
 
-      <RouterLink class="tab" :class="{ active: isActive('/drills') || isActive('/drill') }" :aria-current="isActive('/drills') || isActive('/drill') ? 'page' : undefined"
+      <RouterLink class="tab" :class="{ active: isActive('/drills') || isActive('/drill') || isActive('/collections') }" :aria-current="isActive('/drills') || isActive('/drill') || isActive('/collections') ? 'page' : undefined"
         :to="preserve({ name: 'DrillsList' })" @click="triggerHaptic">
         <span class="icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">

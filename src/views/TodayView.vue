@@ -17,6 +17,17 @@
         <div class="chip"><strong>{{ weekCount }}</strong> {{ weekCount === 1 ? 'Session' : 'Sessions' }} diese Woche</div>
       </div>
 
+      <!-- Resume a running session -->
+      <div v-if="run.run && !run.finished" class="card today-card" data-testid="today-resume">
+        <h2 class="today-h">Einheit läuft</h2>
+        <p class="today-title">{{ run.run.title }}</p>
+        <p class="muted">Drill {{ run.run.index + 1 }} von {{ run.total }}</p>
+        <div class="today-actions">
+          <RouterLink class="btn btn-primary" :to="{ name: 'Run' }">Fortsetzen</RouterLink>
+          <button type="button" class="btn" data-testid="today-discard" @click="discardRun">Verwerfen</button>
+        </div>
+      </div>
+
       <!-- First run -->
       <div v-if="sessions.sessions.length === 0" class="card today-card" data-testid="today-empty">
         <h2 class="today-h">Starte deine erste Einheit</h2>
@@ -55,12 +66,31 @@
         </ul>
       </div>
 
+      <!-- Collections -->
+      <div class="card today-card" data-testid="today-collections">
+        <h2 class="today-h">Meine Sammlungen</h2>
+        <ul v-if="collections.items.length" class="today-list">
+          <li v-for="c in collections.items" :key="c.id" class="today-item today-collection">
+            <span class="today-title"><span v-if="c.icon" aria-hidden="true">{{ c.icon }} </span>{{ c.name }}</span>
+            <button type="button" class="btn" :aria-label="`${c.name} starten`" data-testid="today-collection-start" @click="startCollection(c)">Starten</button>
+          </li>
+        </ul>
+        <p v-else class="muted">Stelle eigene Einheiten zusammen, z. B. „Vor der Runde 20 min".</p>
+        <div class="today-actions">
+          <RouterLink class="btn" :to="{ name: 'Collections' }">{{ collections.items.length ? 'Verwalten' : 'Sammlung anlegen' }}</RouterLink>
+        </div>
+      </div>
+
       <!-- Time budget -->
       <div class="card today-card" data-testid="today-budget">
         <h2 class="today-h">Wie viel Zeit hast du?</h2>
         <div class="today-actions" role="group" aria-label="Zeitbudget">
           <button v-for="m in budgets" :key="m" type="button" class="btn" :class="{ 'btn-primary': budget === m }"
             :aria-pressed="budget === m" @click="budget = budget === m ? null : m">{{ m }} min</button>
+        </div>
+        <div class="today-actions" role="group" aria-label="Ort" data-testid="today-locations">
+          <button v-for="g in locations" :key="g" type="button" class="chip today-chip" :class="{ 'today-chip-on': location === g }"
+            :aria-pressed="location === g" @click="location = location === g ? null : g">{{ g }}</button>
         </div>
         <template v-if="plan">
           <p class="muted" data-testid="plan-total">{{ plan.items.length }} {{ plan.items.length === 1 ? 'Drill' : 'Drills' }}, zusammen {{ plan.totalMinutes }} von {{ plan.budget }} Minuten</p>
@@ -74,7 +104,7 @@
             </li>
           </ol>
           <div v-if="plan.items.length" class="today-actions">
-            <RouterLink class="btn btn-primary" :to="{ name: 'DrillDetail', params: { id: plan.items[0].drill.id } }">Mit dem ersten Drill starten</RouterLink>
+            <button type="button" class="btn btn-primary" data-testid="plan-start" @click="startPlan">Einheit starten ({{ plan.items.length }} {{ plan.items.length === 1 ? 'Drill' : 'Drills' }})</button>
           </div>
           <p v-else class="muted">In dieser Zeit passt kein Drill - wähle ein längeres Zeitfenster.</p>
         </template>
@@ -92,6 +122,11 @@ import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
+import { useCollectionsStore, type Collection } from '@/stores/collections'
+import { useRunStore } from '@/stores/run'
+import { useStartRun } from '@/composables/useStartRun'
+import { LOCATION_GROUPS, locationGroup } from '@/filters/location'
+import { requestConfirm } from '@/utils/confirmService'
 import { useUiStore } from '@/stores/ui'
 import { planSession, suggestDrills, type SuggestContext } from '@/today/suggest'
 import { computeActiveStreak, sessionsThisWeek } from '@/utils/streaks'
@@ -102,11 +137,16 @@ const sessions = useSessionsStore()
 const settings = useSettingsStore()
 const favorites = useFavoritesStore()
 const ui = useUiStore()
+const collections = useCollectionsStore()
+const run = useRunStore()
+const startRun = useStartRun()
 const { hcp: currentHcp } = useCurrentHcp()
 
 const now = new Date()
 const budgets = [15, 30, 60]
 const budget = ref<number | null>(null)
+const location = ref<string | null>(null)
+const locations = LOCATION_GROUPS
 
 onMounted(async () => {
   await Promise.all([
@@ -114,6 +154,8 @@ onMounted(async () => {
     sessions.loaded ? null : sessions.load(),
     settings.loaded ? null : settings.load(),
     favorites.loaded ? null : favorites.load(),
+    collections.loaded ? null : collections.load(),
+    run.loaded ? null : run.load(),
   ])
 })
 
@@ -136,7 +178,26 @@ const ctx = computed<SuggestContext>(() => {
 })
 
 const suggestions = computed(() => suggestDrills(ctx.value, 3))
-const plan = computed(() => (budget.value ? planSession(ctx.value, budget.value) : null))
+const plan = computed(() => {
+  if (!budget.value) return null
+  const c = location.value ? { ...ctx.value, drills: ctx.value.drills.filter(d => locationGroup(d) === location.value) } : ctx.value
+  return planSession(c, budget.value)
+})
+
+function startPlan() {
+  if (!plan.value?.items.length) return
+  const where = location.value ? `, ${location.value}` : ''
+  return startRun({ title: `${plan.value.budget}-Minuten-Einheit${where}`, drillIds: plan.value.items.map(s => s.drill.id) })
+}
+
+function startCollection(c: Collection) {
+  const ids = c.drillIds.filter(id => catalog.drills.some(d => d.id === id))
+  return startRun({ title: c.name, drillIds: ids, collectionId: c.id })
+}
+
+async function discardRun() {
+  if (await requestConfirm('Laufende Einheit verwerfen?')) run.clear()
+}
 
 const lastDrill = computed(() => {
   const s = [...sessions.sessions].sort((a, b) => b.date.localeCompare(a.date))[0]
@@ -202,6 +263,23 @@ ol.today-list {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
+}
+
+.today-collection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.today-chip {
+  cursor: pointer;
+}
+
+.today-chip-on {
+  background: color-mix(in oklab, var(--primary) 15%, transparent);
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .today-reason {

@@ -49,6 +49,19 @@ describe('bottom navigation', () => {
     expect(w.find('a.tab.active').text()).toBe('Fortschritt')
   })
 
+  it('keeps Drills active on Sammlungen and Heute active during a guided session', async () => {
+    const pinia = createPinia()
+    setActivePinia(pinia)
+    const router = makeRouter()
+    const w = mount(BottomTabs, { global: { plugins: [pinia, router] } })
+    await router.push('/collections')
+    await flushPromises()
+    expect(w.find('a.tab.active').text()).toBe('Drills')
+    await router.push('/run')
+    await flushPromises()
+    expect(w.find('a.tab.active').text()).toBe('Heute')
+  })
+
   it('redirects the old /history link to /progress', async () => {
     const router = makeRouter()
     await router.push('/history')

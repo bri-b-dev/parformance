@@ -111,7 +111,7 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-06 · Drill-Detail & Session-Flow — P0 · M
 
-> **Teil A umgesetzt** (`DrillDetail.vue`): Sticky-Kopf mit Titel, Favorit, Kategorie/Dauer/Schwierigkeit und den Aktionen **Starten** und **Ergebnis eintragen** (Schnell-Erfassung: 2 Taps, kein Timer, Feld fokussiert); Reiter Aufbau (Diagramm zuerst) · Ablauf · Ziele · Verlauf mit Tastaturbedienung; „Zu leicht? / Varianten" und Zocker-Tipp einklappbar; beim Starten wechselt die Ansicht auf „Ablauf". **Teil B offen:** Live-Modus (Vollbild, großer Timer, +/−-Zähler, Bildschirm bleibt an), Abschluss-Sheet (Level, Abstand zur nächsten Stufe, Bestwert/MA(5), PB-Konfetti, Notiz, Nochmal/Nächster Drill/Fertig) und Rückgängig-Toast.
+> **Umgesetzt.** Teil A (`DrillDetail.vue`): Sticky-Kopf mit Titel, Favorit, Kategorie/Dauer/Schwierigkeit und den Aktionen **Starten** und **Ergebnis eintragen** (Schnell-Erfassung: 2 Taps, kein Timer, Feld fokussiert); Reiter Aufbau (Diagramm zuerst) · Ablauf · Ziele · Verlauf mit Tastaturbedienung; „Zu leicht? / Varianten" und Zocker-Tipp einklappbar. Teil B: **Live-Modus** (`LiveSession.vue`: Vollbild, großer Timer mit Pause/Zurücksetzen und Zeitbalken, große −/+-Zähler mit Grenzen je Metrik, Versuche-Zähler, Ablauf auf Abruf, Bildschirm bleibt an per Screen Wake Lock, Verwerfen mit Rückfrage), **Abschluss-Sheet** (`ResultSheet.vue`: Ergebnis, Level-Sterne, „noch +2 bis ★★", Bestwert und Ø der letzten 5, PB mit Konfetti außer bei reduzierter Bewegung, Notiz, Nochmal / Nächster Drill / Fertig) und **Rückgängig-Hinweis** für 5 Sekunden. Der alte „PB!"-Toast entfällt, das Sheet übernimmt ihn.
 
 **Problem:** B7. Lange Scrollseite, Messwert versteckt, kein Abschluss-Moment.
 

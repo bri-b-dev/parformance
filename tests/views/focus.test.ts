@@ -77,7 +77,7 @@ describe('focus in drill detail and history', () => {
       props: { drill },
       global: {
         plugins: [pinia, router],
-        stubs: { HcpTargetsTable: true, DrillStatsSummary: true, SessionHistory: true, GamblerTipPanel: true, SimpleTimer: true, DrillDetailGrid: true },
+        stubs: { HcpTargetsTable: true, DrillStatsSummary: true, SessionHistory: true, GamblerTipPanel: true, DrillDetailGrid: true },
       },
     })
     await flushPromises()
@@ -85,7 +85,7 @@ describe('focus in drill detail and history', () => {
 
     await w.find('[data-testid="dd-start"]').trigger('click')
     await w.find('input.metric-input').setValue(4)
-    await w.find('[data-testid="dd-save"]').trigger('click')
+    await w.find('[data-testid="live-save"]').trigger('click')
     await flushPromises()
     const sessions = useSessionsStore()
     expect(sessions.sessions).toHaveLength(1)

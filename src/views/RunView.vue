@@ -78,7 +78,10 @@ onMounted(async () => {
 })
 
 // A session saved in the embedded drill completes the current step.
-watch(() => sessions.sessions.length, () => run.attachSession(sessions.sessions))
+watch(() => sessions.sessions.length, () => {
+  run.forgetMissing(sessions.sessions)
+  run.attachSession(sessions.sessions)
+})
 
 const drillOf = (id: string) => catalog.drills.find(d => d.id === id)
 const currentDrill = computed(() => (run.current ? drillOf(run.current.drillId) : undefined))

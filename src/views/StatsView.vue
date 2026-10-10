@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <h1 class="text-xl font-semibold">Statistiken</h1>
+    <HcpHint />
 
     <!-- Loading state -->
     <output v-if="!drillsLoaded || !sessionsLoaded" class="p-4 flex items-center text-sm text-gray-600"
@@ -13,6 +14,26 @@
     <!-- Content -->
     <div v-else>
       <div v-if="hasAnySessions" class="stats-content">
+        <section v-if="goal" class="card goal-card" data-testid="goal-card" aria-live="polite">
+          <h2 class="label" style="margin:0;">Ziel: HCP {{ settings.targetHcp }}</h2>
+          <p class="goal-line">
+            <template v-if="settings.targetDate">
+              bis {{ formatGoalDate(settings.targetDate) }} -
+              <strong v-if="goal.overdue">Zieldatum überschritten</strong>
+              <strong v-else-if="goal.daysLeft === 0">heute</strong>
+              <strong v-else>noch {{ goal.weeksLeft }} {{ goal.weeksLeft === 1 ? 'Woche' : 'Wochen' }}</strong>
+            </template>
+            <template v-else>Kein Zieldatum gesetzt</template>
+          </p>
+          <p v-if="areas.evaluatedForTarget > 0" class="goal-line">
+            Zielniveau erreicht in <strong>{{ areas.evaluatedForTarget - areas.belowTarget.length }}</strong>
+            von {{ areas.evaluatedForTarget }} geübten Drills
+          </p>
+          <div v-if="areas.evaluatedForTarget > 0" class="goal-bar" role="progressbar" :aria-valuenow="goalPct" aria-valuemin="0" aria-valuemax="100" aria-label="Fortschritt zum Ziel">
+            <div class="goal-bar-fill" :style="{ width: goalPct + '%' }"></div>
+          </div>
+        </section>
+
         <div class="heading-row">
           <h2 class="label" style="margin:0;">Fähigkeiten je Kategorie</h2>
           <div class="filter-row">
@@ -106,6 +127,8 @@ import { withPreservedQuery } from '@/router'
 const route = useRoute()
 const preserve = (to: any) => withPreservedQuery(to, route)
 import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
+import HcpHint from '@/components/HcpHint.vue'
+import { computeGoalProgress, formatGoalDate } from '@/stats/goal'
 import { computeAreasOfImprovement } from '@/stats/areas'
 import { computeCategoryScores } from '@/stats/categoryScores'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
@@ -155,6 +178,10 @@ const filteredSessions = computed(() => {
   return s
 })
 
+const goal = computed(() => (settings.targetHcp == null ? null : (computeGoalProgress(settings.targetDate) ?? { daysLeft: 0, weeksLeft: 0, overdue: false })))
+const goalPct = computed(() => areas.value.evaluatedForTarget
+  ? Math.round(((areas.value.evaluatedForTarget - areas.value.belowTarget.length) / areas.value.evaluatedForTarget) * 100)
+  : 0)
 const hasAnySessions = computed(() => (sessions.sessions?.length ?? 0) > 0)
 const isEmpty = computed(() => (filteredSessions.value || []).length === 0)
 // Use current evaluation mode for progress UI: evaluate past sessions using current HCP
@@ -166,12 +193,36 @@ const areas = computed(() => {
   return computeAreasOfImprovement(filteredSessions.value || [], filteredDrills.value || [], settings.hcp, { mode: evaluationMode.value, targetHcp: settings.targetHcp })
   } catch (e) {
     console.error('Error computing areas of improvement:', e)
-    return { belowTarget: [], stagnant: [], mostImproved: [] }
+    return { belowTarget: [], stagnant: [], mostImproved: [], evaluatedForTarget: 0 }
   }
 })
 </script>
 
 <style scoped>
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+}
+
+.goal-line {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.goal-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.goal-bar-fill {
+  height: 100%;
+  background: var(--primary);
+}
+
 .stats-content {
   display: flex;
   flex-direction: column;

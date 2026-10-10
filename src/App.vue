@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <HeaderBar @shuffle="openShuffle" @open-settings="onOpenSettings" />
+    <HeaderBar @shuffle="openShuffle" @open-settings="ui.setSettings(true)" />
 
     <main>
       <div class="container relative">
@@ -14,7 +14,8 @@
       <RandomizerView v-if="ui.shuffleOpen" />
     </main>
 
-    <SettingsSheet :open="settingsOpen" @close="settingsOpen = false" />
+    <SettingsSheet :open="ui.settingsOpen" @close="ui.setSettings(false)" />
+    <OnboardingModal />
     <ShuffleFab />
     <BottomTabs />
     <Toasts />
@@ -28,8 +29,10 @@ import { useSessionsStore } from '@/stores/sessions';
 import { useHcpHistoryStore } from '@/stores/hcpHistory';
 import { useUiStore } from '@/stores/ui';
 import RandomizerView from '@/views/RandomizerView.vue';
-import { onMounted, ref } from 'vue';
-import HeaderBar from './components/HeaderBar.vue';
+import { onMounted } from 'vue';
+import HeaderBar from './components/HeaderBar.vue'
+import OnboardingModal from './components/OnboardingModal.vue'
+import { useSettingsStore } from '@/stores/settings';
 import SettingsSheet from './components/SettingsSheet.vue'
 import Toasts from './components/Toasts.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
@@ -40,10 +43,10 @@ const hcpHistory = useHcpHistoryStore()
 
 function openShuffle() { ui.setShuffle(true) }
 
-const settingsOpen = ref(false)
-function onOpenSettings() { settingsOpen.value = true }
+const settings = useSettingsStore()
 
 onMounted(async () => {
+  if (!settings.loaded) await settings.load()
   if (!sessions.loaded) await sessions.load()
   if (!hcpHistory.loaded) await hcpHistory.load()
 })

@@ -27,6 +27,8 @@ export type Improvement = {
 }
 
 export interface AreasResult {
+  /** Number of drills judged against the target HCP (0 without a target HCP). */
+  evaluatedForTarget: number
   belowTarget: AreaDrill[]
   stagnant: AreaDrill[]
   mostImproved: Improvement[]
@@ -50,6 +52,7 @@ export function computeAreasOfImprovement(
   const belowTarget: AreaDrill[] = []
   const stagnant: AreaDrill[] = []
   const improvements: Improvement[] = []
+  let evaluatedForTarget = 0
 
   for (const d of drills || []) {
     const id = d.id
@@ -65,6 +68,7 @@ export function computeAreasOfImprovement(
       const latestSession = (sessions || []).filter(s => s.drillId === id && s.date).sort((a, b) => b.date.localeCompare(a.date))[0]
       const latestValue = Number(latestSession?.result?.value)
       if (targetValue != null && Number.isFinite(latestValue)) {
+        evaluatedForTarget++
         const levelAtTarget = computeLevelFromThresholds(thr, latestValue, smaller)
         if (levelAtTarget < 2) {
           belowTarget.push({id, title: d.title, category: d.category, latestLevel: latest, targetLevel: 2, gap: 2 - levelAtTarget, latestValue, targetValue})
@@ -130,5 +134,5 @@ export function computeAreasOfImprovement(
     .filter(i => i.maPrev5 != null && i.maLast5 != null)
     .sort((a, b) => b.delta - a.delta)
 
-  return {belowTarget, stagnant, mostImproved}
+  return {belowTarget, stagnant, mostImproved, evaluatedForTarget}
 }

@@ -6,6 +6,8 @@ export const useUiStore = defineStore('ui', {
     gamblerCollapsed: {} as Record<string, boolean>,
     // whether the shuffle overlay/modal is open (transient)
     shuffleOpen: false as boolean,
+    // whether the settings sheet is open (transient)
+    settingsOpen: false as boolean,
     // active tag filter shared between DrillList and Randomizer
     activeTag: '' as string,
     // active category filter
@@ -20,6 +22,9 @@ export const useUiStore = defineStore('ui', {
   actions: {
     setGamblerCollapsed(drillId: string, collapsed: boolean) {
       this.gamblerCollapsed = { ...this.gamblerCollapsed, [drillId]: collapsed }
+    },
+    setSettings(open: boolean) {
+      this.settingsOpen = !!open
     },
     setShuffle(open: boolean) {
       this.shuffleOpen = !!open

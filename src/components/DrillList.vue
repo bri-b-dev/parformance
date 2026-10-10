@@ -16,6 +16,7 @@
 
     <!-- Content/filters are hidden until loaded to avoid flashing -->
     <template v-else>
+      <HcpHint />
       <section class="row" aria-labelledby="filter-heading">
         <h2 id="filter-heading" class="sr-only">Filter</h2>
 
@@ -80,6 +81,7 @@
 
 <script setup lang="ts">
 import DrillCard from '@/components/DrillCard.vue'
+import HcpHint from '@/components/HcpHint.vue'
 import { filterDrills } from '@/filters/drills'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { useFavoritesStore } from '@/stores/favorites'

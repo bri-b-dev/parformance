@@ -8,7 +8,7 @@
           <h3 class="text-lg font-semibold">Einstellungen</h3>
           <button class="btn" type="button" @click="$emit('close')">Schließen</button>
         </div>
-        <SettingsForm v-model="formModel" :derived-hcp="derivedHcp" @save="saveAndClose" @cancel="$emit('close')" @export-data="exportData"
+        <SettingsForm v-model="formModel" :derived-hcp="derivedHcp" @save="saveAndClose" @cancel="$emit('close')" @export-data="exportData" @replay-onboarding="replayOnboarding"
           @import-data="importData" @reset="resetAll" />
       </div>
     </div>
@@ -320,6 +320,11 @@ async function importData(data: any) {
     console.error('Import failed:', error)
     showAlert('Import fehlgeschlagen. Bitte überprüfe die Datei.')
   }
+}
+
+async function replayOnboarding() {
+  await settingsStore.update({ onboardingDone: false })
+  emit('close')
 }
 
 async function resetAll() {

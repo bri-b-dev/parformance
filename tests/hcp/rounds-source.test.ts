@@ -77,7 +77,7 @@ describe('HCP from rounds', () => {
     await flushPromises()
     const input = w.find('#settings-hcp')
     expect((input.element as HTMLInputElement).disabled).toBe(true)
-    expect((input.element as HTMLInputElement).value).toBe('18.4')
+    expect((input.element as HTMLInputElement).value).toBe('18,4')
     expect(w.text()).toMatch(/aus deinen Runden berechnet/i)
     const w2 = mount(SettingsForm, { props: { modelValue: { hcp: 40 } } })
     expect((w2.find('#settings-hcp').element as HTMLInputElement).disabled).toBe(false)

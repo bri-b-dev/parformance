@@ -46,6 +46,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-02 · Onboarding & Handicap-Setup — P0 · S
 
+> **Umgesetzt.** Zwei Schritte (aktuelles HCP, Ziel-HCP mit Datum; die Sprache entfällt, Deutsch reicht), je überspringbar, Schließen/Esc, Fokus bleibt im Dialog. HCP-Eingabe mit Stepper (±0,1), Schieberegler und Textfeld (Komma, `+2,5` = Plus-Handicap, gespeichert als −2,5), weiche Warnung bei Ziel über dem HCP, Schnellauswahl für das Zieldatum. Hinweis ohne HCP ist schließbar („Später"); die Zieltabelle im Drill erklärt, warum keine Zeile markiert ist. „Einführung wiederholen" in den Einstellungen.
+
 **Problem:** B3, B4.
 
 **Anforderungen**

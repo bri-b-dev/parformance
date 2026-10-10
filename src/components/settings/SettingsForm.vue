@@ -10,13 +10,13 @@
         </div>
         <div>
           <label class="text-sm text-app-sub" for="settings-hcp">Handicap (HCP)</label>
-          <input v-if="derivedHcp == null" id="settings-hcp" v-model.number="local.hcp" type="number" step="0.1" min="-10" max="54" class="input w-full" />
-          <input v-else id="settings-hcp" :value="derivedHcp" type="number" class="input w-full" disabled aria-describedby="settings-hcp-note" />
+          <HcpInput v-if="derivedHcp == null" id="settings-hcp" v-model="local.hcp" label="Handicap" :start-value="30" />
+          <input v-else id="settings-hcp" :value="formatHcp(derivedHcp)" type="text" class="input w-full" disabled aria-describedby="settings-hcp-note" />
           <p v-if="derivedHcp != null" id="settings-hcp-note" class="text-xs text-app-sub mt-1">Aus deinen Runden berechnet (Bereich Handicap).</p>
         </div>
         <div>
           <label class="text-sm text-app-sub" for="settings-target-hcp">Ziel-Handicap</label>
-          <input id="settings-target-hcp" v-model.number="local.targetHcp" type="number" step="0.1" min="-10" max="54" class="input w-full" placeholder="Optional" />
+          <HcpInput id="settings-target-hcp" v-model="local.targetHcp" label="Ziel-Handicap" :start-value="local.hcp !== null ? Math.max(0, local.hcp - 4) : 18" placeholder="Optional" />
         </div>
         <div>
           <label class="text-sm text-app-sub" for="settings-target-date">Ziel bis</label>
@@ -87,6 +87,7 @@
       <h3 class="text-base font-semibold mb-3">Daten</h3>
       <div class="grid sm:grid-cols-2 gap-3">
         <button type="button" class="btn" @click="$emit('export-data')">Daten exportieren</button>
+        <button type="button" class="btn" data-testid="replay-onboarding" @click="$emit('replay-onboarding')">Einführung wiederholen</button>
         <label class="btn cursor-pointer text-center">
           <input type="file" class="hidden" accept="application/json" @change="onImport" />
           Daten importieren
@@ -109,6 +110,8 @@
 </template>
 
 <script setup lang="ts">
+import HcpInput from '@/components/HcpInput.vue'
+import { formatHcp } from '@/hcp/format'
 import { reactive, watch, toRaw } from 'vue'
 
 type Settings = {
@@ -126,7 +129,7 @@ type Settings = {
 }
 
 const props = defineProps<{ modelValue?: Partial<Settings>; derivedHcp?: number | null }>()
-const emit = defineEmits<{ (e:'update:modelValue', v:Settings):void; (e:'save', v:Settings):void; (e:'cancel'):void; (e:'export-data'):void; (e:'import-data', v:any):void; (e:'reset'):void }>()
+const emit = defineEmits<{ (e:'update:modelValue', v:Settings):void; (e:'save', v:Settings):void; (e:'cancel'):void; (e:'export-data'):void; (e:'replay-onboarding'):void; (e:'import-data', v:any):void; (e:'reset'):void }>()
 
 const local = reactive<Settings>({
   name: '',

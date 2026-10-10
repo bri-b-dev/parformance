@@ -31,10 +31,12 @@ export const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
-    name: 'History',
-    path: '/history',
+    name: 'Progress',
+    path: '/progress',
     component: StatsView,
   },
+  // old bookmark/deep link
+  { path: '/history', redirect: { name: 'Progress' } },
   {
     path: '/handicap',
     component: HandicapShell,

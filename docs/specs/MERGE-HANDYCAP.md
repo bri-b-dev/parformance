@@ -118,10 +118,17 @@ Jede Phase ist ein eigener PR, die App bleibt in jeder Phase lauffähig.
 - Zielkarte: aktuelles HCP, Abstand zum Ziel und Verlauf der letzten 20 Werte.
 - Grenzen: Vor der ersten Runde bleibt das manuelle HCP bzw. `session.hcp` der Rückfall; ein HCPI nach WHS gibt es erst ab 3 Runden (Verhalten des Moduls unverändert).
 
-### Phase D – Navigation und Branding
+### Phase D – Navigation und Branding – umgesetzt (ohne i18n und Tab Heute)
 1. Navigation nach UX-01: **Heute · Drills · Handicap · Fortschritt**, Verlauf folgt.
 2. Logo und Icons (siehe 6), Splash, Android-Ressourcen.
-3. i18n: Training-Texte in `vue-i18n` überführen (Voraussetzung für UX-11).
+3. ~~i18n: Training-Texte in `vue-i18n` überführen~~ **entfällt vorerst: Deutsch reicht** (UX-11 bleibt als spätere Option).
+
+**Umsetzung Phase D**
+- Navigation: **Drills · Handicap · Zufalls-Drill · Fortschritt**. Der schwebende Shuffle-Button ist in die Tab-Leiste gewandert, die Route `/history` heißt jetzt `/progress` (alter Link leitet um). Der Theme-Umschalter im Header entfällt (die Einstellungen haben die Auswahl), Emojis wurden durch SVG-Icons ersetzt. **Noch offen:** Tab Heute (UX-03) und Verlauf (Session-Liste).
+- Logo: Motiv aus dem HandyCap-PNG nachgezeichnet (Rahmen als exakte Geometrie, Kappe und Tee geglättet getract), als `BrandMark.vue` inline (nimmt die Themefarbe) und als `public/logo-mark.svg`, `icon.svg`, `icon-rounded.svg`, `icon-wordmark.svg`, `splash-animated.svg`; `resources/` mit Icon, adaptiven Ebenen und Splash (hell/dunkel); Android-Ressourcen mit `@capacitor/assets` erzeugt.
+- Primärfarbe (hell) ist jetzt das Logo-Grün `#01593d`; Dunkel bleibt `#4FBF86`.
+- Das Web-App-Manifest war nicht verlinkt und zeigte auf `../icons`: jetzt `/manifest.webmanifest` mit `public/icons`, `theme-color` und `lang="de"`.
+- Version **2.0.0** (`package.json`, Android `versionName "2.0"`, `versionCode 2`; bisher stand `versionCode` bei jedem Release auf 1).
 
 ### Phase E – Aufräumen
 1. HandyCap-Repo archivieren, README-Hinweis auf ParFormance.
@@ -163,5 +170,5 @@ Es gibt einen Nutzer, daher genügt der vorhandene Weg:
 
 1. ~~HCP bei vorhandenen Runden nur aus den Runden oder manuell überschreibbar?~~ **Entschieden: nur aus den Runden.** Ohne Runden bleibt die manuelle Eingabe.
 2. Soll die Rundenerfassung auch **Schlag-/Stats-Daten** (FIR, GIR, Putts) aufnehmen, damit Drills gezielt vorgeschlagen werden können? (Eigene Spec, baut auf Phase C auf.)
-3. Wird die Sprache **de/en** für die ganze App Pflicht (Phase D) oder bleibt das Training zunächst deutsch?
-4. Version der zusammengeführten App: Fortsetzung der ParFormance-Version (1.x) oder 2.0?
+3. ~~Sprache de/en für die ganze App?~~ **Entschieden: Deutsch reicht erstmal.**
+4. ~~Version 1.x oder 2.0?~~ **Entschieden: 2.0.**

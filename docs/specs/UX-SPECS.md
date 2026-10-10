@@ -29,6 +29,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-01 · Navigation neu ordnen — P0 · M
 
+> **Teilweise umgesetzt** (siehe MERGE-HANDYCAP.md, Phase D): Tabs Drills · Handicap · Zufalls-Drill · Fortschritt. Offen: Heute (UX-03) und Verlauf.
+
 **Problem:** B1. Nutzer finden ihre vergangenen Sessions nicht, „Historie" ist falsch benannt.
 
 **Anforderungen**

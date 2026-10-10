@@ -16,7 +16,6 @@
 
     <SettingsSheet :open="ui.settingsOpen" @close="ui.setSettings(false)" />
     <OnboardingModal />
-    <ShuffleFab />
     <BottomTabs />
     <Toasts />
     <ConfirmModal />
@@ -24,7 +23,6 @@
 </template>
 <script setup lang="ts">
 import BottomTabs from '@/components/BottomTabs.vue';
-import ShuffleFab from '@/components/ShuffleFab.vue';
 import { useSessionsStore } from '@/stores/sessions';
 import { useHcpHistoryStore } from '@/stores/hcpHistory';
 import { useRoundsStore } from '@/stores/rounds';

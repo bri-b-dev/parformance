@@ -144,6 +144,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-08 · Fortschritt statt Statistik-Dump — P1 · M
 
+> **Umgesetzt.** `StatsView.vue`: Zeitraum als Umschalter (7/30/90 Tage/Alles, Start 30 Tage, Rückfall auf „Alles" wenn zuletzt nichts passiert ist), Kategorien als Chips. **Kennzahlen** mit Beschriftung: Sessions (Ø pro Woche, Drills), Trainingszeit (laut Timer, sonst geschätzt aus der Planzeit, gekennzeichnet), neue Bestwerte (gegen die ganze Historie), HCP mit Veränderung und Verlauf. Radar/Balken bleiben, darunter eine **Tabelle mit Trend je Kategorie** (▲/▼/► mit „+12 Pkt ggü. dem Zeitraum davor", die zugleich die Screenreader-Alternative ist). „**Als Nächstes**" ersetzt die drei Listen: je ein Satz plus „Drill starten" / „Details"; „Läuft gut" nennt Verbesserungen mit Vergleichsgröße („Ø der letzten 5 Sessions +0,4 gegenüber den 5 davor"). Leere Zustände nennen den nächsten Schritt (Filter lockern, HCP eintragen, Zufalls-Drill). Im Drill-Detail zeigt der Reiter „Verlauf" ein **Diagramm** (`DrillProgressChart.vue`) mit Ergebnissen, gestrichelten ★-Schwellen und Zoom 30/90/Alles; Aufwärts ist immer besser.
+
 **Problem:** B9.
 
 **Anforderungen**

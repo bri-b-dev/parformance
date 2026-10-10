@@ -67,7 +67,10 @@
         <TargetScale :drill="drill" />
         <DrillStatsSummary :drill-id="drill.id" :unit="drill.metric.unit" />
       </template>
-      <SessionHistory v-else :drill-id="drill.id" />
+      <template v-else>
+        <DrillProgressChart :drill="drill" />
+        <SessionHistory :drill-id="drill.id" />
+      </template>
     </div>
 
     <!-- Collapsible extras -->
@@ -82,6 +85,7 @@
 </template>
 
 <script setup lang="ts">
+import DrillProgressChart from '@/components/DrillProgressChart.vue'
 import DrillStatsSummary from '@/components/DrillStatsSummary.vue'
 import GamblerTipPanel from '@/components/GamblerTipPanel.vue'
 import LevelBadge from '@/components/LevelBadge.vue'

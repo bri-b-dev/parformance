@@ -23,6 +23,8 @@ export interface HistoryResult {
 
 export interface HistoryOptions {
   category?: string
+  /** Focus id, or 'none' for sessions without a focus. */
+  focusId?: string
   /** Only sessions from the last N days (0 or undefined = all). */
   days?: number
   now?: Date
@@ -72,6 +74,7 @@ export function buildHistory(sessions: Session[], drills: Drill[], opts: History
     .filter(s => s.date && !Number.isNaN(Date.parse(s.date)))
     .filter(s => cutoff === null || Date.parse(s.date) >= cutoff)
     .filter(s => !opts.category || byId.get(s.drillId)?.category === opts.category)
+    .filter(s => !opts.focusId || (opts.focusId === 'none' ? !s.focusId : s.focusId === opts.focusId))
     .sort((a, b) => b.date.localeCompare(a.date))
     .map<HistoryEntry>(session => {
       const drill = byId.get(session.drillId)

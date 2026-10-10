@@ -87,5 +87,7 @@ export interface Session {
   result: { value: number; unit: string };
   levelReached?: number;
   favorited?: boolean;
+  /** Focus point that was active when the session was saved (or assigned later). */
+  focusId?: string;
   notes?: string;
 }

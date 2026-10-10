@@ -20,6 +20,7 @@ import SettingsForm from '@/components/settings/SettingsForm.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { useCollectionsStore } from '@/stores/collections'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useFocusStore } from '@/stores/focus'
 import { useRunStore } from '@/stores/run'
 import { useHcpHistoryStore } from '@/stores/hcpHistory'
 import { useSessionsStore } from '@/stores/sessions'
@@ -53,6 +54,7 @@ const sessionsStore = useSessionsStore()
 const hcpHistoryStore = useHcpHistoryStore()
 const collectionsStore = useCollectionsStore()
 const runStore = useRunStore()
+const focusStore = useFocusStore()
 const { hcp: currentHcp, fromRounds } = useCurrentHcp()
 const derivedHcp = computed(() => (fromRounds.value ? currentHcp.value : null))
 
@@ -82,6 +84,7 @@ async function ensureStoresLoaded() {
   if (!sessionsStore.loaded) await sessionsStore.load()
   if (!hcpHistoryStore.loaded) await hcpHistoryStore.load()
   if (!collectionsStore.loaded) await collectionsStore.load()
+  if (!focusStore.loaded) await focusStore.load()
 }
 
 onMounted(async () => {
@@ -249,6 +252,7 @@ async function exportData() {
     sessions: JSON.parse(JSON.stringify(sessionsStore.sessions ?? [])),
     hcpHistory: JSON.parse(JSON.stringify(hcpHistoryStore.rows ?? [])),
     collections: JSON.parse(JSON.stringify(collectionsStore.items ?? [])),
+    focus: JSON.parse(JSON.stringify(focusStore.items ?? [])),
   }
 
   const fileName = `parformance-export-${new Date().toISOString().replace(/[:.]/g, '-')}.json`
@@ -303,6 +307,9 @@ async function importData(data: any) {
     if (Array.isArray(data?.collections)) {
       collectionsStore.replaceAll(data.collections)
     }
+    if (Array.isArray(data?.focus)) {
+      focusStore.replaceAll(data.focus)
+    }
     // Exports from before the history was included have no `hcpHistory`: keep what is there.
     if (Array.isArray(data?.hcpHistory)) {
       await hcpHistoryStore.replaceAll(data.hcpHistory)
@@ -325,6 +332,7 @@ async function resetAll() {
     sessionsStore.clearAll(),
     hcpHistoryStore.clearAll(),
     collectionsStore.clearAll(),
+    focusStore.clearAll(),
   ])
   runStore.clear()
   syncFromStore()

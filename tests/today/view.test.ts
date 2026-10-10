@@ -9,12 +9,13 @@ import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
 import { useRunStore } from '@/stores/run'
 import { useCollectionsStore } from '@/stores/collections'
+import { useFocusStore } from '@/stores/focus'
 import { setConfirmHandler } from '@/utils/confirmService'
 
 const Stub = { template: '<div />' }
 
-async function mountToday(withSession: boolean) {
-  const pinia = createPinia()
+async function mountToday(withSession: boolean, existing?: ReturnType<typeof createPinia>) {
+  const pinia = existing ?? createPinia()
   setActivePinia(pinia)
   const router = createRouter({
     history: createMemoryHistory(),
@@ -106,5 +107,20 @@ describe('TodayView', () => {
     expect(useRunStore().run).toMatchObject({ title: 'Vor der Runde' })
     expect(useRunStore().total).toBe(2)
     setConfirmHandler(null)
+  })
+
+  it('shows the focus card and prefers drills of the focus collection', async () => {
+    const pinia = createPinia()
+    setActivePinia(pinia)
+    const catalog = useDrillCatalogStore()
+    await catalog.load()
+    const target = catalog.drills[40]
+    const col = useCollectionsStore().add({ name: 'Fokus-Sammlung', drillIds: [target.id] })!
+    useFocusStore().start({ label: 'Tempo', collectionId: col.id })
+    const { w } = await mountToday(false, pinia)
+    expect(w.find('[data-testid="focus-active"]').text()).toBe('Tempo')
+    const first = w.find('[data-testid="today-suggestions"] li')
+    expect(first.text()).toContain(target.title)
+    expect(first.text()).toContain('Passt zu deinem Fokus „Tempo".')
   })
 })

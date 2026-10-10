@@ -103,3 +103,17 @@ describe('planSession', () => {
     expect(planSession(ctx({ drills: [mk('long', 'Course', 120)] }), 15).items).toEqual([])
   })
 })
+
+describe('focus boost', () => {
+  it('ranks drills of the focus collection first and says why', () => {
+    const c = ctx({ focus: { label: 'Tempo', drillIds: ['c'] } })
+    const top = scoreDrills(c)[0]
+    expect(top.drill.id).toBe('c')
+    expect(top.reason).toBe('Passt zu deinem Fokus „Tempo".')
+  })
+  it('ignores the focus when it has no drills', () => {
+    const a = scoreDrills(ctx({ focus: { label: 'x', drillIds: [] } })).map(s => s.drill.id)
+    const b = scoreDrills(ctx()).map(s => s.drill.id)
+    expect(a).toEqual(b)
+  })
+})

@@ -16,6 +16,8 @@ function memoryStorage(): Storage {
 }
 
 beforeEach(() => {
+  // jsdom does not implement scrolling; components call it on mount
+  vi.stubGlobal('scrollTo', () => {})
   vi.stubGlobal('localStorage', memoryStorage())
   setActivePinia(createPinia())
 })

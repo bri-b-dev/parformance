@@ -14,7 +14,8 @@
       <RandomizerView v-if="ui.shuffleOpen" />
     </main>
 
-    <SettingsSheet :open="ui.settingsOpen" @close="ui.setSettings(false)" />
+    <!-- loaded on first use: it pulls in most stores and is rarely opened -->
+    <SettingsSheet v-if="settingsSeen" :open="ui.settingsOpen" @close="ui.setSettings(false)" />
     <OnboardingModal />
     <BottomTabs />
     <Toasts />
@@ -28,11 +29,10 @@ import { useHcpHistoryStore } from '@/stores/hcpHistory';
 import { useRoundsStore } from '@/stores/rounds';
 import { useUiStore } from '@/stores/ui';
 import RandomizerView from '@/views/RandomizerView.vue';
-import { onMounted } from 'vue';
+import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
 import HeaderBar from './components/HeaderBar.vue'
 import OnboardingModal from './components/OnboardingModal.vue'
 import { useSettingsStore } from '@/stores/settings';
-import SettingsSheet from './components/SettingsSheet.vue'
 import Toasts from './components/Toasts.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
 
@@ -44,6 +44,9 @@ const rounds = useRoundsStore()
 function openShuffle() { ui.setShuffle(true) }
 
 const settings = useSettingsStore()
+const SettingsSheet = defineAsyncComponent(() => import('./components/SettingsSheet.vue'))
+const settingsSeen = ref(false)
+watch(() => ui.settingsOpen, (open) => { if (open) settingsSeen.value = true }, { immediate: true })
 
 onMounted(async () => {
   if (!settings.loaded) await settings.load()

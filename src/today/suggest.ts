@@ -19,6 +19,8 @@ export interface SuggestContext {
   categoryScores: Record<string, number>
   targetHcp?: number | null
   favorites?: string[]
+  /** Active focus point; drills of its collection get a boost. */
+  focus?: { label: string; drillIds: string[] } | null
 }
 
 const DAY = 86_400_000
@@ -55,6 +57,7 @@ export function scoreDrills(ctx: SuggestContext): Suggestion[] {
   const today = dayKey(ctx.now)
   const below = new Map(ctx.belowTarget.map(a => [a.id, a]))
   const fav = new Set(ctx.favorites ?? [])
+  const focusIds = new Set(ctx.focus?.drillIds ?? [])
 
   const lastByDrill = new Map<string, Session>()
   const playedCategories = new Set<string>()
@@ -93,6 +96,7 @@ export function scoreDrills(ctx: SuggestContext): Suggestion[] {
           ? `Unter deinem Ziel-HCP ${fmt(ctx.targetHcp ?? 0)}: zuletzt ${fmt(gap.latestValue ?? 0)}, Ziel ${fmt(gap.targetValue)}.`
           : `Level ${Math.round(gap.latestLevel)} von 3 - hier ist noch Luft nach oben.`)
       }
+      if (ctx.focus && focusIds.has(drill.id)) consider(2.5, `Passt zu deinem Fokus „${ctx.focus.label}".`)
       if (days === null) {
         consider(1.5, 'Noch nie gespielt - gut zum Kennenlernen.')
       } else {

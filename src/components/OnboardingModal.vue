@@ -6,9 +6,13 @@
         Mit deinem Handicap zeigen wir dir für jeden Drill passende Zielwerte. Alles ist optional und später in den Einstellungen änderbar.
       </p>
 
-      <label class="onb-label" for="onb-hcp">Aktuelles Handicap</label>
-      <input id="onb-hcp" ref="hcpInput" v-model.number="hcp" class="input" type="number" step="0.1" min="-10" max="54"
-        inputmode="decimal" placeholder="z. B. 24,5" />
+      <template v-if="!fromRounds">
+        <label class="onb-label" for="onb-hcp">Aktuelles Handicap</label>
+        <input id="onb-hcp" ref="hcpInput" v-model.number="hcp" class="input" type="number" step="0.1" min="-10" max="54"
+          inputmode="decimal" placeholder="z. B. 24,5" />
+        <p class="onb-hint">Oder erfasse Runden im Bereich Handicap, dann wird es daraus berechnet.</p>
+      </template>
+      <p v-else class="onb-hint">Dein Handicap wird aus deinen Runden berechnet.</p>
 
       <label class="onb-label" for="onb-target">Ziel-Handicap</label>
       <input id="onb-target" v-model.number="targetHcp" class="input" type="number" step="0.1" min="-10" max="54"
@@ -28,10 +32,12 @@
 </template>
 
 <script setup lang="ts">
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { HCP_MAX, HCP_MIN, useSettingsStore } from '@/stores/settings'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 
 const settings = useSettingsStore()
+const { fromRounds } = useCurrentHcp()
 
 const hcp = ref<number | '' | null>(null)
 const targetHcp = ref<number | '' | null>(null)
@@ -129,6 +135,12 @@ async function skip() {
   margin-top: 6px;
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+.onb-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .onb-error {

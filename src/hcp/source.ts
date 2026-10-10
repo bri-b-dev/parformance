@@ -1,4 +1,6 @@
 import { useManualHcpSource } from '@/hcp/sources/manual'
+import { useRoundsHcpSource } from '@/hcp/sources/rounds'
+import { useRoundsStore } from '@/stores/rounds'
 
 /**
  * Where the app gets the player's handicap from. Everything that needs "the HCP at date X" or
@@ -8,6 +10,8 @@ import { useManualHcpSource } from '@/hcp/sources/manual'
  * need async storage (e.g. rounds in IndexedDB) preload their series into memory.
  */
 export interface HcpSource {
+  /** Where the values come from: rounds of the handicap area, or entered by hand. */
+  kind: 'rounds' | 'manual'
   /** HCP that was valid at the given ISO date, or null if unknown. */
   getHcpAt(dateIso: string | Date | undefined): number | null
   /** The most recent HCP, or null if unknown. */
@@ -16,7 +20,10 @@ export interface HcpSource {
   getSeries?(): { date: string; hcp: number }[]
 }
 
-/** The active source. Currently always the manual one (settings + history of manual changes). */
+/**
+ * The active source: as soon as rounds exist the HCP comes only from them (single source of truth);
+ * without rounds the manually entered HCP (settings + history of manual changes) is used.
+ */
 export function useHcpSource(): HcpSource {
-  return useManualHcpSource()
+  return useRoundsStore().hasRounds ? useRoundsHcpSource() : useManualHcpSource()
 }

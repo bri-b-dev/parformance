@@ -14,6 +14,7 @@ import { findBucketKey, formatRangeLabel } from '@/hcp/buckets'
 import { computeLevelForDrill } from '@/hcp/level'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
+import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import type { Drill } from '@/types'
 import { computed, onMounted } from 'vue'
 
@@ -21,6 +22,7 @@ const props = defineProps<{ drill: Drill }>()
 
 const sessions = useSessionsStore()
 const settings = useSettingsStore()
+const { hcp: currentHcp } = useCurrentHcp()
 
 onMounted(async () => {
   if (!sessions.loaded) await sessions.load()
@@ -34,7 +36,7 @@ const latest = computed(() => sessions.latestByDrill(props.drill.id))
 const level = computed<1 | 2 | 3 | null>(() => {
   const s = latest.value
   if (!s) return null
-  let lvl = typeof s.levelReached === 'number' ? s.levelReached : computeLevelForDrill(props.drill, settings.hcp, Number(s.result?.value))
+  let lvl = typeof s.levelReached === 'number' ? s.levelReached : computeLevelForDrill(props.drill, currentHcp.value, Number(s.result?.value))
   if (!Number.isFinite(lvl)) return null
   // Only render 1..3; 0 maps to neutral
   if (lvl >= 1 && lvl <= 3) return lvl as 1 | 2 | 3
@@ -43,7 +45,7 @@ const level = computed<1 | 2 | 3 | null>(() => {
 
 const tooltip = computed(() => {
   const targets = props.drill.metric?.hcpTargets || {}
-  const key = typeof settings.hcp === 'number' ? findBucketKey(settings.hcp, targets) : null
+  const key = typeof currentHcp.value === 'number' ? findBucketKey(currentHcp.value, targets) : null
   if (!key) {
     return 'Keine HCP-Zielwerte vorhanden'
   }

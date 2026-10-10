@@ -80,7 +80,8 @@ export interface Session {
   id: string;
   drillId: string;
   date: string; // ISO string
-  hcp: number;
+  /** HCP at the time of the session; null when unknown. */
+  hcp: number | null;
   timerUsed?: number;
   attempts?: number;
   result: { value: number; unit: string };

@@ -39,7 +39,7 @@
           <p v-if="run.current?.status === 'done'" class="muted" role="status">Ergebnis gespeichert - weiter zum nächsten Drill.</p>
         </div>
 
-        <DrillDetail v-if="currentDrill" :key="currentDrill.id + '-' + run.run.index" :drill="currentDrill" />
+        <DrillDetail v-if="currentDrill" :key="currentDrill.id + '-' + run.run.index" :drill="currentDrill" embedded />
         <div v-else class="card run-card">
           <p>Dieser Drill ist nicht mehr im Katalog.</p>
           <button type="button" class="btn" @click="run.skip()">Überspringen</button>

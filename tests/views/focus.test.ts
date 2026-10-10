@@ -83,9 +83,9 @@ describe('focus in drill detail and history', () => {
     await flushPromises()
     expect(w.find('[data-testid="focus-chip"]').text()).toContain('Lag-Putting')
 
-    await w.findAll('button').find(b => b.text() === 'Session starten')!.trigger('click')
+    await w.find('[data-testid="dd-start"]').trigger('click')
     await w.find('input.metric-input').setValue(4)
-    await w.findAll('button').find(b => b.text() === 'Speichern')!.trigger('click')
+    await w.find('[data-testid="dd-save"]').trigger('click')
     await flushPromises()
     const sessions = useSessionsStore()
     expect(sessions.sessions).toHaveLength(1)

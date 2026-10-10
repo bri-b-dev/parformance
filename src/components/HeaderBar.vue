@@ -1,5 +1,5 @@
 <template>
-    <header
+    <header ref="bar"
         class="sticky top-0 z-30 bg-app-bg/80 backdrop-blur supports-[backdrop-filter]:bg-app-bg/60 border-b border-zinc-200">
         <div class="max-w-6xl mx-auto pt-2 px-4 h-18 flex items-center justify-between header-inner">
             <div class="flex items-center gap-3 select-none">
@@ -27,6 +27,25 @@
 
 <script setup lang="ts">
 import BrandMark from '@/components/BrandMark.vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+
+// Publish the header height so sticky bars inside screens can sit right below it.
+const bar = ref<HTMLElement | null>(null)
+let observer: ResizeObserver | null = null
+
+function publish() {
+    if (bar.value) document.documentElement.style.setProperty('--app-header-h', `${bar.value.offsetHeight}px`)
+}
+
+onMounted(() => {
+    publish()
+    if (typeof ResizeObserver !== 'undefined' && bar.value) {
+        observer = new ResizeObserver(publish)
+        observer.observe(bar.value)
+    }
+})
+
+onBeforeUnmount(() => observer?.disconnect())
 
 defineEmits<(e: 'open-settings') => void>()
 

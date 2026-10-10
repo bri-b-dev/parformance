@@ -16,7 +16,7 @@ function makeRouter() {
 }
 
 describe('bottom navigation', () => {
-  it('shows Drills, Handicap, Fortschritt and a central shuffle button', async () => {
+  it('shows Heute, Drills, Handicap, Fortschritt and a central shuffle button', async () => {
     const pinia = createPinia()
     setActivePinia(pinia)
     const router = makeRouter()
@@ -24,7 +24,7 @@ describe('bottom navigation', () => {
     const w = mount(BottomTabs, { global: { plugins: [pinia, router] } })
     await flushPromises()
 
-    expect(w.findAll('a.tab').map(a => a.text())).toEqual(['Drills', 'Handicap', 'Fortschritt'])
+    expect(w.findAll('a.tab').map(a => a.text())).toEqual(['Heute', 'Drills', 'Handicap', 'Fortschritt'])
     expect(w.find('a.tab.active').text()).toBe('Drills')
     expect(w.find('a.tab.active').attributes('aria-current')).toBe('page')
 

@@ -52,3 +52,28 @@ export function computeStreaks(sessions: SimpleSession[], asOf?: string): { curr
 
   return { current, best }
 }
+
+/**
+ * Streak as shown on the start screen: counts consecutive practice days up to today,
+ * or up to yesterday while today is still open (the streak is alive until the day ends).
+ */
+export function computeActiveStreak(sessions: SimpleSession[], now: Date = new Date()): { current: number; practicedToday: boolean } {
+  const key = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  const local = new Set(sessions.filter(s => s.date).map(s => key(new Date(s.date))))
+  const practicedToday = local.has(key(now))
+  const cursor = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  if (!practicedToday) cursor.setDate(cursor.getDate() - 1)
+  let current = 0
+  while (local.has(key(cursor))) {
+    current++
+    cursor.setDate(cursor.getDate() - 1)
+  }
+  return { current, practicedToday }
+}
+
+/** Number of sessions since Monday 00:00 (local time) of the week containing `now`. */
+export function sessionsThisWeek(sessions: SimpleSession[], now: Date = new Date()): number {
+  const start = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  start.setDate(start.getDate() - ((start.getDay() + 6) % 7))
+  return sessions.filter(s => s.date && new Date(s.date) >= start).length
+}

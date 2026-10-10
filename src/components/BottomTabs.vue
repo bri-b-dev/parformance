@@ -1,6 +1,17 @@
 <template>
   <div class="bottom-tabs">
     <nav aria-label="Hauptnavigation">
+      <RouterLink class="tab" :class="{ active: isActive('/today') }" :aria-current="isActive('/today') ? 'page' : undefined"
+        :to="{ name: 'Today' }" @click="triggerHaptic">
+        <span class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.6" />
+            <path d="M4 10h16M9 3v4M15 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span>Heute</span>
+      </RouterLink>
+
       <RouterLink class="tab" :class="{ active: isActive('/drills') || isActive('/drill') }" :aria-current="isActive('/drills') || isActive('/drill') ? 'page' : undefined"
         :to="preserve({ name: 'DrillsList' })" @click="triggerHaptic">
         <span class="icon" aria-hidden="true">
@@ -10,17 +21,6 @@
           </svg>
         </span>
         <span>Drills</span>
-      </RouterLink>
-
-      <RouterLink class="tab" :class="{ active: isActive('/handicap') }" :aria-current="isActive('/handicap') ? 'page' : undefined"
-        :to="{ path: '/handicap' }" @click="triggerHaptic">
-        <span class="icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <rect x="5" y="3" width="14" height="18" rx="3" stroke="currentColor" stroke-width="1.6" />
-            <path d="M8.5 8h7M8.5 12h7M8.5 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-          </svg>
-        </span>
-        <span>Handicap</span>
       </RouterLink>
 
       <!-- Primary action: random drill. Kept in the middle of the bar instead of floating over the content. -->
@@ -35,6 +35,17 @@
           <circle cx="20.6" cy="7.8" r="1.2" fill="currentColor" />
         </svg>
       </button>
+
+      <RouterLink class="tab" :class="{ active: isActive('/handicap') }" :aria-current="isActive('/handicap') ? 'page' : undefined"
+        :to="{ path: '/handicap' }" @click="triggerHaptic">
+        <span class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <rect x="5" y="3" width="14" height="18" rx="3" stroke="currentColor" stroke-width="1.6" />
+            <path d="M8.5 8h7M8.5 12h7M8.5 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span>Handicap</span>
+      </RouterLink>
 
       <RouterLink class="tab" :class="{ active: isActive('/progress') }" :aria-current="isActive('/progress') ? 'page' : undefined"
         :to="preserve({ name: 'Progress' })" @click="triggerHaptic">

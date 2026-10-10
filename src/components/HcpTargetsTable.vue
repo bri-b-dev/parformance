@@ -6,6 +6,7 @@
         <tr>
           <th scope="col" class="text-left p-2">HCP</th>
           <th v-for="(label, idx) in columnLabels" :key="idx" scope="col" class="text-right p-2">{{ label }}</th>
+          <th v-if="hasRadius" scope="col" class="text-right p-2">Radius</th>
         </tr>
       </thead>
       <tbody>
@@ -13,6 +14,9 @@
           <th scope="row" class="text-left p-2">{{ row.label }}</th>
           <td v-for="(_, idx) in columnLabels" :key="`${row.key}-${idx}`" class="text-right p-2">
             <span :class="cellClass(row, idx)">{{ row.values[idx] ?? '-' }}</span>
+          </td>
+          <td v-if="hasRadius" class="text-right p-2">
+            <span :class="cellClass(row, 0)">{{ radiusLabel(row.key) }}</span>
           </td>
         </tr>
       </tbody>
@@ -41,6 +45,12 @@ const columnCount = computed(() => {
   return Math.max(1, max)
 })
 const columnLabels = computed(() => Array.from({ length: columnCount.value }, (_, i) => `L${i + 1}`))
+
+const hasRadius = computed(() => !!props.drill.metric.hcpRadius)
+function radiusLabel(key: string) {
+  const r = props.drill.metric.hcpRadius?.[key]
+  return typeof r === 'number' ? `≤ ${String(r).replace('.', ',')} m` : '-'
+}
 
 function cellClass(row: any, _i: number) {
   // Use theme-aware CSS classes (variables) so contrast adapts for light/dark themes.

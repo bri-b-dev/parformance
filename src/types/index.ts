@@ -61,7 +61,9 @@ export interface Drill {
     unit: string;
     /** Inclusive bounds for the entered value (e.g. [1, 5] for a self-rating). Defaults to metric-type rules. */
     range?: [number, number];
-    /** Canonical: up to three ascending numbers. Legacy catalog entries may hold a number, string or object. */
+    /** Hit radius in metres per HCP bucket for drills where the radius (not the score) scales with handicap. */
+    hcpRadius?: Record<string, number>;
+    /** Up to three thresholds (level 1-3); a level is reached when the result meets that many of them. */
     hcpTargets: Record<string, number[]>;
     /** If true, smaller metric values are better (e.g. fewer strokes). Defaults to false. */
     smallerIsBetter?: boolean;

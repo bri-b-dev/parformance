@@ -136,18 +136,14 @@ Vorschläge (größer ist besser: ±25 %, kleiner ist besser: ±10 %, jeweils mi
   - 11-5: "+9" → [10, 9, 8]
   - 4-0: "+5" → [6, 5, 4]
 
-## Manuell: nicht numerische Ziele (10)
+## Radius-Drills – von Hand geklärt
 
-- `pitching_attack_the_flag` 54-27: {"radius":"≤ 8 m"}
-- `pitching_attack_the_flag` 26-19: {"radius":"≤ 7 m"}
-- `pitching_attack_the_flag` 18-12: {"radius":"≤ 5 m"}
-- `pitching_attack_the_flag` 11-5: {"radius":"≤ 3 m"}
-- `pitching_attack_the_flag` 4-0: {"radius":"≤ 2 m"}
-- `pitching_mixed_clubs` 54-27: {"radius":"≤ 8 m"}
-- `pitching_mixed_clubs` 26-19: {"radius":"≤ 6 m"}
-- `pitching_mixed_clubs` 18-12: {"radius":"≤ 4 m"}
-- `pitching_mixed_clubs` 11-5: {"radius":"≤ 3 m"}
-- `pitching_mixed_clubs` 4-0: {"radius":"≤ 1.5 m"}
+Bei \`pitching_attack_the_flag\` und \`pitching_mixed_clubs\` ist der Radius der HCP-abhängige Trefferkreis, nicht das Ziel. Er steht jetzt in \`metric.hcpRadius\` (Meter) und wird in der Zieltabelle als Spalte „Radius" angezeigt. Das Ergebnis sind weiterhin Treffer (Punkte), die Level-Schwellen gelten für alle HCP-Bereiche:
+
+- \`pitching_attack_the_flag\` (9 Bälle): \`[3, 5, 7]\`; Radien 54-27: 8 m, 26-19: 7 m, 18-12: 5 m, 11-5: 3 m, 4-0: 2 m.
+- \`pitching_mixed_clubs\` (25 Bälle): \`[10, 15, 20]\`; Radien 8 / 6 / 4 / 3 / 1,5 m. Der Testtext nannte „Maximal 20 Punkte", bei 5 Stationen mit je 5 Bällen sind es 25, das habe ich korrigiert.
+
+Die Schwellen entsprechen etwa 33 / 55 / 78 % bzw. 40 / 60 / 80 % der Bälle und sind Vorschläge.
 
 ## Arrays mit nur einem Wert (6) – migriert
 

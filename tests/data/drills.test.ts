@@ -22,14 +22,10 @@ describe('drill catalog thresholds', () => {
     expect(bad).toEqual([])
   })
 
-  // Radius-based targets cannot be expressed as numeric thresholds yet (see docs/DRILL_TARGET_MIGRATION.md).
-  const DESCRIPTIVE_TARGETS = new Set(['pitching_attack_the_flag', 'pitching_mixed_clubs'])
-
   it('every drill can record a numeric result with level thresholds', () => {
     const bad: string[] = []
     for (const d of catalog) {
       if (typeof d.metric.unit !== 'string' || !d.metric.unit) bad.push(`${d.id}: unit`)
-      if (DESCRIPTIVE_TARGETS.has(d.id)) continue
       const targets = Object.values(d.metric.hcpTargets ?? {})
       if (targets.length === 0 || !targets.every(v => Array.isArray(v) && v.length === 3)) bad.push(`${d.id}: targets`)
     }
@@ -44,6 +40,18 @@ describe('drill catalog thresholds', () => {
       for (const v of Object.values(d.metric.hcpTargets ?? {})) {
         if (Array.isArray(v) && v.some(x => x < r[0] || x > r[1])) bad.push(d.id)
       }
+    }
+    expect(bad).toEqual([])
+  })
+
+  it('hit radius keys match the threshold buckets', () => {
+    const bad: string[] = []
+    for (const d of catalog) {
+      const radius = d.metric.hcpRadius
+      if (!radius) continue
+      const a = Object.keys(radius).sort().join()
+      const b = Object.keys(d.metric.hcpTargets).sort().join()
+      if (a !== b) bad.push(d.id)
     }
     expect(bad).toEqual([])
   })

@@ -2025,21 +2025,38 @@
       "type": "sum",
       "unit": "Treffer (Punkte)",
       "hcpTargets": {
-        "54-27": {
-          "radius": "≤ 8 m"
-        },
-        "26-19": {
-          "radius": "≤ 7 m"
-        },
-        "18-12": {
-          "radius": "≤ 5 m"
-        },
-        "11-5": {
-          "radius": "≤ 3 m"
-        },
-        "4-0": {
-          "radius": "≤ 2 m"
-        }
+        "54-27": [
+          3,
+          5,
+          7
+        ],
+        "26-19": [
+          3,
+          5,
+          7
+        ],
+        "18-12": [
+          3,
+          5,
+          7
+        ],
+        "11-5": [
+          3,
+          5,
+          7
+        ],
+        "4-0": [
+          3,
+          5,
+          7
+        ]
+      },
+      "hcpRadius": {
+        "54-27": 8,
+        "26-19": 7,
+        "18-12": 5,
+        "11-5": 3,
+        "4-0": 2
       }
     },
     "tags": [
@@ -2092,28 +2109,45 @@
     },
     "instructions": {
       "training": "Spiele von jeder der fünf Stationen fünf Bälle, wobei du jedes Mal den Schläger wechselst. Ziel ist es, möglichst viele Bälle im definierten Radius zur Fahne zu platzieren. Experimentiere mit unterschiedlichen Flugbahnen und Landepunkten.",
-      "test": "Zähle Punkte: Jeder Ball, der innerhalb deines Handicap-Radius liegt, gibt 1 Punkt. Maximal sind 20 Punkte möglich. Wiederhole den Test mit variierenden Landezonen oder Hanglagen.\n54-27: ≤ 8 m\n26-19: ≤ 6 m\n18-12: ≤ 4 m\n11-5: ≤ 3 m\n4-0: ≤ 1.5 m",
+      "test": "Zähle Punkte: Jeder Ball, der innerhalb deines Handicap-Radius liegt, gibt 1 Punkt. Maximal sind 25 Punkte möglich. Wiederhole den Test mit variierenden Landezonen oder Hanglagen.\n54-27: ≤ 8 m\n26-19: ≤ 6 m\n18-12: ≤ 4 m\n11-5: ≤ 3 m\n4-0: ≤ 1.5 m",
       "tooEasy": "Verkleinere den Radius oder platziere Hindernisse (Bunker, Rough). Alternativ: spiele durch ein Alignment-Stick-Tor auf dem Weg zum Ziel."
     },
     "metric": {
       "type": "sum",
       "unit": "Punkte",
       "hcpTargets": {
-        "54-27": {
-          "radius": "≤ 8 m"
-        },
-        "26-19": {
-          "radius": "≤ 6 m"
-        },
-        "18-12": {
-          "radius": "≤ 4 m"
-        },
-        "11-5": {
-          "radius": "≤ 3 m"
-        },
-        "4-0": {
-          "radius": "≤ 1.5 m"
-        }
+        "54-27": [
+          10,
+          15,
+          20
+        ],
+        "26-19": [
+          10,
+          15,
+          20
+        ],
+        "18-12": [
+          10,
+          15,
+          20
+        ],
+        "11-5": [
+          10,
+          15,
+          20
+        ],
+        "4-0": [
+          10,
+          15,
+          20
+        ]
+      },
+      "hcpRadius": {
+        "54-27": 8,
+        "26-19": 6,
+        "18-12": 4,
+        "11-5": 3,
+        "4-0": 1.5
       }
     },
     "tags": [

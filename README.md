@@ -42,7 +42,7 @@ Built with **Vue 3**, **Tailwind**, and **Capacitor**, ParFormance runs seamless
 
 ## Features
 - **Drill Catalog** — categorized by *Putting, Chipping, Pitching, Range, Course, Tempo, and more*, complete with **tag & category filtering**
-- **Smart Shuffle (🎰 Slot Machine)** — randomized drill selection with animated reels, **favorites-bias**, and **live-synchronization with active catalog filters**
+- **Smart Shuffle** — random drill from a filterable pool (category, place, duration), one reel with skip, a result card with duration, difficulty and your target, **favorites bias** as a switch, and recently played drills are avoided
 - **Drill Details** — clear setup, step-by-step flow, and measurable targets  
 - **Favorites & History** — quick access to starred drills and past sessions  
 - **Progress Analytics** — radar charts, micro-trends, and personal-best badges  

@@ -85,6 +85,7 @@ import SimpleTimer from '@/components/SimpleTimer.vue'
 import { computeLevelForDrill } from '@/hcp/level'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useFocusStore } from '@/stores/focus'
+import { useUiStore } from '@/stores/ui'
 import { useCollectionsStore } from '@/stores/collections'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
@@ -98,6 +99,7 @@ const props = defineProps<{ drill: Drill }>()
 const favorites = useFavoritesStore()
 const sessions = useSessionsStore()
 const focus = useFocusStore()
+const ui = useUiStore()
 const collections = useCollectionsStore()
 const settings = useSettingsStore()
 const { hcp: currentHcp } = useCurrentHcp()
@@ -117,6 +119,8 @@ onMounted(async () => {
   } else if (globalThis.window !== undefined && typeof globalThis.window.scrollTo === 'function') {
     globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }
+  // "Starten" in the shuffle overlay opens the drill with the session already running
+  if (ui.consumeStart(props.drill.id)) await startSession()
 })
 
 const inFocusCollection = computed(() => {

@@ -30,6 +30,8 @@ export interface SettingsState {
   sounds: boolean
   shuffleFavorites: boolean
   notifications: boolean
+  /** True once the first-run onboarding was completed or skipped. */
+  onboardingDone: boolean
   loaded: boolean
 }
 
@@ -46,6 +48,7 @@ export const useSettingsStore = defineStore('settings', {
     sounds: true,
     shuffleFavorites: false,
     notifications: false,
+    onboardingDone: false,
     loaded: false,
   }),
   getters: {
@@ -122,6 +125,9 @@ export const useSettingsStore = defineStore('settings', {
         if (typeof data.sounds === 'boolean') this.sounds = data.sounds
         if (typeof data.shuffleFavorites === 'boolean') this.shuffleFavorites = data.shuffleFavorites
         if (typeof data.notifications === 'boolean') this.notifications = data.notifications
+        if (typeof data.onboardingDone === 'boolean') this.onboardingDone = data.onboardingDone
+        // Existing installs from before onboarding existed must not see the first-run dialog again.
+        else this.onboardingDone = true
       }
       this.loaded = true
     },
@@ -138,6 +144,7 @@ export const useSettingsStore = defineStore('settings', {
         sounds: this.sounds,
         shuffleFavorites: this.shuffleFavorites,
         notifications: this.notifications,
+        onboardingDone: this.onboardingDone,
       })
     },
     async update(partial: Partial<Omit<SettingsState, 'loaded'>>) {
@@ -158,6 +165,7 @@ export const useSettingsStore = defineStore('settings', {
       if ('shuffleFavorites' in partial && typeof partial.shuffleFavorites === 'boolean') {
         this.shuffleFavorites = partial.shuffleFavorites
       }
+      if ('onboardingDone' in partial && typeof partial.onboardingDone === 'boolean') this.onboardingDone = partial.onboardingDone
       if ('notifications' in partial && typeof partial.notifications === 'boolean') {
         this.notifications = partial.notifications
       }

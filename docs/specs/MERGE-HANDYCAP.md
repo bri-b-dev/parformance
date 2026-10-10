@@ -54,17 +54,17 @@ src/
 ```ts
 interface HcpSource {
   /** HCP, das an diesem Datum galt (null = unbekannt). */
-  getHcpAt(dateIso: string): Promise<number | null> | number | null
-  getLatest(): Promise<number | null> | number | null
-  /** Optional: Zeitreihe für Diagramme. */
-  getSeries?(): Promise<{ date: string; hcp: number }[]>
+  getHcpAt(dateIso: string | Date | undefined): number | null
+  getLatest(): number | null
+  /** Optional: Zeitreihe (aufsteigend) für Diagramme. */
+  getSeries?(): { date: string; hcp: number }[]
 }
 ```
 
 - Der Auswerter (`hcp/evaluator.ts`) und die Statistik (`stats/areas.ts`) kennen nur noch `HcpSource`.
 - Rangfolge: **Runden vorhanden → `rounds`**, sonst **`manual`**. Das manuelle Feld in den Einstellungen bleibt für Nutzer ohne Runden und wird bei vorhandenen Runden ausgegraut („aus deinen Runden berechnet").
 - `hcpHistory` bleibt als Fallback der manuellen Quelle bestehen.
-- Ob `getHcpAt` synchron oder asynchron ist, hängt an Dexie (async). Die Statistik muss dafür vorab eine Zeitreihe laden und synchron auswerten (kein `await` in Computeds).
+- Die Schnittstelle ist **synchron** (umgesetzt in Phase A, `src/hcp/source.ts`), weil die Statistik in Vue-Computeds läuft. Die `rounds`-Quelle lädt ihre Zeitreihe aus Dexie vorab in einen Store und beantwortet Anfragen aus dem Speicher.
 
 ### 3.2 Persistenz
 
@@ -76,7 +76,7 @@ interface HcpSource {
 
 Jede Phase ist ein eigener PR, die App bleibt in jeder Phase lauffähig.
 
-### Phase A – Schnittstelle (unabhängig von der Fusion)
+### Phase A – Schnittstelle (unabhängig von der Fusion) – umgesetzt in PR #199
 1. `HcpSource` + `manual`-Quelle; `evaluator`, `areas`, `StatsView` darauf umstellen.
 2. HCP-Historie in Export/Import aufnehmen.
 

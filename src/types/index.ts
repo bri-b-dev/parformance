@@ -7,7 +7,19 @@ export type MetricType =
   | 'points_total'
   | 'stations_cleared'
   | 'corridor_hits'
-  | 'score_vs_par';
+  | 'score_vs_par'
+  | 'score'
+  | 'count'
+  | 'sum'
+  | 'time'
+  | 'qualitative'
+  | 'dual'
+  | 'series'
+  | 'record'
+  | 'scorecard'
+  | 'binary'
+  | 'comparison'
+  | 'points';
 
 export interface Drill {
   id: string;
@@ -46,6 +58,7 @@ export interface Drill {
   metric: {
     type: MetricType;
     unit: string;
+    /** Canonical: up to three ascending numbers. Legacy catalog entries may hold a number, string or object. */
     hcpTargets: Record<string, number[]>;
     /** If true, smaller metric values are better (e.g. fewer strokes). Defaults to false. */
     smallerIsBetter?: boolean;

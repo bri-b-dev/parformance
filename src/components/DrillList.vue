@@ -37,12 +37,12 @@
 
         <div class="field" style="min-width:220px; flex:1;">
           <label class="label" for="filter-query">Suche</label>
-          <input id="filter-query" class="input" type="search" v-model.trim="filterQuery" placeholder="Titel suchen…" />
+          <input id="filter-query" v-model.trim="filterQuery" class="input" type="search" placeholder="Titel suchen…" />
         </div>
 
         <div class="field" style="min-width:160px; display:flex; align-items:end;">
           <label class="chip" style="cursor:pointer;">
-            <input id="filter-fav" type="checkbox" v-model="onlyFavorites" style="margin-right:6px" />
+            <input id="filter-fav" v-model="onlyFavorites" type="checkbox" style="margin-right:6px" />
             Nur Favoriten
           </label>
         </div>

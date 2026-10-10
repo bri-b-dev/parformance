@@ -33,7 +33,6 @@ A modern, mobile‑first application built with Vue 3, Vite, and Capacitor for t
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
-- [Storybook](#storybook)
 
 ## About
 **ParFormance** is a modern golf training companion designed to make practice measurable, motivating, and fun.  
@@ -48,7 +47,7 @@ Built with **Vue 3**, **Tailwind**, and **Capacitor**, ParFormance runs seamless
 - **Favorites & History** — quick access to starred drills and past sessions  
 - **Progress Analytics** — radar charts, micro-trends, and personal-best badges  
 - **User Settings** — HCP, language, units, native Dark Mode, and data export/import  
-- **Offline Mode** — data stored locally via IndexedDB  
+- **Offline Mode** — data stored locally (localStorage via persist adapter)  
 - **Native Experience** — **Haptic feedback** interactions and **seamless route transitions** for mobile devices
 - **Responsive Design** — fully optimized responsive layout for mobile and tablet
 
@@ -69,7 +68,7 @@ The app’s flow follows a simple loop:
 - Tailwind CSS
 - Capacitor 7 (Android and iOS)
 - Pinia for state management
-- Framer Motion for animations
+- Vitest for unit tests, ESLint + vue-tsc for linting and type checks
 
 ## Prerequisites
 - Node.js: >= 20.19 or >= 22.12 (as defined in package.json engines)
@@ -101,8 +100,9 @@ The following scripts are available in package.json:
 - npm run dev: Start the Vite development server
 - npm run build: Build the production bundle to dist/
 - npm run preview: Preview the production build locally
-- npm run test: Placeholder; returns success until tests are added
-- npm run lint: Placeholder; returns success until linters are configured
+- npm run test: Run unit tests (Vitest)
+- npm run lint: ESLint over src/
+- npm run typecheck: vue-tsc type check
 - npm run validate:drills: Validate drills JSON schema (src/data/drills.json)
 
 ## Configuration
@@ -194,8 +194,3 @@ This project is licensed under the Apache License, Version 2.0.
 - You may also obtain a copy at: http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.
-
-## Storybook
-- Run component workshop: npm run storybook (opens at http://localhost:6006)
-- Build static Storybook: npm run build-storybook (outputs to storybook-static/)
-- CI: Storybook build runs on push/PR via .github/workflows/storybook.yml

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { createPersist } from '@/utils/persistAdapter'
+import { useHcpHistoryStore } from '@/stores/hcpHistory'
 
 const persist = createPersist('parformance', 1)
 
@@ -81,6 +82,16 @@ export const useSettingsStore = defineStore('settings', {
         // ignore
       }
     },
+    /** Append a valid-from row to the HCP history so past sessions can be evaluated with the HCP of their time. */
+    async recordHcp(value: number | null) {
+      if (typeof value !== 'number') return
+      const history = useHcpHistoryStore()
+      if (!history.loaded) await history.load()
+      const now = new Date().toISOString()
+      const last = history.rows[history.rows.length - 1]
+      if (last && !last.valid_to) last.valid_to = now
+      await history.add({ id: crypto.randomUUID(), hcp: value, valid_from: now, valid_to: null })
+    },
     async load() {
       const data = persist.get<Partial<SettingsState>>('settings')
       if (data) {
@@ -130,6 +141,7 @@ export const useSettingsStore = defineStore('settings', {
       }
       await this.persist()
       if ('hcp' in partial && this.hcp !== prevHcp) {
+        await this.recordHcp(this.hcp)
         this.emitHcpChanged(this.hcp)
       }
       if ('theme' in partial) {

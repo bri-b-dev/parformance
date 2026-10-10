@@ -25,6 +25,7 @@
 import BottomTabs from '@/components/BottomTabs.vue';
 import ShuffleFab from '@/components/ShuffleFab.vue';
 import { useSessionsStore } from '@/stores/sessions';
+import { useHcpHistoryStore } from '@/stores/hcpHistory';
 import { useUiStore } from '@/stores/ui';
 import RandomizerView from '@/views/RandomizerView.vue';
 import { onMounted, ref } from 'vue';
@@ -35,6 +36,7 @@ import ConfirmModal from './components/ConfirmModal.vue'
 
 const sessions = useSessionsStore()
 const ui = useUiStore()
+const hcpHistory = useHcpHistoryStore()
 
 function openShuffle() { ui.setShuffle(true) }
 
@@ -43,6 +45,7 @@ function onOpenSettings() { settingsOpen.value = true }
 
 onMounted(async () => {
   if (!sessions.loaded) await sessions.load()
+  if (!hcpHistory.loaded) await hcpHistory.load()
 })
 </script>
 

@@ -7,8 +7,8 @@
       </div>
       <!-- Favorite toggle -->
       <button type="button" class="btn" :aria-pressed="isFav"
-        :aria-label="isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'" @click="toggleFavorite"
-        title="Favorit">
+        :aria-label="isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'" title="Favorit"
+        @click="toggleFavorite">
         <span aria-hidden="true">{{ isFav ? '★' : '☆' }}</span>
       </button>
     </header>
@@ -29,12 +29,12 @@
         </div>
 
         <!-- Metric input tied to this drill; disabled until session active -->
-        <MetricValueInput v-if="drill.metric.unit" :drill="drill" v-model="value" :disabled="!active" />
+        <MetricValueInput v-if="drill.metric.unit" v-model="value" :drill="drill" :disabled="!active" />
 
         <!-- Optional increment button for count_in_time to track attempts during the session -->
         <div v-if="active && drill.metric.type === 'count_in_time'" class="row" style="align-items:center;">
-          <button class="btn" type="button" @click="incAttempts" :aria-label="`+1 Versuch zu ${drill.title}`"
-            data-testid="attempts-inc">+1</button>
+          <button class="btn" type="button" :aria-label="`+1 Versuch zu ${drill.title}`" data-testid="attempts-inc"
+            @click="incAttempts">+1</button>
           <output class="chip" aria-live="polite" data-testid="attempts-chip">
             Versuche: {{ attemptsCount }}
           </output>
@@ -44,7 +44,7 @@
           <button v-if="!active" class="btn btn-primary" type="button" @click="startSession">Session starten</button>
           <template v-else>
             <button class="btn" type="button" @click="cancelSession">Abbrechen</button>
-            <button class="btn btn-primary" type="button" @click="saveSession" :disabled="!canSave">Speichern</button>
+            <button class="btn btn-primary" type="button" :disabled="!canSave" @click="saveSession">Speichern</button>
           </template>
         </div>
 
@@ -64,7 +64,7 @@
 
     </div>
     <!-- Gambler's tip / Zocker-Tipp -->
-    <GamblerTipPanel v-if="drill" :drillId="drill.id" :tip="tipForDrill" />
+    <GamblerTipPanel v-if="drill" :drill-id="drill.id" :tip="tipForDrill" />
 
     <!-- Session History for this drill -->
     <SessionHistory :drill-id="drill.id" />

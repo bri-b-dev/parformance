@@ -13,8 +13,8 @@
 
             </div>
             <div style="display:flex; gap:8px; align-items:center;">
-                <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" @click="toggle()"
-                    :aria-label="theme === 'dark' ? 'Switch to light' : 'Switch to dark'">
+                <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" :aria-label="theme === 'dark' ? 'Switch to light' : 'Switch to dark'"
+                    @click="toggle()">
                     <span v-if="theme === 'dark'">🌙</span>
                     <span v-else>☀️</span>
                 </button>

@@ -25,7 +25,7 @@
         <span aria-hidden="true">{{ trendSymbol }}</span>
       </div>
       <div style="margin-left:8px;">
-  <SparklineLast v-if="valuesLast.length > 0" :values="valuesLast" :width="140" :height="28" color="#2F7A52" :smallerIsBetter="smallerIsBetter" />
+  <SparklineLast v-if="valuesLast.length > 0" :values="valuesLast" :width="140" :height="28" color="#2F7A52" :smaller-is-better="smallerIsBetter" />
       </div>
     </div>
   </section>

@@ -86,3 +86,29 @@ export function buildHcpRows(
 export function buildRowsForDrill(drill: Drill, currentHcp: number | null | undefined): HcpRow[] {
   return buildHcpRows(drill.metric.hcpTargets || {}, currentHcp)
 }
+
+function toValues(raw: unknown): number[] {
+  if (Array.isArray(raw)) return raw.map(Number).filter(v => Number.isFinite(v))
+  if (raw === null || raw === undefined) return []
+  return [Number(raw)].filter(v => Number.isFinite(v))
+}
+
+/**
+ * Single source of truth for "which thresholds apply to this handicap".
+ * Uses the bucket containing the hcp; if the hcp falls into a gap between buckets
+ * (or outside all of them), the nearest bucket is used. Returns [] without usable input.
+ */
+export function resolveThresholds(hcpTargets: Record<string, number[]> | undefined, hcp: number | null | undefined): number[] {
+  if (typeof hcp !== 'number' || !Number.isFinite(hcp)) return []
+  const targets = hcpTargets || {}
+  const key = findBucketKey(hcp, targets)
+  if (key != null) return toValues(targets[key])
+  let best: { key: string; dist: number } | null = null
+  for (const k of Object.keys(targets)) {
+    const r = parseRangeKey(k)
+    if (!r) continue
+    const dist = hcp < r.lo ? r.lo - hcp : hcp - r.hi
+    if (!best || dist < best.dist) best = { key: k, dist }
+  }
+  return best ? toValues(targets[best.key]) : []
+}

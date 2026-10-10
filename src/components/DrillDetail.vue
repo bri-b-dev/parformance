@@ -4,6 +4,10 @@
       <div>
         <h2 style="margin:0; font-size:1.25rem; font-weight:700;">{{ drill.title }}</h2>
         <p style="color:var(--muted); margin:.25rem 0 0">{{ drill.category }}</p>
+        <p v-if="focus.active" class="focus-line" data-testid="focus-chip">
+          <span class="chip">Fokus: {{ focus.active.label }}</span>
+          <span v-if="inFocusCollection" class="muted"> - dieser Drill gehört zum Fokus</span>
+        </p>
       </div>
       <!-- Favorite toggle -->
       <button type="button" class="btn" :aria-pressed="isFav"
@@ -80,6 +84,8 @@ import SessionHistory from '@/components/SessionHistory.vue'
 import SimpleTimer from '@/components/SimpleTimer.vue'
 import { computeLevelForDrill } from '@/hcp/level'
 import { useFavoritesStore } from '@/stores/favorites'
+import { useFocusStore } from '@/stores/focus'
+import { useCollectionsStore } from '@/stores/collections'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
@@ -91,11 +97,15 @@ const props = defineProps<{ drill: Drill }>()
 
 const favorites = useFavoritesStore()
 const sessions = useSessionsStore()
+const focus = useFocusStore()
+const collections = useCollectionsStore()
 const settings = useSettingsStore()
 const { hcp: currentHcp } = useCurrentHcp()
 
 onMounted(async () => {
   if (!favorites.loaded) favorites.load()
+  if (!focus.loaded) await focus.load()
+  if (!collections.loaded) await collections.load()
   if (!sessions.loaded) await sessions.load()
   if (!settings.loaded) await settings.load()
   // Ensure the view starts at the top when opening a drill detail.
@@ -107,6 +117,11 @@ onMounted(async () => {
   } else if (globalThis.window !== undefined && typeof globalThis.window.scrollTo === 'function') {
     globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }
+})
+
+const inFocusCollection = computed(() => {
+  const cid = focus.active?.collectionId
+  return !!cid && !!collections.byId(cid)?.drillIds.includes(props.drill.id)
 })
 
 const isFav = computed(() => favorites.isFavorite(props.drill.id))
@@ -160,6 +175,7 @@ async function saveSession() {
     // Default favorite flag per acceptance criteria
     favorited: false,
   }
+  if (focus.active) session.focusId = focus.active.id
   // Only attach timerUsed when the drill has a preset (per acceptance)
   if (props.drill.duration?.timerPreset) {
     session.timerUsed = lastElapsed.value

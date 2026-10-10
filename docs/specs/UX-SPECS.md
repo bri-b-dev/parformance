@@ -91,7 +91,7 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-05 · Trainingsplan & Fokus-Punkte — P1 · L
 
-> **Teil A umgesetzt** (Sammlungen `/collections`, geführte Einheit `/run`, Zeitbudget- und Ort-Filter in Heute): Sammlungen anlegen/bearbeiten/sortieren/starten, Ablauf-Modus mit „Drill 2 von 4", Weiter/Überspringen/Beenden, Zusammenfassung, übersteht Neustart. **Teil B offen:** Fokus-Punkte (Chip auf Heute, Drill-Detail und Verlauf, nachträgliche Zuordnung).
+> **Umgesetzt.** Teil A: Sammlungen `/collections`, geführte Einheit `/run`, Zeitbudget- und Ort-Filter in Heute. Teil B: Fokus-Punkte (`FocusCard` auf Heute, Chip im Drill-Detail und im Verlauf, Sessions bekommen den aktiven Fokus automatisch und lassen sich im Verlauf nachträglich zuordnen, Filter im Verlauf, Vorschläge bevorzugen Drills der Fokus-Sammlung). Offen: Ausrüstungs-Filter bei der zufälligen Einheit, Fokus-Auswertung (Fortschritt je Fokus).
 
 **Problem:** „Gruppierungen" und „Fokus-Punkte" existieren nur als Kategorie/Tag-Filter (B6).
 

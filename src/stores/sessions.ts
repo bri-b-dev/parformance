@@ -112,6 +112,7 @@ export const useSessionsStore = defineStore('sessions', {
         if (typeof (item as any).attempts === 'number') next.attempts = (item as any).attempts
         if (typeof (item as any).levelReached === 'number') next.levelReached = (item as any).levelReached
         if (typeof (item as any).favorited === 'boolean') next.favorited = (item as any).favorited
+        if (typeof (item as any).focusId === 'string' && (item as any).focusId) next.focusId = (item as any).focusId
         if (typeof (item as any).notes === 'string') next.notes = (item as any).notes
         sanitized.push(next)
       }
@@ -121,6 +122,16 @@ export const useSessionsStore = defineStore('sessions', {
     },
     async clearAll() {
       this.sessions = []
+      await this.persist()
+    },
+    /** Assign a session to a focus point (or remove the assignment with null). */
+    async setFocus(id: string, focusId: string | null) {
+      const idx = this.sessions.findIndex(s => s.id === id)
+      if (idx === -1) return
+      const next = { ...this.sessions[idx] }
+      if (focusId) next.focusId = focusId
+      else delete next.focusId
+      this.sessions[idx] = next
       await this.persist()
     },
     async updateNotes(id: string, notes: string | undefined | null) {

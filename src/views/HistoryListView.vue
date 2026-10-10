@@ -21,6 +21,14 @@
           <option value="">Alle Kategorien</option>
           <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
         </select>
+        <template v-if="focus.items.length">
+          <label class="sr-only" for="hist-focus">Fokus</label>
+          <select id="hist-focus" v-model="focusFilter" class="input" data-testid="history-focus-filter">
+            <option value="">Alle Fokus-Punkte</option>
+            <option value="none">Ohne Fokus</option>
+            <option v-for="f in focus.list" :key="f.id" :value="f.id">{{ f.label }}</option>
+          </select>
+        </template>
         <label class="sr-only" for="hist-period">Zeitraum</label>
         <select id="hist-period" v-model.number="period" class="input" data-testid="history-period">
           <option :value="0">Alle</option>
@@ -61,7 +69,16 @@
             <div class="chips">
               <span v-if="e.level != null" class="chip" :aria-label="`Level ${e.level} von 3`">{{ '★'.repeat(e.level) }}{{ '☆'.repeat(3 - e.level) }}</span>
               <span v-if="e.isPb" class="chip chip-pb" data-testid="pb-chip">PB</span>
+              <span v-if="e.session.focusId && focus.byId(e.session.focusId)" class="chip" data-testid="focus-chip">Fokus: {{ focus.byId(e.session.focusId)!.label }}</span>
               <span v-if="e.session.attempts != null" class="chip">{{ e.session.attempts }} Versuche</span>
+              <template v-if="focus.items.length">
+                <label class="sr-only" :for="`focus-${e.session.id}`">Fokus zuordnen</label>
+                <select :id="`focus-${e.session.id}`" class="input hist-focus-select" :value="e.session.focusId ?? ''" data-testid="history-assign-focus"
+                  @change="assignFocus(e.session.id, ($event.target as HTMLSelectElement).value)">
+                  <option value="">Kein Fokus</option>
+                  <option v-for="f in focus.list" :key="f.id" :value="f.id">{{ f.label }}</option>
+                </select>
+              </template>
               <button type="button" class="btn hist-delete" :aria-label="`Session vom ${dateTimeLabel(e.session.date)} löschen`" data-testid="history-delete" @click="remove(e.session.id)">Löschen</button>
             </div>
             <p v-if="e.session.notes" class="hist-notes">{{ e.session.notes }}</p>
@@ -81,6 +98,7 @@ import ProgressTabs from '@/components/ProgressTabs.vue'
 import { evaluateSessionLevel } from '@/hcp/evaluator'
 import { buildHistory, formatDayLabel, limitHistory } from '@/history/entries'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
+import { useFocusStore } from '@/stores/focus'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
@@ -90,12 +108,14 @@ import { computed, onMounted, ref, watch } from 'vue'
 const PAGE = 30
 const catalog = useDrillCatalogStore()
 const sessions = useSessionsStore()
+const focus = useFocusStore()
 const settings = useSettingsStore()
 const ui = useUiStore()
 
 const now = new Date()
 const category = ref('')
 const period = ref(0)
+const focusFilter = ref('')
 const limit = ref(PAGE)
 
 onMounted(async () => {
@@ -103,16 +123,18 @@ onMounted(async () => {
     catalog.loaded ? null : catalog.load(),
     sessions.loaded ? null : sessions.load(),
     settings.loaded ? null : settings.load(),
+    focus.loaded ? null : focus.load(),
   ])
 })
 
-watch([category, period], () => { limit.value = PAGE })
+watch([category, period, focusFilter], () => { limit.value = PAGE })
 
 const ready = computed(() => catalog.loaded && sessions.loaded)
 const categories = computed(() => Array.from(new Set(catalog.drills.map(d => d.category))).sort((a, b) => a.localeCompare(b, 'de')))
 
 const result = computed(() => buildHistory(sessions.sessions, catalog.drills, {
   category: category.value || undefined,
+  focusId: focusFilter.value || undefined,
   days: period.value,
   now,
   levelOf: (s, d) => evaluateSessionLevel(s, d, 'historical'),
@@ -125,7 +147,12 @@ const dateTimeLabel = (iso: string) => new Intl.DateTimeFormat('de-DE', { dateSt
 
 function resetFilters() {
   category.value = ''
+  focusFilter.value = ''
   period.value = 0
+}
+
+async function assignFocus(sessionId: string, focusId: string) {
+  await sessions.setFocus(sessionId, focusId || null)
 }
 
 async function remove(id: string) {
@@ -206,6 +233,13 @@ async function remove(id: string) {
   margin: 0;
   white-space: pre-wrap;
   font-size: 0.9rem;
+}
+
+.hist-focus-select {
+  width: auto;
+  max-width: 11rem;
+  font-size: 0.85rem;
+  padding: 2px 8px;
 }
 
 .hist-delete {

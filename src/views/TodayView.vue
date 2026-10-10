@@ -17,6 +17,8 @@
         <div class="chip"><strong>{{ weekCount }}</strong> {{ weekCount === 1 ? 'Session' : 'Sessions' }} diese Woche</div>
       </div>
 
+      <FocusCard />
+
       <!-- Resume a running session -->
       <div v-if="run.run && !run.finished" class="card today-card" data-testid="today-resume">
         <h2 class="today-h">Einheit läuft</h2>
@@ -114,6 +116,7 @@
 </template>
 
 <script setup lang="ts">
+import FocusCard from '@/components/FocusCard.vue'
 import HcpHint from '@/components/HcpHint.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { computeAreasOfImprovement } from '@/stats/areas'
@@ -123,6 +126,7 @@ import { useFavoritesStore } from '@/stores/favorites'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
 import { useCollectionsStore, type Collection } from '@/stores/collections'
+import { useFocusStore } from '@/stores/focus'
 import { useRunStore } from '@/stores/run'
 import { useStartRun } from '@/composables/useStartRun'
 import { LOCATION_GROUPS, locationGroup } from '@/filters/location'
@@ -138,6 +142,7 @@ const settings = useSettingsStore()
 const favorites = useFavoritesStore()
 const ui = useUiStore()
 const collections = useCollectionsStore()
+const focusStore = useFocusStore()
 const run = useRunStore()
 const startRun = useStartRun()
 const { hcp: currentHcp } = useCurrentHcp()
@@ -155,6 +160,7 @@ onMounted(async () => {
     settings.loaded ? null : settings.load(),
     favorites.loaded ? null : favorites.load(),
     collections.loaded ? null : collections.load(),
+    focusStore.loaded ? null : focusStore.load(),
     run.loaded ? null : run.load(),
   ])
 })
@@ -174,8 +180,16 @@ const ctx = computed<SuggestContext>(() => {
     categoryScores: computeCategoryScores(sessions.sessions, catalog.drills, 'current'),
     targetHcp: settings.targetHcp,
     favorites: favorites.list,
+    focus: focusFor(),
   }
 })
+
+function focusFor(): SuggestContext['focus'] {
+  const f = focusStore.active
+  if (!f) return null
+  const c = f.collectionId ? collections.byId(f.collectionId) : undefined
+  return c ? { label: f.label, drillIds: c.drillIds } : null
+}
 
 const suggestions = computed(() => suggestDrills(ctx.value, 3))
 const plan = computed(() => {

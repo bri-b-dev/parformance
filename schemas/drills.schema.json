@@ -14,58 +14,102 @@
     },
     "StringArray": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "NumberArray": {
       "type": "array",
-      "items": { "type": "number" },
+      "items": {
+        "type": "number"
+      },
       "minItems": 1
     },
     "Equipment": {
       "type": "object",
       "properties": {
-        "balls": { "type": "number" },
-        "clubs": { "$ref": "#/definitions/StringArray" },
-        "other": { "$ref": "#/definitions/StringArray" }
+        "balls": {
+          "type": "number"
+        },
+        "clubs": {
+          "$ref": "#/definitions/StringArray"
+        },
+        "other": {
+          "$ref": "#/definitions/StringArray"
+        }
       },
       "additionalProperties": false
     },
     "Setup": {
       "type": "object",
       "properties": {
-        "schema": { "$ref": "#/definitions/NonEmptyString" },
-        "diagram": { "$ref": "#/definitions/NonEmptyString" },
-        "location": { "$ref": "#/definitions/NonEmptyString" }
+        "schema": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "diagram": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "location": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
       },
-      "required": ["schema"],
+      "required": [
+        "schema"
+      ],
       "additionalProperties": false
     },
     "Duration": {
       "type": "object",
       "properties": {
-        "suggestedMin": { "type": "number" },
-        "hardStop": { "type": "number" },
-        "timerPreset": { "type": "number" }
+        "suggestedMin": {
+          "type": "number"
+        },
+        "hardStop": {
+          "type": "number"
+        },
+        "timerPreset": {
+          "type": "number"
+        }
       },
       "additionalProperties": false
     },
     "Difficulty": {
       "type": "object",
       "properties": {
-        "base": { "type": "number", "minimum": 1, "maximum": 5 },
-        "scale": { "type": "string", "enum": ["1-5"] }
+        "base": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "scale": {
+          "type": "string",
+          "enum": [
+            "1-5"
+          ]
+        }
       },
-      "required": ["base", "scale"],
+      "required": [
+        "base",
+        "scale"
+      ],
       "additionalProperties": false
     },
     "Instructions": {
       "type": "object",
       "properties": {
-        "training": { "$ref": "#/definitions/NonEmptyString" },
-        "test": { "$ref": "#/definitions/NonEmptyString" },
-        "tooEasy": { "type": "string" }
+        "training": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "test": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "tooEasy": {
+          "type": "string"
+        }
       },
-      "required": ["training"],
+      "required": [
+        "training"
+      ],
       "additionalProperties": false
     },
     "Metric": {
@@ -79,36 +123,119 @@
             "points_total",
             "stations_cleared",
             "corridor_hits",
-            "score_vs_par"
+            "score_vs_par",
+            "score",
+            "count",
+            "sum",
+            "time",
+            "qualitative",
+            "dual",
+            "series",
+            "record",
+            "scorecard",
+            "binary",
+            "comparison",
+            "points"
           ]
         },
-        "unit": { "$ref": "#/definitions/NonEmptyString" },
+        "unit": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/NonEmptyString"
+            },
+            {
+              "$ref": "#/definitions/StringArray"
+            }
+          ],
+          "description": "Result label. An array is used by drills that record several values (e.g. tempo drills); the app currently reads a single string."
+        },
         "hcpTargets": {
           "type": "object",
-          "additionalProperties": { "$ref": "#/definitions/NumberArray" }
+          "additionalProperties": {
+            "$ref": "#/definitions/HcpTarget"
+          }
         },
-        "smallerIsBetter": { "type": "boolean", "description": "When true, lower metric values are better (e.g. 'fewer strokes' drills). Defaults to false." }
+        "smallerIsBetter": {
+          "type": "boolean",
+          "description": "When true, lower metric values are better (e.g. 'fewer strokes' drills). Defaults to false."
+        },
+        "fields": {
+          "$ref": "#/definitions/StringArray"
+        },
+        "evaluation": {
+          "$ref": "#/definitions/StringArray"
+        },
+        "scale": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Qualitative interpretation per score range."
+        },
+        "stages": {
+          "$ref": "#/definitions/StringArray"
+        }
       },
-      "required": ["type", "unit", "hcpTargets"],
+      "required": [
+        "type"
+      ],
       "additionalProperties": false
     },
     "Drill": {
       "type": "object",
       "properties": {
-        "id": { "$ref": "#/definitions/NonEmptyString" },
-        "title": { "$ref": "#/definitions/NonEmptyString" },
-        "category": { "$ref": "#/definitions/NonEmptyString" },
-        "equipment": { "$ref": "#/definitions/Equipment" },
-        "setup": { "$ref": "#/definitions/Setup" },
-        "duration": { "$ref": "#/definitions/Duration" },
-        "difficulty": { "$ref": "#/definitions/Difficulty" },
-        "instructions": { "$ref": "#/definitions/Instructions" },
-        "metric": { "$ref": "#/definitions/Metric" },
-        "tags": { "$ref": "#/definitions/StringArray" },
-        "zockerTip": { "$ref": "#/definitions/NonEmptyString" },
-        "variants": { "$ref": "#/definitions/StringArray" }
+        "id": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "title": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "category": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "equipment": {
+          "$ref": "#/definitions/Equipment"
+        },
+        "setup": {
+          "$ref": "#/definitions/Setup"
+        },
+        "duration": {
+          "$ref": "#/definitions/Duration"
+        },
+        "difficulty": {
+          "$ref": "#/definitions/Difficulty"
+        },
+        "instructions": {
+          "$ref": "#/definitions/Instructions"
+        },
+        "metric": {
+          "$ref": "#/definitions/Metric"
+        },
+        "tags": {
+          "$ref": "#/definitions/StringArray"
+        },
+        "zockerTip": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "variants": {
+          "$ref": "#/definitions/StringArray"
+        },
+        "summary": {
+          "$ref": "#/definitions/NonEmptyString"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "tip": {
+          "type": "string"
+        },
+        "team": {
+          "type": "string"
+        },
+        "compare": {
+          "type": "string"
+        }
       },
-      "summary": { "$ref": "#/definitions/NonEmptyString" },
       "required": [
         "id",
         "title",
@@ -120,6 +247,23 @@
         "metric"
       ],
       "additionalProperties": false
+    },
+    "HcpTarget": {
+      "description": "Threshold(s) for one HCP bucket. Canonical form is an array of up to three ascending numbers (level 1-3). Legacy forms still present in the catalog: a single number, a numeric string like \"+10\", or a descriptive object. Only numeric forms are evaluated by the app.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/NumberArray"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "object"
+        }
+      ]
     }
   }
 }

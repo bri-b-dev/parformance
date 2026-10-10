@@ -2769,7 +2769,7 @@
     "category": "Simulation",
     "equipment": {
       "balls": 15,
-      "clubs": "komplettes Bag",
+      "clubs": ["komplettes Bag"],
       "other": [
         "Driving Range mit freier Schlagrichtung",
         "Scorekarte (optional)",
@@ -3016,7 +3016,7 @@
     "subtitle": "Finde deine optimale Schwungintensität - Vollgas oder locker?",
     "category": "Platz",
     "equipment": {
-      "clubs": "komplettes Bag",
+      "clubs": ["komplettes Bag"],
       "other": [
         "Scorekarte",
         "Bleistift",
@@ -3077,7 +3077,7 @@
     "subtitle": "Lerne, dein Spiel durch sinnvolle Statistiken zu verstehen",
     "category": "Platz",
     "equipment": {
-      "clubs": "komplettes Bag",
+      "clubs": ["komplettes Bag"],
       "other": [
         "Scorekarte",
         "Bleistift oder App zur Datenerfassung"

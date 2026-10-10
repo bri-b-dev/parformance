@@ -68,6 +68,22 @@ function warn(msg) {
     fail(`${errs.length} issue(s) found`);
   }
 
+  // Non-blocking data-quality report: only array thresholds with numeric values are fully evaluated.
+  const legacy = { number: 0, string: 0, object: 0 };
+  const noTargets = [];
+  for (const d of drills) {
+    const t = d?.metric?.hcpTargets ?? {};
+    if (Object.keys(t).length === 0) noTargets.push(d.id);
+    for (const v of Object.values(t)) {
+      if (Array.isArray(v)) continue;
+      legacy[typeof v] = (legacy[typeof v] ?? 0) + 1;
+    }
+  }
+  if (legacy.number + legacy.string + legacy.object > 0) {
+    warn(`non-array hcpTargets: ${legacy.number} single numbers (max level 1), ${legacy.string} strings and ${legacy.object} objects (not evaluated)`);
+  }
+  if (noTargets.length) warn(`${noTargets.length} drill(s) without hcpTargets: ${noTargets.join(', ')}`);
+
   ok(`${Array.isArray(drills) ? drills.length : 0} drill(s) valid`);
   process.exit(0);
 })();

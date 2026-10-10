@@ -2,7 +2,7 @@ import type {Drill, Session} from '@/types'
 import {latestLevelByDrill} from '@/stats/categoryScores'
 import {resolveThresholds} from '@/hcp/buckets'
 import {computeLevelFromThresholds, valueForLevel} from '@/hcp/level'
-import {useHcpHistoryStore} from '@/stores/hcpHistory'
+import {useHcpSource} from '@/hcp/source'
 import {getMovingAverageTrend} from '@/stats/movingAverage'
 
 export type AreaDrill = {
@@ -44,7 +44,7 @@ export function computeAreasOfImprovement(
 
   const mode = opts?.mode ?? 'current'
   const lastLevelMap = latestLevelByDrill(sessions || [], drills || [], mode)
-  const hstore = useHcpHistoryStore()
+  const source = useHcpSource()
 
   const drillById: Record<string, Drill> = {}
   for (const d of drills || []) drillById[d.id] = d
@@ -82,7 +82,7 @@ export function computeAreasOfImprovement(
     try {
       let effectiveHcp: number | null | undefined = null
       if (mode === 'current') {
-        effectiveHcp = hstore.getLatestHcp() ?? userHcp
+        effectiveHcp = source.getLatest() ?? userHcp
       } else {
         // historical: find the most recent session for this drill and use the HCP valid at that session
         const sessionsForDrill = (sessions || []).filter(s => s.drillId === id && s.date)
@@ -90,7 +90,7 @@ export function computeAreasOfImprovement(
           // pick the latest by date
           sessionsForDrill.sort((a, b) => (a.date || '').localeCompare(b.date || ''))
           const latestSess = sessionsForDrill[sessionsForDrill.length - 1]
-          effectiveHcp = hstore.getHcpAt(latestSess.date) ?? latestSess.hcp
+          effectiveHcp = source.getHcpAt(latestSess.date) ?? latestSess.hcp
         } else {
           effectiveHcp = userHcp
         }

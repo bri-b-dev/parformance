@@ -190,6 +190,7 @@ export const useSettingsStore = defineStore('settings', {
       this.sounds = true
       this.shuffleFavorites = false
       this.notifications = false
+      this.onboardingDone = false
       await this.persist()
       this.emitHcpChanged(this.hcp)
       this.emitThemeChanged(this.theme)

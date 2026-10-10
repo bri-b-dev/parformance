@@ -33,6 +33,28 @@ export const useHcpHistoryStore = defineStore('hcpHistory', {
       this.rows.sort((a, b) => (a.valid_from || '').localeCompare(b.valid_from || ''))
       await this.persist()
     },
+    /** Replace all rows with sanitized imported ones (invalid rows are dropped). */
+    async replaceAll(list: unknown) {
+      const rows: HcpHistoryRow[] = []
+      for (const item of Array.isArray(list) ? list : []) {
+        const r = item as Partial<HcpHistoryRow> | null
+        if (!r || typeof r.hcp !== 'number' || !Number.isFinite(r.hcp)) continue
+        if (typeof r.valid_from !== 'string' || Number.isNaN(Date.parse(r.valid_from))) continue
+        rows.push({
+          id: typeof r.id === 'string' && r.id ? r.id : crypto.randomUUID(),
+          hcp: r.hcp,
+          valid_from: r.valid_from,
+          valid_to: typeof r.valid_to === 'string' && !Number.isNaN(Date.parse(r.valid_to)) ? r.valid_to : null,
+        })
+      }
+      rows.sort((a, b) => a.valid_from.localeCompare(b.valid_from))
+      this.rows = rows
+      this.loaded = true
+      await this.persist()
+    },
+    async clearAll() {
+      await this.replaceAll([])
+    },
     /** Return the hcp value valid at the given ISO date (sessionDate). */
     getHcpAt(sessionDateIso: string | Date | undefined): number | null {
       if (!sessionDateIso) return null

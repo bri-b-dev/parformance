@@ -6,6 +6,7 @@ const isBrowser = globalThis !== undefined && (globalThis.window as any)?.docume
 const Stub = { render() { return null } }
 
 const TodayView = isBrowser ? (() => import('@/views/TodayView.vue')) : Stub
+const HistoryListView = isBrowser ? (() => import('@/views/HistoryListView.vue')) : Stub
 const DrillList = isBrowser ? (() => import('@/components/DrillList.vue')) : Stub
 
 // Detail view: shows a drill based on :id
@@ -37,6 +38,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/progress',
     component: StatsView,
   },
+  { name: 'ProgressHistory', path: '/progress/history', component: HistoryListView },
   // old bookmark/deep link
   { path: '/history', redirect: { name: 'Progress' } },
   {

@@ -44,6 +44,9 @@ describe('bottom navigation', () => {
     await router.push('/progress')
     await flushPromises()
     expect(w.find('a.tab.active').text()).toBe('Fortschritt')
+    await router.push('/progress/history')
+    await flushPromises()
+    expect(w.find('a.tab.active').text()).toBe('Fortschritt')
   })
 
   it('redirects the old /history link to /progress', async () => {

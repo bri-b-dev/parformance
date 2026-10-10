@@ -1,6 +1,7 @@
 <template>
   <section class="container">
-    <h1 class="text-xl font-semibold">Statistiken</h1>
+    <h1 class="text-xl font-semibold">Fortschritt</h1>
+    <ProgressTabs />
     <HcpHint />
 
     <!-- Loading state -->
@@ -135,6 +136,7 @@ const route = useRoute()
 const preserve = (to: any) => withPreservedQuery(to, route)
 import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
 import HcpHint from '@/components/HcpHint.vue'
+import ProgressTabs from '@/components/ProgressTabs.vue'
 import Sparkline from '@/components/Sparkline.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { useHcpSource } from '@/hcp/source'

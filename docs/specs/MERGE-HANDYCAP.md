@@ -124,7 +124,7 @@ Jede Phase ist ein eigener PR, die App bleibt in jeder Phase lauffähig.
 3. ~~i18n: Training-Texte in `vue-i18n` überführen~~ **entfällt vorerst: Deutsch reicht** (UX-11 bleibt als spätere Option).
 
 **Umsetzung Phase D**
-- Navigation: **Drills · Handicap · Zufalls-Drill · Fortschritt**. Der schwebende Shuffle-Button ist in die Tab-Leiste gewandert, die Route `/history` heißt jetzt `/progress` (alter Link leitet um). Der Theme-Umschalter im Header entfällt (die Einstellungen haben die Auswahl), Emojis wurden durch SVG-Icons ersetzt. **Offen:** Verlauf (Session-Liste). Der Tab Heute (UX-03) ist inzwischen umgesetzt.
+- Navigation: **Drills · Handicap · Zufalls-Drill · Fortschritt**. Der schwebende Shuffle-Button ist in die Tab-Leiste gewandert, die Route `/history` heißt jetzt `/progress` (alter Link leitet um). Der Theme-Umschalter im Header entfällt (die Einstellungen haben die Auswahl), Emojis wurden durch SVG-Icons ersetzt. Der Tab Heute (UX-03) und der Verlauf (Session-Liste, Reiter im Fortschritt) sind inzwischen umgesetzt.
 - Logo: Motiv aus dem HandyCap-PNG nachgezeichnet (Rahmen als exakte Geometrie, Kappe und Tee geglättet getract), als `BrandMark.vue` inline (nimmt die Themefarbe) und als `public/logo-mark.svg`, `icon.svg`, `icon-rounded.svg`, `icon-wordmark.svg`, `splash-animated.svg`; `resources/` mit Icon, adaptiven Ebenen und Splash (hell/dunkel); Android-Ressourcen mit `@capacitor/assets` erzeugt.
 - Primärfarbe (hell) ist jetzt das Logo-Grün `#01593d`; Dunkel bleibt `#4FBF86`.
 - Das Web-App-Manifest war nicht verlinkt und zeigte auf `../icons`: jetzt `/manifest.webmanifest` mit `public/icons`, `theme-color` und `lang="de"`.

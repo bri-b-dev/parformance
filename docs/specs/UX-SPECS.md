@@ -29,7 +29,7 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-01 · Navigation neu ordnen — P0 · M
 
-> **Weitgehend umgesetzt**: Tabs Heute · Drills · Zufalls-Drill · Handicap · Fortschritt. Offen: Verlauf (Session-Liste).
+> **Umgesetzt**: Tabs Heute · Drills · Zufalls-Drill · Handicap · Fortschritt. Der Verlauf ist ein zweiter Reiter im Fortschritt (`/progress/history`, `src/views/HistoryListView.vue`), damit die Leiste nicht überfüllt wird.
 
 **Problem:** B1. Nutzer finden ihre vergangenen Sessions nicht, „Historie" ist falsch benannt.
 

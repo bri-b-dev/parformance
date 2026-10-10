@@ -185,6 +185,7 @@ Issues and pull requests are welcome. Please open an issue to discuss changes be
 - Contribution guide: see [CONTRIBUTING.md](./CONTRIBUTING.md)
 - Data model overview: see [docs/DATA_MODEL.md](./docs/DATA_MODEL.md)
 - App workflows (List, Detail, Shuffle, Start→Save→History, Stats): see [docs/WORKFLOWS.md](./docs/WORKFLOWS.md)
+- Specs: [UX](./docs/specs/UX-SPECS.md), [HandyCap-Integration](./docs/specs/MERGE-HANDYCAP.md)
 - How to add a drill: covered in [CONTRIBUTING.md#how-to-add-a-drill-content-contribution](./CONTRIBUTING.md#how-to-add-a-drill-content-contribution)
 
 ## License

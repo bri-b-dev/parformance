@@ -11,10 +11,6 @@ Vorschläge (größer ist besser: ±25 %, kleiner ist besser: ±10 %, jeweils mi
 - `course_scoring_clubs` (Gesamtschläge (7 Löcher)) → `smallerIsBetter: true`
 - `course_worst_ball` (Gesamtschläge (Worst Ball)) → `smallerIsBetter: true`
 
-## Richtung prüfen (1)
-
-- `putting_hit_the_hall` (erreichte Punkte (Bälle im Loch oder im Korridor)): targets fall for better HCP buckets but drill is "greater is better" – please check
-
 ## Migrierte Einzelwerte (24)
 
 - `putting_circle` (größer ist besser)
@@ -140,11 +136,8 @@ Vorschläge (größer ist besser: ±25 %, kleiner ist besser: ±10 %, jeweils mi
   - 11-5: "+9" → [10, 9, 8]
   - 4-0: "+5" → [6, 5, 4]
 
-## Manuell: nicht numerische Ziele (13)
+## Manuell: nicht numerische Ziele (10)
 
-- `putting_hit_the_hall` 54-27: 24 (Richtung unklar, nicht migriert)
-- `putting_hit_the_hall` 26-12: 18 (Richtung unklar, nicht migriert)
-- `putting_hit_the_hall` 11-0: 15 (Richtung unklar, nicht migriert)
 - `pitching_attack_the_flag` 54-27: {"radius":"≤ 8 m"}
 - `pitching_attack_the_flag` 26-19: {"radius":"≤ 7 m"}
 - `pitching_attack_the_flag` 18-12: {"radius":"≤ 5 m"}
@@ -165,9 +158,10 @@ Vorschläge (größer ist besser: ±25 %, kleiner ist besser: ±10 %, jeweils mi
 - `shortgame_towel_target` 11-5: [8]
 - `shortgame_towel_target` 4-0: [6]
 
-## Manuell: Werte pro Position statt Level
+## Von Hand geklärt
 
-- `putting_under_pressure`: die drei Werte je Bucket (z. B. `[3, 1, 1]`) sind Serien je Position (20 m / 10 m / 3 m), keine Level-Schwellen und werden aktuell falsch ausgewertet.
+- `putting_hit_the_hall`: Reihenfolge der Ziele war vertauscht. Jetzt 54-27: 15, 26-12: 18, 11-0: 24 als Ziel (Level 2) → `[11, 15, 19]`, `[13, 18, 23]`, `[18, 24, 30]`.
+- `putting_under_pressure`: Die alten Tripel (z. B. `[3, 1, 1]`) waren Serien je Position (90 / 180 / 270 cm), keine Level. Gemessen wird jetzt die geschaffte Serie an Position 1; deren bisheriger Zielwert (3 / 5 / 10) ist Level 2 → `[2, 3, 4]`, `[4, 5, 6]`, `[7, 10, 13]`. Die Zielwerte für Position 2 und 3 (1/1, 3/1, 4/2) sind nicht mehr hinterlegt; Einheit entsprechend angepasst.
 
 ## Manuell: Drills ohne Zielwerte (17)
 

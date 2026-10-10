@@ -312,22 +312,22 @@
     },
     "metric": {
       "type": "streak",
-      "unit": "maximale Serie gelochter Putts je Position",
+      "unit": "geschaffte Serie an Position 1 (90 cm)",
       "hcpTargets": {
         "54-27": [
+          2,
           3,
-          1,
-          1
+          4
         ],
         "26-12": [
+          4,
           5,
-          3,
-          1
+          6
         ],
         "11-0": [
+          7,
           10,
-          4,
-          2
+          13
         ]
       }
     },
@@ -518,9 +518,21 @@
       "type": "score",
       "unit": "erreichte Punkte (Bälle im Loch oder im Korridor)",
       "hcpTargets": {
-        "54-27": 24,
-        "26-12": 18,
-        "11-0": 15
+        "54-27": [
+          11,
+          15,
+          19
+        ],
+        "26-12": [
+          13,
+          18,
+          23
+        ],
+        "11-0": [
+          18,
+          24,
+          30
+        ]
       }
     },
     "tags": [

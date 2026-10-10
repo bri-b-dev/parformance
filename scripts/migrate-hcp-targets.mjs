@@ -10,6 +10,9 @@
  *    better HCP buckets and that are not flagged yet.
  *  - Objects (descriptive targets), arrays with one value and drills without targets are only reported.
  *
+ * NOTE: one-off. putting_hit_the_hall and putting_under_pressure were fixed by hand afterwards
+ * (see docs/DRILL_TARGET_MIGRATION.md); re-running on migrated data would drop the report's migration list.
+ *
  * Usage: node scripts/migrate-hcp-targets.mjs [--write]   (default: dry run, prints the report)
  */
 import { readFile, writeFile } from 'node:fs/promises';
@@ -84,10 +87,6 @@ ${section('Richtung prüfen', lines.suspicious)}
 ${section('Migrierte Einzelwerte', lines.migrated, (x) => x)}
 ${section('Manuell: nicht numerische Ziele', lines.manual)}
 ${section('Manuell: Arrays mit nur einem Wert', lines.single)}
-## Manuell: Werte pro Position statt Level
-
-- \`putting_under_pressure\`: die drei Werte je Bucket (z. B. \`[3, 1, 1]\`) sind Serien je Position (20 m / 10 m / 3 m), keine Level-Schwellen und werden aktuell falsch ausgewertet.
-
 ${section('Manuell: Drills ohne Zielwerte', lines.noTargets, (x) => `- \`${x}\``)}`;
 
 if (write) {

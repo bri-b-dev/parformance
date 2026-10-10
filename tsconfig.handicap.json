@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true
+  },
+  "include": ["src/modules/handicap/**/*.ts", "src/modules/handicap/**/*.vue", "src/stores/settings.ts", "src/utils/persistAdapter.ts", "src/stores/hcpHistory.ts"]
+}

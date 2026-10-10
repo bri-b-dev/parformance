@@ -20,6 +20,15 @@
         </span>
         <span>Historie</span>
       </RouterLink>
+      <RouterLink class="tab" :class="{ active: isActive('/handicap') }" :to="{ path: '/handicap' }" @click="triggerHaptic">
+        <span class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <rect x="5" y="3" width="14" height="18" rx="3" stroke="currentColor" stroke-width="1.6" />
+            <path d="M8.5 8h7M8.5 12h7M8.5 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span>Handicap</span>
+      </RouterLink>
     </nav>
   </div>
 </template>

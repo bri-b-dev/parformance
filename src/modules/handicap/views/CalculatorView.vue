@@ -221,7 +221,7 @@ import { useCourseTemplates } from '../composables/useCourseTemplates'
 import { templateLabel } from '../utils/courseTemplate'
 import { useCalculatorDraft } from '../composables/useCalculatorDraft'
 import { projectHandicap } from '../utils/handicap'
-import LogoIcon from '@/components/IconLogo.vue'
+import LogoIcon from '../components/IconLogo.vue'
 
 // i18n
 const { t } = useI18n()

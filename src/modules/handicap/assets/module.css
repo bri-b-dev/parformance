@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /*------------------------------
   Premium Color & Design Variables
 -------------------------------*/
-:root {
+.hc-root {
   --primary: #044b2f;      /* Deep premium green */
   --primary-light: #0d6e46;
   --accent: #20b06b;       /* Vibrant green for highlights */
@@ -26,27 +25,25 @@
 /*------------------------------
   Resets & Base Typography
 -------------------------------*/
-* {
+.hc-root,
+.hc-root * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+.hc-root {
   background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
-  background-attachment: fixed;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: var(--text);
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
+  min-height: 100%;
   -webkit-font-smoothing: antialiased;
 }
 
 /*------------------------------
   Card Components (Glassmorphism)
 -------------------------------*/
-.card {
+.hc-root .card {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -58,7 +55,7 @@ html, body {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card:hover {
+.hc-root .card:hover {
   transform: translateY(-2px);
   box-shadow: 0 20px 32px -6px rgba(0, 0, 0, 0.1);
 }
@@ -66,7 +63,8 @@ html, body {
 /*------------------------------
   Typography & Titles
 -------------------------------*/
-.title, .card-title {
+.hc-root .title,
+.hc-root .card-title {
   margin: 0 0 1rem;
   font-size: 1.5rem;
   font-weight: 700;
@@ -77,17 +75,17 @@ html, body {
 /*------------------------------
   Form Elements
 -------------------------------*/
-.form-group {
+.hc-root .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 1.25rem;
 }
 
-.form-group.full-width {
+.hc-root .form-group.full-width {
   width: 100%;
 }
 
-.form-group label {
+.hc-root .form-group label {
   display: flex;
   align-items: center;
   font-weight: 500;
@@ -96,12 +94,12 @@ html, body {
   color: #334155;
 }
 
-.required {
+.hc-root .required {
   color: var(--danger);
   margin-left: 0.25rem;
 }
 
-.info-btn {
+.hc-root .info-btn {
   background: transparent;
   border: none;
   margin-left: 6px;
@@ -110,14 +108,14 @@ html, body {
   color: var(--text-muted);
   transition: color 0.2s;
 }
-.info-btn:hover {
+.hc-root .info-btn:hover {
   color: var(--primary);
 }
 
-input[type="number"],
-input[type="text"],
-input[type="date"],
-select {
+.hc-root input[type="number"],
+.hc-root input[type="text"],
+.hc-root input[type="date"],
+.hc-root select {
   padding: 10px 14px;
   border: 1px solid var(--border);
   border-radius: var(--input-radius);
@@ -130,20 +128,20 @@ select {
   box-shadow: var(--shadow-sm);
 }
 
-input::placeholder {
+.hc-root input::placeholder {
   color: #94a3b8;
 }
 
-input[type="number"]:focus,
-input[type="text"]:focus,
-input[type="date"]:focus,
-select:focus {
+.hc-root input[type="number"]:focus,
+.hc-root input[type="text"]:focus,
+.hc-root input[type="date"]:focus,
+.hc-root select:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(32, 176, 107, 0.15);
 }
 
-.error {
+.hc-root .error {
   color: var(--danger);
   font-size: 0.85rem;
   margin-top: 0.4rem;
@@ -151,7 +149,7 @@ select:focus {
   animation: slideIn 0.2s ease-out forwards;
 }
 
-.validation-note {
+.hc-root .validation-note {
   font-size: 0.8rem;
   color: var(--text-muted);
   margin-top: 4px;
@@ -160,13 +158,13 @@ select:focus {
 /*------------------------------
   Buttons
 -------------------------------*/
-.form-actions {
+.hc-root .form-actions {
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
 }
 
-.btn-primary {
+.hc-root .btn-primary {
   flex: 1;
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   color: #ffffff;
@@ -181,23 +179,23 @@ select:focus {
   letter-spacing: 0.2px;
 }
 
-.btn-primary:disabled {
+.hc-root .btn-primary:disabled {
   background: #cbd5e1;
   box-shadow: none;
   cursor: not-allowed;
 }
 
-.btn-primary:hover:not(:disabled) {
+.hc-root .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(4, 75, 47, 0.3);
 }
 
-.btn-primary:active:not(:disabled) {
+.hc-root .btn-primary:active:not(:disabled) {
   transform: translateY(0);
   box-shadow: 0 4px 8px rgba(4, 75, 47, 0.2);
 }
 
-.btn-secondary {
+.hc-root .btn-secondary {
   flex: 1;
   background: transparent;
   color: var(--primary);
@@ -210,18 +208,18 @@ select:focus {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btn-secondary:hover {
+.hc-root .btn-secondary:hover {
   background: rgba(4, 75, 47, 0.05);
   box-shadow: var(--shadow-sm);
 }
-.btn-secondary:active {
+.hc-root .btn-secondary:active {
   background: rgba(4, 75, 47, 0.1);
 }
 
 /*------------------------------
   Result Panel (Dynamic State)
 -------------------------------*/
-.result-box {
+.hc-root .result-box {
   margin-top: 2rem;
   padding: 1.5rem;
   border-radius: var(--radius);
@@ -232,7 +230,7 @@ select:focus {
   overflow: hidden;
 }
 
-.result-box::before {
+.hc-root .result-box::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -241,31 +239,31 @@ select:focus {
   border-radius: var(--radius);
 }
 
-.score-good {
+.hc-root .score-good {
   background: linear-gradient(135deg, var(--accent) 0%, #178a51 100%);
 }
 
-.score-bad {
+.hc-root .score-bad {
   background: linear-gradient(135deg, var(--danger) 0%, #b91c1c 100%);
 }
 
-.score-neutral {
+.hc-root .score-neutral {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
 }
 
-.result-box p {
+.hc-root .result-box p {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   position: relative;
   z-index: 1;
 }
 
-.result-box strong {
+.hc-root .result-box strong {
   font-weight: 600;
   opacity: 0.9;
 }
 
-.result-actions {
+.hc-root .result-actions {
   display: flex;
   gap: 0.75rem;
   justify-content: center;
@@ -274,23 +272,23 @@ select:focus {
   z-index: 1;
 }
 
-.result-actions .btn-primary {
+.hc-root .result-actions .btn-primary {
   background: #ffffff;
   color: var(--text);
   box-shadow: var(--shadow-sm);
 }
 
-.result-actions .btn-primary:hover {
+.hc-root .result-actions .btn-primary:hover {
   background: #f8fafc;
   box-shadow: var(--shadow-md);
 }
 
-.result-actions .btn-secondary {
+.hc-root .result-actions .btn-secondary {
   border-color: rgba(255, 255, 255, 0.5);
   color: #ffffff;
 }
 
-.result-actions .btn-secondary:hover {
+.hc-root .result-actions .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: #ffffff;
 }
@@ -298,18 +296,18 @@ select:focus {
 /*------------------------------
   Animations & Transitions
 -------------------------------*/
-@keyframes slideIn {
+@keyframes slideIn{
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.hc-root .fade-enter-active,
+.hc-root .fade-leave-active {
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.hc-root .fade-enter-from,
+.hc-root .fade-leave-to {
   opacity: 0;
   transform: translateY(10px);
 }

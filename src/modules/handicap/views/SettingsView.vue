@@ -44,20 +44,20 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { db } from '../db'
+import { useSettingsStore } from '@/stores/settings'
 import CourseTemplates from '../components/CourseTemplates.vue'
 
 // i18n
 const { t, locale } = useI18n()
+const appSettings = useSettingsStore()
 const currentLocale = ref(locale.value)
 
 // app-version from env (e.g. in vue.config.js or .env)
 const APP_VERSION = (import.meta as any).env.VITE_APP_VERSION || '1.0'
 
-// on locale change: save to db
+// the language is an app-wide setting; HandicapShell mirrors it into vue-i18n
 async function onLocaleChange() {
-  locale.value = currentLocale.value
-  await db.settings.put({ key: 'locale', value: currentLocale.value })
+  await appSettings.update({ language: currentLocale.value as 'de' | 'en' })
 }
 
 onMounted(() => {

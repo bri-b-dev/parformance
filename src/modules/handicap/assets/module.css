@@ -1,0 +1,313 @@
+
+/*------------------------------
+  Premium Color & Design Variables
+-------------------------------*/
+.hc-root {
+  --primary: #044b2f;      /* Deep premium green */
+  --primary-light: #0d6e46;
+  --accent: #20b06b;       /* Vibrant green for highlights */
+  --danger: #ef4444;
+  --danger-muted: #fca5a5;
+  --bg-page: #f0fdf4;      /* Soft mint ambient background */
+  --bg-card: rgba(255, 255, 255, 0.85); /* Glass effect */
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+  --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 4px 10px -4px rgba(0, 0, 0, 0.04);
+  
+  --radius: 16px;
+  --input-radius: 10px;
+}
+
+/*------------------------------
+  Resets & Base Typography
+-------------------------------*/
+.hc-root,
+.hc-root * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.hc-root {
+  background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*------------------------------
+  Card Components (Glassmorphism)
+-------------------------------*/
+.hc-root .card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  margin-top: 1.5rem;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hc-root .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 32px -6px rgba(0, 0, 0, 0.1);
+}
+
+/*------------------------------
+  Typography & Titles
+-------------------------------*/
+.hc-root .title,
+.hc-root .card-title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.5px;
+}
+
+/*------------------------------
+  Form Elements
+-------------------------------*/
+.hc-root .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+
+.hc-root .form-group.full-width {
+  width: 100%;
+}
+
+.hc-root .form-group label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+.hc-root .required {
+  color: var(--danger);
+  margin-left: 0.25rem;
+}
+
+.hc-root .info-btn {
+  background: transparent;
+  border: none;
+  margin-left: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.hc-root .info-btn:hover {
+  color: var(--primary);
+}
+
+.hc-root input[type="number"],
+.hc-root input[type="text"],
+.hc-root input[type="date"],
+.hc-root select {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--input-radius);
+  font-size: 1rem;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: var(--text);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.hc-root input::placeholder {
+  color: #94a3b8;
+}
+
+.hc-root input[type="number"]:focus,
+.hc-root input[type="text"]:focus,
+.hc-root input[type="date"]:focus,
+.hc-root select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(32, 176, 107, 0.15);
+}
+
+.hc-root .error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  font-weight: 500;
+  animation: slideIn 0.2s ease-out forwards;
+}
+
+.hc-root .validation-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/*------------------------------
+  Buttons
+-------------------------------*/
+.hc-root .form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.hc-root .btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--input-radius);
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(4, 75, 47, 0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.2px;
+}
+
+.hc-root .btn-primary:disabled {
+  background: #cbd5e1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.hc-root .btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(4, 75, 47, 0.3);
+}
+
+.hc-root .btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(4, 75, 47, 0.2);
+}
+
+.hc-root .btn-secondary {
+  flex: 1;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: var(--input-radius);
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hc-root .btn-secondary:hover {
+  background: rgba(4, 75, 47, 0.05);
+  box-shadow: var(--shadow-sm);
+}
+.hc-root .btn-secondary:active {
+  background: rgba(4, 75, 47, 0.1);
+}
+
+/*------------------------------
+  Result Panel (Dynamic State)
+-------------------------------*/
+.hc-root .result-box {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  text-align: center;
+  color: #ffffff;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.hc-root .result-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: white;
+  opacity: 0.1;
+  border-radius: var(--radius);
+}
+
+.hc-root .score-good {
+  background: linear-gradient(135deg, var(--accent) 0%, #178a51 100%);
+}
+
+.hc-root .score-bad {
+  background: linear-gradient(135deg, var(--danger) 0%, #b91c1c 100%);
+}
+
+.hc-root .score-neutral {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+
+.hc-root .result-box p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hc-root .result-box strong {
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.hc-root .result-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hc-root .result-actions .btn-primary {
+  background: #ffffff;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.hc-root .result-actions .btn-primary:hover {
+  background: #f8fafc;
+  box-shadow: var(--shadow-md);
+}
+
+.hc-root .result-actions .btn-secondary {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.hc-root .result-actions .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+}
+
+/*------------------------------
+  Animations & Transitions
+-------------------------------*/
+@keyframes slideIn{
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hc-root .fade-enter-active,
+.hc-root .fade-leave-active {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.hc-root .fade-enter-from,
+.hc-root .fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}

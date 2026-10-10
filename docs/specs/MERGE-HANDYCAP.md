@@ -82,7 +82,7 @@ Jede Phase ist ein eigener PR, die App bleibt in jeder Phase lauffähig.
 
 **Akzeptanz:** Verhalten unverändert, bestehende Tests grün, neue Tests für die Quellen-Rangfolge.
 
-### Phase B – Modul übernehmen
+### Phase B – Modul übernehmen – umgesetzt (siehe Abweichungen unten)
 1. Code per `git subtree` oder `git filter-repo` mit Historie nach `src/modules/handicap/` holen.
 2. Abhängigkeiten ergänzen (`dexie`, `chart.js`, `chartjs-adapter-date-fns`, `pdfjs-dist`, `vue-i18n`), Versionen von Vitest und TypeScript angleichen.
 3. `tsconfig`: Modul strikt, Rest wie bisher (Projekt-Referenzen oder `include`-Overrides), `npm run typecheck` deckt beides ab.
@@ -90,6 +90,18 @@ Jede Phase ist ein eigener PR, die App bleibt in jeder Phase lauffähig.
 5. Dexie-Datenbankname bleibt `ScoreDiffDB` (neue Herkunft, keine Kollision).
 
 **Akzeptanz:** Alle HandyCap-Tests laufen im Repo grün; Startbundle wächst um höchstens ~10 % (messen und festhalten); `/handicap` funktioniert wie in der alten App.
+
+**Umsetzung Phase B, Abweichungen und Befunde**
+- Historie: `git filter-branch --subdirectory-filter src` auf einem Klon + `git subtree add` (60 Commits von `src/`; `git-filter-repo` war nicht installiert).
+- `vue-i18n`: stabile `^11.1.10` statt `12.0.0-alpha`; die 65 übernommenen Tests laufen.
+- Der Alias `@/` existiert in beiden Projekten: im Modul nur 6 Stellen betroffen, auf relative Pfade umgestellt.
+- Globale CSS von HandyCap überschrieb `--primary`, `--text`, `--border` und `.card` von ParFormance: `assets/module.css` ist jetzt unter `.hc-root` gekapselt (Google-Fonts-Import entfernt).
+- Material Icons kamen von einem CDN (nur online); jetzt das npm-Paket `material-design-icons-iconfont` im Lazy-Chunk.
+- Das 1,3 MB große `logo.png` wurde nicht übernommen; `IconLogo.vue` zeigt vorläufig das ParFormance-Logo bis Phase D.
+- `vue-i18n` wird erst beim ersten Besuch von `/handicap` installiert: Start-Chunk +4,8 % (152,9 → 160,5 KB, gzip +2,3 KB). Die History-Ansicht ist ein eigener Chunk (737 KB, 225 KB gzip, `pdfjs-dist` + Chart.js).
+- Sprache: ein einziger App-Wert (`settings.language`); die Sprachauswahl des Moduls schreibt dorthin, `HandicapShell` spiegelt ihn in vue-i18n.
+- Tests: 103 → 105 (inkl. Smoke-Test der Einbindung). Strikte TypeScript-Prüfung nur für das Modul (`tsconfig.handicap.json`).
+- Vorläufig: eigener Tab „Handicap" in der Bottom-Navigation; Links `/impressum` und `/datenschutz` im Modul zeigen noch ins Leere.
 
 ### Phase C – Verdrahtung
 1. `rounds`-Quelle: `getHcpAt` über die Runden (letzter `storedHandicap` mit `date <= dateIso`), `getLatest`, `getSeries`.

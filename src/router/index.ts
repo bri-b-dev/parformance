@@ -1,3 +1,4 @@
+import { handicapRoutes } from '@/modules/handicap/routes'
 import { createRouter, createWebHistory, createMemoryHistory, type Router, type RouterHistory, type RouteLocationRaw, type RouteLocationNormalizedLoaded, type RouteRecordRaw } from 'vue-router'
 
 // Views/Components used by the routes (lazy in browser; stubbed in tests/SSR to avoid SFC parsing)
@@ -10,6 +11,9 @@ const DrillList = isBrowser ? (() => import('@/components/DrillList.vue')) : Stu
 const DrillDetailView = isBrowser ? (() => import('@/views/DrillDetailView.vue')) : Stub
 // Stats view placeholder
 const StatsView = isBrowser ? (() => import('@/views/StatsView.vue')) : Stub
+
+// Handicap area (module): lazy shell with lazy child routes
+const HandicapShell = isBrowser ? (() => import('@/modules/handicap/HandicapShell.vue')) : Stub
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: { name: 'DrillsList' } },
@@ -30,6 +34,11 @@ export const routes: RouteRecordRaw[] = [
     name: 'History',
     path: '/history',
     component: StatsView,
+  },
+  {
+    path: '/handicap',
+    component: HandicapShell,
+    children: handicapRoutes,
   },
 ]
 

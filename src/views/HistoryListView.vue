@@ -105,6 +105,7 @@ import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
 import { requestConfirm } from '@/utils/confirmService'
 import { computed, onMounted, ref, watch } from 'vue'
+import { currentIntlTag } from '@/utils/locale'
 
 const PAGE = 30
 const catalog = useDrillCatalogStore()
@@ -143,8 +144,8 @@ const result = computed(() => buildHistory(sessions.sessions, catalog.drills, {
 const visibleDays = computed(() => limitHistory(result.value, limit.value))
 const shown = computed(() => visibleDays.value.reduce((n, d) => n + d.entries.length, 0))
 
-const timeOf = (iso: string) => new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(new Date(iso))
-const dateTimeLabel = (iso: string) => new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(iso))
+const timeOf = (iso: string) => new Intl.DateTimeFormat(currentIntlTag(), { hour: '2-digit', minute: '2-digit' }).format(new Date(iso))
+const dateTimeLabel = (iso: string) => new Intl.DateTimeFormat(currentIntlTag(), { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(iso))
 
 function resetFilters() {
   category.value = ''

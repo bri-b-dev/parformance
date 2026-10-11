@@ -12,7 +12,7 @@
         <span class="chip" data-testid="card-minutes">{{ minutes }} Min.</span>
         <span class="chip" :aria-label="`Schwierigkeit ${difficulty} von 5`" :title="`Schwierigkeit ${difficulty} von 5`">{{ '●'.repeat(difficulty) }}{{ '○'.repeat(5 - difficulty) }}</span>
       </div>
-      <p v-if="drill.summary ?? drill.instructions?.training" class="card-summary">{{ drill.summary ?? drill.instructions.training }}</p>
+      <p v-if="drill.summary ?? drill.instructions?.training" class="card-summary">{{ u(drill.summary ?? drill.instructions.training) }}</p>
       <div v-if="drill.tags?.length" class="chips">
         <span v-for="t in drill.tags" :key="t" class="chip">{{ t }}</span>
       </div>
@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import { useUnits } from '@/units/useUnits'
 import DrillThumb from '@/components/DrillThumb.vue'
 import LevelBadge from '@/components/LevelBadge.vue'
 import { difficultyOf } from '@/filters/catalog'
@@ -29,6 +30,8 @@ import { drillMinutes } from '@/today/suggest'
 import type { Drill } from '@/types'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+
+const { u } = useUnits()
 
 const props = defineProps<{ drill: Drill }>()
 const route = useRoute()

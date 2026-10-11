@@ -27,11 +27,11 @@
         <div v-else-if="section === 'flow'" class="section">
             <template v-if="drill.instructions.training">
                 <strong class="muted">Ablauf</strong>
-                <p class="muted">{{ drill.instructions.training }}</p>
+                <p class="muted">{{ u(drill.instructions.training) }}</p>
             </template>
             <template v-if="drill.instructions.test">
                 <strong class="muted">Ergebnis</strong>
-                <p class="muted">{{ drill.instructions.test }}</p>
+                <p class="muted">{{ u(drill.instructions.test) }}</p>
             </template>
             <p v-if="!drill.instructions.training && !drill.instructions.test" class="muted">Keine Beschreibung vorhanden.</p>
         </div>
@@ -40,12 +40,12 @@
         <div v-else class="section">
             <template v-if="drill.instructions.tooEasy">
                 <strong class="muted">Zu leicht?</strong>
-                <p class="muted">{{ drill.instructions.tooEasy }}</p>
+                <p class="muted">{{ u(drill.instructions.tooEasy) }}</p>
             </template>
             <template v-if="variants.length">
                 <strong class="muted">Varianten</strong>
                 <ul class="muted variants">
-                    <li v-for="(v, i) in variants" :key="i">{{ v }}</li>
+                    <li v-for="(v, i) in variants" :key="i">{{ u(v) }}</li>
                 </ul>
             </template>
         </div>
@@ -53,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import { useUnits } from '@/units/useUnits'
 import AppIcon from '@/components/AppIcon.vue';
 import DrillSchema from '@/components/DrillSchema.vue';
 import type { Drill } from '@/types';
@@ -76,6 +77,7 @@ const otherLabel = computed(() => {
     return ''
 })
 
+const { u } = useUnits()
 const variants = computed(() => (Array.isArray(props.drill.variants) ? props.drill.variants.filter(Boolean) : []))
 const locationLabel = computed(() => props.drill.setup?.location?.trim() || '-')
 const schemaLabel = computed(() => props.drill.setup?.schema?.trim() || '-')

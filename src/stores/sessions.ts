@@ -4,6 +4,27 @@ import { createPersist } from '@/utils/persistAdapter'
 
 const persist = createPersist('parformance', 1)
 
+/** One session from untrusted input (import, old data); null if it cannot be a session. */
+export function sanitizeSession(item: unknown): Session | null {
+  if (!item || typeof item !== 'object') return null
+  const r = item as Record<string, any>
+  if (!r.drillId || !r.date || Number.isNaN(Date.parse(String(r.date)))) return null
+  const next: Session = {
+    id: typeof r.id === 'string' && r.id ? r.id : crypto.randomUUID(),
+    drillId: String(r.drillId),
+    date: String(r.date),
+    hcp: typeof r.hcp === 'number' ? r.hcp : null,
+    result: { value: Number(r.result?.value ?? 0), unit: String(r.result?.unit ?? '') },
+  }
+  if (typeof r.timerUsed === 'number') next.timerUsed = r.timerUsed
+  if (typeof r.attempts === 'number') next.attempts = r.attempts
+  if (typeof r.levelReached === 'number') next.levelReached = r.levelReached
+  if (typeof r.favorited === 'boolean') next.favorited = r.favorited
+  if (typeof r.focusId === 'string' && r.focusId) next.focusId = r.focusId
+  if (typeof r.notes === 'string') next.notes = r.notes
+  return next
+}
+
 export const useSessionsStore = defineStore('sessions', {
   state: () => ({
     sessions: [] as Session[],
@@ -48,36 +69,7 @@ export const useSessionsStore = defineStore('sessions', {
       await this.persist()
     },
     async replaceAll(list: Session[]) {
-      if (!Array.isArray(list)) {
-        this.sessions = []
-        await this.persist()
-        return
-      }
-      const sanitized: Session[] = []
-      for (const item of list) {
-        if (!item || typeof item !== 'object') continue
-        const drillId = (item as any).drillId
-        const date = (item as any).date
-        if (!drillId || !date) continue
-        const id = typeof (item as any).id === 'string' && (item as any).id ? (item as any).id : crypto.randomUUID()
-        const next: Session = {
-          id,
-          drillId: String(drillId),
-          date: String(date),
-          hcp: typeof (item as any).hcp === 'number' ? (item as any).hcp : null,
-          result: {
-            value: Number((item as any).result?.value ?? 0),
-            unit: String((item as any).result?.unit ?? ''),
-          },
-        }
-        if (typeof (item as any).timerUsed === 'number') next.timerUsed = (item as any).timerUsed
-        if (typeof (item as any).attempts === 'number') next.attempts = (item as any).attempts
-        if (typeof (item as any).levelReached === 'number') next.levelReached = (item as any).levelReached
-        if (typeof (item as any).favorited === 'boolean') next.favorited = (item as any).favorited
-        if (typeof (item as any).focusId === 'string' && (item as any).focusId) next.focusId = (item as any).focusId
-        if (typeof (item as any).notes === 'string') next.notes = (item as any).notes
-        sanitized.push(next)
-      }
+      const sanitized = (Array.isArray(list) ? list : []).map(sanitizeSession).filter((x): x is Session => x !== null)
       sanitized.sort((a, b) => b.date.localeCompare(a.date))
       this.sessions = sanitized
       await this.persist()

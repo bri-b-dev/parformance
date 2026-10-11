@@ -32,6 +32,13 @@ function makeStorage() {
   } as Storage
 }
 
+const dropPending: Array<() => void> = []
+
+/** Cancel every debounced write that has not happened yet (tests: a late write must not leak into the next test). */
+export function cancelAllPendingWrites() {
+  for (const drop of dropPending) drop()
+}
+
 export function createPersist(
   namespace: string,
   version: number,
@@ -135,6 +142,8 @@ export function createPersist(
     }
     timers.clear()
   }
+
+  dropPending.push(flush)
 
   return { get, set, setDebounced, flush }
 }

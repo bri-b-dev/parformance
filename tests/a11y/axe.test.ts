@@ -31,6 +31,9 @@ import { useFocusStore } from '@/stores/focus'
 import { useRunStore } from '@/stores/run'
 import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
+import ImportDialog from '@/components/ImportDialog.vue'
+import BackupReminder from '@/components/BackupReminder.vue'
+import { buildBackup, emptyData, parseBackup } from '@/backup/format'
 import { requestConfirm } from '@/utils/confirmService'
 import type { Drill } from '@/types'
 
@@ -141,5 +144,29 @@ describe('axe: dialogs', () => {
     await flushPromises()
     const violations = await audit()
     expect(violations, describeViolations(violations)).toEqual([])
+  })
+
+  it('Löschen mit Eingabe-Bestätigung', async () => {
+    const ctx = await setup()
+    const w = mount(ConfirmModal, { attachTo: document.body, global: { plugins: [ctx.pinia] } })
+    mounted.push(w)
+    void requestConfirm('Wirklich alles löschen?', {
+      title: 'Alles löschen?', danger: true, confirmLabel: 'Alles löschen', phrase: 'LÖSCHEN', details: ['3 Sessions'],
+      secondary: { label: 'Zuerst Backup exportieren', run: async () => true },
+    })
+    await flushPromises()
+    const violations = await audit()
+    expect(violations, describeViolations(violations)).toEqual([])
+  })
+
+  check('Backup einspielen', () => {
+    const parsed = parseBackup(JSON.stringify(buildBackup({ ...emptyData(), favorites: ['a'], sessions: [{ id: 's', drillId: 'putting_circle', date: '2026-01-01T10:00:00.000Z', hcp: null, result: { value: 1, unit: 'x' } }] })))
+    if (!parsed.ok) throw new Error('fixture must parse')
+    return { component: ImportDialog, props: { result: parsed, current: emptyData() } }
+  })
+
+  check('Backup-Hinweis', () => ({ component: BackupReminder }), async () => {
+    const sessions = useSessionsStore()
+    for (let i = 0; i < 6; i++) await sessions.addSession({ drillId: 'putting_circle', date: new Date(Date.now() - (i + 5) * 86_400_000).toISOString(), hcp: 24, result: { value: i, unit: 'x' } })
   })
 })

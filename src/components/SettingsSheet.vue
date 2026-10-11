@@ -4,8 +4,7 @@
       <h2 id="settings-title" class="text-lg font-semibold">Einstellungen</h2>
       <button class="btn" type="button" @click="$emit('close')">Schließen</button>
     </div>
-    <SettingsForm v-model="formModel" :derived-hcp="derivedHcp" @save="saveAndClose" @cancel="$emit('close')" @export-data="exportData" @replay-onboarding="replayOnboarding"
-      @import-data="importData" @reset="resetAll" />
+    <SettingsForm v-model="formModel" :derived-hcp="derivedHcp" @save="saveAndClose" @cancel="$emit('close')" @replay-onboarding="replayOnboarding" @data-changed="syncFromStore" />
   </DialogShell>
 </template>
 
@@ -13,18 +12,8 @@
 import DialogShell from '@/components/DialogShell.vue'
 import SettingsForm from '@/components/settings/SettingsForm.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
-import { useCollectionsStore } from '@/stores/collections'
-import { useFavoritesStore } from '@/stores/favorites'
-import { useFocusStore } from '@/stores/focus'
-import { useRunStore } from '@/stores/run'
-import { useHcpHistoryStore } from '@/stores/hcpHistory'
-import { useSessionsStore } from '@/stores/sessions'
 import { useSettingsStore } from '@/stores/settings'
-import type { Session } from '@/types'
 import { computed, onMounted, ref, watch } from 'vue'
-import { Capacitor } from '@capacitor/core'
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem'
-import { Share } from '@capacitor/share'
 
 const props = defineProps<{ open: boolean }>()
 const emit = defineEmits<(e: 'close') => void>()
@@ -44,12 +33,6 @@ type FormModel = {
 }
 
 const settingsStore = useSettingsStore()
-const favoritesStore = useFavoritesStore()
-const sessionsStore = useSessionsStore()
-const hcpHistoryStore = useHcpHistoryStore()
-const collectionsStore = useCollectionsStore()
-const runStore = useRunStore()
-const focusStore = useFocusStore()
 const { hcp: currentHcp, fromRounds } = useCurrentHcp()
 const derivedHcp = computed(() => (fromRounds.value ? currentHcp.value : null))
 
@@ -75,11 +58,6 @@ function syncFromStore() {
 
 async function ensureStoresLoaded() {
   if (!settingsStore.loaded) await settingsStore.load()
-  if (!favoritesStore.loaded) await favoritesStore.load()
-  if (!sessionsStore.loaded) await sessionsStore.load()
-  if (!hcpHistoryStore.loaded) await hcpHistoryStore.load()
-  if (!collectionsStore.loaded) await collectionsStore.load()
-  if (!focusStore.loaded) await focusStore.load()
 }
 
 onMounted(async () => {
@@ -136,206 +114,8 @@ async function saveAndClose(values: FormModel) {
   emit('close')
 }
 
-// Alter Web-Download als Fallback beibehalten
-function downloadJsonWeb(filename: string, data: any) {
-  if (typeof document === 'undefined') return
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = filename
-  a.click()
-  URL.revokeObjectURL(url)
-}
-
-// Neu: Native Variante für APK
-async function downloadJsonNative(filename: string, data: any) {
-  const json = JSON.stringify(data, null, 2)
-
-  // In Cache schreiben, keine Extra-Berechtigungen nötig
-  try {
-    await Filesystem.writeFile({
-      path: filename,
-      data: json,
-      directory: Directory.Cache,
-      encoding: Encoding.UTF8,
-    })
-
-    // Native URI für die Datei besorgen
-    const { uri } = await Filesystem.getUri({
-      path: filename,
-      directory: Directory.Cache,
-    })
-
-    // Share-Sheet öffnen. Neuere Share-Versionen können 'files'
-    try {
-      // Try files first (preferred on Android when supported)
-      await Share.share({
-        title: 'Datenexport',
-        text: 'ParFormance-Exportdatei',
-        files: [uri], // bevorzugt, wenn unterstützt
-        dialogTitle: 'Export teilen oder speichern',
-      })
-      showAlert('Export gestartet (native Share)')
-      return
-    } catch (error_) {
-      console.debug('Share.files failed, falling back to url share', error_)
-    }
-
-    // Fallback: try URL via convertFileSrc (works for webview preview / some share impls)
-    try {
-      const url = Capacitor.convertFileSrc(uri)
-      console.debug('Export: converted file src to url=', url)
-      showAlert('Export: versuche URL-Fallback')
-      await Share.share({
-        title: 'Datenexport',
-        text: 'ParFormance-Exportdatei',
-        url,
-        dialogTitle: 'Export teilen oder speichern',
-      })
-      showAlert('Export gestartet (URL-Fallback)')
-      return
-    } catch (error_) {
-      console.error('Share.url fallback failed', error_)
-      throw error_
-    }
-  } catch (err) {
-    console.error('downloadJsonNative failed', err)
-    showAlert('Export fehlgeschlagen — siehe Logcat (adb) oder chrome://inspect: ' + err.message)
-    throw err
-  }
-}
-
-function showAlert(message: string) {
-  try {
-    // @ts-ignore
-    globalThis.dispatchEvent(new CustomEvent('toast', { detail: { type: 'info', message } }))
-  } catch {
-    // fallback
-    // fallback: log to console instead of blocking alert
-    // eslint-disable-next-line no-console
-    console.log(message)
-  }
-}
-
-import { requestConfirm } from '@/utils/confirmService'
-
-function showConfirm(message: string): Promise<boolean> {
-  return requestConfirm(message)
-}
-
-async function exportData() {
-  await ensureStoresLoaded()
-
-  const payload = {
-    exportedAt: new Date().toISOString(),
-    version: 1,
-    settings: {
-      hcp: settingsStore.hcp,
-      targetHcp: settingsStore.targetHcp,
-      targetDate: settingsStore.targetDate,
-      handedness: settingsStore.handedness,
-      name: settingsStore.name,
-      language: settingsStore.language,
-      units: settingsStore.units,
-      theme: settingsStore.theme,
-      sounds: settingsStore.sounds,
-      shuffleFavorites: settingsStore.shuffleFavorites,
-      notifications: settingsStore.notifications,
-    },
-    favorites: JSON.parse(JSON.stringify(favoritesStore.favorites ?? [])),
-    sessions: JSON.parse(JSON.stringify(sessionsStore.sessions ?? [])),
-    hcpHistory: JSON.parse(JSON.stringify(hcpHistoryStore.rows ?? [])),
-    collections: JSON.parse(JSON.stringify(collectionsStore.items ?? [])),
-    focus: JSON.parse(JSON.stringify(focusStore.items ?? [])),
-  }
-
-  const fileName = `parformance-export-${new Date().toISOString().replace(/[:.]/g, '-')}.json`
-
-  // Web: alter Weg
-  if (!Capacitor.isNativePlatform()) {
-    downloadJsonWeb(fileName, payload)
-    return
-  }
-
-  // Native (Android/iOS): Datei schreiben und teilen
-  try {
-    await downloadJsonNative(fileName, payload)
-  } catch (err) {
-    // If native export fails, attempt a web fallback so user can still get data
-    console.error('Native export failed, trying web fallback', err)
-    try {
-      downloadJsonWeb(fileName, payload)
-      showAlert('Export als Web-Download gestartet (Fallback).')
-    } catch (error_) {
-      console.error('Web fallback export also failed', error_)
-      showAlert('Export fehlgeschlagen. Bitte prüfen Sie die App-Berechtigungen.')
-    }
-  }
-}
-
-async function importData(data: any) {
-  try {
-    await ensureStoresLoaded()
-    if (data?.settings && typeof data.settings === 'object') {
-      await settingsStore.update({
-        hcp: typeof data.settings.hcp === 'number' ? data.settings.hcp : null,
-        targetHcp: data.settings.targetHcp ?? null,
-        targetDate: data.settings.targetDate ?? null,
-        handedness: data.settings.handedness,
-        name: data.settings.name,
-        language: data.settings.language,
-        units: data.settings.units,
-        theme: data.settings.theme,
-        sounds: data.settings.sounds,
-        shuffleFavorites: data.settings.shuffleFavorites,
-        notifications: data.settings.notifications,
-        onboardingDone: true,
-      })
-    }
-    if (Array.isArray(data?.favorites)) {
-      await favoritesStore.setAll(data.favorites.map(String))
-    }
-    if (Array.isArray(data?.sessions)) {
-      await sessionsStore.replaceAll(data.sessions as Session[])
-    }
-    if (Array.isArray(data?.collections)) {
-      collectionsStore.replaceAll(data.collections)
-    }
-    if (Array.isArray(data?.focus)) {
-      focusStore.replaceAll(data.focus)
-    }
-    // Exports from before the history was included have no `hcpHistory`: keep what is there.
-    if (Array.isArray(data?.hcpHistory)) {
-      await hcpHistoryStore.replaceAll(data.hcpHistory)
-    }
-    syncFromStore()
-    showAlert('Daten importiert.')
-  } catch (error) {
-    console.error('Import failed:', error)
-    showAlert('Import fehlgeschlagen. Bitte überprüfe die Datei.')
-  }
-}
-
 async function replayOnboarding() {
   await settingsStore.update({ onboardingDone: false })
   emit('close')
-}
-
-async function resetAll() {
-  const ok = await showConfirm('Wirklich alle lokalen Daten löschen?')
-  if (!ok) return
-  await ensureStoresLoaded()
-  await Promise.all([
-    settingsStore.clearAll(),
-    favoritesStore.clearAll(),
-    sessionsStore.clearAll(),
-    hcpHistoryStore.clearAll(),
-    collectionsStore.clearAll(),
-    focusStore.clearAll(),
-  ])
-  runStore.clear()
-  syncFromStore()
-  showAlert('Alle lokalen Daten wurden gelöscht.')
 }
 </script>

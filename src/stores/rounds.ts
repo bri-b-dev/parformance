@@ -9,6 +9,8 @@ import { roundsToSeries } from '@/hcp/sources/rounds'
 export const useRoundsStore = defineStore('rounds', {
   state: () => ({
     series: [] as { date: string; hcp: number }[],
+    /** All stored rounds (the series only has those with a usable handicap): what the backup reminder counts. */
+    total: 0,
     started: false,
     loaded: false,
   }),
@@ -24,6 +26,7 @@ export const useRoundsStore = defineStore('rounds', {
         liveQuery(() => db.results.toArray()).subscribe({
           next: (rows) => {
             this.series = roundsToSeries(rows)
+            this.total = rows.length
             this.loaded = true
           },
           error: (e) => {

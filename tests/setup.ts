@@ -1,5 +1,6 @@
 import { setActivePinia, createPinia } from 'pinia'
-import { beforeEach, vi } from 'vitest'
+import { afterEach, beforeEach, vi } from 'vitest'
+import { cancelAllPendingWrites } from '@/utils/persistAdapter'
 
 // Newer Node versions ship an experimental global `localStorage` that shadows jsdom's and is
 // undefined without a backing file, so install a small in-memory Storage for deterministic tests.
@@ -23,3 +24,6 @@ beforeEach(() => {
   vi.stubGlobal('localStorage', memoryStorage())
   setActivePinia(createPinia())
 })
+
+// debounced store writes still waiting when a test ends must not land in the next test's storage
+afterEach(() => cancelAllPendingWrites())

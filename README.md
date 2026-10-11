@@ -46,7 +46,7 @@ Built with **Vue 3**, **Tailwind**, and **Capacitor**, ParFormance runs seamless
 - **Drill Details** — clear setup, step-by-step flow, and measurable targets  
 - **Favorites & History** — quick access to starred drills and past sessions  
 - **Progress Analytics** — radar charts, micro-trends, and personal-best badges  
-- **User Settings** — HCP, language, units, native Dark Mode, and data export/import  
+- **User Settings** — HCP, goal HCP, units, native Dark Mode, and **backup**: export/import as a versioned JSON file (sessions, rounds, collections, focus, settings), merge or replace with a preview, typed confirmation for "delete everything" and a backup reminder  
 - **Offline Mode** — data stored locally (localStorage via persist adapter)  
 - **Native Experience** — **Haptic feedback** interactions and **seamless route transitions** for mobile devices
 - **Responsive Design** — fully optimized responsive layout for mobile and tablet

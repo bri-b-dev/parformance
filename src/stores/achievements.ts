@@ -22,6 +22,25 @@ export type AchievementSnapshot = {
   metadata?: Record<string, any>
 }
 
+export function sanitizeAchievement(raw: unknown): AchievementSnapshot | null {
+  const a = raw as Partial<AchievementSnapshot> | null
+  if (!a || typeof a !== 'object' || typeof a.id !== 'string' || !a.id) return null
+  if (typeof a.awardedAt !== 'string' || Number.isNaN(Date.parse(a.awardedAt))) return null
+  return {
+    id: a.id,
+    kind: a.kind === 'achievement' || a.kind === 'manual' ? a.kind : 'badge',
+    title: typeof a.title === 'string' ? a.title : undefined,
+    description: typeof a.description === 'string' ? a.description : undefined,
+    drillId: typeof a.drillId === 'string' ? a.drillId : null,
+    sessionId: typeof a.sessionId === 'string' ? a.sessionId : null,
+    level: typeof a.level === 'number' ? a.level : null,
+    criteriaVersion: typeof a.criteriaVersion === 'string' ? a.criteriaVersion : '1',
+    hcp_at_award: typeof a.hcp_at_award === 'number' ? a.hcp_at_award : null,
+    awardedAt: a.awardedAt,
+    metadata: a.metadata && typeof a.metadata === 'object' ? a.metadata : {},
+  }
+}
+
 export interface AchievementsState {
   items: AchievementSnapshot[]
   loaded: boolean
@@ -37,6 +56,15 @@ export const useAchievementsStore = defineStore('achievements', {
     },
     async persist() {
       persist.setDebounced('achievements', { items: this.items })
+    },
+    /** Replace everything (backup import); invalid entries are dropped. */
+    async replaceAll(list: unknown) {
+      this.items = (Array.isArray(list) ? list : []).map(sanitizeAchievement).filter((x): x is AchievementSnapshot => x !== null)
+      this.loaded = true
+      await this.persist()
+    },
+    async clearAll() {
+      await this.replaceAll([])
     },
     list(): AchievementSnapshot[] {
       return this.items.slice().sort((a, b) => b.awardedAt.localeCompare(a.awardedAt))

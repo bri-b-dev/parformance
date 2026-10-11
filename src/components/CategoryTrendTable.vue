@@ -67,7 +67,7 @@ const symClass = (r: CategoryRow) => (r.delta === null ? 'none' : r.delta > 0 ? 
 }
 
 .sym.down {
-  color: var(--danger-600, #ef4444);
+  color: var(--danger-ink);
 }
 
 .txt {

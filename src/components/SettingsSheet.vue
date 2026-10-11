@@ -1,21 +1,16 @@
 <template>
-  <transition name="sheet">
-    <div v-if="open" class="fixed inset-0 z-50">
-      <div class="absolute inset-0 bg-black/50" @click="$emit('close')"></div>
-      <div
-        class="absolute right-0 top-0 h-full w-[min(480px,92vw)] settings-sheet-panel shadow-2xl p-4 overflow-y-auto">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-lg font-semibold">Einstellungen</h3>
-          <button class="btn" type="button" @click="$emit('close')">Schließen</button>
-        </div>
-        <SettingsForm v-model="formModel" :derived-hcp="derivedHcp" @save="saveAndClose" @cancel="$emit('close')" @export-data="exportData" @replay-onboarding="replayOnboarding"
-          @import-data="importData" @reset="resetAll" />
-      </div>
+  <DialogShell v-if="open" variant="side" layer="sheet" labelledby="settings-title" backdrop-testid="settings-backdrop" class="settings-sheet-panel" @close="$emit('close')">
+    <div class="flex items-center justify-between mb-2">
+      <h2 id="settings-title" class="text-lg font-semibold">Einstellungen</h2>
+      <button class="btn" type="button" @click="$emit('close')">Schließen</button>
     </div>
-  </transition>
+    <SettingsForm v-model="formModel" :derived-hcp="derivedHcp" @save="saveAndClose" @cancel="$emit('close')" @export-data="exportData" @replay-onboarding="replayOnboarding"
+      @import-data="importData" @reset="resetAll" />
+  </DialogShell>
 </template>
 
 <script setup lang="ts">
+import DialogShell from '@/components/DialogShell.vue'
 import SettingsForm from '@/components/settings/SettingsForm.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { useCollectionsStore } from '@/stores/collections'
@@ -344,20 +339,3 @@ async function resetAll() {
   showAlert('Alle lokalen Daten wurden gelöscht.')
 }
 </script>
-
-<style scoped>
-
-/* Ensure the right-side settings panel accounts for device safe-area (status bar)
-   so header controls like the "Schließen" button are not hidden on devices
-   where the native status bar overlays the WebView. We add the safe-area
-   inset to the existing top padding.
-*/
-.settings-sheet-panel {
-  /* Default padding matching p-4 */
-  padding-top: var(1rem);
-  /* Legacy iOS <11.2 fallback - may trigger linter warnings but needed for old devices */
-  padding-top: calc(var(--base-padding) + constant(safe-area-inset-top));
-  /* Modern safe-area support for iOS 11.2+ and other platforms */
-  padding-top: calc(var(--base-padding) + env(safe-area-inset-top));
-}
-</style>

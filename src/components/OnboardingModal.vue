@@ -1,5 +1,5 @@
 <template>
-  <dialog v-if="visible" ref="dialog" open class="onb-overlay" aria-labelledby="onb-title" aria-modal="true" @keydown.esc="finish" @keydown.tab="trapTab">
+  <DialogShell v-if="visible" variant="center" layer="modal" labelledby="onb-title" :backdrop-close="false" initial-focus='input[type="text"]' class="onb" @close="finish">
     <form class="onb-box" @submit.prevent="onSubmit">
       <header class="onb-head">
         <p class="onb-step" data-testid="onb-step">Schritt {{ step }} von 2</p>
@@ -43,15 +43,16 @@
         <button type="submit" class="btn btn-primary" data-testid="onb-next">{{ step === 1 ? 'Weiter' : 'Los geht\'s' }}</button>
       </div>
     </form>
-  </dialog>
+  </DialogShell>
 </template>
 
 <script setup lang="ts">
+import DialogShell from '@/components/DialogShell.vue'
 import HcpInput from '@/components/HcpInput.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { dayKey } from '@/focus/active'
 import { useSettingsStore } from '@/stores/settings'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const QUICK = [
   { months: 3, label: '3 Monate' },
@@ -67,7 +68,6 @@ const hcp = ref<number | null>(null)
 const targetHcp = ref<number | null>(null)
 const targetDate = ref('')
 const error = ref('')
-const dialog = ref<HTMLDialogElement | null>(null)
 const today = dayKey(new Date())
 
 const visible = computed(() => settings.loaded && !settings.onboardingDone)
@@ -81,40 +81,7 @@ onMounted(async () => {
   if (!settings.loaded) await settings.load()
 })
 
-watch(visible, async (v) => {
-  if (v) {
-    step.value = 1
-    await nextTick()
-    focusFirst()
-  }
-}, { immediate: true })
-
-watch(step, async () => {
-  await nextTick()
-  focusFirst()
-})
-
-function focusables(): HTMLElement[] {
-  return Array.from(dialog.value?.querySelectorAll<HTMLElement>('button, input, select, [href]') ?? []).filter(el => !(el as HTMLButtonElement).disabled)
-}
-
-function focusFirst() {
-  // first form control, not the close button
-  const first = dialog.value?.querySelector<HTMLElement>('input[type="text"], input[type="date"]') ?? focusables()[0]
-  first?.focus()
-}
-
-/** Keep Tab inside the dialog. */
-function inDialog(e: KeyboardEvent) {
-  const items = focusables()
-  if (items.length === 0) return
-  const first = items[0]
-  const last = items[items.length - 1]
-  const active = document.activeElement
-  if (e.shiftKey && active === first) { e.preventDefault(); last.focus() }
-  else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus() }
-}
-const trapTab = inDialog
+watch(visible, (v) => { if (v) step.value = 1 }, { immediate: true })
 
 async function persist() {
   const payload: Parameters<typeof settings.update>[0] = { onboardingDone: true }
@@ -159,35 +126,14 @@ function inMonths(n: number): string {
 </script>
 
 <style scoped>
-.onb-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1200;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  padding: 20px;
-  border: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.55);
+.onb {
+  --dlg-width: 440px;
 }
 
 .onb-box {
-  width: min(440px, 100%);
-  max-height: 100%;
-  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 20px;
-  border-radius: 16px;
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
 }
 
 .onb-head {
@@ -266,7 +212,7 @@ function inMonths(n: number): string {
 
 .onb-error {
   margin: 4px 0 0;
-  color: var(--danger-600, #ef4444);
+  color: var(--danger-ink);
   font-size: 0.9rem;
 }
 

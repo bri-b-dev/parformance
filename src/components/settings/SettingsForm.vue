@@ -5,8 +5,8 @@
       <h3 class="text-base font-semibold mb-3">Profil & Basics</h3>
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
-          <label class="text-sm text-app-sub">Anzeigename</label>
-          <input v-model="local.name" type="text" class="input w-full" placeholder="Optional" />
+          <label class="text-sm text-app-sub" for="settings-name">Anzeigename</label>
+          <input id="settings-name" v-model="local.name" type="text" class="input w-full" placeholder="Optional" />
         </div>
         <div>
           <label class="text-sm text-app-sub" for="settings-hcp">Handicap (HCP)</label>
@@ -23,22 +23,22 @@
           <input id="settings-target-date" v-model="local.targetDate" type="date" class="input w-full" :disabled="local.targetHcp == null" />
         </div>
         <div>
-          <label class="text-sm text-app-sub">Schlaghand</label>
-          <select v-model="local.handedness" class="input w-full">
+          <label class="text-sm text-app-sub" for="settings-hand">Schlaghand</label>
+          <select id="settings-hand" v-model="local.handedness" class="input w-full">
             <option value="right">Rechtshänder*in</option>
             <option value="left">Linkshänder*in</option>
           </select>
         </div>
         <div>
-          <label class="text-sm text-app-sub">Sprache</label>
-          <select v-model="local.language" class="input w-full">
+          <label class="text-sm text-app-sub" for="settings-lang">Sprache</label>
+          <select id="settings-lang" v-model="local.language" class="input w-full">
             <option value="de">Deutsch</option>
             <option value="en">English</option>
           </select>
         </div>
         <div>
-          <label class="text-sm text-app-sub">Einheiten</label>
-          <select v-model="local.units" class="input w-full">
+          <label class="text-sm text-app-sub" for="settings-units">Einheiten</label>
+          <select id="settings-units" v-model="local.units" class="input w-full">
             <option value="metric">Metrisch (m, km/h)</option>
             <option value="imperial">Imperial (yd, mph)</option>
           </select>
@@ -51,34 +51,34 @@
       <h3 class="text-base font-semibold mb-3">Darstellung & UX</h3>
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
-          <label class="text-sm text-app-sub">Theme</label>
-          <select v-model="local.theme" class="input w-full">
+          <label class="text-sm text-app-sub" for="settings-theme">Theme</label>
+          <select id="settings-theme" v-model="local.theme" class="input w-full">
             <option value="system">System</option>
             <option value="light">Hell</option>
             <option value="dark">Dunkel</option>
           </select>
         </div>
-        <div class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2">
-          <div>
-            <div class="text-sm font-medium">Soundeffekte</div>
-            <div class="text-xs text-app-sub">z. B. Slot-Machine</div>
-          </div>
-          <input v-model="local.sounds" type="checkbox" class="w-5 h-5" />
-        </div>
-        <div class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2">
-          <div>
-            <div class="text-sm font-medium">Favoriten bevorzugen</div>
-            <div class="text-xs text-app-sub">Shuffle zuerst aus ⭐ Favoriten</div>
-          </div>
-          <input v-model="local.shuffleFavorites" type="checkbox" class="w-5 h-5" />
-        </div>
-        <div class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2">
-          <div>
-            <div class="text-sm font-medium">Benachrichtigungen</div>
-            <div class="text-xs text-app-sub">z. B. Trainings-Reminder</div>
-          </div>
-          <input v-model="local.notifications" type="checkbox" class="w-5 h-5" />
-        </div>
+        <label class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2 switch-row">
+          <span>
+            <span class="block text-sm font-medium">Soundeffekte</span>
+            <span class="block text-xs text-app-sub">z. B. Slot-Machine</span>
+          </span>
+          <input v-model="local.sounds" type="checkbox" role="switch" class="w-5 h-5" />
+        </label>
+        <label class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2 switch-row">
+          <span>
+            <span class="block text-sm font-medium">Favoriten bevorzugen</span>
+            <span class="block text-xs text-app-sub">Shuffle zuerst aus Favoriten</span>
+          </span>
+          <input v-model="local.shuffleFavorites" type="checkbox" role="switch" class="w-5 h-5" />
+        </label>
+        <label class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2 switch-row">
+          <span>
+            <span class="block text-sm font-medium">Benachrichtigungen</span>
+            <span class="block text-xs text-app-sub">z. B. Trainings-Reminder</span>
+          </span>
+          <input v-model="local.notifications" type="checkbox" role="switch" class="w-5 h-5" />
+        </label>
       </div>
     </section>
 

@@ -178,6 +178,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-10 · Visuelles System & Barrierefreiheit — P1 · M
 
+> **Teil A umgesetzt.** Eine Dialog-Hülle (`DialogShell.vue` + `useFocusTrap` + `useScrollLock`) für Shuffle, Filter, Ergebnis, Live-Modus, Einführung, Einstellungen und Bestätigung: `role="dialog"`/`aria-modal`, Fokus hinein, Tab bleibt drin, Esc, Fokus zurück an den Auslöser, Seiten-Scroll gesperrt, gestaffelte Ebenen (`--z-*`), Safe-Area (oben/unten/links/rechts). Fokus-Ring ist jetzt ein durchgehender 3-px-Rahmen in `--focus` (≥ 3:1 in beiden Themes) statt eines blassen Schattens. Neue Tokens: `--focus`, `--border-strong` (Formularränder ≥ 3:1), `--danger-ink` (Fehlertext ≥ 4,5:1), `--level-*-ink`, Abstände, Radien, Schriftgrößen, Ebenen; Tailwind verweist darauf. `tests/a11y/contrast.test.ts` prüft die Token-Kontraste aus `theme.css`, `tests/a11y/axe.test.ts` lässt axe-core über 18 echte Ansichten und Dialoge laufen (serious/critical brechen den Build, in der CI als `npm run a11y`). Behoben: unbeschriftete Auswahlfelder und Schalter in den Einstellungen, ungültiges Padding des Einstellungs-Panels (Schließen-Knopf unter der Statusleiste). **Teil B offen:** Inline-Styles entfernen, Emojis durch SVG-Icons ersetzen, harte Farben/Radien durch Tokens.
+
 **Problem:** B8; Tailwind, 488 Zeilen `theme.css`, scoped Styles und Inline-Styles nebeneinander.
 
 **Anforderungen**

@@ -15,7 +15,7 @@
     "lint": "eslint src",
     "typecheck": "vue-tsc --noEmit && vue-tsc --noEmit -p tsconfig.handicap.json",
     "validate:drills": "node ./scripts/validate-drills.mjs",
-    "a11y:axe": "node ./scripts/axe-check.mjs"
+    "a11y": "vitest run tests/a11y"
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^7.0.2",

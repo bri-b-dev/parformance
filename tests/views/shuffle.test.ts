@@ -174,6 +174,7 @@ describe('shuffle overlay', () => {
     await w.find('[role="dialog"]').trigger('keydown', { key: 'Escape' })
     expect(ui.shuffleOpen).toBe(false)
     w.unmount()
+    await flushPromises()
     expect(document.activeElement).toBe(opener)
   })
 

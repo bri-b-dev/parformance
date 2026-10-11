@@ -24,8 +24,14 @@
     /* dezenter Sekundärtext */
     --border: #E7ECEA;
     --shadow: 0 2px 10px rgba(0, 0, 0, .06);
-    --ring: rgba(47, 122, 82, .28);
-    /* Fokus-Ring aus primary */
+    /* Focus indicator: solid and >= 3:1 against bg and surface in both themes (WCAG 1.4.11) */
+    --focus: #01593d;
+    --ring: var(--focus);
+    /* Border of form controls: >= 3:1 (the plain --border is decorative only) */
+    --border-strong: #7b8680;
+    /* Level colors (text on --surface >= 4.5:1) */
+    --level-1-ink: #8a5a00;
+    --level-2-ink: #3d5360;
 
     --container-max: 920px;
     --container-pad: 16px;
@@ -45,8 +51,37 @@
     --cat-sweetspot: #d0dc8c;
     --cat-tempo: #dc8c8c;
     /* Danger (used for reset/danger zones) */
-    --danger: #dc2626; /* red-600 - stronger red */
-    --danger-600: #ef4444; /* red-500 - highlight */
+    --danger: #dc2626; /* red-600 - stronger red (fill, white text on it is 4.8:1) */
+    --danger-600: #ef4444; /* red-500 - highlight, NOT for text */
+    --danger-ink: #b91c1c; /* red-700 - error text on light surfaces (>= 4.5:1) */
+
+    /* Scales ---------------------------------------------------------------- */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 18px;
+    --radius-pill: 999px;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.8rem;
+    /* Layers: header < overlay < sheet < modal < alert < toast */
+    --z-header: 30;
+    --z-sticky: 25;
+    --z-overlay: 1100;
+    --z-sheet: 1150;
+    --z-modal: 1200;
+    --z-alert: 10000;
+    --z-toast: 10010;
+    /* Touch target */
+    --target-min: 44px;
 }
 
 :root[data-theme="dark"] {
@@ -65,10 +100,15 @@
     --muted: #B1C0B7;
     --border: #243229;
     --shadow: 0 2px 12px rgba(0, 0, 0, .35);
-    --ring: rgba(79, 191, 134, .35);
+    --focus: #4FBF86;
+    --ring: var(--focus);
+    --border-strong: #5f7a69;
+    --level-1-ink: #e6b450;
+    --level-2-ink: #b9cbd6;
     /* Danger tones tuned for dark surfaces */
     --danger: #dc2626; /* red-600 tuned for dark surfaces */
     --danger-600: #ff6b6b;
+    --danger-ink: #ff8a8a;
 }
 
 /* Global ------------------------------------------------------------------- */
@@ -94,6 +134,8 @@ body {
     margin: 0 auto;
     /* reduced horizontal padding to help center content on narrow viewports */
     padding: 8px;
+    padding-left: max(8px, env(safe-area-inset-left, 0px));
+    padding-right: max(8px, env(safe-area-inset-right, 0px));
 }
 
 .card {
@@ -135,18 +177,12 @@ body {
     background: color-mix(in oklab, var(--primary) 88%, #000);
 }
 
-.btn:focus,
-.btn-primary:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px var(--ring);
-}
-
-.btn:focus-visible,
-.btn-primary:focus-visible,
-a:focus-visible,
-.tab:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 4px var(--ring);
+/* Keyboard focus: a solid ring in the focus color. Mouse clicks do not show it (focus-visible). */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible,
+:where([role="radio"], [role="tab"], [role="switch"]):focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    box-shadow: none;
 }
 
 /* Inputs */
@@ -156,7 +192,7 @@ textarea {
     width: 100%;
     padding: 10px 12px;
     border-radius: 12px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     background: var(--surface);
     color: var(--text);
 }
@@ -164,9 +200,7 @@ textarea {
 .input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 4px var(--ring);
-    border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+    border-color: var(--focus);
 }
 
 .label {
@@ -330,6 +364,8 @@ textarea:focus-visible {
     background: color-mix(in oklab, var(--bg) 86%, transparent);
     box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
     padding-bottom: env(safe-area-inset-bottom, 12px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
     /* keep the tabs pinned to the viewport to avoid them being moved by inner scroll/overscroll */
     position: fixed;
     left: 0;
@@ -375,7 +411,10 @@ main {
     /* slightly reduced padding so pages feel more centered on narrow viewports */
     padding: 8px;
     padding-top: 8px;
-    padding-bottom: 88px;
+    /* room for the tab bar plus the home indicator */
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    padding-left: max(8px, env(safe-area-inset-left, 0px));
+    padding-right: max(8px, env(safe-area-inset-right, 0px));
     max-width: var(--container-max);
     margin: 0 auto;
     display: block

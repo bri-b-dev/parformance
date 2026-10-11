@@ -1,6 +1,5 @@
 <template>
-  <div class="overlay" data-testid="shuffle-overlay" @click.self="close">
-    <div ref="panel" class="card overlay-panel" role="dialog" aria-modal="true" aria-labelledby="shuffle-title" @keydown.esc.stop="close" @keydown.tab="trapTab">
+  <DialogShell ref="shell" variant="center" layer="overlay" labelledby="shuffle-title" backdrop-testid="shuffle-overlay" @close="close">
       <header class="shuffle-head">
         <h2 id="shuffle-title" class="shuffle-title">Zufalls-Drill</h2>
         <button type="button" class="btn shuffle-close" aria-label="Schließen" data-testid="shuffle-close" @click="close">✕</button>
@@ -71,11 +70,11 @@
           <button v-else type="button" class="btn" data-testid="shuffle-skip" @click="skip">Überspringen</button>
         </div>
       </div>
-    </div>
-  </div>
+  </DialogShell>
 </template>
 
 <script setup lang="ts">
+import DialogShell from '@/components/DialogShell.vue'
 import Reel from '@/components/Reel.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'
 import { LOCATION_GROUPS, locationGroup } from '@/filters/location'
@@ -92,7 +91,7 @@ import { withPreservedQuery } from '@/router'
 import { drillMinutes } from '@/today/suggest'
 import type { Drill } from '@/types'
 import { Haptics, ImpactStyle } from '@capacitor/haptics'
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const SPIN_MS = 1000
@@ -112,7 +111,8 @@ const router = useRouter()
 const route = useRoute()
 const { hcp: currentHcp } = useCurrentHcp()
 
-const panel = ref<HTMLElement | null>(null)
+const shell = ref<InstanceType<typeof DialogShell> | null>(null)
+const panel = computed(() => (shell.value?.panel as HTMLElement | null) ?? null)
 const reel = ref<InstanceType<typeof Reel> | null>(null)
 
 // filters start from the list's active filter, but changes here stay inside the overlay
@@ -129,11 +129,7 @@ const announce = ref('')
 /** Picks of this overlay session, newest last (avoid repeating them). */
 const picks = ref<string[]>([])
 
-// focus handling: remember what opened the overlay and give focus back on close
-let opener: HTMLElement | null = null
-
 onMounted(async () => {
-  opener = document.activeElement instanceof HTMLElement ? document.activeElement : null
   await Promise.all([
     catalog.loaded ? null : catalog.load(),
     favorites.loaded ? null : favorites.load(),
@@ -143,10 +139,6 @@ onMounted(async () => {
   biasFavorites.value = settings.shuffleFavorites && favorites.list.length > 0
   await nextTick()
   focusFirst()
-})
-
-onUnmounted(() => {
-  if (opener?.isConnected) opener.focus()
 })
 
 const categories = computed(() => Array.from(new Set(catalog.drills.map(d => d.category))).sort((a, b) => a.localeCompare(b, 'de')))
@@ -238,48 +230,13 @@ function close() {
   ui.setShuffle(false)
 }
 
-function focusables(): HTMLElement[] {
-  return Array.from(panel.value?.querySelectorAll<HTMLElement>('button, input, select, [href]') ?? []).filter(el => !(el as HTMLButtonElement).disabled)
-}
-
 function focusFirst() {
-  const spinBtn = panel.value?.querySelector<HTMLElement>('[data-testid="shuffle-spin"]')
-  ;(spinBtn ?? focusables()[0])?.focus()
-}
-
-/** Keep Tab inside the dialog. */
-function trapTab(e: KeyboardEvent) {
-  const items = focusables()
-  if (items.length === 0) return
-  const first = items[0]
-  const last = items[items.length - 1]
-  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
-  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+  // the spin button is the main action; before the catalog has loaded the shell has focused the first control
+  panel.value?.querySelector<HTMLElement>('[data-testid="shuffle-spin"]')?.focus()
 }
 </script>
 
 <style scoped>
-.overlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: 1100;
-  padding: 16px;
-}
-
-.overlay-panel {
-  width: min(560px, 100%);
-  max-height: 92vh;
-  overflow: auto;
-  border-radius: 16px;
-  padding: 16px;
-  background: var(--surface, #fff);
-  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.22);
-}
-
 .shuffle-head {
   display: flex;
   align-items: center;

@@ -1,6 +1,5 @@
 <template>
-  <div class="sheet-backdrop" data-testid="result-sheet-backdrop" @click.self="finish('done')">
-    <div ref="panel" class="card sheet" role="dialog" aria-modal="true" aria-labelledby="result-sheet-title" @keydown.esc.stop="finish('done')" @keydown.tab="trapTab">
+  <DialogShell variant="bottom" layer="sheet" labelledby="result-sheet-title" initial-focus='[data-testid="result-again"]' backdrop-testid="result-sheet-backdrop" class="sheet" @close="finish('done')">
       <div v-if="confetti" class="confetti" aria-hidden="true" data-testid="confetti">
         <span v-for="p in pieces" :key="p.i" class="confetti-piece" :style="p.style"></span>
       </div>
@@ -31,14 +30,14 @@
         <button type="button" class="btn" data-testid="result-next-drill" @click="finish('next')">{{ nextLabel }}</button>
         <button type="button" class="btn" data-testid="result-done" @click="finish('done')">Fertig</button>
       </div>
-    </div>
-  </div>
+  </DialogShell>
 </template>
 
 <script setup lang="ts">
+import DialogShell from '@/components/DialogShell.vue'
 import LevelStars from '@/components/LevelStars.vue'
 import { fmtNumber, type ResultSummary } from '@/session/summary'
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = withDefaults(defineProps<{
   summary: ResultSummary
@@ -49,7 +48,6 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<(e: 'again' | 'next' | 'done', note: string) => void>()
 
-const panel = ref<HTMLElement | null>(null)
 const note = ref('')
 
 function reducedMotion(): boolean {
@@ -74,50 +72,17 @@ function finish(kind: 'again' | 'next' | 'done') {
   emit(kind, note.value)
 }
 
-function focusables(): HTMLElement[] {
-  return Array.from(panel.value?.querySelectorAll<HTMLElement>('button, textarea') ?? []).filter(el => !(el as HTMLButtonElement).disabled)
-}
-
-function trapTab(e: KeyboardEvent) {
-  const items = focusables()
-  if (items.length === 0) return
-  const first = items[0]
-  const last = items[items.length - 1]
-  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
-  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
-}
-
 const signed = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${fmtNumber(Math.abs(n))}`
 
-onMounted(async () => {
-  await nextTick()
-  panel.value?.querySelector<HTMLElement>('[data-testid="result-again"]')?.focus()
-})
 </script>
 
 <style scoped>
-.sheet-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1160;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.55);
-}
-
 .sheet {
   position: relative;
-  overflow: hidden;
-  width: min(520px, 100%);
-  max-height: 92vh;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 20px 18px calc(18px + env(safe-area-inset-bottom, 0px));
-  border-radius: 18px 18px 0 0;
-  margin: 0;
+  overflow: hidden;
 }
 
 .sheet-title {

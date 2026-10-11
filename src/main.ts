@@ -2,6 +2,7 @@ import {createApp} from 'vue';
 import {createPinia} from 'pinia';
 import {useUiStore} from '@/stores/ui';
 import App from './App.vue';
+import {i18n} from './i18n';
 import router, {withPreservedQuery} from './router';
 import '@/assets/tailwind.css';
 import '@/assets/theme.css'
@@ -39,14 +40,7 @@ const pinia = createPinia();
 app.use(pinia);
 app.use(router);
 
-// vue-i18n is only needed by the handicap module: install it lazily on first visit so it stays out of the start bundle.
-let i18nInstalled = false
-router.beforeEach(async (to) => {
-  if (i18nInstalled || !to.path.startsWith('/handicap')) return
-  const {i18n} = await import('./i18n')
-  app.use(i18n)
-  i18nInstalled = true
-})
+app.use(i18n);
 
 // Initialize native UI tweaks, then mount app. Don't await in module top-level blocking UI,
 // but call and continue; mounting immediately is fine — the StatusBar call will adjust

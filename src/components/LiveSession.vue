@@ -36,8 +36,8 @@
     <section class="live-flow">
       <button type="button" class="btn" :aria-expanded="showFlow" aria-controls="live-flow-text" data-testid="live-flow-toggle" @click="showFlow = !showFlow">{{ showFlow ? 'Ablauf verbergen' : 'Ablauf anzeigen' }}</button>
       <div v-if="showFlow" id="live-flow-text" class="live-flow-text" data-testid="live-flow">
-        <p v-if="drill.instructions.training">{{ drill.instructions.training }}</p>
-        <p v-if="drill.instructions.test" class="muted">{{ drill.instructions.test }}</p>
+        <p v-if="drill.instructions.training">{{ u(drill.instructions.training) }}</p>
+        <p v-if="drill.instructions.test" class="muted">{{ u(drill.instructions.test) }}</p>
       </div>
     </section>
 
@@ -48,12 +48,15 @@
 </template>
 
 <script setup lang="ts">
+import { useUnits } from '@/units/useUnits'
 import DialogShell from '@/components/DialogShell.vue'
 import MetricValueInput from '@/components/MetricValueInput.vue'
 import { useTimer } from '@/composables/useTimer'
 import { useWakeLock } from '@/composables/useWakeLock'
 import type { Drill } from '@/types'
 import { computed, onMounted, ref, watch } from 'vue'
+
+const { u } = useUnits()
 
 const props = defineProps<{ drill: Drill; value: number | null; attempts: number }>()
 const emit = defineEmits<{

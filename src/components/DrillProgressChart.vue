@@ -35,6 +35,7 @@ import { isSmallerBetter } from '@/session/summary'
 import { useSessionsStore } from '@/stores/sessions'
 import type { Drill } from '@/types'
 import { computed, onMounted, ref } from 'vue'
+import { currentIntlTag } from '@/utils/locale'
 
 const props = defineProps<{ drill: Drill }>()
 
@@ -68,7 +69,7 @@ const model = computed(() => buildSeries({ sessions: list.value, thresholds: thr
 const px = (x: number) => PAD_L + x * (W - PAD_L - PAD_R)
 const py = (y: number) => H - PAD_B - y * (H - PAD_T - PAD_B)
 const polyline = computed(() => (model.value?.points ?? []).map(p => `${px(p.x)},${py(p.y)}`).join(' '))
-const dotTitle = (p: ChartPoint) => `${new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium' }).format(new Date(p.date))}: ${p.value}`
+const dotTitle = (p: ChartPoint) => `${new Intl.DateTimeFormat(currentIntlTag(), { dateStyle: 'medium' }).format(new Date(p.date))}: ${p.value}`
 </script>
 
 <style scoped>

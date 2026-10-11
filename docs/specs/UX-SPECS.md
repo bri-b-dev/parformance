@@ -195,6 +195,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-11 · Internationalisierung & Einheiten — P2 · M
 
+> **Teilweise umgesetzt (Grundlage).** `vue-i18n` ist app-weit und eager installiert; `settings.language` wirkt ohne Neustart (Messages `src/locales/{de,en}.ts` unter `app.*`, `<html lang>` folgt). Übersetzt sind Navigation, Kopfzeile und Einstellungen; Datumsangaben nutzen `Intl` mit der gewählten Sprache. Einheiten: `settings.units = imperial` rechnet Meter/km/h in Drill-Texten (Anleitung, Test, Varianten, Karten, Live-Ansicht) nach yd/mph um (`src/units/convert.ts`; die Drills bleiben metrisch im JSON, da Distanzen dort Freitext sind). **Offen:** restliche Screens/Dialoge, `validation.ts`, Drill-Inhalte (bleiben Deutsch), Lint-Regel gegen hartkodierte Texte, strukturierte Distanzfelder. Preis: Start-Chunk 151 → 250 KB.
+
 **Anforderungen**
 - `vue-i18n` mit `de`/`en`; Texte aus Templates und `validation.ts` in Message-Dateien; `settings.language` wirksam.
 - Einheiten metrisch/imperial: Distanzen in Drill-Texten werden aus strukturierten Feldern gerendert (heute Freitext im JSON).

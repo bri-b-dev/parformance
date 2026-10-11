@@ -1,5 +1,7 @@
 import { setActivePinia, createPinia } from 'pinia'
+import { config } from '@vue/test-utils'
 import { afterEach, beforeEach, vi } from 'vitest'
+import { i18n } from '@/i18n'
 import { cancelAllPendingWrites } from '@/utils/persistAdapter'
 
 // Newer Node versions ship an experimental global `localStorage` that shadows jsdom's and is
@@ -27,3 +29,6 @@ beforeEach(() => {
 
 // debounced store writes still waiting when a test ends must not land in the next test's storage
 afterEach(() => cancelAllPendingWrites())
+
+// components use $t(): every mount gets the app's i18n (German by default)
+config.global.plugins = [i18n]

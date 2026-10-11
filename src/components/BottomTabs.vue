@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-tabs">
-    <nav aria-label="Hauptnavigation">
+    <nav :aria-label="$t('app.nav.main')">
       <RouterLink class="tab" :class="{ active: isActive('/today') || isActive('/run') }" :aria-current="isActive('/today') || isActive('/run') ? 'page' : undefined"
         :to="{ name: 'Today' }" @click="triggerHaptic">
         <span class="icon" aria-hidden="true">
@@ -9,7 +9,7 @@
             <path d="M4 10h16M9 3v4M15 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
           </svg>
         </span>
-        <span>Heute</span>
+        <span>{{ $t('app.nav.today') }}</span>
       </RouterLink>
 
       <RouterLink class="tab" :class="{ active: isActive('/drills') || isActive('/drill') || isActive('/collections') }" :aria-current="isActive('/drills') || isActive('/drill') || isActive('/collections') ? 'page' : undefined"
@@ -20,11 +20,11 @@
               stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </span>
-        <span>Drills</span>
+        <span>{{ $t('app.nav.drills') }}</span>
       </RouterLink>
 
       <!-- Primary action: random drill. Kept in the middle of the bar instead of floating over the content. -->
-      <button type="button" class="tab-fab" aria-label="Zufalls-Drill" @click="openShuffle">
+      <button type="button" class="tab-fab" :aria-label="$t('app.nav.shuffle')" @click="openShuffle">
         <svg width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
           <rect x="5.5" y="3" width="9" height="3" rx="1.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           <rect x="3" y="6" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
@@ -44,7 +44,7 @@
             <path d="M8.5 8h7M8.5 12h7M8.5 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
           </svg>
         </span>
-        <span>Handicap</span>
+        <span>{{ $t('app.nav.handicap') }}</span>
       </RouterLink>
 
       <RouterLink class="tab" :class="{ active: isActive('/progress') }" :aria-current="isActive('/progress') ? 'page' : undefined"
@@ -55,7 +55,7 @@
             <path d="M8 15l3.5-4 3 2.5L19 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </span>
-        <span>Fortschritt</span>
+        <span>{{ $t('app.nav.progress') }}</span>
       </RouterLink>
     </nav>
   </div>

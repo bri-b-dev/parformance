@@ -1,8 +1,8 @@
 <template>
   <DialogShell v-if="open" variant="side" layer="sheet" labelledby="settings-title" backdrop-testid="settings-backdrop" class="settings-sheet-panel" @close="$emit('close')">
     <div class="flex items-center justify-between mb-2">
-      <h2 id="settings-title" class="text-lg font-semibold">Einstellungen</h2>
-      <button class="btn" type="button" @click="$emit('close')">Schließen</button>
+      <h2 id="settings-title" class="text-lg font-semibold">{{ $t('app.settings.title') }}</h2>
+      <button class="btn" type="button" @click="$emit('close')">{{ $t('app.settings.close') }}</button>
     </div>
     <SettingsForm v-model="formModel" :derived-hcp="derivedHcp" @save="saveAndClose" @cancel="$emit('close')" @replay-onboarding="replayOnboarding" @data-changed="syncFromStore" />
   </DialogShell>

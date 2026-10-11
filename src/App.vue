@@ -33,6 +33,7 @@ import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import HeaderBar from './components/HeaderBar.vue'
 import { useSettingsStore } from '@/stores/settings';
+import { useI18n } from 'vue-i18n';
 import Toasts from './components/Toasts.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
 
@@ -44,6 +45,12 @@ const rounds = useRoundsStore()
 function openShuffle() { ui.setShuffle(true) }
 
 const settings = useSettingsStore()
+// the language switches without restart: vue-i18n and <html lang> follow the setting
+const { locale } = useI18n()
+watch(() => settings.language, (lang) => {
+  locale.value = lang
+  document.documentElement.lang = lang
+}, { immediate: true })
 const route = useRoute()
 // the overlay belongs to a screen: leaving the screen (e.g. browser back) closes it
 watch(() => route.fullPath, () => ui.setShuffle(false))

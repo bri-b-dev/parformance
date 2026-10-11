@@ -7,14 +7,14 @@
                     <BrandMark class="header-mark" />
                     <div class="brand-text">
                         <span>ParFormance</span>
-                        <small class="tagline">Train smarter - play better</small>
+                        <small class="tagline">{{ $t('app.header.tagline') }}</small>
                     </div>
                 </div>
 
             </div>
             <div class="header-actions">
                 <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" type="button"
-                    aria-label="Einstellungen" @click="$emit('open-settings')">
+                    :aria-label="$t('app.header.settings')" @click="$emit('open-settings')">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" />
                         <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5h0a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />

@@ -1,4 +1,5 @@
 import type { Drill, Session } from '@/types'
+import { currentIntlTag } from '@/utils/locale'
 
 export interface HistoryEntry {
   session: Session
@@ -110,5 +111,5 @@ export function formatDayLabel(key: string, now: Date = new Date()): string {
   const y = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1)
   if (key === localDayKey(y)) return 'Gestern'
   const [yy, mm, dd] = key.split('-').map(Number)
-  return new Intl.DateTimeFormat('de-DE', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(yy, mm - 1, dd))
+  return new Intl.DateTimeFormat(currentIntlTag(), { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(yy, mm - 1, dd))
 }

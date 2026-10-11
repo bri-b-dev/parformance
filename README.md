@@ -41,7 +41,7 @@ It combines structured drills, lightweight analytics, and an intuitive UX that h
 Built with **Vue 3**, **Tailwind**, and **Capacitor**, ParFormance runs seamlessly on web, Android, and iOS.
 
 ## Features
-- **Drill Catalog** — categorized by *Putting, Chipping, Pitching, Range, Course, Tempo, and more*, complete with **tag & category filtering**
+- **Drill Catalog** — grouped by category with search (umlaut tolerant), a filter sheet (category, place, duration, difficulty, tags, favorites, never played, below target), removable filter chips and a shareable filter URL
 - **Smart Shuffle** — random drill from a filterable pool (category, place, duration), one reel with skip, a result card with duration, difficulty and your target, **favorites bias** as a switch, and recently played drills are avoided
 - **Drill Details** — clear setup, step-by-step flow, and measurable targets  
 - **Favorites & History** — quick access to starred drills and past sessions  

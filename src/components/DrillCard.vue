@@ -1,49 +1,92 @@
 <template>
-  <article class="drill-card card" style="flex:1 1 280px;">
-    <header style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-      <RouterLink :to="preserve({ name: 'DrillDetail', params: { id: drill.id } })"
-        style="font-weight:700; text-decoration:none; color:inherit">
-        {{ drill.title }}
-      </RouterLink>
-      <span class="card-meta">
+  <article class="drill-card card">
+    <RouterLink :to="detailLink" class="card-thumb" tabindex="-1" aria-hidden="true">
+      <DrillThumb :drill="drill" />
+    </RouterLink>
+    <div class="card-body">
+      <header class="card-head">
+        <RouterLink :to="detailLink" class="card-title">{{ drill.title }}</RouterLink>
         <LevelBadge :drill="drill" compact />
-        <small class="chip" :aria-label="`Schwierigkeit ${difficulty} von 5`" :title="`Schwierigkeit ${difficulty} von 5`">{{ '●'.repeat(difficulty) }}{{ '○'.repeat(5 - difficulty) }}</small>
-      </span>
-    </header>
-    <p style="color:var(--muted); margin:.25rem 0 0" class="category">{{ drill.category }}</p>
-  <p v-if="drill.summary ?? drill.instructions?.training" style="margin:.5rem 0 0">{{ drill.summary ?? drill.instructions.training }}</p>
-    <div v-if="drill.tags?.length" class="chips" style="margin-top:8px;">
-      <span v-for="t in drill.tags" :key="t" class="chip">{{ t }}</span>
+      </header>
+      <div class="card-meta">
+        <span class="chip" data-testid="card-minutes">{{ minutes }} Min.</span>
+        <span class="chip" :aria-label="`Schwierigkeit ${difficulty} von 5`" :title="`Schwierigkeit ${difficulty} von 5`">{{ '●'.repeat(difficulty) }}{{ '○'.repeat(5 - difficulty) }}</span>
+      </div>
+      <p v-if="drill.summary ?? drill.instructions?.training" class="card-summary">{{ drill.summary ?? drill.instructions.training }}</p>
+      <div v-if="drill.tags?.length" class="chips">
+        <span v-for="t in drill.tags" :key="t" class="chip">{{ t }}</span>
+      </div>
     </div>
-    <footer style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
-      <RouterLink :to="preserve({ name: 'DrillDetail', params: { id: drill.id } })" class="btn" aria-label="Details">Details
-      </RouterLink>
-    </footer>
   </article>
 </template>
 
 <script setup lang="ts">
-import LevelBadge from '@/components/LevelBadge.vue';
-import type { Drill } from '@/types';
-import { computed } from 'vue';
-import { useRoute } from 'vue-router'
+import DrillThumb from '@/components/DrillThumb.vue'
+import LevelBadge from '@/components/LevelBadge.vue'
+import { difficultyOf } from '@/filters/catalog'
 import { withPreservedQuery } from '@/router'
+import { drillMinutes } from '@/today/suggest'
+import type { Drill } from '@/types'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 const props = defineProps<{ drill: Drill }>()
 const route = useRoute()
-const preserve = (to: any) => withPreservedQuery(to, route)
 
+const detailLink = computed(() => withPreservedQuery({ name: 'DrillDetail', params: { id: props.drill.id } }, route))
+const minutes = computed(() => drillMinutes(props.drill))
 // difficulty (dots) is a property of the drill; the level (stars) is the player's result
-const difficulty = computed(() => Math.min(5, Math.max(1, Math.round(props.drill.difficulty?.base ?? 3))))
-
+const difficulty = computed(() => difficultyOf(props.drill))
 </script>
 
 <style scoped>
-.card-meta {
-  display: inline-flex;
-  align-items: center;
+.drill-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex: 1 1 320px;
+  margin: 0;
+}
+
+.card-thumb {
+  flex: none;
+  display: block;
+}
+
+.card-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   gap: 6px;
+  flex: 1;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-title {
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+  /* the whole card is reachable through the title link */
+}
+
+.card-meta {
+  display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  gap: 6px;
+}
+
+.card-summary {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

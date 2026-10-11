@@ -161,6 +161,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-09 · Katalog: Suche & Filter — P1 · S
 
+> **Umgesetzt.** `DrillList.vue`: Suchfeld und „Filter"-Knopf bleiben oben stehen; Filter im Bottom-Sheet (`FilterSheet.vue`: Kategorie, Ort, Dauer, Schwierigkeit, Tags (die 12 häufigsten, alle auf Abruf), Favoriten, noch nie gespielt, unter Ziel); aktive Filter als entfernbare Chips mit „Alle zurücksetzen" und einer Treffer-Anzeige. Der Filter steckt in der URL (`?q=&cat=&tag=&dur=&diff=&place=&fav=1&new=1&low=1`, ersetzt statt anzuhängen), Zurück aus dem Drill stellt Filter und **Scrollposition** wieder her. Die Suche findet Titel, Tags, Beschreibung und Kategorie, mehrere Wörter müssen alle passen, „fuer", „für" und „fur" finden dasselbe. Karten mit Diagramm-Vorschau (lazy, inline wegen der Theme-Farben), Dauer, Schwierigkeit und Level; Gruppen nach Kategorie mit klebenden Überschriften. „Keine Treffer" bietet „Filter zurücksetzen". Dabei behoben: `<main>` war ein Overflow-Container, wodurch **keine** Sticky-Leiste (auch nicht der Drill-Kopf aus UX-06) am Fenster klebte.
+
 **Problem:** B6.
 
 **Anforderungen**

@@ -3,7 +3,7 @@
     <h1 id="coll-title" class="text-xl font-semibold">Drills</h1>
     <DrillsTabs />
 
-    <output v-if="!ready" class="p-4 flex items-center" aria-live="polite" :style="{ color: 'var(--muted)' }">Lädt…</output>
+    <output v-if="!ready" class="p-4 flex items-center muted" aria-live="polite">Lädt…</output>
 
     <template v-else>
       <!-- Editor -->
@@ -16,7 +16,7 @@
         <fieldset class="coll-icons">
           <legend class="label">Symbol (optional)</legend>
           <button v-for="i in ICONS" :key="i" type="button" class="coll-icon" :class="{ active: form.icon === i }" :aria-pressed="form.icon === i"
-            :aria-label="`Symbol ${i}`" @click="form.icon = form.icon === i ? '' : i">{{ i }}</button>
+            :aria-label="`Symbol ${ICON_LABELS[i]}`" :title="ICON_LABELS[i]" @click="form.icon = form.icon === i ? '' : i"><AppIcon :name="i" size="1.3rem" /></button>
         </fieldset>
 
         <div v-if="selected.length" data-testid="collection-selected">
@@ -67,7 +67,7 @@
       <ul v-if="collections.items.length" class="coll-list">
         <li v-for="c in collections.items" :key="c.id" class="card coll-card" data-testid="collection-item">
           <div class="coll-head">
-            <h2 class="coll-h"><span v-if="c.icon" aria-hidden="true">{{ c.icon }} </span>{{ c.name }}</h2>
+            <h2 class="coll-h"><CollectionIcon :icon="c.icon" /> {{ c.name }}</h2>
             <span class="chip">{{ known(c).length }} Drills - {{ minutesOf(c) }} Min.</span>
           </div>
           <p v-if="known(c).length < c.drillIds.length" class="muted">{{ c.drillIds.length - known(c).length }} Drill(s) gibt es nicht mehr im Katalog.</p>
@@ -90,13 +90,16 @@
 <script setup lang="ts">
 import DrillsTabs from '@/components/DrillsTabs.vue'
 import { useStartRun } from '@/composables/useStartRun'
-import { COLLECTION_ICONS, useCollectionsStore, type Collection } from '@/stores/collections'
+import AppIcon from '@/components/AppIcon.vue'
+import CollectionIcon from '@/components/CollectionIcon.vue'
+import { COLLECTION_ICON_NAMES, ICON_LABELS } from '@/components/icons'
+import { useCollectionsStore, type Collection } from '@/stores/collections'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 import { drillMinutes } from '@/today/suggest'
 import { requestConfirm } from '@/utils/confirmService'
 import { computed, onMounted, reactive, ref } from 'vue'
 
-const ICONS = COLLECTION_ICONS
+const ICONS = COLLECTION_ICON_NAMES
 const catalog = useDrillCatalogStore()
 const collections = useCollectionsStore()
 const startRun = useStartRun()
@@ -226,7 +229,7 @@ function start(c: Collection) {
 .coll-icon {
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--surface);
   font-size: 1.2rem;

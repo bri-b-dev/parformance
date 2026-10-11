@@ -54,6 +54,7 @@
     --danger: #dc2626; /* red-600 - stronger red (fill, white text on it is 4.8:1) */
     --danger-600: #ef4444; /* red-500 - highlight, NOT for text */
     --danger-ink: #b91c1c; /* red-700 - error text on light surfaces (>= 4.5:1) */
+    --on-danger: #ffffff; /* text on the danger fill */
 
     /* Scales ---------------------------------------------------------------- */
     --space-1: 4px;
@@ -66,6 +67,7 @@
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-xl: 18px;
+    --radius-card: 14px;
     --radius-pill: 999px;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
@@ -141,7 +143,7 @@ body {
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: var(--radius-card);
     box-shadow: var(--shadow);
     padding: 14px;
 }
@@ -153,7 +155,7 @@ body {
     background: var(--surface);
     color: var(--text);
     padding: 10px 14px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     transition: transform .04s ease, background-color .12s ease, border-color .12s ease;
 }
@@ -191,7 +193,7 @@ select,
 textarea {
     width: 100%;
     padding: 10px 12px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     border: 1px solid var(--border-strong);
     background: var(--surface);
     color: var(--text);
@@ -224,7 +226,7 @@ textarea:focus-visible {
 .drill-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: var(--radius-card);
     box-shadow: var(--shadow);
     padding: 14px;
     margin: 12px 0;
@@ -250,7 +252,7 @@ textarea:focus-visible {
 .detail-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
     padding: 16px;
     margin: 16px 0;
@@ -271,7 +273,7 @@ textarea:focus-visible {
 .section {
     background: color-mix(in oklab, var(--bg) 75%, var(--surface));
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 12px;
 }
 
@@ -284,7 +286,7 @@ textarea:focus-visible {
 .equipment-icons span {
     background: color-mix(in oklab, var(--bg) 70%, var(--surface));
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 4px 8px;
     margin-right: 6px;
     font-size: 0.85rem;
@@ -304,6 +306,77 @@ textarea:focus-visible {
     border: 0;
 }
 
+/* Shared building blocks (instead of repeating inline styles) -------------- */
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: 6px;
+}
+
+.section-title {
+    margin: 0;
+    font-weight: 700;
+}
+
+.mt-card {
+    margin-top: 10px;
+}
+
+.row-center {
+    align-items: center;
+}
+
+.row-between {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.row-end {
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+.flush {
+    margin: 0;
+}
+
+.pre-wrap {
+    white-space: pre-wrap;
+}
+
+/* Loading spinner (replaces the Tailwind gray/blue border utilities) */
+.spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-right: var(--space-2);
+    border: 2px solid var(--border-strong);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spinner {
+        animation-duration: 3s;
+    }
+}
+
+/* Destructive action */
+.btn-danger {
+    background: var(--danger);
+    color: var(--on-danger);
+    border-color: transparent;
+}
+
 /* Chips/Badges */
 .chips {
     display: flex;
@@ -315,7 +388,7 @@ textarea:focus-visible {
     background: color-mix(in oklab, var(--bg) 70%, var(--surface));
     border: 1px solid var(--border);
     padding: 4px 8px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 12px;
     color: var(--muted);
 }
@@ -394,7 +467,7 @@ textarea:focus-visible {
     color: var(--muted);
     font-size: 12px;
     padding: 6px 10px;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     transition: background-color .12s ease, color .12s ease;
 }
 
@@ -475,7 +548,7 @@ html, body {
     justify-content: space-between;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 10px 12px;
 }
 
@@ -488,7 +561,7 @@ html, body {
     position: relative;
     height: 8px;
     background: color-mix(in oklab, var(--bg) 60%, var(--surface));
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
 }
 

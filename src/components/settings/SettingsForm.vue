@@ -58,21 +58,21 @@
             <option value="dark">Dunkel</option>
           </select>
         </div>
-        <label class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2 switch-row">
+        <label class="flex items-center justify-between px-3 py-2 switch-row">
           <span>
             <span class="block text-sm font-medium">Soundeffekte</span>
             <span class="block text-xs text-app-sub">z. B. Slot-Machine</span>
           </span>
           <input v-model="local.sounds" type="checkbox" role="switch" class="w-5 h-5" />
         </label>
-        <label class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2 switch-row">
+        <label class="flex items-center justify-between px-3 py-2 switch-row">
           <span>
             <span class="block text-sm font-medium">Favoriten bevorzugen</span>
             <span class="block text-xs text-app-sub">Shuffle zuerst aus Favoriten</span>
           </span>
           <input v-model="local.shuffleFavorites" type="checkbox" role="switch" class="w-5 h-5" />
         </label>
-        <label class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2 switch-row">
+        <label class="flex items-center justify-between px-3 py-2 switch-row">
           <span>
             <span class="block text-sm font-medium">Benachrichtigungen</span>
             <span class="block text-xs text-app-sub">z. B. Trainings-Reminder</span>
@@ -93,11 +93,11 @@
           Daten importieren
         </label>
       </div>
-      <div class="mt-4 p-3 rounded-xl border danger-zone bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800/50">
-        <div class="text-sm font-medium mb-2 text-red-900 dark:text-red-200">Zurücksetzen</div>
+      <div class="mt-4 p-3 danger-zone">
+        <div class="text-sm font-medium mb-2 danger-title">Zurücksetzen</div>
         <div class="flex items-center justify-between">
-          <p class="text-sm text-red-700 dark:text-red-400">Alle lokalen Daten löschen (Sessions, Sammlungen, Favoriten, Einstellungen)</p>
-          <button class="btn bg-red-600 text-white dark:bg-red-700 border-transparent text-sm" type="button" @click="confirmReset">Reset</button>
+          <p class="text-sm danger-text">Alle lokalen Daten löschen (Sessions, Sammlungen, Favoriten, Einstellungen)</p>
+          <button class="btn btn-danger text-sm" type="button" data-testid="reset-all" @click="confirmReset">Reset</button>
         </div>
       </div>
     </section>
@@ -170,3 +170,22 @@ function confirmReset(){
   emit('reset')
 }
 </script>
+
+<style scoped>
+.switch-row {
+  background: color-mix(in oklab, var(--bg) 70%, var(--surface));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.danger-zone {
+  background: color-mix(in oklab, var(--danger) 8%, var(--surface));
+  border: 1px solid color-mix(in oklab, var(--danger) 35%, var(--border));
+  border-radius: var(--radius-lg);
+}
+
+.danger-title,
+.danger-text {
+  color: var(--danger-ink);
+}
+</style>

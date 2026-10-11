@@ -138,7 +138,7 @@ const status = computed(() => {
   display: inline-flex;
   gap: 4px;
   padding: 3px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   background: var(--surface);
 }
@@ -147,7 +147,7 @@ const status = computed(() => {
   padding: 6px 12px;
   min-height: 36px;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--muted);
   font-size: 0.9rem;
@@ -174,14 +174,14 @@ const status = computed(() => {
 .ts-track {
   position: relative;
   height: 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--border);
 }
 
 .ts-fill {
   position: absolute;
   inset: 0 auto 0 0;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: color-mix(in oklab, var(--primary) 70%, transparent);
 }
 

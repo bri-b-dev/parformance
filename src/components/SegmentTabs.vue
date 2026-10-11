@@ -18,7 +18,7 @@ const route = useRoute()
   display: inline-flex;
   gap: 4px;
   padding: 3px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   background: var(--surface);
   margin: 6px 0 10px;
@@ -26,7 +26,7 @@ const route = useRoute()
 
 .segment-tab {
   padding: 6px 16px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   color: var(--muted);
   text-decoration: none;
   font-size: 0.95rem;

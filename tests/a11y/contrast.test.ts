@@ -54,8 +54,8 @@ describe.each([['light', light], ['dark', dark]] as const)('%s theme tokens', (_
     expect(contrast(t[fg], t[bg])).toBeGreaterThanOrEqual(min)
   })
 
-  it('white text on the danger fill (reset button) is readable', () => {
-    expect(contrast('#ffffff', t.danger)).toBeGreaterThanOrEqual(4.5)
+  it('text on the danger fill (reset button) is readable', () => {
+    expect(contrast(t['on-danger'], t.danger)).toBeGreaterThanOrEqual(4.5)
   })
 })
 

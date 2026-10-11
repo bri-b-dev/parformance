@@ -160,7 +160,7 @@ onMounted(() => {
 .live-bar {
   width: 100%;
   height: 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--border);
   overflow: hidden;
 }

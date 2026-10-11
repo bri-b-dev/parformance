@@ -163,7 +163,7 @@ function inMonths(n: number): string {
 .onb-dots span {
   height: 4px;
   flex: 1;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--border);
 }
 

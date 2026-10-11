@@ -53,14 +53,14 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  z-index: 9999;
+  z-index: var(--z-toast);
 }
 .toast {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   color: white;
   font-weight: 600;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -68,7 +68,7 @@ onBeforeUnmount(() => {
 .toast-action {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   color: inherit;
   font-weight: 700;
   padding: 2px 10px;

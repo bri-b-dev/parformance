@@ -1,5 +1,5 @@
 <template>
-  <div ref="dialog" class="live" role="dialog" aria-modal="true" aria-labelledby="live-title" data-testid="live" @keydown.esc.stop="emit('cancel')" @keydown.tab="trapTab">
+  <DialogShell variant="full" layer="sheet" labelledby="live-title" initial-focus=".metric-input" class="live" data-testid="live" @close="emit('cancel')">
     <header class="live-head">
       <h2 id="live-title" class="live-title">{{ drill.title }}</h2>
       <button type="button" class="btn" data-testid="live-cancel" @click="emit('cancel')">Abbrechen</button>
@@ -44,15 +44,16 @@
     <footer class="live-foot">
       <button type="button" class="btn btn-primary live-save" :disabled="!canSave" data-testid="live-save" @click="emit('save')">Speichern</button>
     </footer>
-  </div>
+  </DialogShell>
 </template>
 
 <script setup lang="ts">
+import DialogShell from '@/components/DialogShell.vue'
 import MetricValueInput from '@/components/MetricValueInput.vue'
 import { useTimer } from '@/composables/useTimer'
 import { useWakeLock } from '@/composables/useWakeLock'
 import type { Drill } from '@/types'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{ drill: Drill; value: number | null; attempts: number }>()
 const emit = defineEmits<{
@@ -63,7 +64,6 @@ const emit = defineEmits<{
   (e: 'cancel'): void
 }>()
 
-const dialog = ref<HTMLElement | null>(null)
 const showFlow = ref(false)
 
 // the screen stays on while this view is open
@@ -110,38 +110,16 @@ function step(delta: 1 | -1) {
 
 const canSave = computed(() => props.value !== null && Number.isFinite(props.value))
 
-function focusables(): HTMLElement[] {
-  return Array.from(dialog.value?.querySelectorAll<HTMLElement>('button, input, [href]') ?? []).filter(el => !(el as HTMLButtonElement).disabled)
-}
-
-function trapTab(e: KeyboardEvent) {
-  const items = focusables()
-  if (items.length === 0) return
-  const first = items[0]
-  const last = items[items.length - 1]
-  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
-  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
-}
-
-onMounted(async () => {
+onMounted(() => {
   if (preset.value > 0) start()
-  await nextTick()
-  dialog.value?.querySelector<HTMLInputElement>('.metric-input')?.focus()
 })
 </script>
 
 <style scoped>
 .live {
-  position: fixed;
-  inset: 0;
-  z-index: 1150;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px calc(16px + env(safe-area-inset-bottom, 0px));
-  background: var(--bg);
-  color: var(--text);
-  overflow-y: auto;
 }
 
 .live-head {
@@ -172,7 +150,7 @@ onMounted(async () => {
 }
 
 .live-clock.over {
-  color: var(--danger-600, #ef4444);
+  color: var(--danger-ink);
 }
 
 .live-preset {
@@ -193,7 +171,7 @@ onMounted(async () => {
 }
 
 .live-bar-fill.over {
-  background: var(--danger-600, #ef4444);
+  background: var(--danger-ink);
 }
 
 .live-timer-actions {

@@ -37,7 +37,7 @@ describe('onboarding wizard', () => {
     expect(settings.targetHcp).toBe(18)
     expect(settings.targetDate).toBe('2027-06-01')
     expect(settings.onboardingDone).toBe(true)
-    expect(w.find('dialog').exists()).toBe(false)
+    expect(w.find('[role="dialog"]').exists()).toBe(false)
   })
 
   it('accepts plus handicaps and stores them as negative numbers', async () => {
@@ -75,7 +75,7 @@ describe('onboarding wizard', () => {
     await flushPromises()
     expect(a.settings.onboardingDone).toBe(true)
     const b = await open()
-    await b.w.find('dialog').trigger('keydown', { key: 'Escape' })
+    await b.w.find('[role="dialog"]').trigger('keydown', { key: 'Escape' })
     await flushPromises()
     expect(b.settings.onboardingDone).toBe(true)
   })
@@ -115,7 +115,7 @@ describe('onboarding wizard', () => {
   it('does not show for existing installs', async () => {
     localStorage.setItem('parformance.settings.v1', JSON.stringify({ hcp: 20 }))
     const { w } = await open()
-    expect(w.find('dialog').exists()).toBe(false)
+    expect(w.find('[role="dialog"]').exists()).toBe(false)
   })
 })
 
@@ -161,6 +161,6 @@ describe('after the introduction', () => {
     await settings.update({ onboardingDone: false })
     const w = mount(OnboardingModal, { global: { plugins: [pinia] } })
     await flushPromises()
-    expect(w.find('dialog').exists()).toBe(true)
+    expect(w.find('[role="dialog"]').exists()).toBe(true)
   })
 })

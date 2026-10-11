@@ -111,7 +111,7 @@ function onSlider(e: Event) {
 
 .hcp-error {
   margin: 0;
-  color: var(--danger-600, #ef4444);
+  color: var(--danger-ink);
   font-size: 0.9rem;
 }
 

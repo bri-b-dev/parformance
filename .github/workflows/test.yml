@@ -19,4 +19,6 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
+      # axe on the real screens and dialogs + token contrast (already part of `npm test`, repeated for a clear failure signal)
+      - run: npm run a11y
       - run: npm run build

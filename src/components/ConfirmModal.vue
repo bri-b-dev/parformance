@@ -1,18 +1,19 @@
 <template>
-  <dialog v-if="visible" class="confirm-overlay">
-    <div class="confirm-box">
-      <p class="message">{{ message }}</p>
-      <div class="actions">
-        <button class="btn" @click="__resolveModal(false)">Abbrechen</button>
-        <button class="btn btn-primary" @click="__resolveModal(true)">OK</button>
-      </div>
+  <DialogShell v-if="visible" variant="center" layer="alert" labelledby="confirm-title" describedby="confirm-message" initial-focus='[data-testid="confirm-cancel"]'
+    backdrop-testid="confirm-backdrop" class="confirm" @close="resolveModal(false)">
+    <h2 id="confirm-title" class="sr-only">Bestätigung</h2>
+    <p id="confirm-message" class="message">{{ message }}</p>
+    <div class="actions">
+      <button class="btn" type="button" data-testid="confirm-cancel" @click="resolveModal(false)">Abbrechen</button>
+      <button class="btn btn-primary" type="button" data-testid="confirm-ok" @click="resolveModal(true)">OK</button>
     </div>
-  </dialog>
+  </DialogShell>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import DialogShell from '@/components/DialogShell.vue'
 import { setConfirmHandler } from '@/utils/confirmService'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const visible = ref(false)
 const message = ref('')
@@ -28,20 +29,13 @@ function showModal(msg: string): Promise<boolean> {
 
 function resolveModal(value: boolean) {
   visible.value = false
-  if (pendingResolve) {
-    try { pendingResolve(value) } catch {}
-  }
+  pendingResolve?.(value)
   pendingResolve = null
 }
 
-// expose resolveModal so template can call it
-const __resolveModal = resolveModal
-
 onMounted(() => {
   // register service handler
-  setConfirmHandler(async (msg: string) => {
-    return await showModal(msg)
-  })
+  setConfirmHandler((msg: string) => showModal(msg))
 })
 
 onBeforeUnmount(() => {
@@ -50,10 +44,17 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.confirm-overlay {
-  position: fixed; inset: 0; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0.35); z-index: 10000;
+.confirm {
+  --dlg-width: 360px;
 }
-.confirm-box { background: white; padding: 16px; border-radius: 8px; min-width: 280px; box-shadow: 0 6px 24px rgba(0,0,0,0.25); }
-.confirm-box .message { margin: 0 0 12px 0 }
-.confirm-box .actions { display:flex; gap:8px; justify-content:flex-end }
+
+.message {
+  margin: 0 0 var(--space-3);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
 </style>

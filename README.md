@@ -103,6 +103,7 @@ The following scripts are available in package.json:
 - npm run test: Run unit tests (Vitest)
 - npm run lint: ESLint over src/
 - npm run typecheck: vue-tsc type check
+- npm run a11y: accessibility checks (axe-core on screens and dialogs, color contrast of the design tokens)
 - npm run validate:drills: Validate drills JSON schema (src/data/drills.json)
 
 ## Configuration

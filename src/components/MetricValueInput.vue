@@ -110,7 +110,7 @@ function onInput(e: Event) {
 }
 
 .metric-error {
-  color: #dc2626;
+  color: var(--danger-ink);
   font-size: .85rem;
 }
 </style>

@@ -43,15 +43,15 @@ const label = computed(() => (props.level === null ? 'Kein Level' : `Level ${pro
 }
 
 .lvl-1 {
-  color: #8a5a00;
-  border-color: color-mix(in oklab, #8a5a00 45%, var(--border));
-  background: color-mix(in oklab, #c58a1a 14%, transparent);
+  color: var(--level-1-ink);
+  border-color: color-mix(in oklab, var(--level-1-ink) 45%, var(--border));
+  background: color-mix(in oklab, var(--level-1-ink) 12%, transparent);
 }
 
 .lvl-2 {
-  color: #3d5360;
-  border-color: color-mix(in oklab, #3d5360 45%, var(--border));
-  background: color-mix(in oklab, #7f98a6 18%, transparent);
+  color: var(--level-2-ink);
+  border-color: color-mix(in oklab, var(--level-2-ink) 45%, var(--border));
+  background: color-mix(in oklab, var(--level-2-ink) 12%, transparent);
 }
 
 .lvl-3 {
@@ -59,13 +59,5 @@ const label = computed(() => (props.level === null ? 'Kein Level' : `Level ${pro
   border-color: color-mix(in oklab, var(--primary) 50%, var(--border));
   background: color-mix(in oklab, var(--primary) 14%, transparent);
   font-weight: 700;
-}
-
-:global([data-theme='dark']) .lvl-1 {
-  color: #e6b450;
-}
-
-:global([data-theme='dark']) .lvl-2 {
-  color: #b9cbd6;
 }
 </style>

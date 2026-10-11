@@ -1,6 +1,5 @@
 <template>
-  <div class="fs-backdrop" data-testid="filter-sheet-backdrop" @click.self="emit('close')">
-    <div ref="panel" class="card fs" role="dialog" aria-modal="true" aria-labelledby="fs-title" @keydown.esc.stop="emit('close')" @keydown.tab="trapTab">
+  <DialogShell variant="bottom" layer="sheet" labelledby="fs-title" initial-focus='[data-testid="fs-apply"]' backdrop-testid="filter-sheet-backdrop" class="fs" @close="emit('close')">
       <header class="fs-head">
         <h2 id="fs-title" class="fs-title">Filter</h2>
         <button type="button" class="btn" data-testid="fs-reset" :disabled="!hasFilters" @click="emit('reset')">Zurücksetzen</button>
@@ -70,15 +69,15 @@
       <footer class="fs-foot">
         <button type="button" class="btn btn-primary" data-testid="fs-apply" @click="emit('close')">{{ resultCount }} {{ resultCount === 1 ? 'Drill' : 'Drills' }} anzeigen</button>
       </footer>
-    </div>
-  </div>
+  </DialogShell>
 </template>
 
 <script setup lang="ts">
+import DialogShell from '@/components/DialogShell.vue'
 import { allTags, DIFFICULTY_OPTIONS, DURATION_OPTIONS, isFiltered, type CatalogFilter } from '@/filters/catalog'
 import { LOCATION_GROUPS } from '@/filters/location'
 import type { Drill } from '@/types'
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const TOP_TAGS = 12
 
@@ -97,9 +96,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const panel = ref<HTMLElement | null>(null)
 const allTagsShown = ref(false)
-let opener: HTMLElement | null = null
 
 const categories = computed(() => Array.from(new Set(props.drills.map(d => d.category))).sort((a, b) => a.localeCompare(b, 'de')))
 const tags = computed(() => allTags(props.drills))
@@ -112,48 +109,13 @@ const shownTags = computed(() => {
 })
 const hasFilters = computed(() => isFiltered(props.filter))
 
-function focusables(): HTMLElement[] {
-  return Array.from(panel.value?.querySelectorAll<HTMLElement>('button, input, [href]') ?? []).filter(el => !(el as HTMLButtonElement).disabled)
-}
-
-function trapTab(e: KeyboardEvent) {
-  const items = focusables()
-  if (items.length === 0) return
-  const first = items[0]
-  const last = items[items.length - 1]
-  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
-  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
-}
-
-onMounted(async () => {
-  opener = document.activeElement instanceof HTMLElement ? document.activeElement : null
-  await nextTick()
-  panel.value?.querySelector<HTMLElement>('[data-testid="fs-apply"]')?.focus()
-})
-
-onUnmounted(() => { if (opener?.isConnected) opener.focus() })
 </script>
 
 <style scoped>
-.fs-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1120;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.55);
-}
-
 .fs {
-  width: min(560px, 100%);
-  max-height: 88vh;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 16px 16px calc(12px + env(safe-area-inset-bottom, 0px));
-  border-radius: 18px 18px 0 0;
-  margin: 0;
 }
 
 .fs-head {

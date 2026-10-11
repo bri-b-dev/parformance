@@ -205,6 +205,8 @@ Prio: **P0** = Fundament/Bug, **P1** = hoher Nutzen, **P2** = Ausbau. Aufwand: S
 
 ## UX-12 · Daten sichern & Vertrauen — P1 · S
 
+> **Umgesetzt.** `DataPanel` in den Einstellungen („Daten & Backup"): Hinweis „Daten liegen nur auf diesem Gerät", Vorschau des Gespeicherten („312 Sessions, 12 Runden, … über 14 Monate"), letztes Backup, Export als versionierte JSON-Datei (jetzt **inklusive Runden und Kursvorlagen** aus IndexedDB, Auszeichnungen und Fokus; vorher fehlten Runden, Vorlagen und Auszeichnungen). Import mit Vorschau (`ImportDialog`): **Zusammenführen** (Standard, wiederholbar) oder **Ersetzen** (mit Rückfrage, zeigt was verloren geht, optional Sicherung vorher); defekte, fremde oder zu neue Dateien werden verständlich abgelehnt, ältere Sicherungen (v1) gelesen, unbrauchbare Einträge als Warnung übersprungen. „Alles löschen" verlangt die Eingabe von LÖSCHEN und bietet vorher ein Backup an (löscht jetzt auch die Runden). Erinnerung auf „Heute" nach 5 Einträgen (erstes Backup), 10 neuen Einträgen oder 30 Tagen mit Änderungen, „Später" = 7 Tage. Test: Export → Löschen → Import ergibt den identischen Zustand (`tests/backup/roundtrip.test.ts`). Format: `docs/DATA_MODEL.md`.
+
 **Anforderungen**
 - Export/Import (JSON) prominent in Einstellungen mit Vorschau („312 Sessions, 14 Monate"), Import mit Zusammenführen/Ersetzen-Auswahl.
 - Hinweis bei lokalem Speicher: „Daten liegen nur auf diesem Gerät" + Erinnerung zum Backup nach X Sessions.

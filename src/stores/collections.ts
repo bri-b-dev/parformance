@@ -14,7 +14,7 @@ export interface Collection {
 
 const MAX_NAME = 60
 
-function sanitize(raw: unknown): Collection | null {
+export function sanitizeCollection(raw: unknown): Collection | null {
   const c = raw as Partial<Collection> | null
   if (!c || typeof c !== 'object') return null
   const name = typeof c.name === 'string' ? c.name.trim().slice(0, MAX_NAME) : ''
@@ -38,14 +38,14 @@ export const useCollectionsStore = defineStore('collections', {
   actions: {
     async load() {
       const data = persist.get<{ items?: unknown[] }>('collections')
-      this.items = (Array.isArray(data?.items) ? data!.items! : []).map(sanitize).filter((c): c is Collection => c !== null)
+      this.items = (Array.isArray(data?.items) ? data!.items! : []).map(sanitizeCollection).filter((c): c is Collection => c !== null)
       this.loaded = true
     },
     save() {
       persist.set('collections', { items: this.items })
     },
     add(input: { name: string; drillIds: string[]; icon?: string }): Collection | null {
-      const c = sanitize({ ...input, id: crypto.randomUUID(), createdAt: new Date().toISOString() })
+      const c = sanitizeCollection({ ...input, id: crypto.randomUUID(), createdAt: new Date().toISOString() })
       if (!c) return null
       this.items.push(c)
       this.save()
@@ -54,7 +54,7 @@ export const useCollectionsStore = defineStore('collections', {
     update(id: string, changes: Partial<Pick<Collection, 'name' | 'drillIds' | 'icon'>>): boolean {
       const idx = this.items.findIndex(c => c.id === id)
       if (idx < 0) return false
-      const next = sanitize({ ...this.items[idx], ...changes })
+      const next = sanitizeCollection({ ...this.items[idx], ...changes })
       if (!next) return false
       this.items[idx] = { ...next, id, createdAt: this.items[idx].createdAt }
       this.save()
@@ -66,7 +66,7 @@ export const useCollectionsStore = defineStore('collections', {
     },
     /** Replace everything (import); invalid entries are dropped. */
     replaceAll(list: unknown) {
-      this.items = (Array.isArray(list) ? list : []).map(sanitize).filter((c): c is Collection => c !== null)
+      this.items = (Array.isArray(list) ? list : []).map(sanitizeCollection).filter((c): c is Collection => c !== null)
       this.loaded = true
       this.save()
     },

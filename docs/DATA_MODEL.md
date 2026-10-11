@@ -77,3 +77,35 @@ Notes:
 - Minimal presentational components used in Storybook:
   - DrillCard, DrillDetail, Sparkline, Timer in `src/components/`.
 - Loading/empty-state patterns available via `src/ui/markup.ts`.
+
+## Backup format
+
+File: `parformance-backup-YYYY-MM-DD.json` (Settings -> Daten & Backup). Code: `src/backup/`.
+
+```jsonc
+{
+  "app": "parformance",
+  "version": 2,                      // format version; files with a higher version are refused
+  "exportedAt": "2026-10-11T08:00:00.000Z",
+  "appVersion": "2.0.0",
+  "data": {
+    "settings":        { /* hcp, targetHcp, targetDate, handedness, name, language, units, theme, sounds, shuffleFavorites, notifications */ },
+    "favorites":       ["drill-id", ...],
+    "sessions":        [ /* Session */ ],
+    "hcpHistory":      [ /* { id, hcp, valid_from, valid_to } */ ],
+    "collections":     [ /* Collection */ ],
+    "focus":           [ /* Focus */ ],
+    "achievements":    [ /* AchievementSnapshot */ ],
+    "rounds":          [ /* rounds of the handicap area (IndexedDB), without database ids */ ],
+    "courseTemplates": [ /* course templates (IndexedDB) */ ]
+  }
+}
+```
+
+- Version 1 (flat, without `app`/`data`, no rounds or templates) is still read; it is marked as an older backup.
+- Not part of a backup: device bookkeeping (`lastBackupAt`, `lastBackupCount`, `backupSnoozedUntil`), onboarding flags, a running guided session.
+- Reading cleans every section with the same sanitizers as the stores; unusable entries are skipped and reported as warnings.
+- **Zusammenführen** keeps the device data and adds what is new (sessions/collections/focus/achievements by id, rounds by day + course + score, course templates by value, favorites by drill; device settings win, gaps are filled). It is repeatable: importing the same file twice adds nothing.
+- **Ersetzen** overwrites everything (after confirmation, optionally with a safety backup first). Stored handicaps of imported rounds are recalculated.
+- **Alles löschen** needs the typed word `LÖSCHEN` and offers a backup first.
+- The backup reminder (`backupReminder`) asks after the first 5 entries, after 10 new sessions/rounds, or after 30 days with changes; "Später" snoozes for 7 days.

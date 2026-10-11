@@ -17,6 +17,8 @@
         <div class="chip"><strong>{{ weekCount }}</strong> {{ weekCount === 1 ? 'Session' : 'Sessions' }} diese Woche</div>
       </div>
 
+      <BackupReminder />
+
       <FocusCard />
 
       <!-- Resume a running session -->
@@ -116,6 +118,7 @@
 </template>
 
 <script setup lang="ts">
+import BackupReminder from '@/components/BackupReminder.vue'
 import CollectionIcon from '@/components/CollectionIcon.vue'
 import FocusCard from '@/components/FocusCard.vue'
 import HcpHint from '@/components/HcpHint.vue'

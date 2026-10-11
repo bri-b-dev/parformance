@@ -83,24 +83,7 @@
     </section>
 
     <!-- Data & Privacy -->
-    <section class="card p-4">
-      <h3 class="text-base font-semibold mb-3">Daten</h3>
-      <div class="grid sm:grid-cols-2 gap-3">
-        <button type="button" class="btn" @click="$emit('export-data')">Daten exportieren</button>
-        <button type="button" class="btn" data-testid="replay-onboarding" @click="$emit('replay-onboarding')">Einführung wiederholen</button>
-        <label class="btn cursor-pointer text-center">
-          <input type="file" class="hidden" accept="application/json" @change="onImport" />
-          Daten importieren
-        </label>
-      </div>
-      <div class="mt-4 p-3 danger-zone">
-        <div class="text-sm font-medium mb-2 danger-title">Zurücksetzen</div>
-        <div class="flex items-center justify-between">
-          <p class="text-sm danger-text">Alle lokalen Daten löschen (Sessions, Sammlungen, Favoriten, Einstellungen)</p>
-          <button class="btn btn-danger text-sm" type="button" data-testid="reset-all" @click="confirmReset">Reset</button>
-        </div>
-      </div>
-    </section>
+    <DataPanel @replay-onboarding="$emit('replay-onboarding')" @changed="$emit('data-changed')" />
 
     <div class="flex items-center justify-end gap-2">
       <button type="button" class="btn" @click="$emit('cancel')">Abbrechen</button>
@@ -110,6 +93,7 @@
 </template>
 
 <script setup lang="ts">
+import DataPanel from '@/components/DataPanel.vue'
 import HcpInput from '@/components/HcpInput.vue'
 import { formatHcp } from '@/hcp/format'
 import { reactive, watch, toRaw } from 'vue'
@@ -129,7 +113,7 @@ type Settings = {
 }
 
 const props = defineProps<{ modelValue?: Partial<Settings>; derivedHcp?: number | null }>()
-const emit = defineEmits<{ (e:'update:modelValue', v:Settings):void; (e:'save', v:Settings):void; (e:'cancel'):void; (e:'export-data'):void; (e:'replay-onboarding'):void; (e:'import-data', v:any):void; (e:'reset'):void }>()
+const emit = defineEmits<{ (e:'update:modelValue', v:Settings):void; (e:'save', v:Settings):void; (e:'cancel'):void; (e:'replay-onboarding'):void; (e:'data-changed'):void }>()
 
 const local = reactive<Settings>({
   name: '',
@@ -154,21 +138,6 @@ watch(() => props.modelValue, (value) => {
 
 function onSave(){ emit('save', structuredClone(toRaw(local))) }
 
-function onImport(e: Event){
-  const input = e.target as HTMLInputElement
-  const file = input.files?.[0]
-  if(!file) return
-  const reader = new FileReader()
-  reader.onload = () => {
-    try { const data = JSON.parse(String(reader.result)); emit('import-data', data) } catch { /* ignore */ }
-  }
-  reader.readAsText(file)
-}
-
-function confirmReset(){
-  // Let the parent handle confirmation so we don't show the modal twice.
-  emit('reset')
-}
 </script>
 
 <style scoped>
@@ -176,16 +145,5 @@ function confirmReset(){
   background: color-mix(in oklab, var(--bg) 70%, var(--surface));
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-}
-
-.danger-zone {
-  background: color-mix(in oklab, var(--danger) 8%, var(--surface));
-  border: 1px solid color-mix(in oklab, var(--danger) 35%, var(--border));
-  border-radius: var(--radius-lg);
-}
-
-.danger-title,
-.danger-text {
-  color: var(--danger-ink);
 }
 </style>

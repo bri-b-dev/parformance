@@ -34,6 +34,11 @@ export interface SettingsState {
   onboardingDone: boolean
   /** True once the "no handicap" hint was dismissed. */
   hcpHintDismissed: boolean
+  /** When the last backup was exported and how many sessions + rounds it held (device specific, not exported). */
+  lastBackupAt: string | null
+  lastBackupCount: number
+  /** The backup reminder stays quiet until this ISO time. */
+  backupSnoozedUntil: string | null
   loaded: boolean
 }
 
@@ -52,6 +57,9 @@ export const useSettingsStore = defineStore('settings', {
     notifications: false,
     onboardingDone: false,
     hcpHintDismissed: false,
+    lastBackupAt: null,
+    lastBackupCount: 0,
+    backupSnoozedUntil: null,
     loaded: false,
   }),
   getters: {
@@ -132,6 +140,9 @@ export const useSettingsStore = defineStore('settings', {
         // Existing installs from before onboarding existed must not see the first-run dialog again.
         else this.onboardingDone = true
         if (typeof data.hcpHintDismissed === 'boolean') this.hcpHintDismissed = data.hcpHintDismissed
+        if (typeof data.lastBackupAt === 'string' && !Number.isNaN(Date.parse(data.lastBackupAt))) this.lastBackupAt = data.lastBackupAt
+        if (typeof data.lastBackupCount === 'number' && data.lastBackupCount >= 0) this.lastBackupCount = Math.floor(data.lastBackupCount)
+        if (typeof data.backupSnoozedUntil === 'string' && !Number.isNaN(Date.parse(data.backupSnoozedUntil))) this.backupSnoozedUntil = data.backupSnoozedUntil
       }
       this.loaded = true
     },
@@ -150,6 +161,9 @@ export const useSettingsStore = defineStore('settings', {
         notifications: this.notifications,
         onboardingDone: this.onboardingDone,
         hcpHintDismissed: this.hcpHintDismissed,
+        lastBackupAt: this.lastBackupAt,
+        lastBackupCount: this.lastBackupCount,
+        backupSnoozedUntil: this.backupSnoozedUntil,
       })
     },
     async update(partial: Partial<Omit<SettingsState, 'loaded'>>) {
@@ -172,6 +186,9 @@ export const useSettingsStore = defineStore('settings', {
       }
       if ('onboardingDone' in partial && typeof partial.onboardingDone === 'boolean') this.onboardingDone = partial.onboardingDone
       if ('hcpHintDismissed' in partial && typeof partial.hcpHintDismissed === 'boolean') this.hcpHintDismissed = partial.hcpHintDismissed
+      if ('lastBackupAt' in partial) this.lastBackupAt = typeof partial.lastBackupAt === 'string' && !Number.isNaN(Date.parse(partial.lastBackupAt)) ? partial.lastBackupAt : null
+      if ('lastBackupCount' in partial && typeof partial.lastBackupCount === 'number') this.lastBackupCount = Math.max(0, Math.floor(partial.lastBackupCount))
+      if ('backupSnoozedUntil' in partial) this.backupSnoozedUntil = typeof partial.backupSnoozedUntil === 'string' && !Number.isNaN(Date.parse(partial.backupSnoozedUntil)) ? partial.backupSnoozedUntil : null
       if ('notifications' in partial && typeof partial.notifications === 'boolean') {
         this.notifications = partial.notifications
       }
@@ -198,6 +215,9 @@ export const useSettingsStore = defineStore('settings', {
       this.notifications = false
       this.onboardingDone = false
       this.hcpHintDismissed = false
+      this.lastBackupAt = null
+      this.lastBackupCount = 0
+      this.backupSnoozedUntil = null
       await this.persist()
       this.emitHcpChanged(this.hcp)
       this.emitThemeChanged(this.theme)

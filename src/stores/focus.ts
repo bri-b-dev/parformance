@@ -14,7 +14,7 @@ export interface Focus extends FocusLike {
 const MAX_LABEL = 60
 const isDay = (v: unknown): v is string => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v))
 
-function sanitize(raw: unknown): Focus | null {
+export function sanitizeFocus(raw: unknown): Focus | null {
   const f = raw as Partial<Focus> | null
   if (!f || typeof f !== 'object') return null
   const label = typeof f.label === 'string' ? f.label.trim().slice(0, MAX_LABEL) : ''
@@ -42,7 +42,7 @@ export const useFocusStore = defineStore('focus', {
   actions: {
     async load() {
       const data = persist.get<{ items?: unknown[] }>('focus')
-      this.items = (Array.isArray(data?.items) ? data!.items! : []).map(sanitize).filter((f): f is Focus => f !== null)
+      this.items = (Array.isArray(data?.items) ? data!.items! : []).map(sanitizeFocus).filter((f): f is Focus => f !== null)
       this.loaded = true
     },
     save() {
@@ -50,7 +50,7 @@ export const useFocusStore = defineStore('focus', {
     },
     /** Start a new focus today; any focus that is still running is ended (one active focus at a time). */
     start(input: { label: string; collectionId?: string; to?: string }): Focus | null {
-      const f = sanitize({ ...input, id: crypto.randomUUID(), from: dayKey(new Date()), createdAt: new Date().toISOString() })
+      const f = sanitizeFocus({ ...input, id: crypto.randomUUID(), from: dayKey(new Date()), createdAt: new Date().toISOString() })
       if (!f) return null
       const now = new Date().toISOString()
       for (const other of this.items) if (!other.endedAt) other.endedAt = now
@@ -61,7 +61,7 @@ export const useFocusStore = defineStore('focus', {
     update(id: string, changes: Partial<Pick<Focus, 'label' | 'collectionId' | 'to'>>): boolean {
       const idx = this.items.findIndex(f => f.id === id)
       if (idx < 0) return false
-      const next = sanitize({ ...this.items[idx], ...changes })
+      const next = sanitizeFocus({ ...this.items[idx], ...changes })
       if (!next) return false
       this.items[idx] = { ...next, id, createdAt: this.items[idx].createdAt, from: this.items[idx].from, endedAt: this.items[idx].endedAt }
       this.save()
@@ -79,7 +79,7 @@ export const useFocusStore = defineStore('focus', {
       this.save()
     },
     replaceAll(list: unknown) {
-      this.items = (Array.isArray(list) ? list : []).map(sanitize).filter((f): f is Focus => f !== null)
+      this.items = (Array.isArray(list) ? list : []).map(sanitizeFocus).filter((f): f is Focus => f !== null)
       this.loaded = true
       this.save()
     },

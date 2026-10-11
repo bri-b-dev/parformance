@@ -3,7 +3,6 @@ import { flushPromises, mount } from '@vue/test-utils'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import { createPinia, setActivePinia } from 'pinia'
 import DrillDetailView from '@/views/DrillDetailView.vue'
-import SettingsForm from '@/components/settings/SettingsForm.vue'
 import { useDrillCatalogStore } from '@/stores/drillCatalog'
 
 const Stub = { template: '<div />' }
@@ -26,15 +25,5 @@ describe('drill not found', () => {
     expect(card.text()).toContain('Drill nicht gefunden')
     expect(card.text()).toContain('gibt-es-nicht')
     expect(card.find('a').text()).toBe('Zurück zur Liste')
-  })
-})
-
-describe('settings reset button', () => {
-  it('is a danger action styled from tokens and asks the parent to reset', async () => {
-    const w = mount(SettingsForm)
-    const btn = w.find('[data-testid="reset-all"]')
-    expect(btn.classes()).toContain('btn-danger')
-    await btn.trigger('click')
-    expect(w.emitted('reset')).toHaveLength(1)
   })
 })

@@ -5,8 +5,8 @@
     <HcpHint />
 
     <!-- Loading state -->
-    <output v-if="!drillsLoaded || !sessionsLoaded" class="p-4 flex items-center text-sm text-gray-600" aria-live="polite">
-      <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin" aria-hidden="true"></span>
+    <output v-if="!drillsLoaded || !sessionsLoaded" class="p-4 flex items-center text-sm muted" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
       Lädt…
     </output>
 
@@ -29,7 +29,7 @@
 
         <!-- Goal -->
         <section v-if="goal" class="card goal-card" data-testid="goal-card" aria-live="polite">
-          <h2 class="label" style="margin:0;">Ziel: HCP {{ settings.targetHcp }}</h2>
+          <h2 class="label flush">Ziel: HCP {{ settings.targetHcp }}</h2>
           <p class="goal-line">
             <template v-if="settings.targetDate">
               bis {{ formatGoalDate(settings.targetDate) }} -
@@ -88,7 +88,7 @@
               <template v-if="currentHcp != null">
                 <p class="kpi-value">{{ formatHcp(currentHcp) }}</p>
                 <p class="muted kpi-sub">{{ hcpDeltaText }}</p>
-                <Sparkline v-if="hcpSeries.length > 1" :data="hcpSeries" :width="120" :height="24" color="var(--primary)" />
+                <Sparkline v-if="hcpSeries.length > 1" class="spark-primary" :data="hcpSeries" :width="120" :height="24" />
               </template>
               <template v-else>
                 <p class="kpi-value">-</p>
@@ -148,7 +148,7 @@
       </div>
 
       <div v-else class="card empty-card empty-card--full" aria-live="polite">
-        <div class="empty-illustration" aria-hidden="true">📊</div>
+        <div class="empty-illustration" aria-hidden="true"><AppIcon name="chart" size="2.4rem" /></div>
         <h3>Keine Sessions bisher</h3>
         <p>Starte eine Trainingseinheit und speichere dein Ergebnis - dann füllen wir diese Übersicht automatisch.</p>
         <div class="empty-actions">
@@ -163,6 +163,7 @@
 </template>
 
 <script setup lang="ts">
+import AppIcon from '@/components/AppIcon.vue'
 import CategoryScoresChart from '@/components/CategoryScoresChart.vue'
 import CategoryTrendTable from '@/components/CategoryTrendTable.vue'
 import HcpHint from '@/components/HcpHint.vue'
@@ -269,6 +270,10 @@ async function startStep(drillId: string, start: boolean) {
 </script>
 
 <style scoped>
+.spark-primary {
+  color: var(--primary);
+}
+
 .stats-content {
   display: flex;
   flex-direction: column;
@@ -318,7 +323,7 @@ async function startStep(drillId: string, start: boolean) {
 
 .goal-bar {
   height: 8px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--border);
   overflow: hidden;
 }

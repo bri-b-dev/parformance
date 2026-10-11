@@ -1,7 +1,7 @@
 <template>
   <section class="card" :aria-label="title || 'Kategorien'">
-    <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
-      <h3 v-if="title" style="margin:0; font-weight:700;">{{ title }}</h3>
+    <header class="section-head">
+      <h3 v-if="title" class="section-title">{{ title }}</h3>
       <small class="chip" aria-label="Anzahl Kategorien">{{ categories.length }} Kategorien</small>
     </header>
 
@@ -11,42 +11,40 @@
     </output>
 
     <!-- Bars (mobile) -->
-    <div v-if="actualMode === 'bar'" class="row" style="flex-direction:column; gap:8px;">
+    <div v-if="actualMode === 'bar'" class="row bars">
       <div v-for="row in rows" :key="row.category" class="w-full">
-        <div
-          style="display:flex; align-items:center; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+        <div class="bar-label">
           <span>{{ row.category }}</span>
           <span>{{ row.value }}%</span>
         </div>
-        <div class="w-full" style="height:10px; background: var(--border); border-radius: 999px; overflow:hidden;">
-          <div :data-testid="`bar-${row.category}`" :class="['h-full']" :style="barStyle(row)"></div>
+        <div class="w-full bar-track">
+          <div :data-testid="`bar-${row.category}`" class="bar-fill" :class="{ weak: isWeak(row) }" :style="barStyle(row)"></div>
         </div>
       </div>
     </div>
 
     <!-- Radar (desktop) -->
-    <div v-else class="w-full" style="display:flex; align-items:center; justify-content:center;">
+    <div v-else class="w-full radar-wrap">
       <svg :width="svgSize" :height="svgSize" :viewBox="`0 0 ${svgSize} ${svgSize}`" aria-labelledby="radar-title"
         aria-describedby="radar-desc">
         <title id="radar-title">Radar Chart</title>
         <desc id="radar-desc">{{ srSummary }}</desc>
         <!-- grid circles -->
-        <g :transform="`translate(${center}, ${center})`" stroke="var(--border)" fill="none">
+        <g :transform="`translate(${center}, ${center})`" class="radar-grid">
           <circle v-for="r in [0.25, 0.5, 0.75, 1]" :key="r" :r="r * radius" />
         </g>
         <!-- axes -->
-        <g :transform="`translate(${center}, ${center})`" stroke="var(--border)">
+        <g :transform="`translate(${center}, ${center})`" class="radar-axes">
           <line v-for="(cat, i) in categories" :key="cat" :x1="0" :y1="0" :x2="axisPoint(i).x" :y2="axisPoint(i).y" />
         </g>
         <!-- polygon for values -->
         <g :transform="`translate(${center}, ${center})`">
-          <polygon :points="polygonPoints" :fill="polyFill" :stroke="polyStroke" stroke-width="2" />
+          <polygon :points="polygonPoints" class="radar-poly" />
           <!-- weakest point marker -->
-          <circle v-if="weakestIndex >= 0" :cx="valuePoint(weakestIndex).x" :cy="valuePoint(weakestIndex).y" r="4"
-            fill="#ef4444" />
+          <circle v-if="weakestIndex >= 0" :cx="valuePoint(weakestIndex).x" :cy="valuePoint(weakestIndex).y" r="4" class="radar-weak" />
         </g>
         <!-- labels around -->
-        <g font-size="11" fill="currentColor">
+        <g class="radar-labels">
           <template v-for="(cat, i) in categories" :key="`lbl-${cat}`">
             <text :x="labelPoint(i).x" :y="labelPoint(i).y" text-anchor="middle" dominant-baseline="central">
               {{ cat }} ({{ values[i] }}%)
@@ -106,14 +104,11 @@ const weakestIndex = computed(() => {
   return idx
 })
 
+const isWeak = (row: { category: string }) => categories.value.indexOf(row.category) === weakestIndex.value
+
+// only the data-driven geometry is inline; colors come from classes
 function barStyle(row: { category: string, value: number }) {
-  const isWeak = categories.value.indexOf(row.category) === weakestIndex.value
-  const color = isWeak ? '#ef4444' /* red-500 */ : '#2F7A52' /* primary */
-  return {
-    width: `${row.value}%`,
-    background: color,
-    borderRadius: '999px',
-  }
+  return { width: `${row.value}%` }
 }
 
 // Radar geometry
@@ -152,8 +147,6 @@ const polygonPoints = computed(() => {
   }).join(' ')
 })
 
-const polyFill = computed(() => 'rgba(47,122,82,0.15)')
-const polyStroke = computed(() => '#2F7A52')
 
 const srSummary = computed(() => {
   if (categories.value.length === 0) return 'Keine Kategorien vorhanden.'
@@ -162,3 +155,65 @@ const srSummary = computed(() => {
   return `Fähigkeiten je Kategorie. ${parts.join(', ')}. Schwächste Kategorie: ${weak ?? '-'}.`
 })
 </script>
+
+<style scoped>
+.bars {
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.bar-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-1);
+}
+
+.bar-track {
+  height: 10px;
+  background: var(--border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+}
+
+.bar-fill.weak {
+  background: var(--danger-600);
+}
+
+.radar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-grid {
+  stroke: var(--border);
+  fill: none;
+}
+
+.radar-axes {
+  stroke: var(--border);
+}
+
+.radar-poly {
+  fill: color-mix(in oklab, var(--primary) 15%, transparent);
+  stroke: var(--primary);
+  stroke-width: 2;
+}
+
+.radar-weak {
+  fill: var(--danger-600);
+}
+
+.radar-labels {
+  font-size: 11px;
+  fill: currentColor;
+}
+</style>

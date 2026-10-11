@@ -138,7 +138,7 @@ watch(() => props.spinTrigger, () => { spin() })
     position: relative;
     height: calc(var(--row) + (var(--peek) * 2));
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: var(--radius-card);
     /* Use theme-aware surface/background variables for light/dark support */
     background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 85%, var(--bg) 15%), var(--surface));
     border: 1px solid var(--border);
@@ -170,7 +170,7 @@ watch(() => props.spinTrigger, () => { spin() })
     font-size: clamp(0.5rem, 0.8vw, 1rem);
     font-weight: 600;
     text-align: center;
-    color: var(--text, #444C56);
+    color: var(--text);
     padding: 0 10px;
     white-space: nowrap;
     overflow: hidden;

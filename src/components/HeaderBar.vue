@@ -1,18 +1,18 @@
 <template>
     <header ref="bar"
-        class="sticky top-0 z-30 bg-app-bg/80 backdrop-blur supports-[backdrop-filter]:bg-app-bg/60 border-b border-zinc-200">
+        class="site-header sticky top-0 z-header backdrop-blur border-b">
         <div class="max-w-6xl mx-auto pt-2 px-4 h-18 flex items-center justify-between header-inner">
             <div class="flex items-center gap-3 select-none">
                 <div class="brand" aria-label="ParFormance">
                     <BrandMark class="header-mark" />
-                    <div style="display:flex; flex-direction:column; min-width:0">
+                    <div class="brand-text">
                         <span>ParFormance</span>
-                        <small class="tagline" style="display:block;">Train smarter - play better</small>
+                        <small class="tagline">Train smarter - play better</small>
                     </div>
                 </div>
 
             </div>
-            <div style="display:flex; gap:8px; align-items:center;">
+            <div class="header-actions">
                 <button class="btn min-h-[44px] min-w-[44px] flex items-center justify-center p-0" type="button"
                     aria-label="Einstellungen" @click="$emit('open-settings')">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -52,13 +52,24 @@ defineEmits<(e: 'open-settings') => void>()
 </script>
 
 <style scoped>
-/* Using Iconify or a similar system for icons. Replace with your icon lib. */
-.i-lucide-shuffle::before {
-    content: '🔀';
+.site-header {
+    background: color-mix(in oklab, var(--bg) 86%, transparent);
 }
 
-.i-lucide-settings::before {
-    content: '⚙️';
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.tagline {
+    display: block;
+}
+
+.header-actions {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
 }
 
 .header-mark {

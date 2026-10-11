@@ -56,7 +56,7 @@ function reducedMotion(): boolean {
 
 // confetti only for a personal best and never with reduced motion
 const confetti = computed(() => props.summary.isPb && !reducedMotion())
-const COLORS = ['#01593d', '#4FBF86', '#A7D8FF', '#E8DCC4', '#F2C94C']
+const COLORS = ['var(--primary)', 'var(--accent-green)', 'var(--accent-sky)', 'var(--accent-beige)', 'var(--level-1-ink)']
 const pieces = Array.from({ length: 28 }, (_, i) => ({
   i,
   style: {

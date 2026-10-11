@@ -1,37 +1,36 @@
 <template>
-  <section class="card" style="margin-top:10px;">
-    <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
-      <h3 style="margin:0; font-weight:700;">Kurzstatistik</h3>
+  <section class="card mt-card">
+    <header class="section-head">
+      <h3 class="section-title">Kurzstatistik</h3>
       <small v-if="count > 0" class="chip" aria-label="Anzahl Sessions">{{ count }} Einträge</small>
     </header>
 
-    <output v-if="!sessionsLoaded" class="p-2 flex items-center text-sm text-gray-600" aria-live="polite">
-      <span class="inline-block h-4 w-4 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"
-        aria-hidden="true"></span>
+    <output v-if="!sessionsLoaded" class="p-2 flex items-center text-sm muted" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
       Lädt…
     </output>
 
-    <output v-else-if="count === 0" class="text-sm text-gray-600" aria-live="polite">
+    <output v-else-if="count === 0" class="text-sm muted" aria-live="polite">
       Noch keine Daten.
     </output>
 
-    <div v-else class="row" style="align-items:center;">
-      <div class="chip" :aria-label="bestAria">🏅 Best: <strong
-          style="margin-left:4px; color:inherit;">{{ best }}</strong><span v-if="unitLabel"> {{ unitLabel }}</span></div>
+    <div v-else class="row row-center">
+      <div class="chip" :aria-label="bestAria"><AppIcon name="award" /> Best: <strong class="chip-value">{{ best }}</strong><span v-if="unitLabel"> {{ unitLabel }}</span></div>
       <div class="chip" :aria-label="`Gleitender Schnitt (5): ${maLast5Label}`">
-        📈 MA(5): <strong style="margin-left:4px; color:inherit;">{{ maLast5Label }}</strong>
+        <AppIcon name="trend" /> MA(5): <strong class="chip-value">{{ maLast5Label }}</strong>
       </div>
       <div class="chip" :aria-label="trendAria" title="Trend">
         <span aria-hidden="true">{{ trendSymbol }}</span>
       </div>
-      <div style="margin-left:8px;">
-  <SparklineLast v-if="valuesLast.length > 0" :values="valuesLast" :width="140" :height="28" color="#2F7A52" :smaller-is-better="smallerIsBetter" />
+      <div class="spark">
+        <SparklineLast v-if="valuesLast.length > 0" :values="valuesLast" :width="140" :height="28" :smaller-is-better="smallerIsBetter" />
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import AppIcon from '@/components/AppIcon.vue';
 import SparklineLast from '@/components/SparklineLast.vue';
 import { getMovingAverageTrend } from '@/stats/movingAverage';
 import { useDrillCatalogStore } from '@/stores/drillCatalog';
@@ -105,3 +104,15 @@ const trendAria = computed(() => {
 const unitLabel = computed(() => props.unit?.trim() ?? '')
 const bestAria = computed(() => unitLabel.value ? `Bester Wert: ${best.value} ${unitLabel.value}` : `Bester Wert: ${best.value}`)
 </script>
+
+<style scoped>
+.chip-value {
+  margin-left: var(--space-1);
+  color: inherit;
+}
+
+.spark {
+  margin-left: var(--space-2);
+  color: var(--primary);
+}
+</style>

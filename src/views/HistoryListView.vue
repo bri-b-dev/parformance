@@ -3,7 +3,7 @@
     <h1 id="verlauf-title" class="text-xl font-semibold">Fortschritt</h1>
     <ProgressTabs />
 
-    <output v-if="!ready" class="p-4 flex items-center" aria-live="polite" :style="{ color: 'var(--muted)' }">Lädt…</output>
+    <output v-if="!ready" class="p-4 flex items-center muted" aria-live="polite">Lädt…</output>
 
     <div v-else-if="sessions.sessions.length === 0" class="card empty-card" aria-live="polite" data-testid="history-empty">
       <h3>Noch keine Sessions</h3>

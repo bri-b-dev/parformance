@@ -73,7 +73,7 @@ function onInput(e: Event) {
   display: flex;
   align-items: center;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   padding-right: 12px;
   background: var(--surface);
   transition: border-color .15s ease, box-shadow .15s ease;
@@ -101,7 +101,7 @@ function onInput(e: Event) {
 .metric-suffix {
   margin-left: 8px;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: color-mix(in oklab, var(--primary) 6%, var(--surface));
   color: var(--muted);
   font-size: .8rem;

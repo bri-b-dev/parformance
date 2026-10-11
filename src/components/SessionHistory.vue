@@ -1,53 +1,53 @@
 <template>
-  <section class="card history-card" style="margin-top:10px;">
-    <header style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
-      <h3 style="margin:0; font-weight:700;">Verlauf</h3>
+  <section class="card history-card mt-card">
+    <header class="section-head">
+      <h3 class="section-title">Verlauf</h3>
       <small v-if="items.length" class="chip" aria-label="Anzahl Sessions">{{ items.length }} Einträge</small>
     </header>
 
     <!-- Empty state -->
-    <output v-if="loaded && items.length === 0" class="p-4 text-sm text-gray-600" aria-live="polite">
+    <output v-if="loaded && items.length === 0" class="p-4 text-sm muted" aria-live="polite">
       Noch keine Einträge. Starte eine Session und speichere dein Ergebnis.
     </output>
 
     <!-- List -->
     <ul v-else class="history-list">
       <li v-for="s in items" :key="s.id" class="card history-item">
-        <div class="row" style="align-items:center; justify-content:space-between;">
-          <div style="display:flex; flex-direction:column; gap:2px;">
-            <strong style="line-height:1;">{{ s.result.value }} {{ s.result.unit }}</strong>
-            <small style="color:var(--muted);">{{ formatDate(s.date) }}</small>
+        <div class="row row-between">
+          <div class="hist-value">
+            <strong class="hist-number">{{ s.result.value }} {{ s.result.unit }}</strong>
+            <small class="muted">{{ formatDate(s.date) }}</small>
           </div>
-          <div class="chips" style="justify-content:flex-end;">
+          <div class="chips hist-chips">
             <span v-if="s.attempts != null" class="chip" title="Versuche">↻ {{ s.attempts }}</span>
-            <span v-if="s.timerUsed != null" class="chip" title="Zeit">⏱️ {{ formatSeconds(s.timerUsed) }}</span>
+            <span v-if="s.timerUsed != null" class="chip" title="Zeit"><AppIcon name="timer" /> {{ formatSeconds(s.timerUsed) }}</span>
           </div>
         </div>
 
         <!-- Notes display / inline edit -->
-        <div style="margin-top:6px;">
+        <div class="mt-note">
           <template v-if="editingId === s.id">
             <label class="label" :for="`notes-${s.id}`">Notizen bearbeiten</label>
             <textarea :id="`notes-${s.id}`" v-model.trim="draftNotes" class="input" rows="2"
               data-testid="notes-textarea" aria-live="polite"></textarea>
-            <div class="row" style="justify-content:flex-end; margin-top:6px;">
+            <div class="row row-end">
               <button type="button" class="btn" data-testid="notes-cancel" @click="cancelEdit">Abbrechen</button>
               <button type="button" class="btn btn-primary" data-testid="notes-save"
                 @click="saveNotes(s.id)">Speichern</button>
             </div>
           </template>
           <template v-else>
-            <p v-if="s.notes" style="margin:0; white-space:pre-wrap;">{{ s.notes }}</p>
-            <p v-else style="margin:0; color:var(--muted);">Keine Notizen</p>
-            <div class="row" style="justify-content:flex-end; margin-top:6px;">
+            <p v-if="s.notes" class="flush pre-wrap">{{ s.notes }}</p>
+            <p v-else class="flush muted">Keine Notizen</p>
+            <div class="row row-end">
               <button type="button" class="btn" :aria-label="`Notizen bearbeiten für ${formatDate(s.date)}`"
                 data-testid="notes-edit" @click="startEdit(s)">Notizen</button>
               <template v-if="!isAwarded(s)">
                 <button type="button" class="btn" data-testid="award-badge" @click="awardBadge(s)">Badge
                   vergeben</button>
               </template>
-              <button v-else type="button" class="chip" title="Auszeichnung entfernen"
-                @click="removeAward(s)">🏅</button>
+              <button v-else type="button" class="chip" title="Auszeichnung entfernen" aria-label="Auszeichnung entfernen"
+                @click="removeAward(s)"><AppIcon name="award" /></button>
             </div>
           </template>
         </div>
@@ -57,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+import AppIcon from '@/components/AppIcon.vue';
 import { useSessionsStore } from '@/stores/sessions';
 import { useAchievementsStore } from '@/stores/achievements'
 import type { Session } from '@/types';
@@ -187,6 +188,24 @@ function showConfirm(message: string): Promise<boolean> {
 </script>
 
 <style scoped>
+.hist-value {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hist-number {
+  line-height: 1;
+}
+
+.hist-chips {
+  justify-content: flex-end;
+}
+
+.mt-note {
+  margin-top: 6px;
+}
+
 .history-card {
   width: 100%;
   box-sizing: border-box;

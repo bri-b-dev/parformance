@@ -77,7 +77,7 @@ watch(src, load);
      that makes some diagrams appear narrower than the card. */
   max-width: 100%;
   height: auto;
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   background: var(--surface);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
@@ -90,7 +90,7 @@ watch(src, load);
 .schema-fallback {
   width: 100%;
   height: 220px;
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   background: color-mix(in oklab, var(--bg) 70%, var(--surface));
   border: 1px solid var(--border);
   display: grid;

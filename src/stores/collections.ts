@@ -7,12 +7,11 @@ export interface Collection {
   id: string
   name: string
   drillIds: string[]
-  /** Optional single glyph chosen in the editor. */
+  /** Optional icon: a name from the icon set (older data may hold an emoji). */
   icon?: string
   createdAt: string
 }
 
-export const COLLECTION_ICONS = ['⛳', '🎯', '🏌️', '🔥', '⏱️', '🧠', '🌱', '⭐']
 const MAX_NAME = 60
 
 function sanitize(raw: unknown): Collection | null {

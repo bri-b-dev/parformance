@@ -1,8 +1,8 @@
 <template>
   <div ref="root" class="catalog" :style="{ '--cat-bar-h': barHeight + 'px' }">
     <!-- Loading state -->
-    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite" :style="{ color: 'var(--muted)' }">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="margin-right:8px">
+    <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center muted" aria-live="polite">
+      <svg aria-hidden="true" class="cat-spinner" width="20" height="20" viewBox="0 0 24 24">
         <g transform="translate(12,12)">
           <circle cx="0" cy="0" r="9" fill="none" stroke="var(--border)" stroke-width="2" stroke-opacity="0.9"></circle>
           <path d="M9 0 A9 9 0 0 1 7.5 -6" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round">
@@ -10,7 +10,7 @@
           </path>
         </g>
       </svg>
-      <span class="text-sm" style="color:var(--muted)">Lade Trainingsspiele…</span>
+      <span class="text-sm muted">Lade Trainingsspiele…</span>
     </output>
 
     <template v-else>
@@ -120,6 +120,10 @@ onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <style scoped>
+.cat-spinner {
+  margin-right: var(--space-2);
+}
+
 .catalog {
   display: flex;
   flex-direction: column;
@@ -151,7 +155,7 @@ onBeforeUnmount(() => observer?.disconnect())
   margin-left: 6px;
   min-width: 20px;
   padding: 0 6px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--primary);
   color: var(--primary-ink);
   font-size: 0.8rem;

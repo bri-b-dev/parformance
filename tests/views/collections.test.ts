@@ -87,3 +87,28 @@ describe('CollectionsView', () => {
     setConfirmHandler(null)
   })
 })
+
+describe('collection icons', () => {
+  it('picks an icon from the set by name, shows it, and offers a name for each button', async () => {
+    const { w, catalog, collections } = await mountView()
+    await w.find('[data-testid="collection-new"]').trigger('click')
+    const buttons = w.findAll('.coll-icon')
+    expect(buttons.length).toBeGreaterThanOrEqual(8)
+    expect(buttons.every(b => !!b.attributes('aria-label')?.startsWith('Symbol '))).toBe(true)
+    await buttons[1].trigger('click')
+    expect(buttons[1].attributes('aria-pressed')).toBe('true')
+    await w.find('[data-testid="collection-name"]').setValue('Mit Symbol')
+    await w.find(`[data-testid="pick-${catalog.drills[0].id}"]`).setValue(true)
+    await w.find('[data-testid="collection-save"]').trigger('submit')
+    await flushPromises()
+    expect(collections.items[0].icon).toBe('target')
+    expect(w.find('[data-testid="collection-item"] svg').exists()).toBe(true)
+  })
+
+  it('still shows a collection that carries an emoji from earlier versions', async () => {
+    const { w, collections, catalog } = await mountView()
+    collections.add({ name: 'Alt', drillIds: [catalog.drills[0].id], icon: '⛳' })
+    await flushPromises()
+    expect(w.find('[data-testid="collection-item"]').text()).toContain('⛳')
+  })
+})

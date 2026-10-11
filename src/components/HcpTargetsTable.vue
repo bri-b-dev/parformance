@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="margin-top:10px;">
+  <div class="card mt-card">
     <p v-if="currentHcp == null && !hideMissing" class="muted hcp-missing" data-testid="hcp-missing">
       Trage dein Handicap ein, dann wird deine Zeile hervorgehoben.
       <button type="button" class="btn" @click="ui.setSettings(true)">Handicap eintragen</button>
@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in rows" :key="row.key" :class="row.highlighted ? 'bg-emerald-50' : ''">
+        <tr v-for="row in rows" :key="row.key" :class="{ 'row-mine': row.highlighted }">
           <th scope="row" class="text-left p-2">
             {{ row.label }}
             <span v-if="row.highlighted" class="chip">Du</span>
@@ -71,6 +71,10 @@ function cellClass(row: any, _i: number) {
 </script>
 
 <style scoped>
+.row-mine {
+  background: color-mix(in oklab, var(--primary) 10%, transparent);
+}
+
 .hcp-missing {
   display: flex;
   flex-wrap: wrap;

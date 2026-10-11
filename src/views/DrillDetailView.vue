@@ -2,9 +2,8 @@
   <section class="drill-detail-view">
     <!-- Loading state -->
     <output v-if="!catalog.loaded" class="p-4 flex items-center justify-center" aria-live="polite">
-      <span class="inline-block h-5 w-5 mr-2 rounded-full border-2 border-gray-300 border-t-blue-500 animate-spin"
-            aria-hidden="true"></span>
-      <span class="text-sm text-gray-600">Lade Drill…</span>
+      <span class="spinner" aria-hidden="true"></span>
+      <span class="text-sm muted">Lade Drill…</span>
     </output>
 
     <!-- Content -->
@@ -12,12 +11,10 @@
       <DrillDetail v-if="drill" :drill="drill"/>
 
       <!-- Not found state -->
-      <div v-else>
-        <output class="card" aria-live="polite"/>
-        <h2 style="margin:0; font-size:1.1rem; font-weight:700;">Drill nicht gefunden</h2>
-        <p class="text-sm text-gray-600" style="margin:.25rem 0 0;">Die angeforderte Übung mit ID „{{ id }}“ existiert
-          nicht.</p>
-        <div class="row" style="margin-top:10px;">
+      <div v-else class="card not-found" role="status" data-testid="drill-not-found">
+        <h2 class="not-found-title">Drill nicht gefunden</h2>
+        <p class="text-sm muted flush">Die angeforderte Übung mit ID „{{ id }}“ existiert nicht.</p>
+        <div class="row mt-card">
           <RouterLink class="btn" :to="preserve({ name: 'DrillsList' })">Zurück zur Liste</RouterLink>
         </div>
       </div>
@@ -67,6 +64,20 @@ const drill = computed(() => catalog.drills.find(d => d.id === id.value))
 </script>
 
 <style scoped>
+.not-found {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.not-found-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
 .drill-detail-view {
   width: 100%;
   /* Let the outer app container handle horizontal padding; keep only vertical spacing here. */

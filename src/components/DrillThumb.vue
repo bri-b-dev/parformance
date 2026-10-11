@@ -71,7 +71,7 @@ onBeforeUnmount(() => observer?.disconnect())
   flex: none;
   width: 96px;
   aspect-ratio: 720 / 420;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface);
   overflow: hidden;

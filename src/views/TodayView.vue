@@ -3,7 +3,7 @@
     <h1 id="today-title" class="text-xl font-semibold">Heute</h1>
     <HcpHint />
 
-    <output v-if="!ready" class="p-4 flex items-center" aria-live="polite" :style="{ color: 'var(--muted)' }">
+    <output v-if="!ready" class="p-4 flex items-center muted" aria-live="polite">
       Lädt…
     </output>
 
@@ -73,7 +73,7 @@
         <h2 class="today-h">Meine Sammlungen</h2>
         <ul v-if="collections.items.length" class="today-list">
           <li v-for="c in collections.items" :key="c.id" class="today-item today-collection">
-            <span class="today-title"><span v-if="c.icon" aria-hidden="true">{{ c.icon }} </span>{{ c.name }}</span>
+            <span class="today-title"><CollectionIcon :icon="c.icon" /> {{ c.name }}</span>
             <button type="button" class="btn" :aria-label="`${c.name} starten`" data-testid="today-collection-start" @click="startCollection(c)">Starten</button>
           </li>
         </ul>
@@ -116,6 +116,7 @@
 </template>
 
 <script setup lang="ts">
+import CollectionIcon from '@/components/CollectionIcon.vue'
 import FocusCard from '@/components/FocusCard.vue'
 import HcpHint from '@/components/HcpHint.vue'
 import { useCurrentHcp } from '@/composables/useCurrentHcp'

@@ -23,7 +23,7 @@ const label = computed(() => (props.level === null ? 'Kein Level' : `Level ${pro
   align-items: center;
   gap: 6px;
   padding: 2px 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   font-size: 0.85rem;
   white-space: nowrap;

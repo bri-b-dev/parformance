@@ -7,16 +7,16 @@
             <h3>Was du brauchst</h3>
             <div class="row details-row">
                 <div v-if="drill.equipment?.balls != null" class="chip" title="Bälle">
-                    🟢 × {{ drill.equipment.balls }}
+                    <AppIcon name="ball" /> × {{ drill.equipment.balls }}
                 </div>
                 <div v-if="clubsLabel" class="chip" title="Schläger">
-                    ⛳️ {{ clubsLabel }}
+                    <AppIcon name="flag" /> {{ clubsLabel }}
                 </div>
                 <div v-if="otherLabel" class="chip" title="Sonstiges">
-                    🧰 {{ otherLabel }}
+                    <AppIcon name="tools" /> {{ otherLabel }}
                 </div>
             </div>
-            <div class="hr" style="margin:10px 0;"></div>
+            <div class="hr"></div>
             <strong class="muted">Ort</strong>
             <p class="muted">{{ locationLabel }}</p>
             <strong class="muted">Aufbau</strong>
@@ -53,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import AppIcon from '@/components/AppIcon.vue';
 import DrillSchema from '@/components/DrillSchema.vue';
 import type { Drill } from '@/types';
 import { computed } from 'vue';

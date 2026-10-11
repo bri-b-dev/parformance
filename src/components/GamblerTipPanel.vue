@@ -1,7 +1,7 @@
 <template>
   <section class="gambler-panel card" aria-labelledby="gambler-title">
-    <header style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-      <h3 id="gambler-title" style="margin:0; font-weight:700;">Zocker-Tipp</h3>
+    <header class="section-head tip-head">
+      <h3 id="gambler-title" class="section-title">Zocker-Tipp</h3>
       <button class="btn" :aria-expanded="!collapsed" @click="toggle" @keydown.enter.prevent="toggle"
         @keydown.space.prevent="toggle">
         <span v-if="collapsed">Anzeigen</span>
@@ -9,9 +9,9 @@
       </button>
     </header>
 
-    <div v-if="!collapsed" class="p-2 text-sm text-gray-600">
+    <div v-if="!collapsed" class="p-2 text-sm muted">
       <div v-if="tip && tip.length">{{ tip }}</div>
-      <div v-else class="text-gray-600">Kein Zocker-Tipp verfügbar.</div>
+      <div v-else class="muted">Kein Zocker-Tipp verfügbar.</div>
     </div>
   </section>
 </template>
@@ -32,6 +32,10 @@ function toggle() {
 
 <style scoped>
 .gambler-panel {
-  margin-top: 10px
+  margin-top: 10px;
+}
+
+.tip-head {
+  margin-bottom: 0;
 }
 </style>

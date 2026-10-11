@@ -66,7 +66,12 @@ function toast(type: 'success' | 'info' | 'error', message: string) {
 
 async function refresh() {
   if (!settings.loaded) await settings.load()
-  current.value = await collectData()
+  try {
+    current.value = await collectData()
+  } catch {
+    // no IndexedDB (private mode, tests): the summary stays empty, export reports its own error
+    current.value = null
+  }
 }
 
 onMounted(refresh)

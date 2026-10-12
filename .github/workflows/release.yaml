@@ -50,8 +50,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           cache: gradle
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      # The ubuntu runner ships the Android SDK (ANDROID_HOME, sdkmanager); setup-android@v3 fails on its 'tools' package.
 
       - name: Accept Android SDK licenses
         run: yes | sdkmanager --licenses
